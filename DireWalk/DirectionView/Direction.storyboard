@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grf-9x-lPW">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Direction View Controller-->
+        <scene sceneID="qHN-TJ-YM8">
+            <objects>
+                <viewController id="grf-9x-lPW" customClass="DirectionViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1j0-Ag-LuP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_109760_256" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
+                                <rect key="frame" x="67.5" y="80" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="9ge-bz-Ros"/>
+                                    <constraint firstAttribute="width" constant="240" id="ayO-St-j6f"/>
+                                </constraints>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cWh-UJ-Jwy">
+                                <rect key="frame" x="0.0" y="350" width="375" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="JW3-Od-lWa"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="Cir-FL-NC5" kind="embed" id="wxd-zY-a0w"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pxi-JD-GsR" firstAttribute="centerX" secondItem="cWh-UJ-Jwy" secondAttribute="centerX" id="Bf5-E9-O8g"/>
+                            <constraint firstItem="lSy-B9-fVQ" firstAttribute="trailing" secondItem="cWh-UJ-Jwy" secondAttribute="trailing" id="JFO-un-feS"/>
+                            <constraint firstItem="pxi-JD-GsR" firstAttribute="top" secondItem="lSy-B9-fVQ" secondAttribute="top" constant="60" id="LNf-Vo-uob"/>
+                            <constraint firstItem="cWh-UJ-Jwy" firstAttribute="leading" secondItem="lSy-B9-fVQ" secondAttribute="leading" id="LgP-eB-U1D"/>
+                            <constraint firstItem="cWh-UJ-Jwy" firstAttribute="top" secondItem="pxi-JD-GsR" secondAttribute="bottom" constant="30" id="r5f-in-jPa"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lSy-B9-fVQ"/>
+                    </view>
+                    <connections>
+                        <outlet property="AwayView" destination="cWh-UJ-Jwy" id="EUI-Zy-st7"/>
+                        <outlet property="directionImageView" destination="pxi-JD-GsR" id="ITV-ng-pxS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LOV-tJ-Act" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168.80000000000001" y="102.99850074962519"/>
+        </scene>
+        <!--Away View Controller-->
+        <scene sceneID="OC7-0a-MlD">
+            <objects>
+                <viewController id="Cir-FL-NC5" customClass="AwayViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CfA-hz-fPV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cco-Jl-sbP">
+                                <rect key="frame" x="16" y="0.0" width="343" height="120"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MjX-OC-D04">
+                                <rect key="frame" x="272" y="57" width="53" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="MjX-OC-D04" secondAttribute="bottom" constant="15" id="A45-Yb-O8b"/>
+                            <constraint firstItem="Cco-Jl-sbP" firstAttribute="leading" secondItem="CfA-hz-fPV" secondAttribute="leadingMargin" id="gJa-JT-WmG"/>
+                            <constraint firstAttribute="trailing" secondItem="MjX-OC-D04" secondAttribute="trailing" constant="50" id="ucE-nD-zdc"/>
+                            <constraint firstItem="Cco-Jl-sbP" firstAttribute="top" secondItem="CfA-hz-fPV" secondAttribute="topMargin" id="xbB-Oj-qxF"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Cco-Jl-sbP" secondAttribute="bottom" id="xgy-FX-E69"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cco-Jl-sbP" secondAttribute="trailing" id="zFc-HK-CGz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="numberLabel" destination="Cco-Jl-sbP" id="baO-fp-SA0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LuQ-wG-3W2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="878.39999999999998" y="183.50824587706148"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon_109760_256" width="256" height="256"/>
+    </resources>
+</document>

@@ -1,0 +1,678 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0222261C1400551AC6 /* Activity.storyboard */; };
+		E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0422261C2200551AC6 /* Direction.storyboard */; };
+		E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0622261C3800551AC6 /* Map.storyboard */; };
+		E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0822263DB600551AC6 /* DirectionViewController.swift */; };
+		E67C3A0B22263DD500551AC6 /* AwayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0A22263DD500551AC6 /* AwayViewController.swift */; };
+		E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */; };
+		E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0E2226429300551AC6 /* MapViewController.swift */; };
+		E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */; };
+		E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* CellData.swift */; };
+		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
+		E6C437C7222386F800542844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C6222386F800542844 /* AppDelegate.swift */; };
+		E6C437C9222386F800542844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C8222386F800542844 /* ViewController.swift */; };
+		E6C437CC222386F800542844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CA222386F800542844 /* Main.storyboard */; };
+		E6C437CE222386F900542844 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CD222386F900542844 /* Assets.xcassets */; };
+		E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CF222386F900542844 /* LaunchScreen.storyboard */; };
+		E6C437DC222386FA00542844 /* DireWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437DB222386FA00542844 /* DireWalkTests.swift */; };
+		E6C437E7222386FA00542844 /* DireWalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437E6222386FA00542844 /* DireWalkUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E6C437D8222386FA00542844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6C437BB222386F800542844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6C437C2222386F800542844;
+			remoteInfo = DireWalk;
+		};
+		E6C437E3222386FA00542844 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6C437BB222386F800542844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E6C437C2222386F800542844;
+			remoteInfo = DireWalk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E67C3A0222261C1400551AC6 /* Activity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
+		E67C3A0422261C2200551AC6 /* Direction.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Direction.storyboard; sourceTree = "<group>"; };
+		E67C3A0622261C3800551AC6 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		E67C3A0822263DB600551AC6 /* DirectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewController.swift; sourceTree = "<group>"; };
+		E67C3A0A22263DD500551AC6 /* AwayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwayViewController.swift; sourceTree = "<group>"; };
+		E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		E67C3A0E2226429300551AC6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
+		E67C3A1222267E0C00551AC6 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
+		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
+		E6C437C3222386F800542844 /* DireWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DireWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C437C6222386F800542844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E6C437C8222386F800542844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E6C437CB222386F800542844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E6C437CD222386F900542844 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E6C437D0222386F900542844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E6C437D2222386F900542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6C437D7222386FA00542844 /* DireWalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DireWalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C437DB222386FA00542844 /* DireWalkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DireWalkTests.swift; sourceTree = "<group>"; };
+		E6C437DD222386FA00542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6C437E2222386FA00542844 /* DireWalkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DireWalkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C437E6222386FA00542844 /* DireWalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DireWalkUITests.swift; sourceTree = "<group>"; };
+		E6C437E8222386FA00542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E6C437C0222386F800542844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437D4222386FA00542844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437DF222386FA00542844 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E67C39FF22261B9500551AC6 /* DirectionView */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A0422261C2200551AC6 /* Direction.storyboard */,
+				E67C3A0822263DB600551AC6 /* DirectionViewController.swift */,
+				E67C3A0A22263DD500551AC6 /* AwayViewController.swift */,
+			);
+			path = DirectionView;
+			sourceTree = "<group>";
+		};
+		E67C3A0022261BCD00551AC6 /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A0222261C1400551AC6 /* Activity.storyboard */,
+				E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */,
+				E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */,
+				E67C3A1222267E0C00551AC6 /* CellData.swift */,
+			);
+			path = ActivityView;
+			sourceTree = "<group>";
+		};
+		E67C3A0122261BDC00551AC6 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A0622261C3800551AC6 /* Map.storyboard */,
+				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		E67C3A15222698E600551AC6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A1D2226AB7100551AC6 /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E6C437BA222386F800542844 = {
+			isa = PBXGroup;
+			children = (
+				E6C437C5222386F800542844 /* DireWalk */,
+				E6C437DA222386FA00542844 /* DireWalkTests */,
+				E6C437E5222386FA00542844 /* DireWalkUITests */,
+				E6C437C4222386F800542844 /* Products */,
+				E67C3A15222698E600551AC6 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E6C437C4222386F800542844 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E6C437C3222386F800542844 /* DireWalk.app */,
+				E6C437D7222386FA00542844 /* DireWalkTests.xctest */,
+				E6C437E2222386FA00542844 /* DireWalkUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E6C437C5222386F800542844 /* DireWalk */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */,
+				E6C437C6222386F800542844 /* AppDelegate.swift */,
+				E6C437CA222386F800542844 /* Main.storyboard */,
+				E6C437C8222386F800542844 /* ViewController.swift */,
+				E67C39FF22261B9500551AC6 /* DirectionView */,
+				E67C3A0022261BCD00551AC6 /* ActivityView */,
+				E67C3A0122261BDC00551AC6 /* MapView */,
+				E6C437CD222386F900542844 /* Assets.xcassets */,
+				E6C437CF222386F900542844 /* LaunchScreen.storyboard */,
+				E6C437D2222386F900542844 /* Info.plist */,
+			);
+			path = DireWalk;
+			sourceTree = "<group>";
+		};
+		E6C437DA222386FA00542844 /* DireWalkTests */ = {
+			isa = PBXGroup;
+			children = (
+				E6C437DB222386FA00542844 /* DireWalkTests.swift */,
+				E6C437DD222386FA00542844 /* Info.plist */,
+			);
+			path = DireWalkTests;
+			sourceTree = "<group>";
+		};
+		E6C437E5222386FA00542844 /* DireWalkUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E6C437E6222386FA00542844 /* DireWalkUITests.swift */,
+				E6C437E8222386FA00542844 /* Info.plist */,
+			);
+			path = DireWalkUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E6C437C2222386F800542844 /* DireWalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6C437EB222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalk" */;
+			buildPhases = (
+				E6C437BF222386F800542844 /* Sources */,
+				E6C437C0222386F800542844 /* Frameworks */,
+				E6C437C1222386F800542844 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DireWalk;
+			productName = DireWalk;
+			productReference = E6C437C3222386F800542844 /* DireWalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E6C437D6222386FA00542844 /* DireWalkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6C437EE222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalkTests" */;
+			buildPhases = (
+				E6C437D3222386FA00542844 /* Sources */,
+				E6C437D4222386FA00542844 /* Frameworks */,
+				E6C437D5222386FA00542844 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6C437D9222386FA00542844 /* PBXTargetDependency */,
+			);
+			name = DireWalkTests;
+			productName = DireWalkTests;
+			productReference = E6C437D7222386FA00542844 /* DireWalkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E6C437E1222386FA00542844 /* DireWalkUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6C437F1222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalkUITests" */;
+			buildPhases = (
+				E6C437DE222386FA00542844 /* Sources */,
+				E6C437DF222386FA00542844 /* Frameworks */,
+				E6C437E0222386FA00542844 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6C437E4222386FA00542844 /* PBXTargetDependency */,
+			);
+			name = DireWalkUITests;
+			productName = DireWalkUITests;
+			productReference = E6C437E2222386FA00542844 /* DireWalkUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E6C437BB222386F800542844 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "麻生昌志";
+				TargetAttributes = {
+					E6C437C2222386F800542844 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.HomeKit = {
+								enabled = 0;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
+					};
+					E6C437D6222386FA00542844 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = E6C437C2222386F800542844;
+					};
+					E6C437E1222386FA00542844 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = E6C437C2222386F800542844;
+					};
+				};
+			};
+			buildConfigurationList = E6C437BE222386F800542844 /* Build configuration list for PBXProject "DireWalk" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E6C437BA222386F800542844;
+			productRefGroup = E6C437C4222386F800542844 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E6C437C2222386F800542844 /* DireWalk */,
+				E6C437D6222386FA00542844 /* DireWalkTests */,
+				E6C437E1222386FA00542844 /* DireWalkUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E6C437C1222386F800542844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
+				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
+				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
+				E6C437CC222386F800542844 /* Main.storyboard in Resources */,
+				E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */,
+				E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437D5222386FA00542844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437E0222386FA00542844 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E6C437BF222386F800542844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
+				E67C3A0B22263DD500551AC6 /* AwayViewController.swift in Sources */,
+				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
+				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
+				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
+				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
+				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
+				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437D3222386FA00542844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6C437DC222386FA00542844 /* DireWalkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6C437DE222386FA00542844 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6C437E7222386FA00542844 /* DireWalkUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E6C437D9222386FA00542844 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6C437C2222386F800542844 /* DireWalk */;
+			targetProxy = E6C437D8222386FA00542844 /* PBXContainerItemProxy */;
+		};
+		E6C437E4222386FA00542844 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E6C437C2222386F800542844 /* DireWalk */;
+			targetProxy = E6C437E3222386FA00542844 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E6C437CA222386F800542844 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6C437CB222386F800542844 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E6C437CF222386F900542844 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E6C437D0222386F900542844 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E6C437E9222386FA00542844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E6C437EA222386FA00542844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E6C437EC222386FA00542844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DireWalk/DireWalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E6C437ED222386FA00542844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DireWalk/DireWalk.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalk/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalk;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E6C437EF222386FA00542844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DireWalk.app/DireWalk";
+			};
+			name = Debug;
+		};
+		E6C437F0222386FA00542844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DireWalk.app/DireWalk";
+			};
+			name = Release;
+		};
+		E6C437F2222386FA00542844 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalkUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DireWalk;
+			};
+			name = Debug;
+		};
+		E6C437F3222386FA00542844 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GLQ4RHPUQV;
+				INFOPLIST_FILE = DireWalkUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DireWalk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E6C437BE222386F800542844 /* Build configuration list for PBXProject "DireWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6C437E9222386FA00542844 /* Debug */,
+				E6C437EA222386FA00542844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E6C437EB222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6C437EC222386FA00542844 /* Debug */,
+				E6C437ED222386FA00542844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E6C437EE222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6C437EF222386FA00542844 /* Debug */,
+				E6C437F0222386FA00542844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E6C437F1222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalkUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6C437F2222386FA00542844 /* Debug */,
+				E6C437F3222386FA00542844 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E6C437BB222386F800542844 /* Project object */;
+}

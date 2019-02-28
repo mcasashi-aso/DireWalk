@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wGP-eE-UwR">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map View Controller-->
+        <scene sceneID="Oql-1X-rHt">
+            <objects>
+                <viewController id="wGP-eE-UwR" customClass="MapViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CcO-Mp-0Lt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsCompass="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcU-6M-rKE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <gestureRecognizers/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="CcO-Mp-0Lt" secondAttribute="top" id="LtN-2V-EuH"/>
+                            <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="zcU-6M-rKE" secondAttribute="trailing" id="V3b-1p-Gkw"/>
+                            <constraint firstItem="zcU-6M-rKE" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="gz2-g9-J0L"/>
+                            <constraint firstAttribute="bottom" secondItem="zcU-6M-rKE" secondAttribute="bottom" id="zzH-bW-2IO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="as5-6k-KjC"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ApB-fL-tl2" appends="YES" id="box-Nu-bcF"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="zcU-6M-rKE" id="rEl-sh-Nex"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oPm-NH-8pt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ApB-fL-tl2">
+                    <connections>
+                        <action selector="pressMap:" destination="wGP-eE-UwR" id="VEr-hJ-WzC"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="77.599999999999994" y="259.35960591133005"/>
+        </scene>
+    </scenes>
+</document>
