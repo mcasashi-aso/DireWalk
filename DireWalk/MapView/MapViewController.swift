@@ -11,17 +11,19 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate {
+    
+    let userDefaults = UserDefaults.standard
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var myLocationManager: CLLocationManager!
+    var locationManager = CLLocationManager()
     
     let annotation = MKPointAnnotation()
     
     var count = 0.0
     var timer = Timer()
-    var pressable = true
+    var pressable = false
 
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
         let location: CGPoint = sender.location(in: mapView)
@@ -40,18 +42,40 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let mapPoint: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
             
             annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-            annotation.title = "テスト"
-            annotation.subtitle = "\(annotation.coordinate.latitude), \(annotation.coordinate.longitude)"
-            
-            mapView.addAnnotation(annotation)
-            
-            let generater = UIImpactFeedbackGenerator()
-            generater.prepare()
-            generater.impactOccurred()
+            addMarker(title: "選択地")
         }
     }
     
-    
+    func addMarker(title: String) {
+        annotation.title = title
+        let destination = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
+        let userLocation = locationManager.location
+        let far = destination.distance(from: userLocation!)
+        var showFar: String!
+        if 50 > Int(far) {
+            showFar = "\(Int(far))m"
+        }else if 500 > Int(far){
+            showFar = "\((Int(far) / 10 + 1) * 10)m"
+        }else {
+            let doubleNum = Double(Int(far) / 100 + 1) / 10
+            if doubleNum.truncatingRemainder(dividingBy: 1.0) == 0.0 {
+                showFar = "\(Int(doubleNum))km"
+            }else {
+                showFar = "\(doubleNum)km"
+            }
+        }
+        annotation.subtitle = showFar
+        
+        mapView.addAnnotation(annotation)
+        
+        let generater = UIImpactFeedbackGenerator()
+        generater.prepare()
+        generater.impactOccurred()
+        
+        userDefaults.set(annotation.coordinate.latitude, forKey: "annotationLatitude")
+        userDefaults.set(annotation.coordinate.longitude, forKey: "annotationLongitude")
+        userDefaults.set(true, forKey: "previousAnnotation")
+    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
@@ -73,10 +97,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        myLocationManager = CLLocationManager()
-        myLocationManager.startUpdatingLocation()
-        myLocationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
         
         mapView.delegate = self
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
@@ -86,6 +107,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         region.span.longitudeDelta = 0.005
         mapView.setRegion(region, animated: true)
         
+        setupMapButtons()
+        
+        if userDefaults.bool(forKey: "previousAnnotation") {
+            let latitude: CLLocationDegrees = userDefaults.object(forKey: "annotationLatitude") as! CLLocationDegrees
+            let longitude: CLLocationDegrees = userDefaults.object(forKey: "annotationLongitude") as! CLLocationDegrees
+            annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
+            addMarker(title: "前回")
+        }
+    }
+    
+    func setupMapButtons() {
         let userTrackingButtonSpace = CGFloat(3)
         let compassButtonSpace = CGFloat(4)
         let screenWidth = UIScreen.main.bounds.width
@@ -113,10 +145,27 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         self.view.addSubview(compassButton)
     }
     
-    
-    
     @objc func timeUpdater() {
         count += 0.1
+    }
+    
+}
+
+extension MapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
     }
     
 }

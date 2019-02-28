@@ -11,6 +11,8 @@ import HealthKit
 
 class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
+    let userDefaults = UserDefaults.standard
+    
     let healthStore = HKHealthStore()
     
     enum present: String {
@@ -22,15 +24,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if viewController.isKind(of: ActivityViewController.self) {
-            print("before, \(presentView.rawValue)")
             return nil
         }else if viewController.isKind(of: DirectionViewController.self) {
-            presentView = .activity
-            print("before, \(presentView.rawValue)")
             return getLeft()
         }else if viewController.isKind(of: MapViewController.self) {
-            presentView = .direction
-            print("before, \(presentView.rawValue)")
             return getCenter()
         }
         return nil
@@ -38,19 +35,27 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if viewController.isKind(of: MapViewController.self) {
-            print("after, \(presentView.rawValue)")
             return nil
         }else if viewController.isKind(of: DirectionViewController.self) {
-            print("after, \(presentView.rawValue)")
-            presentView = .map
             return getRight()
         }else if viewController.isKind(of: ActivityViewController.self) {
-            print("after, \(presentView.rawValue)")
-            presentView = .direction
             return getCenter()
         }
         return nil
      }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let view = pageViewController.viewControllers?.first
+        if view!.isKind(of: DirectionViewController.self) {
+            presentView = .direction
+        }else if view!.isKind(of: MapViewController.self) {
+            presentView = .map
+        }else if view!.isKind(of: ActivityViewController.self) {
+            presentView = .activity
+        }else {
+            presentView = .direction
+        }
+    }
     
     func getCenter() -> DirectionViewController{
         let sb = UIStoryboard(name: "Direction", bundle: nil)

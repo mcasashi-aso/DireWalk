@@ -13,9 +13,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let userDefaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let now = Date()
+        let measureOfNil = Date(timeInterval: 60*11, since: now)
+        userDefaults.register(defaults: ["date": measureOfNil])
+        let previous: Date = userDefaults.object(forKey: "date") as! Date
+        if previous > Date(timeInterval: -60*10, since: now) {
+            userDefaults.set(true, forKey: "previousAnnotation")
+        }else {
+            userDefaults.set(false, forKey: "previousAnnotation")
+        }
+        userDefaults.set(now, forKey: "date")
+        
         return true
     }
 
