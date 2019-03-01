@@ -8,12 +8,15 @@
 
 import UIKit
 import HealthKit
+import CoreLocation
 
-class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, MapViewControllerDelegate, CLLocationManagerDelegate {
     
     let userDefaults = UserDefaults.standard
     
     let healthStore = HKHealthStore()
+    
+    let locationManager = CLLocationManager()
     
     enum present: String {
         case direction
@@ -21,6 +24,64 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         case map
     }
     var presentView: present = .direction
+    
+    var markerLocation = CLLocation()
+    
+    var userHeadingRadian = CGFloat()
+    var destinationHeadingRadian = CGFloat()
+    
+    
+    func updateMarker() {
+        markerLocation = CLLocation(latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
+                                    longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
+        destinationHeading()
+        updateDirectionButton()
+    }
+    
+    func destinationHeading() {
+        let destinationLatitude = toRadian(markerLocation.coordinate.latitude)
+        let destinationLongitude = toRadian(markerLocation.coordinate.longitude)
+        let userLatitude = toRadian((locationManager.location?.coordinate.latitude)!)
+        let userLongitude = toRadian((locationManager.location?.coordinate.longitude)!)
+        
+        let difLongitude = destinationLongitude - userLongitude
+        let y = sin(difLongitude)
+        let x = cos(userLatitude) * tan(destinationLatitude) - sin(userLatitude) * cos(difLongitude)
+        let p = atan2(y, x) * 180 / CGFloat.pi
+        if p < 0 {
+            destinationHeadingRadian = 360 + p
+        }
+        destinationHeadingRadian = p
+    }
+    
+    func toRadian(_ angle: CLLocationDegrees) -> CGFloat{
+        let floatAngle = CGFloat(angle)
+        return floatAngle * CGFloat.pi / 180
+    }
+    
+    func updateDirectionButton() {
+        let directoinButtonHeading = destinationHeadingRadian - userHeadingRadian
+        userDefaults.set(directoinButtonHeading, forKey: ud.key.directoinButtonHeading.rawValue)
+        directionButton.imageView?.transform = CGAffineTransform(rotationAngle: directoinButtonHeading * CGFloat.pi / 180)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        default:
+            break
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        userHeadingRadian = CGFloat(newHeading.magneticHeading)
+        updateDirectionButton()
+    }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if viewController.isKind(of: ActivityViewController.self) {
@@ -32,7 +93,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
         return nil
     }
-    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if viewController.isKind(of: MapViewController.self) {
             return nil
@@ -43,7 +103,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
         return nil
      }
-    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let view = pageViewController.viewControllers?.first
         if view!.isKind(of: DirectionViewController.self) {
@@ -65,6 +124,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     func getRight() -> MapViewController{
         let sb = UIStoryboard(name: "Map", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! MapViewController
+        vc.delegate = self
         return vc
     }
     func getLeft() -> ActivityViewController{
@@ -110,6 +170,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         super.viewDidLoad()
         setupViews()
         containerView.addSubview(contentPageVC.view)
+        
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
     
     override func didReceiveMemoryWarning() {

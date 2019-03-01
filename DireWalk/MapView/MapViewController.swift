@@ -11,7 +11,13 @@ import UIKit
 import MapKit
 import CoreLocation
 
+protocol MapViewControllerDelegate {
+    func updateMarker()
+}
+
 class MapViewController: UIViewController, MKMapViewDelegate {
+    
+    var delegate: MapViewControllerDelegate?
     
     let userDefaults = UserDefaults.standard
     
@@ -42,7 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let mapPoint: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
             
             annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-            addMarker(title: "選択地")
+            addMarker(title: "ピン")
         }
     }
     
@@ -72,9 +78,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         generater.prepare()
         generater.impactOccurred()
         
-        userDefaults.set(annotation.coordinate.latitude, forKey: "annotationLatitude")
-        userDefaults.set(annotation.coordinate.longitude, forKey: "annotationLongitude")
-        userDefaults.set(true, forKey: "previousAnnotation")
+        userDefaults.set(annotation.coordinate.latitude, forKey: ud.key.annotationLatitude.rawValue)
+        userDefaults.set(annotation.coordinate.longitude, forKey: ud.key.annotationLongitude.rawValue)
+        userDefaults.set(true, forKey: ud.key.previousAnnotation.rawValue)
+        delegate?.updateMarker()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -109,9 +116,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         setupMapButtons()
         
-        if userDefaults.bool(forKey: "previousAnnotation") {
-            let latitude: CLLocationDegrees = userDefaults.object(forKey: "annotationLatitude") as! CLLocationDegrees
-            let longitude: CLLocationDegrees = userDefaults.object(forKey: "annotationLongitude") as! CLLocationDegrees
+        if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
+            let latitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees
+            let longitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees
             annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
             addMarker(title: "前回")
         }
@@ -165,7 +172,6 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
     }
     
 }

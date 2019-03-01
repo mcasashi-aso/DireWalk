@@ -18,13 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let now = Date()
-        let measureOfNil = Date(timeInterval: 60*11, since: now)
+        let measureOfNil = Date(timeInterval: -60*11, since: now)
         userDefaults.register(defaults: ["date": measureOfNil])
         let previous: Date = userDefaults.object(forKey: "date") as! Date
         if previous > Date(timeInterval: -60*10, since: now) {
-            userDefaults.set(true, forKey: "previousAnnotation")
+            userDefaults.set(true, forKey: ud.key.previousAnnotation.rawValue)
         }else {
-            userDefaults.set(false, forKey: "previousAnnotation")
+            userDefaults.set(false, forKey: ud.key.previousAnnotation.rawValue)
         }
         userDefaults.set(now, forKey: "date")
         

@@ -11,12 +11,12 @@
 		E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0422261C2200551AC6 /* Direction.storyboard */; };
 		E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0622261C3800551AC6 /* Map.storyboard */; };
 		E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0822263DB600551AC6 /* DirectionViewController.swift */; };
-		E67C3A0B22263DD500551AC6 /* AwayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0A22263DD500551AC6 /* AwayViewController.swift */; };
 		E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */; };
 		E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0E2226429300551AC6 /* MapViewController.swift */; };
 		E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */; };
 		E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* CellData.swift */; };
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
+		E67C3A2122291FEE00551AC6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Strings.swift */; };
 		E6C437C7222386F800542844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C6222386F800542844 /* AppDelegate.swift */; };
 		E6C437C9222386F800542844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C8222386F800542844 /* ViewController.swift */; };
 		E6C437CC222386F800542844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CA222386F800542844 /* Main.storyboard */; };
@@ -48,13 +48,13 @@
 		E67C3A0422261C2200551AC6 /* Direction.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Direction.storyboard; sourceTree = "<group>"; };
 		E67C3A0622261C3800551AC6 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		E67C3A0822263DB600551AC6 /* DirectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionViewController.swift; sourceTree = "<group>"; };
-		E67C3A0A22263DD500551AC6 /* AwayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwayViewController.swift; sourceTree = "<group>"; };
 		E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		E67C3A0E2226429300551AC6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
 		E67C3A1222267E0C00551AC6 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
 		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
+		E67C3A2022291FED00551AC6 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		E6C437C3222386F800542844 /* DireWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DireWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C437C6222386F800542844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6C437C8222386F800542844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +101,6 @@
 			children = (
 				E67C3A0422261C2200551AC6 /* Direction.storyboard */,
 				E67C3A0822263DB600551AC6 /* DirectionViewController.swift */,
-				E67C3A0A22263DD500551AC6 /* AwayViewController.swift */,
 			);
 			path = DirectionView;
 			sourceTree = "<group>";
@@ -162,6 +161,7 @@
 				E6C437C6222386F800542844 /* AppDelegate.swift */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
 				E6C437C8222386F800542844 /* ViewController.swift */,
+				E67C3A2022291FED00551AC6 /* Strings.swift */,
 				E67C39FF22261B9500551AC6 /* DirectionView */,
 				E67C3A0022261BCD00551AC6 /* ActivityView */,
 				E67C3A0122261BDC00551AC6 /* MapView */,
@@ -336,7 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
-				E67C3A0B22263DD500551AC6 /* AwayViewController.swift in Sources */,
+				E67C3A2122291FEE00551AC6 /* Strings.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
