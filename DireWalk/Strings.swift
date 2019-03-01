@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct ud {
     enum key: String{
         case annotationLatitude
