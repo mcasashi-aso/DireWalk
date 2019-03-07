@@ -25,8 +25,8 @@
                                     <constraint firstAttribute="width" constant="240" id="ayO-St-j6f"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cco-Jl-sbP">
-                                <rect key="frame" x="16" y="350" width="343" height="159"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cco-Jl-sbP">
+                                <rect key="frame" x="16" y="350" width="343" height="119.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -44,7 +44,6 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Cco-Jl-sbP" secondAttribute="trailing" id="EDT-dc-U3S"/>
                             <constraint firstItem="pxi-JD-GsR" firstAttribute="top" secondItem="lSy-B9-fVQ" secondAttribute="top" constant="60" id="LNf-Vo-uob"/>
                             <constraint firstItem="Cco-Jl-sbP" firstAttribute="leading" secondItem="1j0-Ag-LuP" secondAttribute="leadingMargin" id="QaF-u7-VEw"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Cco-Jl-sbP" secondAttribute="bottom" constant="158" id="bEm-rJ-oWV"/>
                             <constraint firstAttribute="trailing" secondItem="MjX-OC-D04" secondAttribute="trailing" constant="50" id="hdH-uZ-NEX"/>
                             <constraint firstItem="MjX-OC-D04" firstAttribute="top" secondItem="pxi-JD-GsR" secondAttribute="bottom" constant="115" id="s77-Ad-hy3"/>
                             <constraint firstItem="pxi-JD-GsR" firstAttribute="centerX" secondItem="1j0-Ag-LuP" secondAttribute="centerX" id="uqk-n1-Htx"/>
@@ -58,25 +57,13 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOV-tJ-Act" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="JIu-wb-NS0">
+                    <connections>
+                        <action selector="longPressWithoutThreeDTouch:" destination="grf-9x-lPW" id="Dtz-c9-s1P"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="168.80000000000001" y="102.99850074962519"/>
-        </scene>
-        <!--Away View Controller-->
-        <scene sceneID="OC7-0a-MlD">
-            <objects>
-                <viewController id="Cir-FL-NC5" customClass="AwayViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="CfA-hz-fPV">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6tM-fi-OZe"/>
-                    </view>
-                    <connections>
-                        <outlet property="numberLabel" destination="Cco-Jl-sbP" id="baO-fp-SA0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LuQ-wG-3W2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="952.79999999999995" y="103.89805097451276"/>
         </scene>
     </scenes>
     <resources>

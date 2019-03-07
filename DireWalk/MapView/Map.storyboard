@@ -22,13 +22,22 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <gestureRecognizers/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-KE-9VR">
+                                <rect key="frame" x="0.0" y="44" width="10" height="734"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="FDZ-Q7-M1V"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="as5-6k-KjC" firstAttribute="bottom" secondItem="vyr-KE-9VR" secondAttribute="bottom" id="5Fl-QD-10u"/>
                             <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="CcO-Mp-0Lt" secondAttribute="top" id="LtN-2V-EuH"/>
+                            <constraint firstItem="vyr-KE-9VR" firstAttribute="top" secondItem="as5-6k-KjC" secondAttribute="top" id="TuC-6N-ChD"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="zcU-6M-rKE" secondAttribute="trailing" id="V3b-1p-Gkw"/>
                             <constraint firstItem="zcU-6M-rKE" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="gz2-g9-J0L"/>
+                            <constraint firstItem="vyr-KE-9VR" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="xTe-k3-tQf"/>
                             <constraint firstAttribute="bottom" secondItem="zcU-6M-rKE" secondAttribute="bottom" id="zzH-bW-2IO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="as5-6k-KjC"/>

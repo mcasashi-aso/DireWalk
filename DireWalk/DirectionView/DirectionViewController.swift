@@ -9,11 +9,21 @@
 import UIKit
 import CoreLocation
 
+protocol DirectionViewControllerDelegate {
+    func hideObjects(hide: Bool)
+    func arrivalDestination()
+}
+
 class DirectionViewController: UIViewController, CLLocationManagerDelegate {
+    
+    var delegate: DirectionViewControllerDelegate?
     
     let userDefaults = UserDefaults.standard
     
     var locationManager = CLLocationManager()
+    
+    var timer = Timer()
+    var count = 0.0
     
     @IBOutlet weak var headingImageView: UIView!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -26,6 +36,8 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         
         let headingRadian: CGFloat = userDefaults.object(forKey: ud.key.directoinButtonHeading.rawValue) as! CGFloat
         headingImageView.transform = CGAffineTransform(rotationAngle: headingRadian * CGFloat.pi / 180)
+        let now = Date()
+        userDefaults.set(now, forKey: "date")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -55,8 +67,17 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
                 unit = "km"
             }
         }
+        if 30 > Int(far) {
+            distanceLabel.isHidden = false
+            unitLabel.isHidden = false
+            delegate?.arrivalDestination()
+        }
         distanceLabel.text = distance
         unitLabel.text = unit
+    }
+    
+    func setupViews() {
+        
     }
 
     override func viewDidLoad() {
@@ -67,5 +88,61 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.startUpdatingHeading()
         }
     }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        let force = (touch?.force)!/(touch?.maximumPossibleForce)!
+        if force == 1.0 {
+            if count == 0.0 {
+                self.timer = Timer.scheduledTimer(timeInterval: 0.01,
+                                                  target: self,
+                                                  selector: #selector(self.timeUpdater),
+                                                  userInfo: nil,
+                                                  repeats: true)
+                if distanceLabel.isHidden {
+                    distanceLabel.isHidden = false
+                    unitLabel.isHidden = false
+                    delegate?.hideObjects(hide: false)
+                }else {
+                    distanceLabel.isHidden = true
+                    unitLabel.isHidden = true
+                    delegate?.hideObjects(hide: true)
+                }
+                let generater = UINotificationFeedbackGenerator()
+                generater.prepare()
+                generater.notificationOccurred(.warning)
+            }else if count >= 1.0 {
+                timer.invalidate()
+                count = 0.0
+            }
+        }
+    }
+    
+    @objc func timeUpdater() {
+        count += 0.01
+    }
 
+    @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {
+        print("呼ばれてるぞう")
+        if self.traitCollection.forceTouchCapability != .available {
+            if sender.state == UIPanGestureRecognizer.State.began {
+                timer = Timer.scheduledTimer(timeInterval: 0.01,
+                                             target: self,
+                                             selector: #selector(self.timeUpdater),
+                                             userInfo: nil,
+                                             repeats: true)
+            }else if count >= 0.5 && timer.isValid {
+                timer.invalidate()
+                if distanceLabel.isHidden {
+                    distanceLabel.isHidden = false
+                    unitLabel.isHidden = false
+                    delegate?.hideObjects(hide: false)
+                }else {
+                    distanceLabel.isHidden = true
+                    unitLabel.isHidden = true
+                    delegate?.hideObjects(hide: true)
+                }
+            }
+        }
+    }
 }

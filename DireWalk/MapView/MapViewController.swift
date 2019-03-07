@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 
 protocol MapViewControllerDelegate {
-    func updateMarker()
+    func updateMarker(markerName: String)
 }
 
 class MapViewController: UIViewController, MKMapViewDelegate {
@@ -48,12 +48,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let mapPoint: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
             
             annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-            addMarker(title: "ピン")
+            addMarker(new: true)
         }
     }
     
-    func addMarker(title: String) {
-        annotation.title = title
+    func addMarker(new: Bool) {
         let destination = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
         let userLocation = locationManager.location
         let far = destination.distance(from: userLocation!)
@@ -72,16 +71,34 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         annotation.subtitle = showFar
         
-        mapView.addAnnotation(annotation)
+        var placeName: String!
+        CLGeocoder().reverseGeocodeLocation(destination, completionHandler: {placemarks, error in
+            guard let placemark = placemarks?.first, error == nil else {
+                placeName = "ピン"
+                return
+            }
+            if let interest = placemark.areasOfInterest?[0] {
+                placeName = interest
+            }else if let name = placemark.name{
+                placeName = name
+            }
+        })
+        wait( { return placeName == nil } ) {
+            self.annotation.title = placeName
+            
+            self.delegate?.updateMarker(markerName: placeName)
+            self.mapView.addAnnotation(self.annotation)
+        }
         
-        let generater = UIImpactFeedbackGenerator()
-        generater.prepare()
-        generater.impactOccurred()
+        if new {
+            let generater = UIImpactFeedbackGenerator()
+            generater.prepare()
+            generater.impactOccurred()
+        }
         
         userDefaults.set(annotation.coordinate.latitude, forKey: ud.key.annotationLatitude.rawValue)
         userDefaults.set(annotation.coordinate.longitude, forKey: ud.key.annotationLongitude.rawValue)
         userDefaults.set(true, forKey: ud.key.previousAnnotation.rawValue)
-        delegate?.updateMarker()
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -91,13 +108,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         let reuseld = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView
-        pinView?.animatesWhenAdded = true
         if pinView == nil {
             pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseld)
         }else {
             pinView?.annotation = annotation
         }
         pinView?.isSelected = true
+        pinView?.animatesWhenAdded = true
         return pinView
     }
     
@@ -120,7 +137,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let latitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees
             let longitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees
             annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
-            addMarker(title: "前回")
+            addMarker(new: false)
         }
     }
     
@@ -154,6 +171,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @objc func timeUpdater() {
         count += 0.1
+    }
+    
+    func wait(_ waitContinuation: @escaping (()->Bool), compleation: @escaping (()->Void)) {
+        var wait = waitContinuation()
+        // 0.01秒周期で待機条件をクリアするまで待ちます。
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            while wait {
+                DispatchQueue.main.async {
+                    wait = waitContinuation()
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                Thread.sleep(forTimeInterval: 0.01)
+            }
+            // 待機条件をクリアしたので通過後の処理を行います。
+            DispatchQueue.main.async {
+                compleation()
+            }
+        }
     }
     
 }

@@ -15,6 +15,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var unitLable: UILabel!
     
     func setData(cellData: CellData) {
+        setCell()
         self.aboutLable.text = cellData.about
         self.numberLabel.text = String(cellData.number)
         self.unitLable.text = cellData.unit

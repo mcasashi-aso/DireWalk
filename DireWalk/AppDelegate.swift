@@ -19,16 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*11, since: now)
-        userDefaults.register(defaults: ["date": measureOfNil])
+        userDefaults.register(defaults: ["date" : measureOfNil])
         let previous: Date = userDefaults.object(forKey: "date") as! Date
-        if previous > Date(timeInterval: -60*10, since: now) {
-            userDefaults.set(true, forKey: ud.key.previousAnnotation.rawValue)
-        }else {
+        userDefaults.register(defaults: [ud.key.previousAnnotation.rawValue : false])
+        if Date(timeInterval: -60*10, since: now) > previous{
             userDefaults.set(false, forKey: ud.key.previousAnnotation.rawValue)
         }
         userDefaults.set(now, forKey: "date")
         
         return true
+    }
+    
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        sleep(1)
+        return
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

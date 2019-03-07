@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6358E15222D7E660084E9CB /* Setting.storyboard */; };
+		E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6358E17222D7E850084E9CB /* SettingsViewController.swift */; };
 		E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0222261C1400551AC6 /* Activity.storyboard */; };
 		E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0422261C2200551AC6 /* Direction.storyboard */; };
 		E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E67C3A0622261C3800551AC6 /* Map.storyboard */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E6358E15222D7E660084E9CB /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		E6358E17222D7E850084E9CB /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E67C3A0222261C1400551AC6 /* Activity.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
 		E67C3A0422261C2200551AC6 /* Direction.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Direction.storyboard; sourceTree = "<group>"; };
 		E67C3A0622261C3800551AC6 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -96,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E6358E14222D7E480084E9CB /* Swttings */ = {
+			isa = PBXGroup;
+			children = (
+				E6358E15222D7E660084E9CB /* Setting.storyboard */,
+				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
+			);
+			path = Swttings;
+			sourceTree = "<group>";
+		};
 		E67C39FF22261B9500551AC6 /* DirectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,8 +176,9 @@
 				E6C437C8222386F800542844 /* ViewController.swift */,
 				E67C3A2022291FED00551AC6 /* Strings.swift */,
 				E67C39FF22261B9500551AC6 /* DirectionView */,
-				E67C3A0022261BCD00551AC6 /* ActivityView */,
 				E67C3A0122261BDC00551AC6 /* MapView */,
+				E67C3A0022261BCD00551AC6 /* ActivityView */,
+				E6358E14222D7E480084E9CB /* Swttings */,
 				E6C437CD222386F900542844 /* Assets.xcassets */,
 				E6C437CF222386F900542844 /* LaunchScreen.storyboard */,
 				E6C437D2222386F900542844 /* Info.plist */,
@@ -307,6 +321,7 @@
 			files = (
 				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
+				E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */,
 				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
 				E6C437CC222386F800542844 /* Main.storyboard in Resources */,
 				E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */,
@@ -343,6 +358,7 @@
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
+				E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -525,7 +541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masashi.DireWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -544,7 +560,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masashi.DireWalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -11,12 +11,24 @@ import HealthKit
 
 class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    var healthStore = HKHealthStore()
+    
     let datas: [CellData] = [CellData.init(about: "アクティビティ", number: 20, unit: "分"),
                              CellData.init(about: "歩数", number: 8672, unit: "歩")]
     
-    func getStepCount() {
-        
-    }
+//    func getStepCount() -> CellData{
+//        let now = Date()
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyyMMdd"
+//        let todayAtO = dateFormatter.string(from: now)
+//        let startDate = dateFormatter.date(from: todayAtO)
+//        let endDate = now
+//
+//        let typeOfStepCount = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+//
+//        let
+//
+//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datas.count
@@ -28,6 +40,13 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.layer.masksToBounds = true
         cell.setData(cellData: datas[indexPath.row])
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let screenWidth = UIScreen.main.bounds.width
+        let width = CGFloat((screenWidth - 24*2 - 24) / 2)
+        let size = CGSize(width: width, height: width)
+        return size
     }
     
     @IBOutlet weak var collectionView: UICollectionView!{
