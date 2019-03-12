@@ -21,11 +21,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>このアプリ内でアクティビティを確認できるようになります</string>
+	<string>You will be able to see the activity within this application</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>アクティビティをヘルスケアに保存します</string>
+	<string>This application saves activities to healthcare</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>マップに現在地を表示します</string>
+	<string>I will show your location on the map</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>
@@ -41,8 +41,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

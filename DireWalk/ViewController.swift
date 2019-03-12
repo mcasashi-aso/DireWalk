@@ -7,16 +7,16 @@
 //
 
 import UIKit
-import HealthKit
 import CoreLocation
+import HealthKit
 
 class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, MapViewControllerDelegate, CLLocationManagerDelegate, DirectionViewControllerDelegate {
     
     let userDefaults = UserDefaults.standard
     
-    let healthStore = HKHealthStore()
-    
     let locationManager = CLLocationManager()
+    
+    let healthStore = HKHealthStore()
     
     enum present: String {
         case direction
@@ -31,6 +31,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     var userHeadingRadian = CGFloat()
     var destinationHeadingRadian = CGFloat()
+    
+    let selectDestination = NSLocalizedString("selectDestination", comment: "")
+    let longPressToSelect = NSLocalizedString("longPressToSelect", comment: "")
+    var destinationName: String!
+    let activity = "Today's Activity"
 
     func hideObjects(hide: Bool) {
         if hide {
@@ -78,7 +83,9 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     func updateMarker(markerName: String) {
         markerLocation = CLLocation(latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
                                     longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
-        destinationLabel.setTitle(markerName, for: .normal)
+        destinationName = markerName
+        userDefaults.set(destinationName, forKey: ud.key.destinationName.rawValue)
+        destinationLabel.setTitle(destinationName, for: .normal)
         destinationHeading()
         updateDirectionButton()
         
@@ -109,7 +116,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     func updateDirectionButton() {
         let directoinButtonHeading = destinationHeadingRadian - userHeadingRadian
         userDefaults.set(directoinButtonHeading, forKey: ud.key.directoinButtonHeading.rawValue)
-        directionButton.imageView?.transform = CGAffineTransform(rotationAngle: directoinButtonHeading * CGFloat.pi / 180)
+        directionButton.transform = CGAffineTransform(rotationAngle: (directoinButtonHeading - 45) * CGFloat.pi / 180)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -119,12 +126,17 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
+            askAllowHealth()
         default:
-            break
+            let sb = UIStoryboard(name: "RequestLocation", bundle: nil)
+            let view = sb.instantiateInitialViewController()
+            self.present(view!, animated: true, completion: nil)
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let now = Date()
+        userDefaults.set(now, forKey: "date")
     }
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         userHeadingRadian = CGFloat(newHeading.magneticHeading)
@@ -133,7 +145,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        hideObjects(hide: false)
         if viewController.isKind(of: ActivityViewController.self) {
             return nil
         }else if viewController.isKind(of: DirectionViewController.self) {
@@ -144,7 +155,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         return nil
     }
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        hideObjects(hide: false)
         if viewController.isKind(of: MapViewController.self) {
             return nil
         }else if viewController.isKind(of: DirectionViewController.self) {
@@ -156,22 +166,47 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
      }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        showDestinationLabel.text = NSLocalizedString("destination", comment: "")
+        destinationLabel.isEnabled = true
         let view = pageViewController.viewControllers?.first
-        hideObjects(hide: false)
         if view!.isKind(of: DirectionViewController.self) {
-            let directionView: DirectionViewController = view as! DirectionViewController
-            directionView.distanceLabel.isHidden = false
-            directionView.unitLabel.isHidden = false
+            let directionView = view as! DirectionViewController
+            if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
+                directionView.locationManager.startUpdatingLocation()
+                directionView.locationManager.startUpdatingHeading()
+            }
+            if destinationLabel.title(for: .normal) == longPressToSelect {
+                destinationLabel.setTitle(selectDestination, for: .normal)
+            }else if destinationLabel.title(for: .normal) == activity {
+                destinationLabel.setTitle(destinationName, for: .normal)
+            }
             presentView = .direction
         }else if view!.isKind(of: MapViewController.self) {
+            if destinationLabel.title(for: .normal) == selectDestination {
+                destinationLabel.setTitle(longPressToSelect, for: .normal)
+            }else if destinationLabel.title(for: .normal) == activity {
+                destinationLabel.setTitle(destinationName, for: .normal)
+            }
             presentView = .map
         }else if view!.isKind(of: ActivityViewController.self) {
+            if destinationLabel.title(for: .normal) == longPressToSelect {
+                destinationLabel.setTitle(selectDestination, for: .normal)
+            }else if destinationLabel.title(for: .normal) == destinationName {
+                showDestinationLabel.text = " "
+                destinationLabel.setTitle(activity, for: .normal)
+                destinationLabel.isEnabled = false
+            }
             presentView = .activity
-        }else {
-            let directionView: DirectionViewController = view as! DirectionViewController
-            directionView.distanceLabel.isHidden = false
-            directionView.unitLabel.isHidden = false
-            presentView = .direction
+        }
+    }
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        hideObjects(hide: false)
+        let viewControllers = contentPageVC.viewControllers
+        for view in viewControllers! {
+            if view.isKind(of: DirectionViewController.self) {
+                let directionView = view as! DirectionViewController
+                directionView.distanceLabel.isHidden = false
+            }
         }
     }
     
@@ -203,26 +238,59 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
         presentView = .direction
         hideObjects(hide: false)
+        
+        showDestinationLabel.text = NSLocalizedString("destination", comment: "")
+        destinationLabel.isEnabled = true
+        if destinationLabel.title(for: .normal) == longPressToSelect {
+            destinationLabel.setTitle(selectDestination, for: .normal)
+        }else if destinationLabel.title(for: .normal) == activity {
+            destinationLabel.setTitle(destinationName, for: .normal)
+        }
+        
         contentPageVC.setViewControllers([getCenter()], direction: direction, animated: true, completion: nil)
     }
     @IBAction func tapActivity() {
         if presentView == .activity {  return  }
         presentView = .activity
         hideObjects(hide: false)
+        
+        destinationLabel.isEnabled = true
+        if destinationLabel.title(for: .normal) == longPressToSelect {
+            destinationLabel.setTitle(selectDestination, for: .normal)
+        }else if destinationLabel.title(for: .normal) == destinationName {
+            showDestinationLabel.text = " "
+            destinationLabel.setTitle(activity, for: .normal)
+            destinationLabel.isEnabled = false
+        }
+        
         contentPageVC.setViewControllers([getLeft()], direction: .reverse, animated: true, completion: nil)
     }
     @IBAction func tapMap() {
         if presentView == .map {  return  }
         presentView = .map
         hideObjects(hide: false)
+        
+        showDestinationLabel.text = NSLocalizedString("destination", comment: "")
+        destinationLabel.isEnabled = true
+        if destinationLabel.title(for: .normal) == selectDestination {
+            destinationLabel.setTitle(longPressToSelect, for: .normal)
+        }else if destinationLabel.title(for: .normal) == activity {
+            destinationLabel.setTitle(destinationName, for: .normal)
+        }
+        
         contentPageVC.setViewControllers([getRight()], direction: .forward, animated: true, completion: nil)
     }
     
     @IBAction func tapDestinationLabel() {
-        if presentView == .map {
-            tapDirection()
-        }else {
+        let labelTitle = destinationLabel.title(for: .normal)
+        if labelTitle == selectDestination {
             tapMap()
+        }else if labelTitle == destinationName {
+            if presentView == .direction {
+                tapMap()
+            }else {
+                tapDirection()
+            }
         }
     }
     
@@ -230,6 +298,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
     
+    @IBOutlet weak var showDestinationLabel: UILabel!
     @IBOutlet weak var destinationLabel: UIButton!
     @IBOutlet weak var tabStackView: UIStackView!
     
@@ -238,22 +307,28 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     let hideView = UIView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupViews()
-        containerView.addSubview(contentPageVC.view)
-        
-        locationManager.delegate = self
         
         if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
             let latitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees
             let longitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees
             markerLocation = CLLocation(latitude: latitude, longitude: longitude)
+            destinationName = userDefaults.string(forKey: ud.key.destinationName.rawValue)
         }
         
-        askAllowHealth()
+        setupViews()
+        containerView.addSubview(contentPageVC.view)
+        
+        locationManager.delegate = self
+        locationManager.activityType = .fitness
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        
+        usingTimer = Timer.scheduledTimer(timeInterval: 60,
+                                          target: self,
+                                          selector: #selector(usingUpdater),
+                                          userInfo: nil,
+                                          repeats: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -289,23 +364,27 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         directionButton.layer.shadowOffset = CGSize(width: 1, height: 1)
         directionButton.layer.shadowRadius = 4
         directionButton.layer.shadowOpacity = 0.5
-        let directionButtonImageEdgeInsets = CGFloat(Double(directionButton.bounds.height) - Double(directionButton.bounds.height) / 2.0.squareRoot() / 2.0)
-        directionButton.imageEdgeInsets = UIEdgeInsets(top: directionButtonImageEdgeInsets, left: directionButtonImageEdgeInsets, bottom: directionButtonImageEdgeInsets, right: directionButtonImageEdgeInsets)
-        activityButton.layer.cornerRadius = activityButton.bounds.height / 2
+        activityButton.layer.cornerRadius = 25
         activityButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
         activityButton.contentMode = UIView.ContentMode.scaleAspectFill
         activityButton.imageEdgeInsets = UIEdgeInsets(top: 0,
                                                       left: 0,
                                                       bottom: 0,
                                                       right: directionButton.bounds.height / 2 / 2)
-        mapButton.layer.cornerRadius = mapButton.bounds.height / 2
+        mapButton.layer.cornerRadius = 25
         mapButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
         mapButton.contentMode = UIView.ContentMode.scaleAspectFill
         mapButton.imageEdgeInsets = UIEdgeInsets(top: 0,
                                                  left: directionButton.bounds.height / 2 / 2,
                                                  bottom: 0,
                                                  right: 0)
+        showDestinationLabel.text = NSLocalizedString("destination", comment: "")
         destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
+        if destinationName != nil {
+            destinationLabel.setTitle(destinationName, for: .normal)
+        }else {
+            destinationLabel.setTitle(selectDestination, for: .normal)
+        }
         
         addChild(contentPageVC)
         contentPageVC.view.frame = containerView.bounds
@@ -331,12 +410,31 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             HKWorkoutType.workoutType()
             ])
         healthStore.requestAuthorization(toShare: writeTypes as Set<HKSampleType>, read: readTypes as? Set<HKObjectType>, completion: { success, error in
-            if success {
-                print("Success")
-            } else {
-                print("Error")
-            }
         })
     }
-
+    
+    var usingTimer = Timer()
+    @objc func usingUpdater() {
+        let now = Date()
+        userDefaults.register(defaults: ["lastUsed" : now])
+        guard let lastUsed = userDefaults.object(forKey: "lastUsed") as? Date else { return }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyyMMdd"
+        if dateFormatter.string(from: now) != dateFormatter.string(from: lastUsed) {
+            userDefaults.set(0, forKey: ud.key.usingTimes.rawValue)
+            userDefaults.set(now, forKey: "lastUsed")
+        }
+        
+        
+        let correntTime = userDefaults.integer(forKey: ud.key.usingTimes.rawValue)
+        userDefaults.set((correntTime + 1), forKey: ud.key.usingTimes.rawValue)
+        
+        for view in contentPageVC.viewControllers! {
+            if view.isKind(of: ActivityViewController.self) {
+                let activityView = view as! ActivityViewController
+                activityView.reloadCollectionView()
+            }
+        }
+    }
+    
 }

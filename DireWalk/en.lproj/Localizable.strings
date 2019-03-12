@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  DireWalk
+
+  Created by 麻生昌志 on 2019/03/09.
+  Copyright © 2019 麻生昌志. All rights reserved.
+*/
+
+"destination" = "Destination:";
+"selectDestination" = "Select Destination";
+"longPressToSelect" = "Press and Hold the Map to Select";
+"directionOnlyMode" = "Direction Only Mode";
+"directionOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.";
+
+"DireWalk" = "DireWalk";
+"steps" = "Steps";
+"walkingDistance" = "Walking Distance";
+"flightsClimbed" = "Flights Climbed";
+
+"DireWalkUnit" = "minut";
+"DireWalkUnits" = "minuts";
+"stepsUnit" = "step";
+"stepsUnits" = "steps";
+"walkingDistanceUnit" = "km";
+"flightsClimbedUnit" = "floor";
+"flightsClimbedUnits" = "floors";
+
+"error" = "Error";
+"pleaseAllow" = "Please allow";
+
+"settings" = "Settings";
+"done" = "Done";
+"aboutStrings" = "DireWalk is an application for people who want to walk freely.\nIf you would want to go somewhere, you might use maps. But it’s boring because the way is limited.\nIf you would use DireWalk, you can enjoy walking and reach a destination.";
+"reviewSection" = "Review & Share";
+"review" = "Review on App Store";
+"share" = "Share";
+"about" = "About";
+"version" = "version";
+"createdby" = "created by";
+
+"reauestLocation" = "This application needs your location.";
+"toSettings" = "Open Settings";

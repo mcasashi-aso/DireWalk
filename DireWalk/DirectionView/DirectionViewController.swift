@@ -27,7 +27,6 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var headingImageView: UIView!
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var unitLabel: UILabel!
     
     var destinationLocation = CLLocation()
     
@@ -36,8 +35,6 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         
         let headingRadian: CGFloat = userDefaults.object(forKey: ud.key.directoinButtonHeading.rawValue) as! CGFloat
         headingImageView.transform = CGAffineTransform(rotationAngle: headingRadian * CGFloat.pi / 180)
-        let now = Date()
-        userDefaults.set(now, forKey: "date")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -49,8 +46,8 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         }
         
         let far = destinationLocation.distance(from: locationManager.location!)
-        var distance: String!
-        var unit: String!
+        var distance: String = "→"
+        var unit: String = ""
         if 50 > Int(far) {
             distance = "\(Int(far))"
             unit = "m"
@@ -69,23 +66,46 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         }
         if 30 > Int(far) {
             distanceLabel.isHidden = false
-            unitLabel.isHidden = false
             delegate?.arrivalDestination()
         }
-        distanceLabel.text = distance
-        unitLabel.text = unit
+        let distanceAttributed: [NSAttributedString.Key : Any] = [
+            .font : UIFont.systemFont(ofSize: 80),
+            .foregroundColor : UIColor.white
+        ]
+        let unitAttributed: [NSAttributedString.Key : Any] = [
+            .font : UIFont.systemFont(ofSize: 40),
+            .foregroundColor : UIColor.white
+        ]
+        let attributedSpace = NSAttributedString(string: "   ", attributes: unitAttributed)
+        let attributedDistance = NSAttributedString(string: distance, attributes: distanceAttributed)
+        let attributedUnit = NSAttributedString(string: " " + unit, attributes: unitAttributed)
+        let labelText = NSMutableAttributedString()
+        labelText.append(attributedSpace)
+        labelText.append(attributedDistance)
+        labelText.append(attributedUnit)
+        distanceLabel.attributedText = labelText
     }
     
     func setupViews() {
-        
+        distanceLabel.adjustsFontSizeToFitWidth = true
+        headingImageView.transform = CGAffineTransform(rotationAngle: 90 * CGFloat.pi / 180)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews()
         locationManager.delegate = self
-        if userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) != nil {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
+                locationManager.startUpdatingLocation()
+                locationManager.startUpdatingHeading()
+            }
+        default:
+            break
         }
     }
     
@@ -93,20 +113,19 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         let touch = touches.first
         let force = (touch?.force)!/(touch?.maximumPossibleForce)!
         if force == 1.0 {
-            if count == 0.0 {
-                self.timer = Timer.scheduledTimer(timeInterval: 0.01,
+            if !timer.isValid{
+                self.timer = Timer.scheduledTimer(timeInterval: 0.001,
                                                   target: self,
                                                   selector: #selector(self.timeUpdater),
                                                   userInfo: nil,
                                                   repeats: true)
                 if distanceLabel.isHidden {
                     distanceLabel.isHidden = false
-                    unitLabel.isHidden = false
                     delegate?.hideObjects(hide: false)
                 }else {
                     distanceLabel.isHidden = true
-                    unitLabel.isHidden = true
                     delegate?.hideObjects(hide: true)
+                    hideAlart()
                 }
                 let generater = UINotificationFeedbackGenerator()
                 generater.prepare()
@@ -117,9 +136,21 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
-    
     @objc func timeUpdater() {
-        count += 0.01
+        count += 0.001
+    }
+    
+    func hideAlart() {
+        userDefaults.register(defaults: ["hideAlert" : true])
+        if userDefaults.bool(forKey: "hideAlert") {
+            let alert = UIAlertController(title: NSLocalizedString("directionOnlyMode", comment: ""),
+                message: NSLocalizedString("directionOnlyModeCaption", comment: ""),
+                preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) -> Void in })
+            alert.addAction(okAction)
+            userDefaults.set(false, forKey: "hideAlert")
+            present(alert, animated: true, completion: nil)
+        }
     }
 
     @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {
@@ -135,11 +166,9 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
                 timer.invalidate()
                 if distanceLabel.isHidden {
                     distanceLabel.isHidden = false
-                    unitLabel.isHidden = false
                     delegate?.hideObjects(hide: false)
                 }else {
                     distanceLabel.isHidden = true
-                    unitLabel.isHidden = true
                     delegate?.hideObjects(hide: true)
                 }
             }

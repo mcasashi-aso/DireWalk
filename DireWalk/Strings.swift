@@ -12,7 +12,9 @@ struct ud {
     enum key: String{
         case annotationLatitude
         case annotationLongitude
+        case destinationName
         case previousAnnotation
         case directoinButtonHeading
+        case usingTimes
     }
 }

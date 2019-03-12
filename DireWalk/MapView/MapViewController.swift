@@ -32,6 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var pressable = false
 
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
+        if locationManager.location == nil { return }
         let location: CGPoint = sender.location(in: mapView)
         if sender.state == UIGestureRecognizer.State.began {
             pressable = true
@@ -47,6 +48,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             timer.invalidate()
             let mapPoint: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
             
+            mapView.removeAnnotation(annotation)
             annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
             addMarker(new: true)
         }
@@ -105,7 +107,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if annotation is MKUserLocation {
              return nil
         }
-        
         let reuseld = "pin"
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView
         if pinView == nil {

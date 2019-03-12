@@ -8,27 +8,156 @@
 
 import UIKit
 import HealthKit
+import CoreMotion
 
 class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     var healthStore = HKHealthStore()
     
-    let datas: [CellData] = [CellData.init(about: "アクティビティ", number: 20, unit: "分"),
-                             CellData.init(about: "歩数", number: 8672, unit: "歩")]
+    var datas: [CellData] = [
+        CellData(about: NSLocalizedString("walkingDistance", comment: ""),
+                 number: NSLocalizedString("error", comment: ""),
+                 unit: NSLocalizedString("pleaseAllow", comment: "")),
+        CellData(about: NSLocalizedString("steps", comment: ""),
+                 number: NSLocalizedString("error", comment: ""),
+                 unit: NSLocalizedString("pleaseAllow", comment: "")),
+        CellData(about: NSLocalizedString("flightsClimbed", comment: ""),
+                 number: NSLocalizedString("error", comment: ""),
+                 unit: NSLocalizedString("pleaseAllow", comment: "")),
+        CellData(about: NSLocalizedString("DireWalk", comment: ""),
+                 number: NSLocalizedString("error", comment: ""),
+                 unit: NSLocalizedString("pleaseAllow", comment: "")),
+    ]
     
-//    func getStepCount() -> CellData{
-//        let now = Date()
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyyMMdd"
-//        let todayAtO = dateFormatter.string(from: now)
-//        let startDate = dateFormatter.date(from: todayAtO)
-//        let endDate = now
-//
-//        let typeOfStepCount = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-//
-//        let
-//
-//    }
+    func checkUpdateHealth() {
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .stepCount)!]) {
+            guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) else { return }
+            let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: {
+                (query, completionHandler, error) in
+                self.reloadCollectionView()
+            })
+            healthStore.execute(observerQuery)
+        }
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!]) {
+            guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning) else { return }
+            let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: { query, completionHandler, error in
+                self.reloadCollectionView()
+            })
+            healthStore.execute(observerQuery)
+        }
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .flightsClimbed)!]) {
+            guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed) else { return }
+            let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: { query, completionHandler, error in
+                self.reloadCollectionView()
+            })
+            healthStore.execute(observerQuery)
+        }
+    }
+    
+    func reloadCollectionView() {
+        let now = Date()
+        let calender = Calendar.current
+        let components = calender.dateComponents([.year, .month, .day], from: now)
+        guard let startDate = calender.date(from: components) else { return }
+        guard let endDate = calender.date(byAdding: .day, value: 1, to: startDate) else { return }
+        
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .stepCount)!]) {
+            getStepCount(startDate: startDate, endDate: endDate)
+        }
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!]) {
+            getWalkingDistance(startDate: startDate, endDate: endDate)
+        }
+        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .flightsClimbed)!]) {
+            getFlightsClimbed(startDate: startDate, endDate: endDate)
+        }
+        getDireWalkUsingTimes()
+    }
+    
+    func getStepCount(startDate: Date, endDate: Date) {
+        guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) else { return }
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        var steps = 0
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: { query, results, error in
+            guard let samples = results as? [HKQuantitySample] else { return }
+            DispatchQueue.main.async {
+                for sample in samples {
+                    steps += Int(sample.quantity.doubleValue(for: HKUnit.count()))
+                }
+                var unit: String!
+                if steps == 1 || steps == 0 {
+                    unit = NSLocalizedString("stepsUnit", comment: "")
+                }else {
+                    unit = NSLocalizedString("stepsUnits", comment: "")
+                }
+                let cellData = CellData(about: NSLocalizedString("steps", comment: ""),
+                                        number: String(steps),
+                                        unit: unit)
+                self.datas[1] = cellData
+                self.collectionView.reloadData()
+            }
+        })
+        healthStore.execute(query)
+        
+    }
+    func getWalkingDistance(startDate: Date, endDate: Date) {
+        guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning) else { return }
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        var distance = 0.0
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: { query, results, error in
+            guard let samples = results as? [HKQuantitySample] else { return }
+            DispatchQueue.main.sync {
+                for sample in samples {
+                    distance += sample.quantity.doubleValue(for: HKUnit.meter())
+                }
+                let cellData = CellData(about: NSLocalizedString("walkingDistance", comment: ""),
+                                        number: String(ceil(distance / 100.0) / 10.0),
+                                        unit: NSLocalizedString("walkingDistanceUnit", comment: ""))
+                self.datas[0] = cellData
+                self.collectionView.reloadData()
+            }
+        })
+        healthStore.execute(query)
+    }
+    func getFlightsClimbed(startDate: Date, endDate: Date) {
+        guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed) else { return }
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
+        var climbed = 0
+        let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil, resultsHandler: { query, results, error in
+            guard let samples = results as? [HKQuantitySample] else { return }
+            DispatchQueue.main.async {
+                for sample in samples {
+                    climbed += Int(sample.quantity.doubleValue(for: HKUnit.count()))
+                }
+                var unit: String!
+                if climbed == 1 || climbed == 0 {
+                    unit = NSLocalizedString("flightsClimbedUnit", comment: "")
+                }else {
+                    unit = NSLocalizedString("flightsClimbedUnits", comment: "")
+                }
+                let cellData = CellData(about: NSLocalizedString("flightsClimbed", comment: ""),
+                                        number: String(climbed),
+                                        unit: unit)
+                self.datas[2] = cellData
+                self.collectionView.reloadData()
+            }
+        })
+        healthStore.execute(query)
+    }
+    func getDireWalkUsingTimes() {
+        let usingTimes = UserDefaults.standard.integer(forKey: ud.key.usingTimes.rawValue)
+        var unit: String!
+        if usingTimes == 1 || usingTimes == 0 {
+            unit = NSLocalizedString("DireWalkUnit", comment: "")
+        }else {
+            unit = NSLocalizedString("DireWalkUnits", comment: "")
+        }
+        
+        let cellData = CellData(about: NSLocalizedString("DireWalk", comment: ""),
+                                number: String(usingTimes),
+                                unit: unit)
+        datas[3] = cellData
+        collectionView.reloadData()
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return datas.count
@@ -43,6 +172,7 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        print("here")
         let screenWidth = UIScreen.main.bounds.width
         let width = CGFloat((screenWidth - 24*2 - 24) / 2)
         let size = CGSize(width: width, height: width)
@@ -58,6 +188,41 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkUpdateHealth()
+    }
+    
+    
+    func wait(_ waitContinuation: @escaping (()->Bool), compleation: @escaping (()->Void)) {
+        var wait = waitContinuation()
+        // 0.01秒周期で待機条件をクリアするまで待ちます。
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.global().async {
+            while wait {
+                DispatchQueue.main.async {
+                    wait = waitContinuation()
+                    semaphore.signal()
+                }
+                semaphore.wait()
+                Thread.sleep(forTimeInterval: 0.01)
+            }
+            // 待機条件をクリアしたので通過後の処理を行います。
+            DispatchQueue.main.async {
+                compleation()
+            }
+        }
     }
 
+    func checkAuthorization(type: Set<HKObjectType>) -> Bool {
+        var isEnabled = true
+        
+        if HKHealthStore.isHealthDataAvailable() {
+            healthStore.requestAuthorization(toShare: nil, read: type, completion: { success, error in
+                isEnabled = success
+            })
+        }else {
+            isEnabled = false
+        }
+        return isEnabled
+    }
+    
 }
