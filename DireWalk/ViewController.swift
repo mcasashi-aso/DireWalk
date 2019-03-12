@@ -432,7 +432,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         for view in contentPageVC.viewControllers! {
             if view.isKind(of: ActivityViewController.self) {
                 let activityView = view as! ActivityViewController
-                activityView.reloadCollectionView()
+                activityView.getDireWalkUsingTimes()
             }
         }
     }

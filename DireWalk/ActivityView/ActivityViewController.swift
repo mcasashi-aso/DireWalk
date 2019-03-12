@@ -34,46 +34,34 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
             guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) else { return }
             let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: {
                 (query, completionHandler, error) in
-                self.reloadCollectionView()
+                self.getStepCount()
             })
             healthStore.execute(observerQuery)
         }
         if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!]) {
             guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning) else { return }
             let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: { query, completionHandler, error in
-                self.reloadCollectionView()
+                self.getWalkingDistance()
             })
             healthStore.execute(observerQuery)
         }
         if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .flightsClimbed)!]) {
             guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed) else { return }
             let observerQuery: HKObserverQuery = HKObserverQuery(sampleType: type, predicate: nil, updateHandler: { query, completionHandler, error in
-                self.reloadCollectionView()
+                self.getFlightsClimbed()
             })
             healthStore.execute(observerQuery)
         }
+        getDireWalkUsingTimes()
     }
     
-    func reloadCollectionView() {
+    func getStepCount() {
         let now = Date()
         let calender = Calendar.current
         let components = calender.dateComponents([.year, .month, .day], from: now)
         guard let startDate = calender.date(from: components) else { return }
         guard let endDate = calender.date(byAdding: .day, value: 1, to: startDate) else { return }
         
-        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .stepCount)!]) {
-            getStepCount(startDate: startDate, endDate: endDate)
-        }
-        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!]) {
-            getWalkingDistance(startDate: startDate, endDate: endDate)
-        }
-        if checkAuthorization(type: [HKObjectType.quantityType(forIdentifier: .flightsClimbed)!]) {
-            getFlightsClimbed(startDate: startDate, endDate: endDate)
-        }
-        getDireWalkUsingTimes()
-    }
-    
-    func getStepCount(startDate: Date, endDate: Date) {
         guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) else { return }
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         var steps = 0
@@ -92,14 +80,22 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
                 let cellData = CellData(about: NSLocalizedString("steps", comment: ""),
                                         number: String(steps),
                                         unit: unit)
+                print("置き換え")
                 self.datas[1] = cellData
+                print("reload")
                 self.collectionView.reloadData()
             }
         })
         healthStore.execute(query)
         
     }
-    func getWalkingDistance(startDate: Date, endDate: Date) {
+    func getWalkingDistance() {
+        let now = Date()
+        let calender = Calendar.current
+        let components = calender.dateComponents([.year, .month, .day], from: now)
+        guard let startDate = calender.date(from: components) else { return }
+        guard let endDate = calender.date(byAdding: .day, value: 1, to: startDate) else { return }
+        
         guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning) else { return }
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         var distance = 0.0
@@ -118,7 +114,13 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         })
         healthStore.execute(query)
     }
-    func getFlightsClimbed(startDate: Date, endDate: Date) {
+    func getFlightsClimbed() {
+        let now = Date()
+        let calender = Calendar.current
+        let components = calender.dateComponents([.year, .month, .day], from: now)
+        guard let startDate = calender.date(from: components) else { return }
+        guard let endDate = calender.date(byAdding: .day, value: 1, to: startDate) else { return }
+        
         guard let type = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed) else { return }
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: [])
         var climbed = 0
