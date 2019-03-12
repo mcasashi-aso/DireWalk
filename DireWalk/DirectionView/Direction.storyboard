@@ -24,21 +24,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="mUD-hM-HI1"/>
                                 </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment content="swipe→">
-                                        <attributes>
-                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" size="48" name=".SFNSDisplay"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <attributedString key="attributedText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NK9-fX-mad">
                                 <rect key="frame" x="0.0" y="20" width="320" height="320"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_109760_256" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_109760_512" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
                                         <rect key="frame" x="48" y="48" width="224" height="224"/>
                                         <accessibility key="accessibilityConfiguration" identifier="headingImageView"/>
                                         <constraints>
@@ -85,6 +77,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_109760_256" width="256" height="256"/>
+        <image name="icon_109760_512" width="512" height="512"/>
     </resources>
 </document>
