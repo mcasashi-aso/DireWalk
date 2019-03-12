@@ -23,7 +23,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     
     func setCell() {
         self.aboutLable.adjustsFontSizeToFitWidth = true
-        self.aboutLable.adjustsFontForContentSizeCategory = true
+        self.numberLabel.adjustsFontSizeToFitWidth = true
+        self.unitLable.adjustsFontSizeToFitWidth = true
     }
     
 }

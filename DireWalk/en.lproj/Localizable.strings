@@ -14,8 +14,8 @@
 
 "DireWalk" = "DireWalk";
 "steps" = "Steps";
-"walkingDistance" = "Walking Distance";
-"flightsClimbed" = "Flights Climbed";
+"walkingDistance" = "Distance";
+"flightsClimbed" = "Flights";
 
 "DireWalkUnit" = "minut";
 "DireWalkUnits" = "minuts";
