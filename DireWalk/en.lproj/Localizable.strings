@@ -9,6 +9,8 @@
 "destination" = "Destination:";
 "selectDestination" = "Select Destination";
 "longPressToSelect" = "Press and Hold the Map to Select";
+"swipe" = "Swipe and Select";
+
 "directionOnlyMode" = "Direction Only Mode";
 "directionOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.";
 
@@ -34,6 +36,7 @@
 "reviewSection" = "Review & Share";
 "review" = "Review on App Store";
 "share" = "Share";
+"shareString" = "Let's use DireWalk and enjoy walking!";
 "about" = "About";
 "version" = "version";
 "createdby" = "created by";

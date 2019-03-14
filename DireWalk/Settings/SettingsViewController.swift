@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         case 0:
             return nil
         case 1:
-            return nil  // NSLocalizedString("reviewSection", comment: "")
+            return NSLocalizedString("reviewSection", comment: "")
         case 2:
             return NSLocalizedString("about", comment: "")
         default:
@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 0    // 2
+        case 1: return 2
         case 2: return 2
         default: return 0
         }
@@ -77,14 +77,20 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if indexPath.section != 1 { return }
         switch indexPath.row {
         case 0:
-            // https://dev.classmethod.jp/smartphone/launching-app-store-from-ios-app/
+            if let url = URL(string: "https://itunes.apple.com/jp/app/id1094591345?mt=8&action=write-review") {
+                UIApplication.shared.open(url)
+            }
             break
         case 1:
-            // ActivityViewControllerを呼ぶ
-            break
+            let activityItemSentence = NSLocalizedString("shareString", comment: "")
+            let appURL = NSURL(fileURLWithPath: "https://life-is-tech.com/")
+            let activityViewController = UIActivityViewController(
+                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
         default:
             break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @IBOutlet weak var doneButton: UIButton!

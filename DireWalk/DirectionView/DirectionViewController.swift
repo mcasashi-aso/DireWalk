@@ -37,16 +37,20 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         headingImageView.transform = CGAffineTransform(rotationAngle: headingRadian * CGFloat.pi / 180)
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func getDestinationLocation() {
         if destinationLocation.coordinate.latitude == 0.0 ||
             destinationLocation.coordinate.longitude == 0.0 {
             destinationLocation = CLLocation(
                 latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
                 longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
         }
-        
+    }
+    
+    
+    
+    func updateFar() {
         let far = destinationLocation.distance(from: locationManager.location!)
-        var distance: String = "→"
+        var distance: String = ""
         var unit: String = ""
         if 50 > Int(far) {
             distance = "\(Int(far))"
@@ -86,7 +90,16 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         distanceLabel.attributedText = labelText
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        updateFar()
+    }
+    
     func setupViews() {
+        let distanceText = NSAttributedString(
+            string: NSLocalizedString("swipe", comment: ""),
+            attributes: [.foregroundColor : UIColor.white,
+                         .font : UIFont.systemFont(ofSize: 40)])
+        distanceLabel.attributedText = distanceText
         distanceLabel.adjustsFontSizeToFitWidth = true
         headingImageView.transform = CGAffineTransform(rotationAngle: 90 * CGFloat.pi / 180)
     }
@@ -95,6 +108,11 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupViews()
         locationManager.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getDestinationLocation()
+        updateFar()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

@@ -80,9 +80,7 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
                 let cellData = CellData(about: NSLocalizedString("steps", comment: ""),
                                         number: String(steps),
                                         unit: unit)
-                print("置き換え")
                 self.datas[1] = cellData
-                print("reload")
                 self.collectionView.reloadData()
             }
         })
@@ -148,14 +146,15 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     func getDireWalkUsingTimes() {
         let usingTimes = UserDefaults.standard.integer(forKey: ud.key.usingTimes.rawValue)
         var unit: String!
-        if usingTimes == 1 || usingTimes == 0 {
+        let usingTimesMinutes = Int(ceil(Double(usingTimes) / 60.0))
+        if usingTimesMinutes == 1 || usingTimes == 0 {
             unit = NSLocalizedString("DireWalkUnit", comment: "")
         }else {
             unit = NSLocalizedString("DireWalkUnits", comment: "")
         }
         
         let cellData = CellData(about: NSLocalizedString("DireWalk", comment: ""),
-                                number: String(usingTimes),
+                                number: String(usingTimesMinutes),
                                 unit: unit)
         datas[3] = cellData
         collectionView.reloadData()

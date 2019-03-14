@@ -91,6 +91,19 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         
         arrivalTimer.invalidate()
         count = 0
+        
+        print("here")
+        
+        let views = contentPageVC.viewControllers
+        for view in views! {
+            print(view)
+            if view.isKind(of: DirectionViewController.self) {
+                let directionView = view as! DirectionViewController
+                directionView.getDestinationLocation()
+                directionView.updateFar()
+                print("direction")
+            }
+        }
     }
     
     func destinationHeading() {
@@ -324,7 +337,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         locationManager.activityType = .fitness
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         
-        usingTimer = Timer.scheduledTimer(timeInterval: 60,
+        usingTimer = Timer.scheduledTimer(timeInterval: 1,
                                           target: self,
                                           selector: #selector(usingUpdater),
                                           userInfo: nil,
@@ -401,38 +414,46 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     func askAllowHealth() {
         let readTypes = Set([
-            HKWorkoutType.workoutType(),
             HKQuantityType.quantityType(forIdentifier: .stepCount),
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
             HKQuantityType.quantityType(forIdentifier: .flightsClimbed)
             ])
-        let writeTypes = Set([
-            HKWorkoutType.workoutType()
-            ])
-        healthStore.requestAuthorization(toShare: writeTypes as Set<HKSampleType>, read: readTypes as? Set<HKObjectType>, completion: { success, error in
+        healthStore.requestAuthorization(toShare: nil, read: readTypes as? Set<HKObjectType>, completion: { success, error in
         })
     }
     
     var usingTimer = Timer()
     @objc func usingUpdater() {
         let now = Date()
-        userDefaults.register(defaults: ["lastUsed" : now])
-        guard let lastUsed = userDefaults.object(forKey: "lastUsed") as? Date else { return }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyyMMdd"
-        if dateFormatter.string(from: now) != dateFormatter.string(from: lastUsed) {
-            userDefaults.set(0, forKey: ud.key.usingTimes.rawValue)
-            userDefaults.set(now, forKey: "lastUsed")
+        let today = dateFormatter.string(from: now)
+        var lastUsed: String!
+        if let notNil = userDefaults.string(forKey: "lastUsed") {
+            lastUsed = notNil
+        }else {
+            lastUsed = today
+            userDefaults.set(today, forKey: "lastUsed")
         }
-        
-        
-        let correntTime = userDefaults.integer(forKey: ud.key.usingTimes.rawValue)
-        userDefaults.set((correntTime + 1), forKey: ud.key.usingTimes.rawValue)
+        var dayChanged = false
+        if lastUsed != today {
+            print("success!")
+            userDefaults.set(0, forKey: ud.key.usingTimes.rawValue)
+            userDefaults.set(today, forKey: "lastUsed")
+            dayChanged = true
+        }
+        let correntUsingTime = userDefaults.integer(forKey: ud.key.usingTimes.rawValue)
+        userDefaults.set((correntUsingTime + 1), forKey: ud.key.usingTimes.rawValue)
         
         for view in contentPageVC.viewControllers! {
             if view.isKind(of: ActivityViewController.self) {
                 let activityView = view as! ActivityViewController
                 activityView.getDireWalkUsingTimes()
+                if dayChanged {
+                    activityView.getWalkingDistance()
+                    activityView.getStepCount()
+                    activityView.getFlightsClimbed()
+                }
             }
         }
     }

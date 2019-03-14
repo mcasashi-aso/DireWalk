@@ -9,6 +9,8 @@
 "destination" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
+"swipe" = "スワイプして選択";
+
 "directionOnlyMode" = "方向のみモード";
 "directionOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックがオフになります.";
 
@@ -34,6 +36,7 @@
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";
 "share" = "共有";
+"shareString" = "DireWalkを使って楽しく歩こう！";
 "about" = "このアプリについて";
 "version" = "バージョン";
 "createdby" = "作成者";
