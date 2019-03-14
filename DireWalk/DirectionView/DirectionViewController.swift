@@ -108,9 +108,11 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupViews()
         locationManager.delegate = self
+        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLatitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
+        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLongitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         getDestinationLocation()
         updateFar()
     }

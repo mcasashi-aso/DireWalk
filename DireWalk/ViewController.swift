@@ -342,6 +342,18 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
                                           selector: #selector(usingUpdater),
                                           userInfo: nil,
                                           repeats: true)
+        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLatitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
+        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLongitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        for view in contentPageVC.viewControllers! {
+            if view.isKind(of: DirectionViewController.self) {
+                let directionVeiw = view as! DirectionViewController
+                directionVeiw.getDestinationLocation()
+                directionVeiw.updateFar()
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
