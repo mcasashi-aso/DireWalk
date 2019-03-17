@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import HealthKit
+import GoogleMobileAds
 
 class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, MapViewControllerDelegate, CLLocationManagerDelegate, DirectionViewControllerDelegate {
     
@@ -59,11 +60,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     }
     
     var arrivalTimer = Timer()
-    var count = 0
+    var count = 0.0
     func arrivalDestination() {
         hideObjects(hide: false)
         if !arrivalTimer.isValid {
-            arrivalTimer = Timer.scheduledTimer(timeInterval: 1,
+            arrivalTimer = Timer.scheduledTimer(timeInterval: 0.05,
                                                 target: self,
                                                 selector: #selector(timeUpdater),
                                                 userInfo: nil,
@@ -71,13 +72,13 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             let generater = UINotificationFeedbackGenerator()
             generater.prepare()
             generater.notificationOccurred(.warning)
-        }else if count > 60 {
+        }else if count > 60.0 {
             arrivalTimer.invalidate()
-            count = 0
+            count = 0.0
         }
     }
     @objc func timeUpdater() {
-        count += 1
+        count += 0.05
     }
     
     func updateMarker(markerName: String) {
@@ -91,19 +92,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         
         arrivalTimer.invalidate()
         count = 0
-        
-        print("here")
-        
-        let views = contentPageVC.viewControllers
-        for view in views! {
-            print(view)
-            if view.isKind(of: DirectionViewController.self) {
-                let directionView = view as! DirectionViewController
-                directionView.getDestinationLocation()
-                directionView.updateFar()
-                print("direction")
-            }
-        }
     }
     
     func destinationHeading() {
@@ -218,7 +206,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         for view in viewControllers! {
             if view.isKind(of: DirectionViewController.self) {
                 let directionView = view as! DirectionViewController
-                directionView.distanceLabel.isHidden = false
+                if !userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+                    directionView.distanceLabel.isHidden = false
+                }
+                directionView.isHidden = false
             }
         }
     }

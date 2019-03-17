@@ -9,8 +9,9 @@
 import UIKit
 import HealthKit
 import CoreMotion
+import GoogleMobileAds
 
-class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
     
     var healthStore = HKHealthStore()
     
@@ -161,22 +162,38 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datas.count
+        return datas.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ActivityCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ActivityCollectionViewCell
-        cell.layer.cornerRadius = cell.bounds.height / 6
-        cell.layer.masksToBounds = true
-        cell.setData(cellData: datas[indexPath.row])
-        return cell
+        print(indexPath)
+        if indexPath.row <= (datas.count - 1) {
+            let cell: ActivityCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ActivityCollectionViewCell
+            cell.layer.cornerRadius = cell.bounds.height / 6
+            cell.layer.masksToBounds = true
+            cell.setData(cellData: datas[indexPath.row])
+            return cell
+        }else {
+            let cell: AdCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdCell", for: indexPath) as! AdCollectionViewCell
+            cell.adView.adUnitID = "ca-app-pub-7482106968377175/6483821918"
+            cell.adView.rootViewController = self
+            let request = GADRequest()
+
+            cell.adView.load(request)
+            cell.adView.delegate = self
+            return cell
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screenWidth = UIScreen.main.bounds.width
-        let width = CGFloat((screenWidth - 24*2 - 24) / 2)
-        let size = CGSize(width: width, height: width)
-        return size
+        if indexPath.row <= (datas.count - 1) {
+            let screenWidth = UIScreen.main.bounds.width
+            let width = CGFloat((screenWidth - 24*2 - 24) / 2)
+            let size = CGSize(width: width, height: width)
+            return size
+        }else {
+            return CGSize(width: 300, height: 250)
+        }
     }
     
     @IBOutlet weak var collectionView: UICollectionView!{

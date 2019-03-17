@@ -26,10 +26,8 @@
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
 	<string>You will be able to see the activity within this application</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>This application saves activities to healthcare</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>I will show your location on the map</string>
+	<string>This app use your location because calculat direction and far to destination</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>

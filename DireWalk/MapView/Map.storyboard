@@ -19,25 +19,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsCompass="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcU-6M-rKE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="718"/>
                                 <gestureRecognizers/>
                             </mapView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-KE-9VR">
-                                <rect key="frame" x="0.0" y="44" width="10" height="734"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNz-Jq-imh" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="10" id="FDZ-Q7-M1V"/>
+                                    <constraint firstAttribute="height" constant="50" id="jUP-An-8KE"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vl-LV-oQC">
+                                <rect key="frame" x="0.0" y="94" width="15" height="684"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="yFY-Zi-6ox"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="as5-6k-KjC" firstAttribute="bottom" secondItem="vyr-KE-9VR" secondAttribute="bottom" id="5Fl-QD-10u"/>
-                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="CcO-Mp-0Lt" secondAttribute="top" id="LtN-2V-EuH"/>
-                            <constraint firstItem="vyr-KE-9VR" firstAttribute="top" secondItem="as5-6k-KjC" secondAttribute="top" id="TuC-6N-ChD"/>
+                            <constraint firstItem="iNz-Jq-imh" firstAttribute="top" secondItem="as5-6k-KjC" secondAttribute="top" id="Hff-uT-Xfd"/>
+                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="I1E-kQ-qHV"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="zcU-6M-rKE" secondAttribute="trailing" id="V3b-1p-Gkw"/>
+                            <constraint firstItem="1vl-LV-oQC" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="ZM2-7L-LJO"/>
+                            <constraint firstItem="as5-6k-KjC" firstAttribute="bottom" secondItem="1vl-LV-oQC" secondAttribute="bottom" id="aMy-Ci-6Zy"/>
                             <constraint firstItem="zcU-6M-rKE" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="gz2-g9-J0L"/>
-                            <constraint firstItem="vyr-KE-9VR" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="xTe-k3-tQf"/>
+                            <constraint firstItem="1vl-LV-oQC" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="iOB-m3-l6n"/>
+                            <constraint firstItem="iNz-Jq-imh" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="ttP-0Z-aG1"/>
+                            <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="iNz-Jq-imh" secondAttribute="trailing" id="uiF-4N-BNH"/>
                             <constraint firstAttribute="bottom" secondItem="zcU-6M-rKE" secondAttribute="bottom" id="zzH-bW-2IO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="as5-6k-KjC"/>
@@ -46,6 +56,7 @@
                         </connections>
                     </view>
                     <connections>
+                        <outlet property="bannerView" destination="iNz-Jq-imh" id="qrJ-RU-nBB"/>
                         <outlet property="mapView" destination="zcU-6M-rKE" id="rEl-sh-Nex"/>
                     </connections>
                 </viewController>

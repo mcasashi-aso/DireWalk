@@ -19,27 +19,35 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
-            return nil
-        case 1:
-            return NSLocalizedString("reviewSection", comment: "")
-        case 2:
-            return NSLocalizedString("about", comment: "")
-        default:
-            return nil
+        case 0: return nil
+        case 1: return nil
+        case 2: return nil //NSLocalizedString("reviewSection", comment: "")
+        case 3: return NSLocalizedString("about", comment: "")
+        default: return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch section {
+        case 0: return nil
+        case 1: return NSLocalizedString("captionDoNotShowFar", comment: "")
+        case 2: return nil
+        case 3: return nil
+        default: return nil
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 2
-        case 2: return 2
+        case 1: return 1
+        case 2: return 0
+        case 3: return 2
         default: return 0
         }
     }
@@ -51,6 +59,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textView.text = NSLocalizedString("aboutStrings", comment: "")
             return cell
         case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChangeShowFarCell", for: indexPath)
+            cell.textLabel?.text = NSLocalizedString("doNotAlwaysShowFar", comment: "")
+            return cell
+        case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
             switch indexPath.row {
             case 0: cell.textLabel?.text = NSLocalizedString("review", comment: "")
@@ -58,7 +70,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             default: break
             }
             return cell
-        case 2:
+        case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
             switch indexPath.row {
             case 0: cell.textLabel?.text = NSLocalizedString("version", comment: "")
@@ -77,16 +89,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if indexPath.section != 1 { return }
         switch indexPath.row {
         case 0:
-            if let url = URL(string: "https://itunes.apple.com/jp/app/id1094591345?mt=8&action=write-review") {
-                UIApplication.shared.open(url)
-            }
+//            if let url = URL(string: "https://itunes.apple.com/jp/app/id  ?mt=8&action=write-review") {
+//                UIApplication.shared.open(url)
+//            }
             break
         case 1:
-            let activityItemSentence = NSLocalizedString("shareString", comment: "")
-            let appURL = NSURL(fileURLWithPath: "https://life-is-tech.com/")
-            let activityViewController = UIActivityViewController(
-                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
-            self.present(activityViewController, animated: true, completion: nil)
+            break
+//            let activityItemSentence = NSLocalizedString("shareString", comment: "")
+//            let appURL = NSURL(fileURLWithPath: "https://life-is-tech.com/")
+//            let activityViewController = UIActivityViewController(
+//                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
+//            self.present(activityViewController, animated: true, completion: nil)
         default:
             break
         }

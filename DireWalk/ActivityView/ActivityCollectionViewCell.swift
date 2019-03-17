@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class ActivityCollectionViewCell: UICollectionViewCell {
     
@@ -26,5 +27,16 @@ class ActivityCollectionViewCell: UICollectionViewCell {
         self.numberLabel.adjustsFontSizeToFitWidth = true
         self.unitLable.adjustsFontSizeToFitWidth = true
     }
+    
+}
+
+
+class AdCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var adView: GADBannerView! {
+        didSet{
+            adView.adSize = kGADAdSizeMediumRectangle
+        }
+    }
+    
     
 }

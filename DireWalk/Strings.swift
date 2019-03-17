@@ -16,5 +16,6 @@ struct ud {
         case previousAnnotation
         case directoinButtonHeading
         case usingTimes
+        case showFar
     }
 }

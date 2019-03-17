@@ -1,0 +1,6 @@
+framework module Pods_DireWalkTests {
+  umbrella header "Pods-DireWalkTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

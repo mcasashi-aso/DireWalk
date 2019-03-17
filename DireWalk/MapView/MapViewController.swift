@@ -10,12 +10,13 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMobileAds
 
 protocol MapViewControllerDelegate {
     func updateMarker(markerName: String)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate {
     
     var delegate: MapViewControllerDelegate?
     
@@ -27,10 +28,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let annotation = MKPointAnnotation()
     
+    @IBOutlet weak var bannerView: GADBannerView! {
+        didSet{
+            bannerView.adSize = kGADAdSizeSmartBannerPortrait
+        }
+    }
+    
     var count = 0.0
     var timer = Timer()
     var pressable = false
-
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
         if locationManager.location == nil { return }
         let location: CGPoint = sender.location(in: mapView)
@@ -76,7 +82,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         var placeName: String!
         CLGeocoder().reverseGeocodeLocation(destination, completionHandler: {placemarks, error in
             guard let placemark = placemarks?.first, error == nil else {
-                placeName = "ピン"
+                placeName = "marker"
                 return
             }
             if let interest = placemark.areasOfInterest?[0] {
@@ -131,6 +137,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         region.span.latitudeDelta = 0.005
         region.span.longitudeDelta = 0.005
         mapView.setRegion(region, animated: true)
+        mapView.mapType = .mutedStandard
         
         setupMapButtons()
         
@@ -140,6 +147,57 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
             addMarker(new: false)
         }
+        
+        setupGesture()
+        setupAds()
+    }
+    
+    func setupAds() {
+        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
+        bannerView.load(request)
+    }
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("adViewDidReceiveAd")
+    }
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("adView:didFailToRecieveAdWithError: \(error.localizedDescription)")
+    }
+    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
+        print("adViewWillPresentScreen")
+    }
+    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewWillDismissScreen")
+    }
+    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
+        print("adViewDidDismissScreen")
+    }
+    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
+        print("adViewWillLeaveApplication")
+    }
+    
+    // ドラッグの位置記憶用の変数
+    var dragPoint: CGPoint?
+    func setupGesture() {
+        let doubleLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleLongPress(_:)))
+        
+        
+        /* ダブルタップ後、即座にLongPress状態に移るように */
+        doubleLongPress.minimumPressDuration = 0
+        doubleLongPress.numberOfTapsRequired = 1
+        
+        mapView.addGestureRecognizer(doubleLongPress)
+        
+        doubleLongPress.delegate = self
+        
+        /* MKMapViewの機能が実装してあるSubViewを引っ張ってきて、設定してあるDoubleTapGestureRecognizerにdelegateを設定する */
+        mapView.subviews[0].gestureRecognizers?.forEach({ (element) in
+            if let recognizer = (element as? UITapGestureRecognizer), recognizer.numberOfTapsRequired == 2 {
+                element.delegate = self
+            }
+        })
     }
     
     func setupMapButtons() {
@@ -151,7 +209,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         userTrackingButton.backgroundColor = UIColor.white
         userTrackingButton.frame = CGRect(
             origin: CGPoint(x: (screenWidth - userTrackingButton.bounds.maxX - userTrackingButtonSpace),
-                            y: (userTrackingButton.bounds.minY + userTrackingButtonSpace)),
+                            y: (userTrackingButton.bounds.minY + userTrackingButtonSpace + 50)),
             size: userTrackingButton.bounds.size)
         userTrackingButton.layer.cornerRadius = userTrackingButton.bounds.height / 6
         userTrackingButton.layer.masksToBounds = true
@@ -165,7 +223,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         compassButton.compassVisibility = .adaptive
         compassButton.frame = CGRect(
             origin: CGPoint(x: screenWidth - compassButton.bounds.width - compassButtonSpace,
-                            y: userTrackingButtonSpace + userTrackingButton.bounds.maxX + compassButtonSpace),
+                            y: userTrackingButtonSpace + userTrackingButton.bounds.maxX + compassButtonSpace + 50),
             size: compassButton.bounds.size)
         self.view.addSubview(compassButton)
     }
@@ -212,4 +270,40 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     }
     
+}
+
+
+extension MapViewController: UIGestureRecognizerDelegate {
+    /* このzoomメソッドの実装は適当 */
+    func zoom(magnification: Double) {
+        var region = mapView.region
+        let span = region.span
+        region.span = MKCoordinateSpan(latitudeDelta: span.latitudeDelta * magnification, longitudeDelta: span.longitudeDelta * magnification)
+        mapView.setRegion(region, animated: false)
+    }
+    
+    /* ダブルタップ → 上下動  で、ズームイン / アウト する (GoogleMap的な挙動) */
+    @objc func doubleLongPress(_ recognizer: UILongPressGestureRecognizer) {
+        let state = recognizer.state
+        let location = recognizer.location(in: recognizer.view)
+        switch state {
+        case .began:
+            dragPoint = location
+        case .changed:
+            /* 上に動いたか下に動いたか判断 */
+            let diffY = Double(location.y - dragPoint!.y)
+            let magnification = 1 + diffY * 0.01
+            self.zoom(magnification: magnification)
+            dragPoint = location
+            
+            mapView.userTrackingMode = MKUserTrackingMode.none
+        default:
+            break
+        }
+    }
+    
+    /* MKMapViewに元から設定されているDoubleTapと、自分で設定したLongPressを同時に機能させる */
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
 }

@@ -56,6 +56,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lSy-B9-fVQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="trailing" id="2FW-Fk-Ksg"/>
                             <constraint firstItem="lSy-B9-fVQ" firstAttribute="trailing" secondItem="Cco-Jl-sbP" secondAttribute="trailing" constant="15" id="Eec-BP-fp7"/>
@@ -68,6 +69,9 @@
                             <constraint firstItem="NK9-fX-mad" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lSy-B9-fVQ" secondAttribute="leading" id="ueh-O2-jPu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lSy-B9-fVQ"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="dd0-AR-XPd" appends="YES" id="orN-YZ-zLc"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="distanceLabel" destination="Cco-Jl-sbP" id="Nee-Tm-aXY"/>
@@ -75,9 +79,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOV-tJ-Act" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.40000000000000002" id="JIu-wb-NS0">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dd0-AR-XPd">
                     <connections>
-                        <action selector="longPressWithoutThreeDTouch:" destination="grf-9x-lPW" id="Dtz-c9-s1P"/>
+                        <action selector="longPressWithoutThreeDTouch:" destination="grf-9x-lPW" id="Aoo-MX-pZY"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>

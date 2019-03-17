@@ -22,9 +22,6 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     
-    var timer = Timer()
-    var count = 0.0
-    
     @IBOutlet weak var headingImageView: UIView!
     @IBOutlet weak var distanceLabel: UILabel!
     
@@ -38,12 +35,9 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func getDestinationLocation() {
-        if destinationLocation.coordinate.latitude == 0.0 ||
-            destinationLocation.coordinate.longitude == 0.0 {
-            destinationLocation = CLLocation(
+        destinationLocation = CLLocation(
                 latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
                 longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
-        }
     }
     
     
@@ -91,6 +85,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        getDestinationLocation()
         updateFar()
     }
     
@@ -108,13 +103,23 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupViews()
         locationManager.delegate = self
-        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLatitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
-        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLongitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
+        if userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+            if distanceLabel.text != NSLocalizedString("swipe", comment: "") {
+                distanceLabel.isHidden = true
+            }
+        }else {
+            distanceLabel.isHidden = false
+        }
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        getDestinationLocation()
-        updateFar()
+    override func viewWillAppear(_ animated: Bool) {
+        if userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+            if distanceLabel.text != NSLocalizedString("swipe", comment: "") {
+                distanceLabel.isHidden = true
+            }
+        }else {
+            distanceLabel.isHidden = false
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -129,69 +134,85 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        let force = (touch?.force)!/(touch?.maximumPossibleForce)!
-        if force == 1.0 {
-            if !timer.isValid{
-                self.timer = Timer.scheduledTimer(timeInterval: 0.001,
-                                                  target: self,
-                                                  selector: #selector(self.timeUpdater),
-                                                  userInfo: nil,
-                                                  repeats: true)
-                if distanceLabel.isHidden {
-                    distanceLabel.isHidden = false
-                    delegate?.hideObjects(hide: false)
-                }else {
-                    distanceLabel.isHidden = true
-                    delegate?.hideObjects(hide: true)
-                    hideAlart()
-                }
-                let generater = UINotificationFeedbackGenerator()
-                generater.prepare()
-                generater.notificationOccurred(.warning)
-            }else if count >= 1.0 {
+    
+    var isHidden = false
+    
+    var timer = Timer()
+    var count = 0.0
+    @objc func timeUpdater() {
+        count += 0.01
+        
+        if self.traitCollection.forceTouchCapability == .unavailable {
+            if count >= 0.5 && timer.isValid {
                 timer.invalidate()
+                checkHidden()
                 count = 0.0
             }
         }
     }
-    @objc func timeUpdater() {
-        count += 0.001
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("began")
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        let force = (touch?.force)!/(touch?.maximumPossibleForce)!
+        print(force)
+        if force == 1.0 {
+            if !timer.isValid{
+                self.timer = Timer.scheduledTimer(timeInterval: 0.01,
+                                                  target: self,
+                                                  selector: #selector(self.timeUpdater),
+                                                  userInfo: nil,
+                                                  repeats: true)
+                checkHidden()
+            }else if count >= 1.0 {
+                timer.invalidate()
+                count = 0.0
+            }
+        }else {
+//            timer.invalidate()
+//            count = 0.0
+        }
+    }
+    @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {
+        if self.traitCollection.forceTouchCapability == .available { return }
+        if sender.state == UIPanGestureRecognizer.State.began {
+            timer = Timer.scheduledTimer(timeInterval: 0.01,
+                                            target: self,
+                                            selector: #selector(self.timeUpdater),
+                                            userInfo: nil,
+                                            repeats: true)
+        }
+    }
+    
+    func checkHidden() {
+        if isHidden {
+            if !userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+                distanceLabel.isHidden = false
+            }
+            delegate?.hideObjects(hide: false)
+            isHidden = false
+        }else {
+            distanceLabel.isHidden = true
+            delegate?.hideObjects(hide: true)
+            isHidden = true
+        }
+        
+        let generater = UINotificationFeedbackGenerator()
+        generater.prepare()
+        generater.notificationOccurred(.warning)
     }
     
     func hideAlart() {
         userDefaults.register(defaults: ["hideAlert" : true])
         if userDefaults.bool(forKey: "hideAlert") {
             let alert = UIAlertController(title: NSLocalizedString("directionOnlyMode", comment: ""),
-                message: NSLocalizedString("directionOnlyModeCaption", comment: ""),
-                preferredStyle: UIAlertController.Style.alert)
+                                          message: NSLocalizedString("directionOnlyModeCaption", comment: ""),
+                                          preferredStyle: UIAlertController.Style.alert)
             let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) -> Void in })
             alert.addAction(okAction)
             userDefaults.set(false, forKey: "hideAlert")
             present(alert, animated: true, completion: nil)
-        }
-    }
-
-    @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {
-        print("呼ばれてるぞう")
-        if self.traitCollection.forceTouchCapability != .available {
-            if sender.state == UIPanGestureRecognizer.State.began {
-                timer = Timer.scheduledTimer(timeInterval: 0.01,
-                                             target: self,
-                                             selector: #selector(self.timeUpdater),
-                                             userInfo: nil,
-                                             repeats: true)
-            }else if count >= 0.5 && timer.isValid {
-                timer.invalidate()
-                if distanceLabel.isHidden {
-                    distanceLabel.isHidden = false
-                    delegate?.hideObjects(hide: false)
-                }else {
-                    distanceLabel.isHidden = true
-                    delegate?.hideObjects(hide: true)
-                }
-            }
         }
     }
 }

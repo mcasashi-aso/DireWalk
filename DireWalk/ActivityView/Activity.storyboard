@@ -28,7 +28,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ucc-P1-B3R" customClass="ActivityCollectionViewCell" customModule="DireWalk" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="24" width="147" height="148"/>
+                                        <rect key="frame" x="114" y="24" width="147" height="148"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="147" height="148"/>
@@ -79,6 +79,31 @@
                                             <outlet property="aboutLable" destination="mOE-fn-gZL" id="0Rg-FZ-cmj"/>
                                             <outlet property="numberLabel" destination="n7V-hO-cl5" id="lWT-rw-W8N"/>
                                             <outlet property="unitLable" destination="aoX-cf-0EF" id="d9n-fL-CqO"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AdCell" id="OIl-Mo-WMP" customClass="AdCollectionViewCell" customModule="DireWalk" customModuleProvider="target">
+                                        <rect key="frame" x="37.666666666666664" y="196" width="300" height="250"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ua-VB-pno" customClass="GADBannerView">
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </view>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="2ua-VB-pno" firstAttribute="leading" secondItem="OIl-Mo-WMP" secondAttribute="leading" id="Dci-rd-ilc"/>
+                                            <constraint firstAttribute="trailing" secondItem="2ua-VB-pno" secondAttribute="trailing" id="JWk-B8-RfG"/>
+                                            <constraint firstItem="2ua-VB-pno" firstAttribute="top" secondItem="OIl-Mo-WMP" secondAttribute="top" id="ZvV-pj-cC7"/>
+                                            <constraint firstAttribute="bottom" secondItem="2ua-VB-pno" secondAttribute="bottom" id="cFl-qM-wee"/>
+                                        </constraints>
+                                        <size key="customSize" width="300" height="250"/>
+                                        <connections>
+                                            <outlet property="adView" destination="2ua-VB-pno" id="4fW-mW-DpE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

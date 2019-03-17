@@ -8,5 +8,4 @@
 
 CFBundleDisplayName = "DireWlak";
 NSHealthShareUsageDescription = "このアプリ内でアクティビティを確認できるようになります";
-NSHealthUpdateUsageDescription = "アクティビティをヘルスケアに保存します";
-NSLocationWhenInUseUsageDescription = "マップに現在地を表示します";
+NSLocationWhenInUseUsageDescription = "目的地までの方向、距離を計算するのに使います";

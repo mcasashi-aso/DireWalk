@@ -33,6 +33,8 @@
 "settings" = "設定";
 "done" = "完了";
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
+"doNotAlwaysShowFar" = "距離を表示しない";
+"captionDoNotShowFar" = "目的地の30m圏内に入ると自動的に再表示します";
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";
 "share" = "共有";
@@ -41,5 +43,5 @@
 "version" = "バージョン";
 "createdby" = "作成者";
 
-"reauestLocation" = "このアプリを使うには位置情報が必要です";
+"reauestLocation" = "このアプリを使うには位置情報が必要です\n目的地への方向と距離を計算するのにしようします";
 "toSettings" = "設定を開く";
