@@ -32,8 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.register(defaults: [ud.key.showFar.rawValue : false])
         
         FirebaseApp.configure()
-        
-//        GADMobileAds.configure(withApplicationID: "ca-app-pub-7482106968377175~8439051353")
+
         GADMobileAds.sharedInstance().start { status in
             let adapterState: GADAdapterInitializationState =
                 status.adapterStatusesByClassName["SampleAdapter"]!.state

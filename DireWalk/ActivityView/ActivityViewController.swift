@@ -175,7 +175,7 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
             return cell
         }else {
             let cell: AdCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdCell", for: indexPath) as! AdCollectionViewCell
-            cell.adView.adUnitID = "ca-app-pub-7482106968377175/6483821918"
+            cell.adView.adUnitID = ""
             cell.adView.rootViewController = self
             let request = GADRequest()
 

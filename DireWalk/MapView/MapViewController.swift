@@ -153,10 +153,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     }
     
     func setupAds() {
-        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
+        bannerView.adUnitID = ""
         bannerView.rootViewController = self
         let request = GADRequest()
-        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
+        
         bannerView.load(request)
     }
     func adViewDidReceiveAd(_ bannerView: GADBannerView) {
