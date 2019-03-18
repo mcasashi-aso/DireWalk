@@ -33,16 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
 
-        GADMobileAds.sharedInstance().start { status in
-            let adapterState: GADAdapterInitializationState =
-                status.adapterStatusesByClassName["SampleAdapter"]!.state
-
-            if adapterState == GADAdapterInitializationState.ready {
-                print("Sample adapter was successfully initialized.")
-            } else {
-                print("Sample adapter is not ready.")
-            }
-        }
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         return true
     }

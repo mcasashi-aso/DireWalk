@@ -20,22 +20,31 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8Wa-Gb-Sev">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="24" minimumInteritemSpacing="24" id="MJw-rB-wv4">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="MJw-rB-wv4">
                                     <size key="itemSize" width="148" height="148"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="24" minY="24" maxX="24" maxY="150"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="115"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ucc-P1-B3R" customClass="ActivityCollectionViewCell" customModule="DireWalk" customModuleProvider="target">
-                                        <rect key="frame" x="114" y="24" width="147" height="148"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BlankCell" id="fRW-D2-cGo">
+                                        <rect key="frame" x="10" y="0.0" width="355" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="147" height="148"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="35"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <size key="customSize" width="355" height="35"/>
+                                    </collectionViewCell>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Ucc-P1-B3R" customClass="ActivityCollectionViewCell" customModule="DireWalk" customModuleProvider="target">
+                                        <rect key="frame" x="112.66666666666667" y="35" width="150" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="項目" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOE-fn-gZL">
-                                                    <rect key="frame" x="10" y="10" width="109" height="24"/>
+                                                    <rect key="frame" x="10" y="10" width="112" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="fAB-ee-Xo7"/>
                                                     </constraints>
@@ -44,16 +53,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7V-hO-cl5">
-                                                    <rect key="frame" x="53" y="53" width="41.333333333333343" height="42"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="42" id="Tmr-xW-GXP"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                                    <rect key="frame" x="50.333333333333329" y="36" width="49.333333333333329" height="48"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="単位" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoX-cf-0EF">
-                                                    <rect key="frame" x="28" y="114" width="109" height="24"/>
+                                                    <rect key="frame" x="28" y="86" width="112" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="n1v-9O-EEi"/>
                                                     </constraints>
@@ -63,26 +69,31 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.94509803920000002" green="0.16862745100000001" blue="0.0" alpha="0.89786073830000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.29019607843137252" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="aoX-cf-0EF" secondAttribute="bottom" constant="10" id="1Oh-s9-grP"/>
                                             <constraint firstItem="mOE-fn-gZL" firstAttribute="top" secondItem="Ucc-P1-B3R" secondAttribute="top" constant="10" id="5xv-I2-aoP"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="mOE-fn-gZL" secondAttribute="trailing" constant="20" id="L81-Zm-Xn4"/>
+                                            <constraint firstItem="n7V-hO-cl5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="mOE-fn-gZL" secondAttribute="bottom" constant="2" id="hvC-NP-wgJ"/>
                                             <constraint firstItem="n7V-hO-cl5" firstAttribute="centerY" secondItem="Ucc-P1-B3R" secondAttribute="centerY" id="l6V-8v-ebb"/>
                                             <constraint firstAttribute="trailing" secondItem="aoX-cf-0EF" secondAttribute="trailing" constant="10" id="mQz-rL-wRh"/>
                                             <constraint firstItem="mOE-fn-gZL" firstAttribute="leading" secondItem="Ucc-P1-B3R" secondAttribute="leading" constant="10" id="t2e-WY-4re"/>
                                             <constraint firstItem="aoX-cf-0EF" firstAttribute="leading" secondItem="Ucc-P1-B3R" secondAttribute="leadingMargin" constant="20" id="uJR-Ri-0uc"/>
                                             <constraint firstItem="n7V-hO-cl5" firstAttribute="centerX" secondItem="Ucc-P1-B3R" secondAttribute="centerX" id="upC-MC-tcl"/>
                                         </constraints>
-                                        <size key="customSize" width="147" height="148"/>
+                                        <size key="customSize" width="150" height="120"/>
                                         <connections>
+                                            <outlet property="aboutLabelLeftInset" destination="t2e-WY-4re" id="K91-Vz-gGt"/>
+                                            <outlet property="aboutLabelTopInset" destination="5xv-I2-aoP" id="77R-SS-hXD"/>
                                             <outlet property="aboutLable" destination="mOE-fn-gZL" id="0Rg-FZ-cmj"/>
                                             <outlet property="numberLabel" destination="n7V-hO-cl5" id="lWT-rw-W8N"/>
+                                            <outlet property="unitLabelBottomInset" destination="1Oh-s9-grP" id="Fwz-Qk-CfS"/>
+                                            <outlet property="unitLabelRightInset" destination="mQz-rL-wRh" id="e5l-0d-TwT"/>
                                             <outlet property="unitLable" destination="aoX-cf-0EF" id="d9n-fL-CqO"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AdCell" id="OIl-Mo-WMP" customClass="AdCollectionViewCell" customModule="DireWalk" customModuleProvider="target">
-                                        <rect key="frame" x="37.666666666666664" y="196" width="300" height="250"/>
+                                        <rect key="frame" x="37.666666666666664" y="155" width="300" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="250"/>
@@ -94,7 +105,6 @@
                                                 </view>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="2ua-VB-pno" firstAttribute="leading" secondItem="OIl-Mo-WMP" secondAttribute="leading" id="Dci-rd-ilc"/>
                                             <constraint firstAttribute="trailing" secondItem="2ua-VB-pno" secondAttribute="trailing" id="JWk-B8-RfG"/>

@@ -27,7 +27,6 @@
 		E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A8097822354E2D0086E146 /* RequestLocation.storyboard */; };
 		E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097C22354E600086E146 /* RequestLocationViewController.swift */; };
 		E6A809802235B9900086E146 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* TableViewCells.swift */; };
-		E6B52DF2223BEE9C00335451 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6B52DF1223BEE9B00335451 /* GoogleService-Info.plist */; };
 		E6C437C7222386F800542844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C6222386F800542844 /* AppDelegate.swift */; };
 		E6C437C9222386F800542844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C8222386F800542844 /* ViewController.swift */; };
 		E6C437CC222386F800542844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CA222386F800542844 /* Main.storyboard */; };
@@ -35,6 +34,7 @@
 		E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CF222386F900542844 /* LaunchScreen.storyboard */; };
 		E6C437DC222386FA00542844 /* DireWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437DB222386FA00542844 /* DireWalkTests.swift */; };
 		E6C437E7222386FA00542844 /* DireWalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437E6222386FA00542844 /* DireWalkUITests.swift */; };
+		E6EA4052223F58D800BA27C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +83,6 @@
 		E6A8097822354E2D0086E146 /* RequestLocation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestLocation.storyboard; sourceTree = "<group>"; };
 		E6A8097C22354E600086E146 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		E6A8097F2235B9900086E146 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
-		E6B52DF1223BEE9B00335451 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E6C437C3222386F800542844 /* DireWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DireWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C437C6222386F800542844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6C437C8222386F800542844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +96,7 @@
 		E6C437E2222386FA00542844 /* DireWalkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DireWalkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C437E6222386FA00542844 /* DireWalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DireWalkUITests.swift; sourceTree = "<group>"; };
 		E6C437E8222386FA00542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,7 +239,7 @@
 				E6C437CF222386F900542844 /* LaunchScreen.storyboard */,
 				E6C437D2222386F900542844 /* Info.plist */,
 				E631DF512232C20800CC1A03 /* InfoPlist.strings */,
-				E6B52DF1223BEE9B00335451 /* GoogleService-Info.plist */,
+				E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */,
 				E631DF4B2232BDAE00CC1A03 /* Localizable.strings */,
 			);
 			path = DireWalk;
@@ -388,11 +388,11 @@
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
 				E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */,
 				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
-				E6B52DF2223BEE9C00335451 /* GoogleService-Info.plist in Resources */,
 				E6C437CC222386F800542844 /* Main.storyboard in Resources */,
 				E631DF492232BDAE00CC1A03 /* Localizable.strings in Resources */,
 				E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */,
 				E631DF4F2232C20800CC1A03 /* InfoPlist.strings in Resources */,
+				E6EA4052223F58D800BA27C2 /* GoogleService-Info.plist in Resources */,
 				E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

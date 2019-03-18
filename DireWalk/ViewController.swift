@@ -448,14 +448,19 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         let correntUsingTime = userDefaults.integer(forKey: ud.key.usingTimes.rawValue)
         userDefaults.set((correntUsingTime + 1), forKey: ud.key.usingTimes.rawValue)
         
-        for view in contentPageVC.viewControllers! {
-            if view.isKind(of: ActivityViewController.self) {
-                let activityView = view as! ActivityViewController
-                activityView.getDireWalkUsingTimes()
-                if dayChanged {
-                    activityView.getWalkingDistance()
-                    activityView.getStepCount()
-                    activityView.getFlightsClimbed()
+        if ceil(Double(correntUsingTime) / 60.0) !=
+            ceil(Double(correntUsingTime + 1) / 60.0) {
+            print(ceil(Double(correntUsingTime) / 60.0))
+            print(ceil(Double(correntUsingTime + 1) / 60.0))
+            for view in contentPageVC.viewControllers! {
+                if view.isKind(of: ActivityViewController.self) {
+                    let activityView = view as! ActivityViewController
+                    activityView.getDireWalkUsingTimes()
+                    if dayChanged {
+                        activityView.getWalkingDistance()
+                        activityView.getStepCount()
+                        activityView.getFlightsClimbed()
+                    }
                 }
             }
         }

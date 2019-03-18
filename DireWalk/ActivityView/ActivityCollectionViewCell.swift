@@ -15,6 +15,11 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var unitLable: UILabel!
     
+    @IBOutlet weak var aboutLabelTopInset: NSLayoutConstraint!
+    @IBOutlet weak var aboutLabelLeftInset: NSLayoutConstraint!
+    @IBOutlet weak var unitLabelBottomInset: NSLayoutConstraint!
+    @IBOutlet weak var unitLabelRightInset: NSLayoutConstraint!
+    
     func setData(cellData: CellData) {
         setCell()
         self.aboutLable.text = cellData.about
@@ -23,9 +28,19 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     }
     
     func setCell() {
-        self.aboutLable.adjustsFontSizeToFitWidth = true
-        self.numberLabel.adjustsFontSizeToFitWidth = true
-        self.unitLable.adjustsFontSizeToFitWidth = true
+        aboutLable.adjustsFontSizeToFitWidth = true
+        aboutLable.adjustsFontForContentSizeCategory = true
+        numberLabel.adjustsFontSizeToFitWidth = true
+        numberLabel.adjustsFontForContentSizeCategory = true
+        unitLable.adjustsFontSizeToFitWidth = true
+        unitLable.adjustsFontForContentSizeCategory = true
+    }
+    
+    func setInset(constant: CGFloat) {
+        aboutLabelTopInset.constant = constant - 2
+        aboutLabelLeftInset.constant = constant
+        unitLabelBottomInset.constant = constant - 2
+        unitLabelRightInset.constant = constant
     }
     
 }
@@ -34,7 +49,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
 class AdCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var adView: GADBannerView! {
         didSet{
-            adView.adSize = kGADAdSizeMediumRectangle
+            adView.adSize = kGADAdSizeLargeBanner
         }
     }
     

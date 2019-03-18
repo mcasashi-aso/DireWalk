@@ -169,9 +169,9 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
                 timer.invalidate()
                 count = 0.0
             }
-        }else {
-//            timer.invalidate()
-//            count = 0.0
+//        }else {
+////            timer.invalidate()
+////            count = 0.0
         }
     }
     @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {

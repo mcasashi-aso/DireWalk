@@ -162,37 +162,66 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datas.count + 1
+        return 15
+        // (datas.count / 2) * (1 + 3) + 1 + 1 + (4 + 1)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print(indexPath)
-        if indexPath.row <= (datas.count - 1) {
+        switch indexPath.row {
+        case 0, 6, 12, 1, 3, 5, 7, 9, 11, 13:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlankCell", for: indexPath)
+            return cell
+        case 2, 4, 8, 10:
+            var dataNumber: Int!
+            switch indexPath.row {
+            case 2: dataNumber = 0
+            case 4: dataNumber = 1
+            case 8: dataNumber = 2
+            case 10: dataNumber = 3
+            default: break
+            }
             let cell: ActivityCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ActivityCollectionViewCell
             cell.layer.cornerRadius = cell.bounds.height / 6
+            cell.setInset(constant: cell.bounds.height / 8)
             cell.layer.masksToBounds = true
-            cell.setData(cellData: datas[indexPath.row])
+            cell.numberLabel.font = cell.numberLabel.font.withSize(cell.numberLabel.bounds.height)
+            cell.setData(cellData: datas[dataNumber])
             return cell
-        }else {
+        case 14:
             let cell: AdCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdCell", for: indexPath) as! AdCollectionViewCell
-            cell.adView.adUnitID = ""
+            cell.adView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7482106968377175/6483821918"
             cell.adView.rootViewController = self
             let request = GADRequest()
-
             cell.adView.load(request)
             cell.adView.delegate = self
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlankCell", for: indexPath)
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row <= (datas.count - 1) {
-            let screenWidth = UIScreen.main.bounds.width
-            let width = CGFloat((screenWidth - 24*2 - 24) / 2)
-            let size = CGSize(width: width, height: width)
-            return size
-        }else {
-            return CGSize(width: 300, height: 250)
+        let screenWidth = UIScreen.main.bounds.width
+        let activityWidth = CGFloat((screenWidth - 24*2 - 24) / 2)
+        switch indexPath.row {
+        case 0, 6, 12:
+            // 横に細長いBlank
+            return CGSize(width: screenWidth, height: 24)
+        case 1, 3, 5, 7, 9, 11:
+            // 縦に細長いActivity用のBlank
+            return CGSize(width: 24, height: 24)
+        case 2, 4, 8, 10:
+            // Activity
+            return CGSize(width: activityWidth, height: activityWidth * 4/5)
+        case 13:
+            // BannerAdの横
+            return CGSize(width: ((screenWidth - 320) / 2), height: 24)
+        case 14:
+            // BannerAd
+            return CGSize(width: 320, height: 100)
+        default:
+            return CGSize(width: 0, height: 0)
         }
     }
     

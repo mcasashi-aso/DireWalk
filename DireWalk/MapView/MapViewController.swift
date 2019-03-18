@@ -153,29 +153,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     }
     
     func setupAds() {
-        bannerView.adUnitID = ""
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7482106968377175/7907556553"
         bannerView.rootViewController = self
         let request = GADRequest()
         
         bannerView.load(request)
-    }
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("adViewDidReceiveAd")
-    }
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print("adView:didFailToRecieveAdWithError: \(error.localizedDescription)")
-    }
-    func adViewWillPresentScreen(_ bannerView: GADBannerView) {
-        print("adViewWillPresentScreen")
-    }
-    func adViewWillDismissScreen(_ bannerView: GADBannerView) {
-        print("adViewWillDismissScreen")
-    }
-    func adViewDidDismissScreen(_ bannerView: GADBannerView) {
-        print("adViewDidDismissScreen")
-    }
-    func adViewWillLeaveApplication(_ bannerView: GADBannerView) {
-        print("adViewWillLeaveApplication")
     }
     
     // ドラッグの位置記憶用の変数
