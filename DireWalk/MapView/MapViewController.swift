@@ -16,7 +16,14 @@ protocol MapViewControllerDelegate {
     func updateMarker(markerName: String)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        }
+    }
     
     var delegate: MapViewControllerDelegate?
     
@@ -37,6 +44,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     var count = 0.0
     var timer = Timer()
     var pressable = false
+    @objc func timeUpdater() {
+        count += 0.1
+    }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
         if locationManager.location == nil { return }
         let location: CGPoint = sender.location(in: mapView)
@@ -125,6 +135,33 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         return pinView
     }
     
+    
+    var headingImageView = UIImageView(image: UIImage(named: "UserHeading"))
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        if views.last?.annotation is MKUserLocation {
+            addHeadingView(toAnnotationView: views.last!)
+        }
+    }
+    
+    func addHeadingView(toAnnotationView annotationView: MKAnnotationView) {
+        headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
+                                        y: (annotationView.frame.size.height - 40)/2,
+                                        width: 40,
+                                        height: 40)
+        annotationView.insertSubview(headingImageView, at: 0)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if newHeading.headingAccuracy < 0 { return }
+        let heading = newHeading.trueHeading > 0 ?newHeading.trueHeading : newHeading.magneticHeading
+        updateHeadingRotation(heading: heading)
+    }
+
+    func updateHeadingRotation(heading: CLLocationDirection) {
+        let rotation = CGFloat(heading) * CGFloat.pi / 180
+        headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -134,8 +171,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         mapView.setCenter(mapView.userLocation.coordinate, animated: true)
         mapView.userTrackingMode = MKUserTrackingMode.follow
         var region: MKCoordinateRegion = mapView.region
-        region.span.latitudeDelta = 0.005
-        region.span.longitudeDelta = 0.005
+        region.span.latitudeDelta = 0.001
+        region.span.longitudeDelta = 0.001
         mapView.setRegion(region, animated: true)
         mapView.mapType = .mutedStandard
         
@@ -210,10 +247,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         self.view.addSubview(compassButton)
     }
     
-    @objc func timeUpdater() {
-        count += 0.1
-    }
-    
     func wait(_ waitContinuation: @escaping (()->Bool), compleation: @escaping (()->Void)) {
         var wait = waitContinuation()
         // 0.01秒周期で待機条件をクリアするまで待ちます。
@@ -235,25 +268,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     }
     
 }
-
-extension MapViewController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
-        default:
-            break
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    }
-    
-}
-
 
 extension MapViewController: UIGestureRecognizerDelegate {
     /* このzoomメソッドの実装は適当 */

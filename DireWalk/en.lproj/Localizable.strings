@@ -33,8 +33,8 @@
 "settings" = "Settings";
 "done" = "Done";
 "aboutStrings" = "DireWalk is an application for people who want to walk freely.\nIf you would want to go somewhere, you might use maps. But it’s boring because the way is limited.\nIf you would use DireWalk, you can enjoy walking and reach a destination.";
-"doNotAlwaysShowFar" = "Don't always show far";
-"captionDoNotShowFar" = "This mode show far automatic when you go into 30m near destination";
+"doNotAlwaysShowFar" = "Don't always show distance";
+"captionDoNotShowFar" = "This mode show distance automatic when you go into 30m near destination";
 "reviewSection" = "Review & Share";
 "review" = "Review on App Store";
 "share" = "Share";
