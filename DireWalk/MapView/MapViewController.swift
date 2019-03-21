@@ -23,8 +23,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         
     }
     
-    var favoriteName = ""
-    var favoriteAdress = ""
+    var favoriteName = "Favorite"
+    var favoriteAdress = "adress"
     @objc func addFavorite() {
         if annotation.coordinate.latitude == 0 || annotation.coordinate.longitude == 0 { return }
         let latitude = annotation.coordinate.latitude
@@ -33,9 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
                                               longitude: longitude,
                                               name: favoriteName,
                                               adress: favoriteAdress)
-        print(favoritePlace.name)
-        print(favoritePlace.adress)
-        print(favoritePlace.longitude)
         var places = [FavoritePlaceData]()
         if let udPlaces = userDefaults.object(forKey: ud.key.favoritePlaces.rawValue) as? Data{
             places = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(udPlaces) as! [FavoritePlaceData]
@@ -69,6 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
             scrollView.isUserInteractionEnabled = true
         }else {
             scrollView.isUserInteractionEnabled = false
+            NotificationCenter.default.post(name: .endEditing, object: nil)
         }
     }
     
@@ -104,7 +102,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
         if locationManager.location == nil { return }
+        
         let location: CGPoint = sender.location(in: mapView)
+        if scrollView.isUserInteractionEnabled {
+            if scrollView.frame.minX < location.x &&
+                scrollView.frame.minY < location.y &&
+                scrollView.frame.maxY > location.y {
+                return
+            }
+        }
         if sender.state == UIGestureRecognizer.State.began {
             pressable = true
             self.timer = Timer.scheduledTimer(timeInterval: 0.1,
@@ -253,7 +259,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
                                                selector: #selector(addFavorite),
                                                name: .addFavorite,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(fitCollectionViewSize),
+                                               name: .fitFavolitCollectionView,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
+    
+    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        let userInfo = notification.userInfo!
+        let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        scrollViewBottomConstraint.constant = (keyboardFrame?.cgRectValue.height)!
+        self.view.layoutIfNeeded()
+    }
+    @objc func keyboardWillHide() {
+        scrollViewBottomConstraint.constant = 120
+        self.view.layoutIfNeeded()
+    }
+    
     
     func setupAds() {
         bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7482106968377175/7907556553"
@@ -331,6 +362,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
                 compleation()
             }
         }
+    }
+    
+    @IBOutlet weak var scrollViewLeadingConstraint: NSLayoutConstraint!
+    @objc func fitCollectionViewSize() {
+        let constraint = userDefaults.float(forKey: "scrollViewLeadingConstraint")
+        scrollViewLeadingConstraint.constant = CGFloat(constraint)
     }
     
 }

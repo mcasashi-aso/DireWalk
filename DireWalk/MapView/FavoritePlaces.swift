@@ -21,8 +21,18 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
     
     var datas: [FavoritePlaceData] = []
     
+    var editingCells = false
     func toEdit() {
-        
+        if editingCells {
+            editingCells = false
+        }else {
+            editingCells = true
+        }
+        reloadCollectionView()
+    }
+    @objc func notShowingFavoritePlace() {
+        editingCells = false
+        reloadCollectionView()
     }
     
     @IBOutlet weak var collectionView: UICollectionView! {
@@ -37,14 +47,13 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
         if let data = userDefaults.object(forKey: ud.key.favoritePlaces.rawValue) as? Data {
             datas = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! [FavoritePlaceData]
         }
-        fitCollectionWidth()
         collectionView.reloadData()
+        fitCollectionWidth()
         print(datas)
-        for value in datas {
-            print(value.name)
-            print(value.adress)
-            print(value.latitude)
-        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -57,9 +66,34 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
             cell.nameTextField.text = datas[indexPath.row].name
             cell.adressLabel.text = datas[indexPath.row].adress
             cell.setupCell()
+            if !editingCells {
+                cell.deleteButton.isHidden = true
+                cell.nameTextField.isEnabled = false
+            }else {
+                cell.deleteButton.isHidden = false
+                cell.nameTextField.isEnabled = true
+            }
             return cell
         }else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ButtonsCell", for: indexPath) as! ButtonsCell
+            cell.setupButtons()
+            cell.editDelegate = self
+            if datas.count != 0 {
+                cell.editButton.isHidden = false
+            }else {
+                cell.editButton.isHidden = true
+            }
+            if !editingCells {
+                cell.addButton.isEnabled = true
+                cell.addButton.backgroundColor = UIColor.myBlue
+                cell.editButton.backgroundColor = UIColor.myBlue
+                cell.editButton.setImage(UIImage(named: "Edit"), for: .normal)
+            }else {
+                cell.addButton.isEnabled = false
+                cell.addButton.backgroundColor = UIColor.gray
+                cell.editButton.backgroundColor = UIColor.white
+                cell.editButton.setImage(UIImage(named: "Editing"), for: .normal)
+            }
             return cell
         }
     }
@@ -80,11 +114,13 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
                                                selector: #selector(reloadCollectionView),
                                                name: .reloadFavorite,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(notShowingFavoritePlace),
+                                               name: .endEditing,
+                                               object: nil)
     }
     
-    @IBOutlet weak var collectionViewLeading: NSLayoutConstraint!
     func fitCollectionWidth() {
-        print("fit")
         let screenWidth = Int(UIScreen.main.bounds.width)
         let collectionContentWidth = 24 + datas.count * (128 + 16) + 70 + 24
         let width: Int!
@@ -93,7 +129,8 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
         }else {
             width = collectionContentWidth
         }
-        collectionViewLeading.constant = CGFloat(screenWidth - width)
+        userDefaults.set(Float(screenWidth - width), forKey: "scrollViewLeadingConstraint")
+        NotificationCenter.default.post(name: .fitFavolitCollectionView, object: nil)
     }
     
 }

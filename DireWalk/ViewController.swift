@@ -21,7 +21,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
     }
     
-    
     let userDefaults = UserDefaults.standard
     
     let locationManager = CLLocationManager()
@@ -296,6 +295,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             for view in contentPageVC.viewControllers! {
                 if view.isKind(of: MapViewController.self) {
                     let mapView = view as! MapViewController
+                    mapView.fitCollectionViewSize()
                     if mapView.isShowingPlaces {
                         mapView.scrollView.setContentOffset(CGPoint(x: 0, y: -mapView.scrollView.contentInset.top), animated: true)
                     }else {

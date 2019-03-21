@@ -10,16 +10,31 @@ import Foundation
 import UIKit
 
 
-class FavoritePlaceCell: UICollectionViewCell {
+class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate {
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var adressLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var directionImageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     
     func setupCell() {
         self.layer.cornerRadius = 16
-        self.layer.masksToBounds = true
+        self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        self.layer.masksToBounds = false
+        self.nameTextField.delegate = self
+        deleteButton.layer.cornerRadius = deleteButton.bounds.height / 2
+        deleteButton.layer.masksToBounds = true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if nameTextField.isFirstResponder {
+            nameTextField.resignFirstResponder()
+        }
     }
     
 }
@@ -38,14 +53,10 @@ class ButtonsCell: UICollectionViewCell {
     var editDelegate: ButtonsCellEditDelegate?
     
     func setupButtons() {
-        editButton.layer.cornerRadius = editButton.bounds.height / 2
+        editButton.layer.cornerRadius = 23
         editButton.layer.masksToBounds = true
-        addButton.layer.cornerRadius = addButton.bounds.height / 2
+        addButton.layer.cornerRadius = 23
         addButton.layer.masksToBounds = true
-    }
-    
-    func hideEditButton() {
-        editButton.isHidden = true
     }
     
     @IBAction func toEdit() {
