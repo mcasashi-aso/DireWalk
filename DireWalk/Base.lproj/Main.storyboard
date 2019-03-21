@@ -20,7 +20,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-hs-KRs">
                                 <rect key="frame" x="0.0" y="134" width="375" height="533"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YlZ-pU-bPE">
                                 <rect key="frame" x="0.0" y="20" width="375" height="114"/>
@@ -51,7 +50,7 @@
                                             <constraint firstAttribute="height" constant="30" id="dKB-Ph-65s"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="icons8-settings-filled-100">
+                                        <state key="normal" image="Settings">
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -78,7 +77,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMd-bZ-z1V">
                                         <rect key="frame" x="0.0" y="0.0" width="140.5" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.74901960784313726" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="icons8-walking-filled-100">
+                                        <state key="normal" image="Walking">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -90,7 +89,7 @@
                                         <rect key="frame" x="140.5" y="0.0" width="140.5" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.74901960784313726" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                        <state key="normal" image="icons8-map-marker-filled-100">
+                                        <state key="normal" image="Map">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -109,7 +108,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="pxv-jK-AdM" secondAttribute="height" multiplier="1:1" id="dpb-dO-gTc"/>
                                 </constraints>
-                                <state key="normal" image="icons8-near-me-filled-100">
+                                <state key="normal" image="DirectionTab">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -160,9 +159,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icons8-map-marker-filled-100" width="153.19148254394531" height="153.19148254394531"/>
-        <image name="icons8-near-me-filled-100" width="153.84616088867188" height="153.84616088867188"/>
-        <image name="icons8-settings-filled-100" width="153.19148254394531" height="153.19148254394531"/>
-        <image name="icons8-walking-filled-100" width="153.19148254394531" height="153.19148254394531"/>
+        <image name="DirectionTab" width="153.84616088867188" height="153.84616088867188"/>
+        <image name="Map" width="153.19148254394531" height="153.19148254394531"/>
+        <image name="Settings" width="153.19148254394531" height="153.19148254394531"/>
+        <image name="Walking" width="153.19148254394531" height="153.19148254394531"/>
     </resources>
 </document>

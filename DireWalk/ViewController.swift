@@ -13,6 +13,15 @@ import GoogleMobileAds
 
 class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, MapViewControllerDelegate, CLLocationManagerDelegate, DirectionViewControllerDelegate {
     
+    func changeMapTabButtonImage(isShowingPlaces: Bool) {
+        if isShowingPlaces {
+            mapButton.setImage(UIImage(named: "Cancel"), for: .normal)
+        }else {
+            mapButton.setImage(UIImage(named: "List"), for: .normal)
+        }
+    }
+    
+    
     let userDefaults = UserDefaults.standard
     
     let locationManager = CLLocationManager()
@@ -168,6 +177,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         showDestinationLabel.text = NSLocalizedString("destination", comment: "")
+        mapButton.setImage(UIImage(named: "Map"), for: .normal)
         destinationLabel.isEnabled = true
         let view = pageViewController.viewControllers?.first
         if view!.isKind(of: DirectionViewController.self) {
@@ -188,6 +198,14 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             }else if destinationLabel.title(for: .normal) == activity {
                 destinationLabel.setTitle(destinationName, for: .normal)
             }
+            
+            let mapView = view as! MapViewController
+            if mapView.isShowingPlaces {
+                mapButton.setImage(UIImage(named: "Cancel"), for: .normal)
+            }else {
+                mapButton.setImage(UIImage(named: "List"), for: .normal)
+            }
+            
             presentView = .map
         }else if view!.isKind(of: ActivityViewController.self) {
             if destinationLabel.title(for: .normal) == longPressToSelect {
@@ -251,6 +269,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             destinationLabel.setTitle(destinationName, for: .normal)
         }
         
+        mapButton.setImage(UIImage(named: "Map"), for: .normal)
+        
         contentPageVC.setViewControllers([getCenter()], direction: direction, animated: true, completion: nil)
     }
     @IBAction func tapActivity() {
@@ -267,10 +287,24 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
             destinationLabel.isEnabled = false
         }
         
+        mapButton.setImage(UIImage(named: "Map"), for: .normal)
+        
         contentPageVC.setViewControllers([getLeft()], direction: .reverse, animated: true, completion: nil)
     }
     @IBAction func tapMap() {
-        if presentView == .map {  return  }
+        if presentView == .map {
+            for view in contentPageVC.viewControllers! {
+                if view.isKind(of: MapViewController.self) {
+                    let mapView = view as! MapViewController
+                    if mapView.isShowingPlaces {
+                        mapView.scrollView.setContentOffset(CGPoint(x: 0, y: -mapView.scrollView.contentInset.top), animated: true)
+                    }else {
+                        mapView.scrollView.setContentOffset(CGPoint(x: 0, y: mapView.scrollView.contentSize.height - mapView.scrollView.frame.size.height), animated: true)
+                    }
+                }
+            }
+            return
+        }
         presentView = .map
         hideObjects(hide: false)
         
@@ -281,6 +315,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }else if destinationLabel.title(for: .normal) == activity {
             destinationLabel.setTitle(destinationName, for: .normal)
         }
+        
+        mapButton.setImage(UIImage(named: "List"), for: .normal)
         
         contentPageVC.setViewControllers([getRight()], direction: .forward, animated: true, completion: nil)
     }
@@ -440,7 +476,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
         var dayChanged = false
         if lastUsed != today {
-            print("success!")
             userDefaults.set(0, forKey: ud.key.usingTimes.rawValue)
             userDefaults.set(today, forKey: "lastUsed")
             dayChanged = true
@@ -450,8 +485,6 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         
         if ceil(Double(correntUsingTime) / 60.0) !=
             ceil(Double(correntUsingTime + 1) / 60.0) {
-            print(ceil(Double(correntUsingTime) / 60.0))
-            print(ceil(Double(correntUsingTime + 1) / 60.0))
             for view in contentPageVC.viewControllers! {
                 if view.isKind(of: ActivityViewController.self) {
                     let activityView = view as! ActivityViewController

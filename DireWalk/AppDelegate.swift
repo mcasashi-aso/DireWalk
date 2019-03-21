@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        let domain = Bundle.main.bundleIdentifier
+        userDefaults.removePersistentDomain(forName: domain!)
+        userDefaults.synchronize()
+        
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)
         userDefaults.register(defaults: ["date" : measureOfNil])

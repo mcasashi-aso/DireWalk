@@ -14,9 +14,64 @@ import GoogleMobileAds
 
 protocol MapViewControllerDelegate {
     func updateMarker(markerName: String)
+    func changeMapTabButtonImage(isShowingPlaces: Bool)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate, FavoritePlacesViewControllerDelegate {
+    
+    func showPlace() {
+        
+    }
+    
+    var favoriteName = ""
+    var favoriteAdress = ""
+    @objc func addFavorite() {
+        if annotation.coordinate.latitude == 0 || annotation.coordinate.longitude == 0 { return }
+        let latitude = annotation.coordinate.latitude
+        let longitude = annotation.coordinate.longitude
+        let favoritePlace = FavoritePlaceData(latitude: latitude,
+                                              longitude: longitude,
+                                              name: favoriteName,
+                                              adress: favoriteAdress)
+        print(favoritePlace.name)
+        print(favoritePlace.adress)
+        print(favoritePlace.longitude)
+        var places = [FavoritePlaceData]()
+        if let udPlaces = userDefaults.object(forKey: ud.key.favoritePlaces.rawValue) as? Data{
+            places = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(udPlaces) as! [FavoritePlaceData]
+        }
+        places.append(favoritePlace)
+        let placesOfData = try? NSKeyedArchiver.archivedData(withRootObject: places, requiringSecureCoding: false)
+        userDefaults.set(placesOfData, forKey: ud.key.favoritePlaces.rawValue)
+        NotificationCenter.default.post(name: .reloadFavorite, object: nil)
+    }
+    
+    
+    public var isShowingPlaces = false
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet{
+            scrollView.delegate = self
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            isShowingPlaces = true
+            showFavoritePlaces()
+        }else {
+            isShowingPlaces = false
+            showFavoritePlaces()
+        }
+    }
+    
+    func showFavoritePlaces() {
+        delegate?.changeMapTabButtonImage(isShowingPlaces: isShowingPlaces)
+        if isShowingPlaces {
+            scrollView.isUserInteractionEnabled = true
+        }else {
+            scrollView.isUserInteractionEnabled = false
+        }
+    }
+    
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
@@ -97,8 +152,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
             }
             if let interest = placemark.areasOfInterest?[0] {
                 placeName = interest
+                self.favoriteName = interest
             }else if let name = placemark.name{
                 placeName = name
+                self.favoriteName = "Favorite"
+            }
+            if let adress = placemark.name {
+                self.favoriteAdress = adress
+            }else {
+                self.favoriteAdress = "adress"
             }
         })
         wait( { return placeName == nil } ) {
@@ -168,7 +230,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         locationManager.delegate = self
         
         mapView.delegate = self
-        mapView.setCenter(mapView.userLocation.coordinate, animated: true)
         mapView.userTrackingMode = MKUserTrackingMode.follow
         var region: MKCoordinateRegion = mapView.region
         region.span.latitudeDelta = 0.001
@@ -187,6 +248,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         
         setupGesture()
         setupAds()
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addFavorite),
+                                               name: .addFavorite,
+                                               object: nil)
     }
     
     func setupAds() {

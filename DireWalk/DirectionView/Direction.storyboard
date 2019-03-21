@@ -38,7 +38,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NK9-fX-mad">
                                 <rect key="frame" x="0.0" y="20" width="320" height="320"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_109760_512" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
                                         <rect key="frame" x="48" y="48" width="224" height="224"/>
                                         <accessibility key="accessibilityConfiguration" identifier="headingImageView"/>
                                         <constraints>
@@ -89,6 +89,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon_109760_512" width="512" height="512"/>
+        <image name="Direction" width="512" height="512"/>
     </resources>
 </document>

@@ -197,7 +197,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
             delegate?.hideObjects(hide: true)
             isHidden = true
         }
-        
+        hideAlart()
         let generater = UINotificationFeedbackGenerator()
         generater.prepare()
         generater.notificationOccurred(.warning)

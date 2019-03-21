@@ -18,12 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LQo-HK-Qjm">
-                                <rect key="frame" x="0.0" y="267.5" width="375" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uwn-Dz-Q3D">
                                 <rect key="frame" x="164.5" y="318.5" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
@@ -31,20 +25,25 @@
                                     <action selector="toSettings" destination="VQu-gF-cqv" eventType="touchUpInside" id="GC6-nk-ZhI"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fud-9F-TH9">
+                                <rect key="frame" x="0.0" y="268" width="375" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="vsr-57-fOg" firstAttribute="trailing" secondItem="LQo-HK-Qjm" secondAttribute="trailing" id="2be-tS-AMK"/>
-                            <constraint firstItem="LQo-HK-Qjm" firstAttribute="centerX" secondItem="pm0-So-ASa" secondAttribute="centerX" id="67h-cg-OD5"/>
                             <constraint firstItem="uwn-Dz-Q3D" firstAttribute="centerX" secondItem="pm0-So-ASa" secondAttribute="centerX" id="BT9-Cu-3eD"/>
-                            <constraint firstItem="uwn-Dz-Q3D" firstAttribute="top" secondItem="LQo-HK-Qjm" secondAttribute="bottom" constant="30" id="Tel-ek-aNk"/>
+                            <constraint firstItem="vsr-57-fOg" firstAttribute="trailing" secondItem="Fud-9F-TH9" secondAttribute="trailing" id="FGJ-zc-Fxu"/>
+                            <constraint firstItem="Fud-9F-TH9" firstAttribute="leading" secondItem="vsr-57-fOg" secondAttribute="leading" id="QQu-VT-6eC"/>
                             <constraint firstItem="uwn-Dz-Q3D" firstAttribute="centerY" secondItem="pm0-So-ASa" secondAttribute="centerY" id="j3a-Dr-r4f"/>
-                            <constraint firstItem="LQo-HK-Qjm" firstAttribute="leading" secondItem="vsr-57-fOg" secondAttribute="leading" id="vpW-Nc-J5V"/>
+                            <constraint firstItem="uwn-Dz-Q3D" firstAttribute="top" secondItem="Fud-9F-TH9" secondAttribute="bottom" constant="30" id="trJ-6k-f59"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vsr-57-fOg"/>
                     </view>
                     <connections>
-                        <outlet property="stringsLabel" destination="LQo-HK-Qjm" id="8pa-Q4-HnJ"/>
+                        <outlet property="stringsLabel" destination="Fud-9F-TH9" id="wTx-4W-1x3"/>
                         <outlet property="toSettingsButton" destination="uwn-Dz-Q3D" id="5kl-Pb-gDK"/>
                     </connections>
                 </viewController>

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct ud {
     enum key: String{
@@ -17,5 +18,11 @@ struct ud {
         case directoinButtonHeading
         case usingTimes
         case showFar
+        case favoritePlaces
     }
+}
+
+extension Notification.Name {
+    public static let addFavorite = Notification.Name("addFavorite")
+    public static let reloadFavorite = Notification.Name("reloadFavorite")
 }

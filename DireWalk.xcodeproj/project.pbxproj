@@ -24,6 +24,7 @@
 		E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* CellData.swift */; };
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
 		E67C3A2122291FEE00551AC6 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Strings.swift */; };
+		E6A615F42242316900C623AF /* FavoritePlaceCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A615F32242316900C623AF /* FavoritePlaceCellData.swift */; };
 		E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A8097822354E2D0086E146 /* RequestLocation.storyboard */; };
 		E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097C22354E600086E146 /* RequestLocationViewController.swift */; };
 		E6A809802235B9900086E146 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* TableViewCells.swift */; };
@@ -35,6 +36,8 @@
 		E6C437DC222386FA00542844 /* DireWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437DB222386FA00542844 /* DireWalkTests.swift */; };
 		E6C437E7222386FA00542844 /* DireWalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437E6222386FA00542844 /* DireWalkUITests.swift */; };
 		E6EA4052223F58D800BA27C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */; };
+		E6EA405B2241B75900BA27C2 /* FavoritePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */; };
+		E6EA405D2241B7CC00BA27C2 /* FavoriteCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +83,7 @@
 		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
 		E67C3A2022291FED00551AC6 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		E6A615F32242316900C623AF /* FavoritePlaceCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaceCellData.swift; sourceTree = "<group>"; };
 		E6A8097822354E2D0086E146 /* RequestLocation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestLocation.storyboard; sourceTree = "<group>"; };
 		E6A8097C22354E600086E146 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
 		E6A8097F2235B9900086E146 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 		E6C437E6222386FA00542844 /* DireWalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DireWalkUITests.swift; sourceTree = "<group>"; };
 		E6C437E8222386FA00542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaces.swift; sourceTree = "<group>"; };
+		E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,9 @@
 			children = (
 				E67C3A0622261C3800551AC6 /* Map.storyboard */,
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
+				E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */,
+				E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */,
+				E6A615F32242316900C623AF /* FavoritePlaceCellData.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -512,12 +521,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
+				E6EA405D2241B7CC00BA27C2 /* FavoriteCells.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Strings.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
+				E6EA405B2241B75900BA27C2 /* FavoritePlaces.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
+				E6A615F42242316900C623AF /* FavoritePlaceCellData.swift in Sources */,
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
