@@ -30,19 +30,28 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         locationManager.headingFilter = 0.1
         
-        let headingRadian: CGFloat = userDefaults.object(forKey: ud.key.directoinButtonHeading.rawValue) as! CGFloat
+        let headingRadian: CGFloat = userDefaults.object(forKey: udKey.directoinButtonHeading.rawValue) as! CGFloat
         headingImageView.transform = CGAffineTransform(rotationAngle: headingRadian * CGFloat.pi / 180)
     }
     
     func getDestinationLocation() {
         destinationLocation = CLLocation(
-                latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
-                longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
+                latitude: userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees,
+                longitude: userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees)
     }
     
     
     
     func updateFar() {
+        if destinationLocation.coordinate.latitude == 0.0 &&
+            destinationLocation.coordinate.longitude == 0.0 {
+            let distanceText = NSAttributedString(
+                string: NSLocalizedString("swipe", comment: ""),
+                attributes: [.foregroundColor : UIColor.white,
+                             .font : UIFont.systemFont(ofSize: 40)])
+            distanceLabel.attributedText = distanceText
+            return
+        }
         let far = destinationLocation.distance(from: locationManager.location!)
         var distance: String = ""
         var unit: String = ""
@@ -90,11 +99,6 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setupViews() {
-        let distanceText = NSAttributedString(
-            string: NSLocalizedString("swipe", comment: ""),
-            attributes: [.foregroundColor : UIColor.white,
-                         .font : UIFont.systemFont(ofSize: 40)])
-        distanceLabel.attributedText = distanceText
         distanceLabel.adjustsFontSizeToFitWidth = true
         headingImageView.transform = CGAffineTransform(rotationAngle: 90 * CGFloat.pi / 180)
     }
@@ -103,7 +107,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         setupViews()
         locationManager.delegate = self
-        if userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+        if userDefaults.bool(forKey: udKey.showFar.rawValue) {
             if distanceLabel.text != NSLocalizedString("swipe", comment: "") {
                 distanceLabel.isHidden = true
             }
@@ -113,19 +117,23 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+        if userDefaults.bool(forKey: udKey.showFar.rawValue) {
             if distanceLabel.text != NSLocalizedString("swipe", comment: "") {
                 distanceLabel.isHidden = true
             }
         }else {
             distanceLabel.isHidden = false
         }
+        if  userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
+            getDestinationLocation()
+        }
+        updateFar()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
-            if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
+            if userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
                 locationManager.startUpdatingLocation()
                 locationManager.startUpdatingHeading()
             }
@@ -187,7 +195,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     
     func checkHidden() {
         if isHidden {
-            if !userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+            if !userDefaults.bool(forKey: udKey.showFar.rawValue) {
                 distanceLabel.isHidden = false
             }
             delegate?.hideObjects(hide: false)

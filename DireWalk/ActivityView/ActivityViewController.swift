@@ -145,7 +145,7 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         healthStore.execute(query)
     }
     func getDireWalkUsingTimes() {
-        let usingTimes = UserDefaults.standard.integer(forKey: ud.key.usingTimes.rawValue)
+        let usingTimes = UserDefaults.standard.integer(forKey: udKey.usingTimes.rawValue)
         var unit: String!
         let usingTimesMinutes = Int(ceil(Double(usingTimes) / 60.0))
         if usingTimesMinutes == 1 || usingTimes == 0 {
@@ -189,9 +189,10 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
             return cell
         case 14:
             let cell: AdCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "AdCell", for: indexPath) as! AdCollectionViewCell
-            cell.adView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7482106968377175/6483821918"
+            cell.adView.adUnitID = "ca-app-pub-7482106968377175/6483821918"
             cell.adView.rootViewController = self
             let request = GADRequest()
+            request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
             cell.adView.load(request)
             cell.adView.delegate = self
             return cell

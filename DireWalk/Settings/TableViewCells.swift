@@ -21,7 +21,7 @@ class ChangeShowFarCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         changeSwitch.addTarget(self, action: #selector(changeShowFar), for: UIControl.Event.valueChanged)
-        if userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+        if userDefaults.bool(forKey: udKey.showFar.rawValue) {
             changeSwitch.isOn = true
         }else {
             changeSwitch.isOn = false
@@ -30,9 +30,9 @@ class ChangeShowFarCell: UITableViewCell {
     }
     @objc func changeShowFar() {
         if changeSwitch.isOn {
-            userDefaults.set(true, forKey: ud.key.showFar.rawValue)
+            userDefaults.set(true, forKey: udKey.showFar.rawValue)
         }else {
-            userDefaults.set(false, forKey: ud.key.showFar.rawValue)
+            userDefaults.set(false, forKey: udKey.showFar.rawValue)
         }
     }
 }

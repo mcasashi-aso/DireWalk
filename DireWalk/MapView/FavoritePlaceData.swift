@@ -9,17 +9,7 @@
 import UIKit
 import MapKit
 
-class FavoritePlaceData: NSObject, NSCoding {
-    
-    func encode(with aCoder: NSCoder) {
-        if let latitude = latitude { aCoder.encode(latitude, forKey: "latitude") }
-        if let longitude = longitude { aCoder.encode(longitude, forKey: "longitude") }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        self.latitude = (aDecoder.decodeObject(forKey: "latitude")) as? CLLocationDegrees ?? CLLocationDegrees(exactly: 0.0)
-        self.longitude = (aDecoder.decodeObject(forKey: "longitude")) as? CLLocationDegrees ?? CLLocationDegrees(exactly: 0.0)
-    }
+struct FavoritePlaceData: Codable{
     
     var latitude: CLLocationDegrees!
     var longitude: CLLocationDegrees!

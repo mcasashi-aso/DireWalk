@@ -45,3 +45,5 @@
 
 "reauestLocation" = "This application needs your location.\nThis app calculat direction and far to destination.";
 "toSettings" = "Open Settings";
+
+"restore" = "restore";

@@ -17,10 +17,21 @@ protocol MapViewControllerDelegate {
     func changeMapTabButtonImage(isShowingPlaces: Bool)
 }
 
-class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate, FavoritePlacesViewControllerDelegate {
+class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate {
     
-    func showPlace() {
+    @objc func showPlace() {
+        let latitude = userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees
+        let longitude = userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees
+        annotation.coordinate.latitude = latitude
+        annotation.coordinate.longitude = longitude
         
+        let center = CLLocationCoordinate2D(latitude: latitude - 0.0006,
+                                            longitude: longitude)
+        let span = MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004)
+        let region = MKCoordinateRegion(center: center, span: span)
+        mapView.setRegion(region, animated: true)
+        
+        addMarker(new: true)
     }
     
     var favoriteName = "Favorite"
@@ -33,14 +44,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
                                               longitude: longitude,
                                               name: favoriteName,
                                               adress: favoriteAdress)
-        var places = [FavoritePlaceData]()
-        if let udPlaces = userDefaults.object(forKey: ud.key.favoritePlaces.rawValue) as? Data{
-            places = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(udPlaces) as! [FavoritePlaceData]
+        guard let data = try? JSONEncoder().encode(favoritePlace) else { return }
+        var datas = [Data]()
+        if let udDatas = userDefaults.array(forKey: udKey.favoritePlaces.rawValue) {
+            datas = udDatas as! [Data]
         }
-        places.append(favoritePlace)
-        let placesOfData = try? NSKeyedArchiver.archivedData(withRootObject: places, requiringSecureCoding: false)
-        userDefaults.set(placesOfData, forKey: ud.key.favoritePlaces.rawValue)
-        NotificationCenter.default.post(name: .reloadFavorite, object: nil)
+        datas.append(data)
+        userDefaults.set(datas, forKey: udKey.favoritePlaces.rawValue)
+        print(datas)
+        NotificationCenter.default.post(name: .addedFavorite, object: nil)
     }
     
     
@@ -64,9 +76,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         delegate?.changeMapTabButtonImage(isShowingPlaces: isShowingPlaces)
         if isShowingPlaces {
             scrollView.isUserInteractionEnabled = true
+            NotificationCenter.default.post(name: .hideAddFavorite, object: nil)
         }else {
             scrollView.isUserInteractionEnabled = false
-            NotificationCenter.default.post(name: .endEditing, object: nil)
+            userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
+            NotificationCenter.default.post(name: .changeEditingMode, object: nil)
         }
     }
     
@@ -182,9 +196,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
             generater.impactOccurred()
         }
         
-        userDefaults.set(annotation.coordinate.latitude, forKey: ud.key.annotationLatitude.rawValue)
-        userDefaults.set(annotation.coordinate.longitude, forKey: ud.key.annotationLongitude.rawValue)
-        userDefaults.set(true, forKey: ud.key.previousAnnotation.rawValue)
+        userDefaults.set(annotation.coordinate.latitude, forKey: udKey.annotationLatitude.rawValue)
+        userDefaults.set(annotation.coordinate.longitude, forKey: udKey.annotationLongitude.rawValue)
+        userDefaults.set(true, forKey: udKey.previousAnnotation.rawValue)
+        
+        NotificationCenter.default.post(name: .updateMarker, object: nil)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -238,16 +254,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         mapView.delegate = self
         mapView.userTrackingMode = MKUserTrackingMode.follow
         var region: MKCoordinateRegion = mapView.region
-        region.span.latitudeDelta = 0.001
-        region.span.longitudeDelta = 0.001
+        region.center = (locationManager.location?.coordinate)!
+        region.span.latitudeDelta = 0.004
+        region.span.longitudeDelta = 0.004
         mapView.setRegion(region, animated: true)
         mapView.mapType = .mutedStandard
         
         setupMapButtons()
         
-        if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
-            let latitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees
-            let longitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees
+        if userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
+            let latitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees
+            let longitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees
             annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
             addMarker(new: false)
         }
@@ -271,6 +288,14 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(showPlace),
+                                               name: .showFavoritePlace,
+                                               object: nil)
+        if annotation.coordinate.latitude == 0.0 && annotation.coordinate.longitude == 0.0 {
+            UserDefaults.standard.set(true, forKey: udKey.hideAddFavorite.rawValue)
+            NotificationCenter.default.post(name: .hideAddFavorite, object: nil)
+        }
     }
     
     @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
@@ -287,10 +312,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     
     
     func setupAds() {
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-7482106968377175/7907556553"
+        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
         bannerView.rootViewController = self
         let request = GADRequest()
-        
+        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
         bannerView.load(request)
     }
     
@@ -368,6 +393,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     @objc func fitCollectionViewSize() {
         let constraint = userDefaults.float(forKey: "scrollViewLeadingConstraint")
         scrollViewLeadingConstraint.constant = CGFloat(constraint)
+        scrollView.layoutIfNeeded()
     }
     
 }

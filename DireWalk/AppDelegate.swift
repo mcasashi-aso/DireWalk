@@ -19,21 +19,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        let domain = Bundle.main.bundleIdentifier
-        userDefaults.removePersistentDomain(forName: domain!)
-        userDefaults.synchronize()
+        /* 初期化用 */
+//        let domain = Bundle.main.bundleIdentifier
+//        userDefaults.removePersistentDomain(forName: domain!)
+//        userDefaults.synchronize()
         
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)
         userDefaults.register(defaults: ["date" : measureOfNil])
         let previous: Date = userDefaults.object(forKey: "date") as! Date
-        userDefaults.register(defaults: [ud.key.previousAnnotation.rawValue : false])
+        userDefaults.register(defaults: [udKey.previousAnnotation.rawValue : false])
         if Date(timeInterval: -60*60*3, since: now) > previous{
-            userDefaults.set(false, forKey: ud.key.previousAnnotation.rawValue)
+            userDefaults.set(false, forKey: udKey.previousAnnotation.rawValue)
         }
         userDefaults.set(now, forKey: "date")
         
-        userDefaults.register(defaults: [ud.key.showFar.rawValue : false])
+        userDefaults.register(defaults: [udKey.showFar.rawValue : false])
+        userDefaults.set([Int](), forKey: udKey.deletedFavoritePlaces.rawValue)
+        userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
         
         FirebaseApp.configure()
 

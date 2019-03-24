@@ -36,7 +36,7 @@
 		E6C437DC222386FA00542844 /* DireWalkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437DB222386FA00542844 /* DireWalkTests.swift */; };
 		E6C437E7222386FA00542844 /* DireWalkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437E6222386FA00542844 /* DireWalkUITests.swift */; };
 		E6EA4052223F58D800BA27C2 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */; };
-		E6EA405B2241B75900BA27C2 /* FavoritePlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */; };
+		E6EA405B2241B75900BA27C2 /* FavoritePlacesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA405A2241B75900BA27C2 /* FavoritePlacesViewController.swift */; };
 		E6EA405D2241B7CC00BA27C2 /* FavoriteCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,7 +101,7 @@
 		E6C437E6222386FA00542844 /* DireWalkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DireWalkUITests.swift; sourceTree = "<group>"; };
 		E6C437E8222386FA00542844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6EA4051223F58D800BA27C2 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaces.swift; sourceTree = "<group>"; };
+		E6EA405A2241B75900BA27C2 /* FavoritePlacesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlacesViewController.swift; sourceTree = "<group>"; };
 		E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCells.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,7 +182,7 @@
 			children = (
 				E67C3A0622261C3800551AC6 /* Map.storyboard */,
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
-				E6EA405A2241B75900BA27C2 /* FavoritePlaces.swift */,
+				E6EA405A2241B75900BA27C2 /* FavoritePlacesViewController.swift */,
 				E6EA405C2241B7CC00BA27C2 /* FavoriteCells.swift */,
 				E6A615F32242316900C623AF /* FavoritePlaceData.swift */,
 			);
@@ -524,7 +524,7 @@
 				E6EA405D2241B7CC00BA27C2 /* FavoriteCells.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
-				E6EA405B2241B75900BA27C2 /* FavoritePlaces.swift in Sources */,
+				E6EA405B2241B75900BA27C2 /* FavoritePlacesViewController.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,

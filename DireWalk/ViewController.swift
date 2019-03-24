@@ -90,10 +90,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     }
     
     func updateMarker(markerName: String) {
-        markerLocation = CLLocation(latitude: userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees,
-                                    longitude: userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees)
+        markerLocation = CLLocation(latitude: userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees,
+                                    longitude: userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees)
         destinationName = markerName
-        userDefaults.set(destinationName, forKey: ud.key.destinationName.rawValue)
+        userDefaults.set(destinationName, forKey: udKey.destinationName.rawValue)
         destinationLabel.setTitle(destinationName, for: .normal)
         destinationHeading()
         updateDirectionButton()
@@ -124,7 +124,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     
     func updateDirectionButton() {
         let directoinButtonHeading = destinationHeadingRadian - userHeadingRadian
-        userDefaults.set(directoinButtonHeading, forKey: ud.key.directoinButtonHeading.rawValue)
+        userDefaults.set(directoinButtonHeading, forKey: udKey.directoinButtonHeading.rawValue)
         directionButton.transform = CGAffineTransform(rotationAngle: (directoinButtonHeading - 45) * CGFloat.pi / 180)
     }
     
@@ -181,7 +181,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         let view = pageViewController.viewControllers?.first
         if view!.isKind(of: DirectionViewController.self) {
             let directionView = view as! DirectionViewController
-            if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
+            if userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
                 directionView.locationManager.startUpdatingLocation()
                 directionView.locationManager.startUpdatingHeading()
             }
@@ -191,6 +191,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
                 destinationLabel.setTitle(destinationName, for: .normal)
             }
             presentView = .direction
+            
+            userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
         }else if view!.isKind(of: MapViewController.self) {
             if destinationLabel.title(for: .normal) == selectDestination {
                 destinationLabel.setTitle(longPressToSelect, for: .normal)
@@ -215,6 +217,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
                 destinationLabel.isEnabled = false
             }
             presentView = .activity
+            
+            userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
         }
     }
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -223,7 +227,7 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         for view in viewControllers! {
             if view.isKind(of: DirectionViewController.self) {
                 let directionView = view as! DirectionViewController
-                if !userDefaults.bool(forKey: ud.key.showFar.rawValue) {
+                if !userDefaults.bool(forKey: udKey.showFar.rawValue) {
                     directionView.distanceLabel.isHidden = false
                 }
                 directionView.isHidden = false
@@ -271,6 +275,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         mapButton.setImage(UIImage(named: "Map"), for: .normal)
         
         contentPageVC.setViewControllers([getCenter()], direction: direction, animated: true, completion: nil)
+        
+        userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
     }
     @IBAction func tapActivity() {
         if presentView == .activity {  return  }
@@ -289,6 +295,8 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         mapButton.setImage(UIImage(named: "Map"), for: .normal)
         
         contentPageVC.setViewControllers([getLeft()], direction: .reverse, animated: true, completion: nil)
+        
+        userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
     }
     @IBAction func tapMap() {
         if presentView == .map {
@@ -334,6 +342,10 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
     }
     
+    @objc func findForFavorite() {
+        destinationLabel.setTitle(userDefaults.string(forKey: udKey.destinationName.rawValue), for: .normal)
+    }
+    
     @IBOutlet weak var directionButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
@@ -350,11 +362,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if userDefaults.bool(forKey: ud.key.previousAnnotation.rawValue) {
-            let latitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLatitude.rawValue) as! CLLocationDegrees
-            let longitude: CLLocationDegrees = userDefaults.object(forKey: ud.key.annotationLongitude.rawValue) as! CLLocationDegrees
+        if userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
+            let latitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees
+            let longitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees
             markerLocation = CLLocation(latitude: latitude, longitude: longitude)
-            destinationName = userDefaults.string(forKey: ud.key.destinationName.rawValue)
+            destinationName = userDefaults.string(forKey: udKey.destinationName.rawValue)
         }
         
         setupViews()
@@ -369,18 +381,11 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
                                           selector: #selector(usingUpdater),
                                           userInfo: nil,
                                           repeats: true)
-        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLatitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
-        userDefaults.addObserver(self, forKeyPath: ud.key.annotationLongitude.rawValue, options: [NSKeyValueObservingOptions.new], context: nil)
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        for view in contentPageVC.viewControllers! {
-            if view.isKind(of: DirectionViewController.self) {
-                let directionVeiw = view as! DirectionViewController
-                directionVeiw.getDestinationLocation()
-                directionVeiw.updateFar()
-            }
-        }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(findForFavorite),
+                                               name: .findForFavorite,
+                                               object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -476,12 +481,12 @@ class ViewController: UIViewController, UIPageViewControllerDelegate, UIPageView
         }
         var dayChanged = false
         if lastUsed != today {
-            userDefaults.set(0, forKey: ud.key.usingTimes.rawValue)
+            userDefaults.set(0, forKey: udKey.usingTimes.rawValue)
             userDefaults.set(today, forKey: "lastUsed")
             dayChanged = true
         }
-        let correntUsingTime = userDefaults.integer(forKey: ud.key.usingTimes.rawValue)
-        userDefaults.set((correntUsingTime + 1), forKey: ud.key.usingTimes.rawValue)
+        let correntUsingTime = userDefaults.integer(forKey: udKey.usingTimes.rawValue)
+        userDefaults.set((correntUsingTime + 1), forKey: udKey.usingTimes.rawValue)
         
         if ceil(Double(correntUsingTime) / 60.0) !=
             ceil(Double(correntUsingTime + 1) / 60.0) {
