@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>7</string>
 	<key>GADIsAdManagerApp</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -30,10 +30,10 @@
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
 	<string>You will be able to see the activity within this application</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app use your location because calculat direction and far to destination</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>You will be able to see the activity within this application</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app use your location because calculat direction and far to destination</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>

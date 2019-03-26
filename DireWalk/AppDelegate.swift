@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         /* 初期化用 */
-//        let domain = Bundle.main.bundleIdentifier
-//        userDefaults.removePersistentDomain(forName: domain!)
-//        userDefaults.synchronize()
+        let domain = Bundle.main.bundleIdentifier
+        userDefaults.removePersistentDomain(forName: domain!)
+        userDefaults.synchronize()
         
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)
@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.register(defaults: [udKey.showFar.rawValue : false])
         userDefaults.set([Int](), forKey: udKey.deletedFavoritePlaces.rawValue)
         userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
+        userDefaults.register(defaults: [udKey.arrowColorWhite.rawValue : Float(0.75)])
         
         FirebaseApp.configure()
 

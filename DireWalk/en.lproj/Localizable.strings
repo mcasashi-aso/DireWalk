@@ -12,7 +12,7 @@
 "swipe" = "Swipe and Select";
 
 "directionOnlyMode" = "Direction Only Mode";
-"directionOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.";
+"directionOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.\nBut, power consumption is rediced with iPhone X / Xs / Xs Max";
 
 "DireWalk" = "DireWalk";
 "steps" = "Steps";
@@ -33,12 +33,19 @@
 "settings" = "Settings";
 "done" = "Done";
 "aboutStrings" = "DireWalk is an application for people who want to walk freely.\nIf you would want to go somewhere, you might use maps. But it’s boring because the way is limited.\nIf you would use DireWalk, you can enjoy walking and reach a destination.";
+
+"arrowColor" = "Arrow Color";
+"preview" = "Preview";
+"whiteColorAbout" = "White color is\neasily for look\nwith black\nbackground\ncolor.";
+"blackColorAbout" = "Black color is\nlow power\nconsumption\nwith iPhone X\n/ Xs / Xs Max.";
 "doNotAlwaysShowFar" = "Don't always show distance";
 "captionDoNotShowFar" = "This mode show distance automatic when you go into 30m near destination";
+
 "reviewSection" = "Review & Share";
 "review" = "Review on App Store";
 "share" = "Share";
 "shareString" = "Let's use DireWalk and enjoy walking!";
+
 "about" = "About";
 "version" = "version";
 "createdby" = "created by";

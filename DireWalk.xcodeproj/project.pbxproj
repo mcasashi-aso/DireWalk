@@ -24,6 +24,8 @@
 		E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* CellData.swift */; };
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
 		E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Tools.swift */; };
+		E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */; };
+		E69F09AF2249094200B77F6E /* MySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AE2249094200B77F6E /* MySlider.swift */; };
 		E6A615F42242316900C623AF /* FavoritePlaceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A615F32242316900C623AF /* FavoritePlaceData.swift */; };
 		E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A8097822354E2D0086E146 /* RequestLocation.storyboard */; };
 		E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097C22354E600086E146 /* RequestLocationViewController.swift */; };
@@ -83,6 +85,8 @@
 		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
 		E67C3A2022291FED00551AC6 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
+		E69F09AE2249094200B77F6E /* MySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySlider.swift; sourceTree = "<group>"; };
 		E6A615F32242316900C623AF /* FavoritePlaceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritePlaceData.swift; sourceTree = "<group>"; };
 		E6A8097822354E2D0086E146 /* RequestLocation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestLocation.storyboard; sourceTree = "<group>"; };
 		E6A8097C22354E600086E146 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 				E6358E15222D7E660084E9CB /* Setting.storyboard */,
 				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
 				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
+				E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */,
+				E69F09AE2249094200B77F6E /* MySlider.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -522,8 +528,10 @@
 			files = (
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				E6EA405D2241B7CC00BA27C2 /* FavoriteCells.swift in Sources */,
+				E69F09AF2249094200B77F6E /* MySlider.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
+				E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */,
 				E6EA405B2241B75900BA27C2 /* FavoritePlacesViewController.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,

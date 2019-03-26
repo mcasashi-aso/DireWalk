@@ -51,7 +51,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         }
         datas.append(data)
         userDefaults.set(datas, forKey: udKey.favoritePlaces.rawValue)
-        print(datas)
         NotificationCenter.default.post(name: .addedFavorite, object: nil)
     }
     
@@ -220,6 +219,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
     }
     
     
+    var heading = CLLocationDirection()
     var headingImageView = UIImageView(image: UIImage(named: "UserHeading"))
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         if views.last?.annotation is MKUserLocation {
@@ -237,12 +237,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         if newHeading.headingAccuracy < 0 { return }
-        let heading = newHeading.trueHeading > 0 ?newHeading.trueHeading : newHeading.magneticHeading
-        updateHeadingRotation(heading: heading)
+        heading = newHeading.trueHeading > 0 ?newHeading.trueHeading : newHeading.magneticHeading
+        updateHeadingRotation()
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        updateHeadingRotation()
     }
 
-    func updateHeadingRotation(heading: CLLocationDirection) {
-        let rotation = CGFloat(heading) * CGFloat.pi / 180
+    func updateHeadingRotation() {
+        let rotation = CGFloat(heading - mapView.camera.heading) * CGFloat.pi / 180
         headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
     }
     
@@ -252,7 +256,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         locationManager.delegate = self
         
         mapView.delegate = self
-        mapView.userTrackingMode = MKUserTrackingMode.follow
+        mapView.userTrackingMode = MKUserTrackingMode.none
         var region: MKCoordinateRegion = mapView.region
         region.center = (locationManager.location?.coordinate)!
         region.span.latitudeDelta = 0.004

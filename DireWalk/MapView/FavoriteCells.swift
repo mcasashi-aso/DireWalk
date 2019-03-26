@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
-class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationManagerDelegate {
+class FavoritePlaceCell: UICollectionViewCell {
     
     var myIndexPath: Int!
     var placeData: FavoritePlaceData!
@@ -38,6 +38,8 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
     
     let coverView = UIView()
     let restoreButton = UIButton()
+    
+    var destinationHeadingRadian = CGFloat()
     
     func setupCell(place: FavoritePlaceData) {
         self.placeData = place
@@ -81,6 +83,7 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeEdit), name: .changeEditingMode, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(judgeSelected), name: .updateMarker, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustIndexPath), name: .adjustmentFavoriteDeleted, object: nil)
         
         changeEdit()
         
@@ -90,6 +93,13 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
             }else {
                 tapRestore()
             }
+        }
+    }
+    
+    @objc func adjustIndexPath () {
+        let deletedIndex = userDefaults.integer(forKey: udKey.adjustmentFavoriteDeleted.rawValue)
+        if myIndexPath > deletedIndex {
+            myIndexPath -= 1
         }
     }
     
@@ -118,6 +128,78 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
             })
         }
     }
+    
+    @IBAction func tapDelete() {
+        deleteButton.alpha = 0.0
+        deleteButton.isUserInteractionEnabled = false
+        coverView.alpha = 1.0
+        restoreButton.alpha = 1.0
+        restoreButton.isUserInteractionEnabled = true
+        
+        guard var deletedArray = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) else { return }
+        deletedArray.append(myIndexPath)
+        let setArray = NSOrderedSet(array: deletedArray)
+        deletedArray = setArray.array as! [Int]
+        userDefaults.set(deletedArray, forKey: udKey.deletedFavoritePlaces.rawValue)
+    }
+    
+    @objc func tapRestore() {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowAnimatedContent, .allowUserInteraction, .curveEaseInOut], animations: {
+            self.deleteButton.alpha = 1.0
+            self.coverView.alpha = 0.0
+            self.restoreButton.alpha = 0.0
+        }) { finished in
+            self.deleteButton.isUserInteractionEnabled = true
+            self.restoreButton.isUserInteractionEnabled = false
+        }
+        
+        guard var deletedArray: [Int] = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) as? [Int] else { return }
+        let setArray = NSOrderedSet(array: deletedArray)
+        deletedArray = setArray.array as! [Int]
+        guard let index = deletedArray.firstIndex(of: myIndexPath) else  { return }
+        deletedArray.remove(at: index)
+        userDefaults.set(deletedArray, forKey: udKey.deletedFavoritePlaces.rawValue)
+    }
+    
+    @IBAction func selectCell() {
+        self.backgroundColor = UIColor.superGray
+        userDefaults.set(myIndexPath, forKey: udKey.selectedCellIndexPath.rawValue)
+        NotificationCenter.default.post(name: .selectedFavoritePlace, object: nil)
+    }
+    
+}
+
+extension FavoritePlaceCell: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let nsString = textField.text as NSString?
+        let newString = nsString?.replacingCharacters(in: range, with: string)
+        if newString?.count != 0 {
+            placeData.name = newString!
+            userDefaults.set(newString, forKey: udKey.editingCellString.rawValue)
+            NotificationCenter.default.post(name: .changeFavoritePlaceName, object: nil)
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        userDefaults.set(myIndexPath, forKey: udKey.editingCellIndexPath.rawValue)
+        NotificationCenter.default.post(name: .editingFavoritePlaceIndexPath, object: nil)
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if nameTextField.isFirstResponder {
+            nameTextField.resignFirstResponder()
+        }
+    }
+}
+
+extension FavoritePlaceCell: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         showDistance()
@@ -181,7 +263,6 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
         directionImageView.transform = CGAffineTransform(rotationAngle: (destinationHeadingRadian - CGFloat(newHeading.magneticHeading) - 45) * CGFloat.pi / 180)
     }
     
-    var destinationHeadingRadian = CGFloat()
     func destinationHeading() {
         let destinationLatitude = toRadian(placeData.latitude)
         let destinationLongitude = toRadian(placeData.longitude)
@@ -201,73 +282,6 @@ class FavoritePlaceCell: UICollectionViewCell, UITextFieldDelegate, CLLocationMa
         let floatAngle = CGFloat(angle)
         return floatAngle * CGFloat.pi / 180
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let nsString = textField.text as NSString?
-        let newString = nsString?.replacingCharacters(in: range, with: string)
-        if newString?.count != 0 {
-            placeData.name = newString!
-            userDefaults.set(newString, forKey: udKey.editingCellString.rawValue)
-            NotificationCenter.default.post(name: .changeFavoritePlaceName, object: nil)
-        }
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        userDefaults.set(myIndexPath, forKey: udKey.editingCellIndexPath.rawValue)
-        NotificationCenter.default.post(name: .editingFavoritePlaceIndexPath, object: nil)
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if nameTextField.isFirstResponder {
-            nameTextField.resignFirstResponder()
-        }
-    }
-    
-    
-    @IBAction func tapDelete() {
-        deleteButton.alpha = 0.0
-        deleteButton.isUserInteractionEnabled = false
-        coverView.alpha = 1.0
-        restoreButton.alpha = 1.0
-        restoreButton.isUserInteractionEnabled = true
-        
-        guard var deletedArray = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) else { return }
-        deletedArray.append(myIndexPath)
-        let setArray = NSOrderedSet(array: deletedArray)
-        deletedArray = setArray.array as! [Int]
-        userDefaults.set(deletedArray, forKey: udKey.deletedFavoritePlaces.rawValue)
-    }
-    
-    @objc func tapRestore() {
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: [.allowAnimatedContent, .allowUserInteraction, .curveEaseInOut], animations: {
-            self.deleteButton.alpha = 1.0
-            self.coverView.alpha = 0.0
-            self.restoreButton.alpha = 0.0
-        }) { finished in
-            self.deleteButton.isUserInteractionEnabled = true
-            self.restoreButton.isUserInteractionEnabled = false
-        }
-        
-        guard var deletedArray: [Int] = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) as? [Int] else { return }
-        let setArray = NSOrderedSet(array: deletedArray)
-        deletedArray = setArray.array as! [Int]
-        guard let index = deletedArray.firstIndex(of: myIndexPath) else  { return }
-        deletedArray.remove(at: index)
-        userDefaults.set(deletedArray, forKey: udKey.deletedFavoritePlaces.rawValue)
-    }
-    
-    @IBAction func selectCell() {
-        self.backgroundColor = UIColor.superGray
-        userDefaults.set(myIndexPath, forKey: udKey.selectedCellIndexPath.rawValue)
-        NotificationCenter.default.post(name: .selectedFavoritePlace, object: nil)
-    }
-    
 }
 
 

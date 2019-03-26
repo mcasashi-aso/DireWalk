@@ -22,7 +22,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     
-    @IBOutlet weak var headingImageView: UIView!
+    @IBOutlet weak var headingImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
     
     var destinationLocation = CLLocation()
@@ -99,6 +99,7 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setupViews() {
+        headingImageView.image = UIImage(named: "Direction")?.withRenderingMode(.alwaysTemplate)
         distanceLabel.adjustsFontSizeToFitWidth = true
         headingImageView.transform = CGAffineTransform(rotationAngle: 90 * CGFloat.pi / 180)
     }
@@ -117,6 +118,8 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        headingImageView.tintColor = UIColor(white: CGFloat(userDefaults.float(forKey: udKey.arrowColorWhite.rawValue)), alpha: 1)
+        
         if userDefaults.bool(forKey: udKey.showFar.rawValue) {
             if distanceLabel.text != NSLocalizedString("swipe", comment: "") {
                 distanceLabel.isHidden = true
@@ -177,9 +180,6 @@ class DirectionViewController: UIViewController, CLLocationManagerDelegate {
                 timer.invalidate()
                 count = 0.0
             }
-//        }else {
-////            timer.invalidate()
-////            count = 0.0
         }
     }
     @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {

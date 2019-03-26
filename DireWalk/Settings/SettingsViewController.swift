@@ -45,7 +45,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 1
-        case 1: return 1
+        case 1: return 2
         case 2: return 0
         case 3: return 2
         default: return 0
@@ -59,9 +59,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.textView.text = NSLocalizedString("aboutStrings", comment: "")
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ChangeShowFarCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("doNotAlwaysShowFar", comment: "")
-            return cell
+            switch indexPath.row {
+            case 0:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SelectColorCell", for: indexPath)
+                cell.textLabel?.text = NSLocalizedString("arrowColor", comment: "")
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ChangeShowFarCell", for: indexPath)
+                cell.textLabel?.text = NSLocalizedString("doNotAlwaysShowFar", comment: "")
+                return cell
+            default: break
+            }
+            return UITableViewCell()
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
             switch indexPath.row {

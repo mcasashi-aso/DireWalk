@@ -62,8 +62,8 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="bottom" secondItem="eAT-Dp-A43" secondAttribute="bottom" constant="120" id="Cnz-t4-LeG"/>
+                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="Fbm-uE-QXR"/>
                             <constraint firstItem="iNz-Jq-imh" firstAttribute="top" secondItem="as5-6k-KjC" secondAttribute="top" id="Hff-uT-Xfd"/>
-                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="I1E-kQ-qHV"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="eAT-Dp-A43" secondAttribute="trailing" id="OhO-1K-EPp"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="zcU-6M-rKE" secondAttribute="trailing" id="V3b-1p-Gkw"/>
                             <constraint firstItem="1vl-LV-oQC" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="ZM2-7L-LJO"/>

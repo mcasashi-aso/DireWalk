@@ -27,6 +27,8 @@ enum udKey: String{
     case favoriteDestinationName
     case hideAddFavorite
     case hideEditButton
+    case adjustmentFavoriteDeleted
+    case arrowColorWhite
 }
 
 extension Notification.Name {
@@ -42,6 +44,7 @@ extension Notification.Name {
     public static let findForFavorite = Notification.Name("findForFavorite")
     public static let hideAddFavorite = Notification.Name("hideAddFavorie")
     public static let hideEditButton = Notification.Name("hideEditButton")
+    public static let adjustmentFavoriteDeleted = Notification.Name("adjustmentFavoriteDeleted")
 }
 
 extension UIColor {

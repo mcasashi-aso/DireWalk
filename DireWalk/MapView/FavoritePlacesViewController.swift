@@ -43,17 +43,17 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     @objc func deleteFavorites() {
-        print(udDatas)
         guard let deleted = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) else { return }
         var indexPaths = [IndexPath]()
         let bigToSmallArray = (deleted as! [Int]).sorted { $1 < $0 }
         for row in bigToSmallArray {
             indexPaths.append(IndexPath(row: row, section: 0))
         }
-        print(indexPaths)
         for index in bigToSmallArray {
             places.remove(at: index)
             udDatas.remove(at: index)
+            userDefaults.set(index, forKey: udKey.adjustmentFavoriteDeleted.rawValue)
+            NotificationCenter.default.post(name: .adjustmentFavoriteDeleted, object: nil)
         }
         
         collectionView.deleteItems(at: indexPaths)
@@ -90,14 +90,12 @@ class FavoritePlacesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     @objc func changingFavoritePlaceName() {
-        print(editingCellIndexPath)
         var place = places[editingCellIndexPath]
         place.name = userDefaults.string(forKey: udKey.editingCellString.rawValue) ?? ""
         guard let data = try? JSONEncoder().encode(place) else { return }
-        print(data)
+        places[editingCellIndexPath] = place
         udDatas[editingCellIndexPath] = data
         userDefaults.set(udDatas, forKey: udKey.favoritePlaces.rawValue)
-        print(udDatas)
     }
     
     @objc func selectCell() {

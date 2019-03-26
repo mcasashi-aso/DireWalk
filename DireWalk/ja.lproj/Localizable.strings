@@ -12,7 +12,7 @@
 "swipe" = "スワイプして選択";
 
 "directionOnlyMode" = "方向のみモード";
-"directionOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックがオフになります.";
+"directionOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックが\nオフになります.\niPhone X / Xs / Xs Maxでは\n消費電力が抑えられます.";
 
 "DireWalk" = "DireWalk";
 "steps" = "歩数";
@@ -33,12 +33,19 @@
 "settings" = "設定";
 "done" = "完了";
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
+
+"arrowColor" = "矢印の色";
+"preview" = "プレビュー";
+"whiteColorAbout" = "白色は\nこのアプリの\n背景が\n黒いので\n見えやすい";
+"blackColorAbout" = "黒色は\niPhone X / Xs\n/ Xs Maxで\n電力消費が\n抑えられる";
 "doNotAlwaysShowFar" = "距離を表示しない";
 "captionDoNotShowFar" = "目的地の30m圏内に入ると自動的に再表示します";
+
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";
 "share" = "共有";
 "shareString" = "DireWalkを使って楽しく歩こう！";
+
 "about" = "このアプリについて";
 "version" = "バージョン";
 "createdby" = "作成者";
