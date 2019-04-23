@@ -137,7 +137,7 @@ class FavoritePlaceCell: UICollectionViewCell {
         restoreButton.isUserInteractionEnabled = true
         
         guard var deletedArray = userDefaults.array(forKey: udKey.deletedFavoritePlaces.rawValue) else { return }
-        deletedArray.append(myIndexPath)
+        deletedArray.append(myIndexPath!)
         let setArray = NSOrderedSet(array: deletedArray)
         deletedArray = setArray.array as! [Int]
         userDefaults.set(deletedArray, forKey: udKey.deletedFavoritePlaces.rawValue)

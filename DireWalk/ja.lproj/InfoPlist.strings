@@ -8,5 +8,5 @@
 
 CFBundleDisplayName = "DireWlak";
 NSHealthShareUsageDescription = "このアプリ内でアクティビティを確認できるようになります";
-NSLocationWhenInUseUsageDescription = "目的地までの方向、距離を計算するのに使います";
+NSLocationWhenInUseUsageDescription = "現在地から目的地までの方向、距離を計算するのに使います";
 NSHealthUpdateUsageDescription = "このアプリ内でアクティビティを確認できるようになります";

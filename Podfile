@@ -12,12 +12,14 @@ target 'DireWalk' do
 
   target 'DireWalkTests' do
     inherit! :search_paths
-    # Pods for testing
+    pod 'Firebase/Core'
+    pod 'Firebase/AdMob'
   end
 
   target 'DireWalkUITests' do
     inherit! :search_paths
-    # Pods for testing
+    pod 'Firebase/Core'
+    pod 'Firebase/AdMob'
   end
 
 end

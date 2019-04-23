@@ -12,7 +12,8 @@ import CoreLocation
 class RequestLocationViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var toSettingsButton: UIButton!
-    @IBOutlet weak var stringsLabel: UILabel!
+    @IBOutlet weak var stringsTextView: UITextView!
+    @IBOutlet weak var titleLabel: UILabel!
     
     let locationManager = CLLocationManager()
 
@@ -20,8 +21,12 @@ class RequestLocationViewController: UIViewController, CLLocationManagerDelegate
         super.viewDidLoad()
 
         toSettingsButton.setTitle(NSLocalizedString("toSettings", comment: ""), for: .normal)
-        stringsLabel.text = NSLocalizedString("reauestLocation", comment: "")
-        stringsLabel.adjustsFontSizeToFitWidth = true
+        stringsTextView.text = NSLocalizedString("reauestLocation", comment: "")
+        titleLabel.text = NSLocalizedString("pleaseAllowLocation", comment: "")
+        
+        toSettingsButton.layer.cornerRadius = 8
+        toSettingsButton.layer.masksToBounds = true
+        titleLabel.adjustsFontSizeToFitWidth = true
         
         locationManager.delegate = self
     }

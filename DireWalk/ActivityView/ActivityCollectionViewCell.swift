@@ -29,11 +29,8 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     
     func setCell() {
         aboutLable.adjustsFontSizeToFitWidth = true
-        aboutLable.adjustsFontForContentSizeCategory = true
         numberLabel.adjustsFontSizeToFitWidth = true
-        numberLabel.adjustsFontForContentSizeCategory = true
         unitLable.adjustsFontSizeToFitWidth = true
-        unitLable.adjustsFontForContentSizeCategory = true
     }
     
     func setInset(constant: CGFloat) {

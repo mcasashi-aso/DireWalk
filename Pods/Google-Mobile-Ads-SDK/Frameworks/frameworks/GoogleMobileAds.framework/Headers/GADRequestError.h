@@ -2,7 +2,7 @@
 //  GADRequestError.h
 //  Google Mobile Ads SDK
 //
-//  Copyright 2011 Google Inc. All rights reserved.
+//  Copyright 2011 Google LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -63,6 +63,9 @@ typedef NS_ENUM(NSInteger, GADErrorCode) {
 
   /// Will not send request because the rewarded ad object has already been used.
   kGADErrorRewardedAdAlreadyUsed,
+
+  /// Cannot render the ad since the ad placement is unavailable.
+  kGADErrorAdPlacementUnavailable,
 };
 
 /// Represents the error generated due to invalid request parameters.

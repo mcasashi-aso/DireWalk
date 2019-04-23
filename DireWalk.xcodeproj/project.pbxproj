@@ -10,6 +10,7 @@
 		5B9453E8EE75841EACC6F1EF /* Pods_DireWalkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FFCE3EF6E7FFE8BF2A5063E /* Pods_DireWalkTests.framework */; };
 		85DDE4D764C1FAEBCB55C2E8 /* Pods_DireWalkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66ABC43BEDC52AE058FA4BF1 /* Pods_DireWalkUITests.framework */; };
 		8A7575ED4287F9EDBC493045 /* Pods_DireWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48008B15EC0AC67676027950 /* Pods_DireWalk.framework */; };
+		E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61933F7226C9D8D001F0C79 /* WalkThrough.swift */; };
 		E631DF492232BDAE00CC1A03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E631DF4B2232BDAE00CC1A03 /* Localizable.strings */; };
 		E631DF4F2232C20800CC1A03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E631DF512232C20800CC1A03 /* InfoPlist.strings */; };
 		E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6358E15222D7E660084E9CB /* Setting.storyboard */; };
@@ -68,6 +69,7 @@
 		7372F7D2370C50844CB32966 /* Pods-DireWalkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkUITests.release.xcconfig"; path = "Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9C25B50BC868A003B4F96F1E /* Pods-DireWalkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkTests.release.xcconfig"; path = "Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests.release.xcconfig"; sourceTree = "<group>"; };
 		B70BF1FEBCD467FDAD7CAEE8 /* Pods-DireWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalk.release.xcconfig"; path = "Target Support Files/Pods-DireWalk/Pods-DireWalk.release.xcconfig"; sourceTree = "<group>"; };
+		E61933F7226C9D8D001F0C79 /* WalkThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThrough.swift; sourceTree = "<group>"; };
 		E62F7574A2A73FEA89837089 /* Pods-DireWalkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkUITests.debug.xcconfig"; path = "Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E631DF4A2232BDAE00CC1A03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E631DF4C2232BDDB00CC1A03 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 			children = (
 				E6A8097822354E2D0086E146 /* RequestLocation.storyboard */,
 				E6A8097C22354E600086E146 /* RequestLocationViewController.swift */,
+				E61933F7226C9D8D001F0C79 /* WalkThrough.swift */,
 			);
 			path = RequestLocation;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				E6C437D3222386FA00542844 /* Sources */,
 				E6C437D4222386FA00542844 /* Frameworks */,
 				E6C437D5222386FA00542844 /* Resources */,
+				0ACD436FEC904AD070AC9484 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -327,6 +331,7 @@
 				E6C437DE222386FA00542844 /* Sources */,
 				E6C437DF222386FA00542844 /* Frameworks */,
 				E6C437E0222386FA00542844 /* Resources */,
+				353FBC36D318FAE2386E2025 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -350,6 +355,7 @@
 				TargetAttributes = {
 					E6C437C2222386F800542844 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -364,10 +370,12 @@
 					};
 					E6C437D6222386FA00542844 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = E6C437C2222386F800542844;
 					};
 					E6C437E1222386FA00542844 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 						TestTargetID = E6C437C2222386F800542844;
 					};
 				};
@@ -429,6 +437,54 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0ACD436FEC904AD070AC9484 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		353FBC36D318FAE2386E2025 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		63C8A41218FD2C4908D0702B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -535,6 +591,7 @@
 				E6EA405B2241B75900BA27C2 /* FavoritePlacesViewController.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
+				E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
 				E6A615F42242316900C623AF /* FavoritePlaceData.swift in Sources */,
@@ -746,7 +803,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -766,7 +823,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -787,7 +844,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DireWalk.app/DireWalk";
 			};
@@ -809,7 +866,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DireWalk.app/DireWalk";
 			};
@@ -831,7 +888,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = DireWalk;
 			};
@@ -853,7 +910,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.DireWalkUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = DireWalk;
 			};

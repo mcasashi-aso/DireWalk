@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -21,7 +23,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>1.0.0.1</string>
 	<key>GADIsAdManagerApp</key>
 	<true/>
 	<key>LSApplicationCategoryType</key>
@@ -33,7 +35,7 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>You will be able to see the activity within this application</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app use your location because calculat direction and far to destination</string>
+	<string>This app calculates direction and distance to the destination from your current location.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>

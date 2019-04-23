@@ -50,7 +50,14 @@
 "version" = "version";
 "createdby" = "created by";
 
-"reauestLocation" = "This application needs your location.\nThis app calculat direction and far to destination.";
+"pleaseAllowLocation" = "Please Allow the Use of Location";
+"reauestLocation" = "This application needs your location. This app calculat direction and far to destination.";
 "toSettings" = "Open Settings";
+"aboutThisApp" = "What you can with this app⇨";
+"select" = "First, select location in map";
+"swipeFromLeftEdge" = "Swipe from left edge,\nthe directionis already displayed";
+"always" = "You can always see the\ndirection to the location";
+"thisIsFor" = "This is simple navigation\nThis is for those who want to walk freely\nThis is for those who want to find a new landscape";
+
 
 "restore" = "restore";
