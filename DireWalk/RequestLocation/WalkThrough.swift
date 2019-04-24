@@ -11,6 +11,7 @@ import UIKit
 class WalkThroughViewController: UIViewController {
     
     @IBOutlet weak var aboutLabel: UILabel!
+    @IBOutlet weak var navigationLabel: UILabel!
     
     @IBOutlet weak var selectLabel: UILabel!
     @IBOutlet weak var mapImageView: UIImageView!
@@ -35,6 +36,7 @@ class WalkThroughViewController: UIViewController {
         pleaseLabel.adjustsFontSizeToFitWidth = true
         
         aboutLabel.text = NSLocalizedString("aboutThisApp", comment: "")
+        navigationLabel.text = NSLocalizedString("navigation", comment: "")
         selectLabel.text = NSLocalizedString("select", comment: "")
         swipeLabel.text = NSLocalizedString("swipeFromLeftEdge", comment: "")
         canLabel.text = NSLocalizedString("always", comment: "")
