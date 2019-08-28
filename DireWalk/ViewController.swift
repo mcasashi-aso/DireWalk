@@ -23,26 +23,26 @@ class ViewController: UIViewController {
     
     @IBAction func tapDirection() {
         if viewModel.presentView == .direction { return }
-        updateLabels()
         
         let direction: UIPageViewController.NavigationDirection = (viewModel.presentView == .activity) ? .forward : .reverse
         let directionVC = getDirectionVC() ?? viewModel.getDirectionVC()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
+        updateLabels()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
-        viewModel.state = .activity
-        updateLabels()
         let activityVC = getActivityVC() ?? viewModel.getActivityVC()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
+        viewModel.state = .activity
+        updateLabels()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
-        viewModel.state = .map
-        updateLabels()
         let mapVC = getMapVC() ?? viewModel.getMapVC()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
+        viewModel.state = .map
+        updateLabels()
     }
     @IBAction func tapDestinationLabel() {
         if viewModel.model.place == nil || viewModel.presentView == .direction {
@@ -67,10 +67,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     var contentPageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
-    let hideView = UIView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.delegate = self
+        viewModel.model.delegate = self
         
         setupViews()
         containerView.addSubview(contentPageVC.view)
@@ -121,11 +122,6 @@ class ViewController: UIViewController {
         contentPageVC.dataSource = viewModel
         contentPageVC.didMove(toParent: self)
         contentPageVC.setViewControllers([viewModel.getDirectionVC()], direction: .forward, animated: true, completion: nil)
-        
-        hideView.frame = UIScreen.main.bounds
-        hideView.backgroundColor = UIColor.black
-        self.view.addSubview(hideView)
-        hideView.isHidden = true
     }
     
     var usingTimer = Timer()
@@ -203,6 +199,7 @@ extension ViewController {
 extension ViewController: ModelDelegate {
     
     func didChangePlace() {
+        updateLabels()
         if let mapVC = getMapVC() {
             mapVC.addMarker(new: true)
         }
@@ -212,11 +209,20 @@ extension ViewController: ModelDelegate {
     }
     
     func didChangeFar() {
-        
+        if let directionVC = getDirectionVC() {
+            directionVC.updateFar()
+        }
     }
     
     func didChangeHeading() {
-        
+        if let directionVC = getDirectionVC() {
+            directionVC.updateHeadingImage()
+        }
+        if let mapVC = getMapVC() {
+            mapVC.updateHeadingImageView()
+        }
+        let affineTransform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
+        directionButton.transform = affineTransform
     }
     
     func addHeadingView(to annotationView: MKAnnotationView) {
@@ -239,4 +245,10 @@ extension ViewController: ModelDelegate {
         let view = sb.instantiateInitialViewController()
         self.present(view!, animated: true, completion: nil)
     }
+}
+
+
+// MARK: ViewModelDelegate
+extension ViewController: ViewModelDelegate {
+    
 }

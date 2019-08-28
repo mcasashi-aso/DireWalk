@@ -19,16 +19,19 @@ class DirectionViewController: UIViewController {
     @IBOutlet weak var distanceLabel: UILabel!
     
     func updateFar() {
-        headingImageView.transform = CGAffineTransform(rotationAngle: viewModel)
         distanceLabel.attributedText = viewModel.farLabelText
+    }
+    
+    func updateHeadingImage() {
+        headingImageView.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
     }
     
     private func setupViews() {
         headingImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
         distanceLabel.adjustsFontSizeToFitWidth = true
-        headingImageView.transform = CGAffineTransform(rotationAngle: 90 * CGFloat.pi / 180)
         let whiteValue = CGFloat(userDefaults.float(forKey: udKey.arrowColorWhite.rawValue))
         headingImageView.tintColor = UIColor(white: whiteValue, alpha: 1)
+        updateFar()
     }
 
     override func viewDidLoad() {

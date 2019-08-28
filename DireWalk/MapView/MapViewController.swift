@@ -20,7 +20,6 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    
     private let annotation = MKPointAnnotation()
     
     @IBOutlet weak var bannerView: GADBannerView! {
@@ -41,17 +40,13 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
         model.setPlace(CLLocation(latitude: coordinate.latitude,
                                   longitude: coordinate.longitude))
-        
-        // TODO: 場所とるぐらいまでがこのメソッドの役割かなあ
-        addMarker(new: true)
     }
     
     func addMarker(new: Bool) {
         mapView.removeAnnotation(annotation)
-        annotation.coordinate = model.coordinate
         
-        // TODO: ここから下
         wait( { self.viewModel.model.place == nil } ) {
+            self.annotation.coordinate = self.model.coordinate
             let place = self.viewModel.model.place
             self.annotation.title = place?.placeTitle
             
@@ -65,10 +60,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    
-    var heading = CLLocationDirection()
-    var headingImageView = UIImageView(image: UIImage(named: "UserHeading"))
-    
+    private var headingImageView = UIImageView(image: UIImage(named: "UserHeading"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +76,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         setupMapButtons()
         
-        annotation.coordinate = viewModel.model.coordinate
+        addMarker(new: false)
         
         setupGesture()
         setupAds()
@@ -142,17 +134,15 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
 
 // MARK: HeadingView
 extension MapViewController {
-    
     func addHeadingView(to annotationView: MKAnnotationView) {
         headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
                                         y: (annotationView.frame.size.height - 40)/2,
-                                        width: 40,
-                                        height: 40)
+                                        width: 40, height: 40)
         annotationView.insertSubview(headingImageView, at: 0)
     }
     
-    func updateHeadingRotation() {
-        let rotation = CGFloat(heading - mapView.camera.heading) * CGFloat.pi / 180
+    func updateHeadingImageView() {
+        let rotation = (model.userHeadingRadian - CGFloat(mapView.camera.heading)) * .pi / 180
         headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
     }
 }

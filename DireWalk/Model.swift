@@ -24,7 +24,10 @@ protocol ModelDelegate {
 class Model: NSObject {
     
     var place: Place? {
-        didSet { delegate?.didChangePlace() }
+        didSet {
+            updateFar()
+            delegate?.didChangePlace()
+        }
     }
     var coordinate: CLLocationCoordinate2D {
         guard let p = place else { return CLLocationCoordinate2D()  }
@@ -35,12 +38,12 @@ class Model: NSObject {
         didSet { delegate?.didChangeFar() }
     }
     var farDescriprion: (String, String) {
-        guard let far = far else { return ("Error", "no far") }
+        guard let far = far else { return ("Error", " ") }
         switch Int(far) {
-        case ...50:  return (String(Int(far)), "m")
-        case ...500: return (String((Int(far) / 10 + 1) * 10), "m")
+        case ..<100:  return (String(Int(far)), "m")
+        case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
         default:
-            let double = Double(Int(far) / 100 + 1) / 100
+            let double = Double(Int(far) / 100 + 1) / 10
             if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
                 return (String(Int(double)), "km")
             }else { return (String(double),  "km") }
@@ -48,15 +51,16 @@ class Model: NSObject {
     }
     
     var heading: CGFloat { destinationHeadingRadian - userHeadingRadian }
-    var headingFromMapView = CLLocationDegrees() {
-        didSet { delegate?.didChangeHeading() }
-    }
     private var destinationHeadingRadian = CGFloat() {
         didSet { delegate?.didChangeHeading() }
     }
-    private var userHeadingRadian = CGFloat()
+    var userHeadingRadian = CGFloat() {
+        didSet { delegate?.didChangeHeading() }
+    }
     
-    var currentLocation = CLLocation()
+    var currentLocation = CLLocation() {
+        didSet { updateFar() }
+    }
     
     static let shared = Model()
     private override init() {
@@ -91,7 +95,6 @@ extension Model {
         wait({ title == nil && adr == nil }) {
             self.place = Place(coordinate: location.coordinate,
                           placeTitle: title!, adress: adr!)
-            self.delegate?.didChangePlace()
         }
     }
 }
@@ -154,31 +157,19 @@ extension Model: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse || status == .authorizedWhenInUse {
             locationManager.startUpdatingHeading()
             locationManager.startUpdatingLocation()
-            
         }
-    }
-    
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        
-    }
-    
-    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        locationManager.headingFilter = 0.1
-        if newHeading.headingAccuracy >= 0 {
-            headingFromMapView = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
-            delegate?.didChangeHeading()
-        }
-//        let headingRadian =
         userHeadingRadian = CGFloat(newHeading.magneticHeading)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         UserDefaults.standard.set(Date(), forKey: "date")
+        guard let location = manager.location else { return }
+        self.currentLocation = location
         updateFar()
+        updateDestinationHeading()
     }
 }
 
