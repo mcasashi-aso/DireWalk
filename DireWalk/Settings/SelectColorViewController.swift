@@ -49,6 +49,7 @@ class SelectColorViewController: UIViewController {
     @IBAction func changeValue(_ sender: UISlider) {
         arrowColorWhite = CGFloat(sender.value)
         arrowImageView.tintColor = UIColor(white: arrowColorWhite, alpha: 1)
+        
         UserDefaults.standard.set(Float(arrowColorWhite), forKey: udKey.arrowColorWhite.rawValue)
     }
     

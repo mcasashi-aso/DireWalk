@@ -12,94 +12,16 @@ import MapKit
 import CoreLocation
 import GoogleMobileAds
 
-protocol MapViewControllerDelegate {
-    func updateMarker(markerName: String)
-    func changeMapTabButtonImage(isShowingPlaces: Bool)
-}
-
-class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDelegate, CLLocationManagerDelegate, UIScrollViewDelegate {
+class MapViewController: UIViewController, UIScrollViewDelegate {
     
-    @objc func showPlace() {
-        let latitude = userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees
-        let longitude = userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees
-        annotation.coordinate.latitude = latitude
-        annotation.coordinate.longitude = longitude
-        
-        let center = CLLocationCoordinate2D(latitude: latitude - 0.0006,
-                                            longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004)
-        let region = MKCoordinateRegion(center: center, span: span)
-        mapView.setRegion(region, animated: true)
-        
-        addMarker(new: true)
-    }
-    
-    var favoriteName = "Favorite"
-    var favoriteAdress = "adress"
-    @objc func addFavorite() {
-        if annotation.coordinate.latitude == 0 || annotation.coordinate.longitude == 0 { return }
-        let latitude = annotation.coordinate.latitude
-        let longitude = annotation.coordinate.longitude
-        let favoritePlace = FavoritePlaceData(latitude: latitude,
-                                              longitude: longitude,
-                                              name: favoriteName,
-                                              adress: favoriteAdress)
-        guard let data = try? JSONEncoder().encode(favoritePlace) else { return }
-        var datas = [Data]()
-        if let udDatas = userDefaults.array(forKey: udKey.favoritePlaces.rawValue) {
-            datas = udDatas as! [Data]
-        }
-        datas.append(data)
-        userDefaults.set(datas, forKey: udKey.favoritePlaces.rawValue)
-        NotificationCenter.default.post(name: .addedFavorite, object: nil)
-    }
-    
-    
-    public var isShowingPlaces = false
-    @IBOutlet weak var scrollView: UIScrollView! {
-        didSet{
-            scrollView.delegate = self
-        }
-    }
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 0 {
-            isShowingPlaces = true
-            showFavoritePlaces()
-        }else {
-            isShowingPlaces = false
-            showFavoritePlaces()
-        }
-    }
-    
-    func showFavoritePlaces() {
-        delegate?.changeMapTabButtonImage(isShowingPlaces: isShowingPlaces)
-        if isShowingPlaces {
-            scrollView.isUserInteractionEnabled = true
-            NotificationCenter.default.post(name: .hideAddFavorite, object: nil)
-        }else {
-            scrollView.isUserInteractionEnabled = false
-            userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
-            NotificationCenter.default.post(name: .changeEditingMode, object: nil)
-        }
-    }
-    
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-        }
-    }
-    
-    var delegate: MapViewControllerDelegate?
-    
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
+    private let viewModel = ViewModel.shared
+    private let model = Model.shared
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var locationManager = CLLocationManager()
     
-    let annotation = MKPointAnnotation()
+    private let annotation = MKPointAnnotation()
     
     @IBOutlet weak var bannerView: GADBannerView! {
         didSet{
@@ -107,85 +29,32 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         }
     }
     
-    var count = 0.0
-    var timer = Timer()
-    var pressable = false
-    @objc func timeUpdater() {
-        count += 0.1
+    @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer! {
+        didSet {
+            longPressGestureRecognizer.minimumPressDuration = 0.5
+        }
     }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
-        if locationManager.location == nil { return }
+        if viewModel.model.locationManager.location == nil { return }
+        guard sender.state == .began else { return }
+        let location = sender.location(in: mapView)
+        let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
+        model.setPlace(CLLocation(latitude: coordinate.latitude,
+                                  longitude: coordinate.longitude))
         
-        let location: CGPoint = sender.location(in: mapView)
-        if scrollView.isUserInteractionEnabled {
-            if scrollView.frame.minX < location.x &&
-                scrollView.frame.minY < location.y &&
-                scrollView.frame.maxY > location.y {
-                return
-            }
-        }
-        if sender.state == UIGestureRecognizer.State.began {
-            pressable = true
-            self.timer = Timer.scheduledTimer(timeInterval: 0.1,
-                                              target: self,
-                                              selector: #selector(self.timeUpdater),
-                                              userInfo: nil,
-                                              repeats: true)
-        }
-        if pressable == false { return }
-        if count >= 0.5 {
-            pressable = false
-            timer.invalidate()
-            let mapPoint: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
-            
-            mapView.removeAnnotation(annotation)
-            annotation.coordinate = CLLocationCoordinate2DMake(mapPoint.latitude, mapPoint.longitude)
-            addMarker(new: true)
-        }
+        // TODO: 場所とるぐらいまでがこのメソッドの役割かなあ
+        addMarker(new: true)
     }
     
     func addMarker(new: Bool) {
-        let destination = CLLocation(latitude: annotation.coordinate.latitude, longitude: annotation.coordinate.longitude)
-        let userLocation = locationManager.location
-        let far = destination.distance(from: userLocation!)
-        var showFar: String!
-        if 50 > Int(far) {
-            showFar = "\(Int(far))m"
-        }else if 500 > Int(far){
-            showFar = "\((Int(far) / 10 + 1) * 10)m"
-        }else {
-            let doubleNum = Double(Int(far) / 100 + 1) / 10
-            if doubleNum.truncatingRemainder(dividingBy: 1.0) == 0.0 {
-                showFar = "\(Int(doubleNum))km"
-            }else {
-                showFar = "\(doubleNum)km"
-            }
-        }
-        annotation.subtitle = showFar
+        mapView.removeAnnotation(annotation)
+        annotation.coordinate = model.coordinate
         
-        var placeName: String!
-        CLGeocoder().reverseGeocodeLocation(destination, completionHandler: {placemarks, error in
-            guard let placemark = placemarks?.first, error == nil else {
-                placeName = "marker"
-                return
-            }
-            if let interest = placemark.areasOfInterest?[0] {
-                placeName = interest
-                self.favoriteName = interest
-            }else if let name = placemark.name{
-                placeName = name
-                self.favoriteName = "Favorite"
-            }
-            if let adress = placemark.name {
-                self.favoriteAdress = adress
-            }else {
-                self.favoriteAdress = "adress"
-            }
-        })
-        wait( { return placeName == nil } ) {
-            self.annotation.title = placeName
+        // TODO: ここから下
+        wait( { self.viewModel.model.place == nil } ) {
+            let place = self.viewModel.model.place
+            self.annotation.title = place?.placeTitle
             
-            self.delegate?.updateMarker(markerName: placeName)
             self.mapView.addAnnotation(self.annotation)
         }
         
@@ -194,71 +63,20 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
             generater.prepare()
             generater.impactOccurred()
         }
-        
-        userDefaults.set(annotation.coordinate.latitude, forKey: udKey.annotationLatitude.rawValue)
-        userDefaults.set(annotation.coordinate.longitude, forKey: udKey.annotationLongitude.rawValue)
-        userDefaults.set(true, forKey: udKey.previousAnnotation.rawValue)
-        
-        NotificationCenter.default.post(name: .updateMarker, object: nil)
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation {
-             return nil
-        }
-        let reuseld = "pin"
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView
-        if pinView == nil {
-            pinView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseld)
-        }else {
-            pinView?.annotation = annotation
-        }
-        pinView?.isSelected = true
-        pinView?.animatesWhenAdded = true
-        return pinView
     }
     
     
     var heading = CLLocationDirection()
     var headingImageView = UIImageView(image: UIImage(named: "UserHeading"))
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        if views.last?.annotation is MKUserLocation {
-            addHeadingView(toAnnotationView: views.last!)
-        }
-    }
     
-    func addHeadingView(toAnnotationView annotationView: MKAnnotationView) {
-        headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
-                                        y: (annotationView.frame.size.height - 40)/2,
-                                        width: 40,
-                                        height: 40)
-        annotationView.insertSubview(headingImageView, at: 0)
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        if newHeading.headingAccuracy < 0 { return }
-        heading = newHeading.trueHeading > 0 ?newHeading.trueHeading : newHeading.magneticHeading
-        updateHeadingRotation()
-    }
-    
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        updateHeadingRotation()
-    }
-
-    func updateHeadingRotation() {
-        let rotation = CGFloat(heading - mapView.camera.heading) * CGFloat.pi / 180
-        headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
-        
-        mapView.delegate = self
+        mapView.delegate = viewModel.model
         mapView.userTrackingMode = MKUserTrackingMode.none
         var region: MKCoordinateRegion = mapView.region
-        region.center = (locationManager.location?.coordinate)!
+        region.center = viewModel.model.currentLocation.coordinate
         region.span.latitudeDelta = 0.004
         region.span.longitudeDelta = 0.004
         mapView.setRegion(region, animated: true)
@@ -266,68 +84,16 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         
         setupMapButtons()
         
-        if userDefaults.bool(forKey: udKey.previousAnnotation.rawValue) {
-            let latitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLatitude.rawValue) as! CLLocationDegrees
-            let longitude: CLLocationDegrees = userDefaults.object(forKey: udKey.annotationLongitude.rawValue) as! CLLocationDegrees
-            annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude)
-            addMarker(new: false)
-        }
+        annotation.coordinate = viewModel.model.coordinate
         
         setupGesture()
         setupAds()
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(addFavorite),
-                                               name: .addFavorite,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(fitCollectionViewSize),
-                                               name: .fitFavolitCollectionView,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillShow(_:)),
-                                               name: UIResponder.keyboardWillShowNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardWillHide),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(showPlace),
-                                               name: .showFavoritePlace,
-                                               object: nil)
-        if annotation.coordinate.latitude == 0.0 && annotation.coordinate.longitude == 0.0 {
-            UserDefaults.standard.set(true, forKey: udKey.hideAddFavorite.rawValue)
-            NotificationCenter.default.post(name: .hideAddFavorite, object: nil)
-        }
-    }
-    
-    @IBOutlet weak var scrollViewBottomConstraint: NSLayoutConstraint!
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        let userInfo = notification.userInfo!
-        let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        scrollViewBottomConstraint.constant = (keyboardFrame?.cgRectValue.height)!
-        self.view.layoutIfNeeded()
-    }
-    @objc func keyboardWillHide() {
-        scrollViewBottomConstraint.constant = 120
-        self.view.layoutIfNeeded()
-    }
-    
-    
-    func setupAds() {
-        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
-        bannerView.rootViewController = self
-        let request = GADRequest()
-        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
-        bannerView.load(request)
     }
     
     // ドラッグの位置記憶用の変数
-    var dragPoint: CGPoint?
-    func setupGesture() {
+    private var dragPoint: CGPoint?
+    private func setupGesture() {
         let doubleLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleLongPress(_:)))
-        
         
         /* ダブルタップ後、即座にLongPress状態に移るように */
         doubleLongPress.minimumPressDuration = 0
@@ -345,7 +111,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
         })
     }
     
-    func setupMapButtons() {
+    private func setupMapButtons() {
         let userTrackingButtonSpace = CGFloat(3)
         let compassButtonSpace = CGFloat(4)
         let screenWidth = UIScreen.main.bounds.width
@@ -372,36 +138,26 @@ class MapViewController: UIViewController, MKMapViewDelegate, GADBannerViewDeleg
             size: compassButton.bounds.size)
         self.view.addSubview(compassButton)
     }
-    
-    func wait(_ waitContinuation: @escaping (()->Bool), compleation: @escaping (()->Void)) {
-        var wait = waitContinuation()
-        // 0.01秒周期で待機条件をクリアするまで待ちます。
-        let semaphore = DispatchSemaphore(value: 0)
-        DispatchQueue.global().async {
-            while wait {
-                DispatchQueue.main.async {
-                    wait = waitContinuation()
-                    semaphore.signal()
-                }
-                semaphore.wait()
-                Thread.sleep(forTimeInterval: 0.01)
-            }
-            // 待機条件をクリアしたので通過後の処理を行います。
-            DispatchQueue.main.async {
-                compleation()
-            }
-        }
-    }
-    
-    @IBOutlet weak var scrollViewLeadingConstraint: NSLayoutConstraint!
-    @objc func fitCollectionViewSize() {
-        let constraint = userDefaults.float(forKey: "scrollViewLeadingConstraint")
-        scrollViewLeadingConstraint.constant = CGFloat(constraint)
-        scrollView.layoutIfNeeded()
-    }
-    
 }
 
+// MARK: HeadingView
+extension MapViewController {
+    
+    func addHeadingView(to annotationView: MKAnnotationView) {
+        headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
+                                        y: (annotationView.frame.size.height - 40)/2,
+                                        width: 40,
+                                        height: 40)
+        annotationView.insertSubview(headingImageView, at: 0)
+    }
+    
+    func updateHeadingRotation() {
+        let rotation = CGFloat(heading - mapView.camera.heading) * CGFloat.pi / 180
+        headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
+    }
+}
+
+// 片手でzoom可能にする(標準MapLike)
 extension MapViewController: UIGestureRecognizerDelegate {
     /* このzoomメソッドの実装は適当 */
     func zoom(magnification: Double) {
@@ -434,5 +190,17 @@ extension MapViewController: UIGestureRecognizerDelegate {
     /* MKMapViewに元から設定されているDoubleTapと、自分で設定したLongPressを同時に機能させる */
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+// GADBannerViewDelegate
+extension MapViewController: GADBannerViewDelegate {
+    
+    func setupAds() {
+        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
+        bannerView.load(request)
     }
 }
