@@ -87,7 +87,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     private func setupGesture() {
         let doubleLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleLongPress(_:)))
         
-        /* ダブルタップ後、即座にLongPress状態に移るように */
+        // ダブルタップ後、即座にLongPress状態に移るように
         doubleLongPress.minimumPressDuration = 0
         doubleLongPress.numberOfTapsRequired = 1
         
@@ -95,9 +95,10 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         doubleLongPress.delegate = self
         
-        /* MKMapViewの機能が実装してあるSubViewを引っ張ってきて、設定してあるDoubleTapGestureRecognizerにdelegateを設定する */
-        mapView.subviews[0].gestureRecognizers?.forEach({ (element) in
-            if let recognizer = (element as? UITapGestureRecognizer), recognizer.numberOfTapsRequired == 2 {
+        // MKMapViewの機能が実装してあるSubViewを引っ張ってきて、設定してあるDoubleTapGestureRecognizerにdelegateを設定する
+        mapView.subviews[0].gestureRecognizers?.forEach({ element in
+            if let recognizer = (element as? UITapGestureRecognizer),
+                recognizer.numberOfTapsRequired == 2 {
                 element.delegate = self
             }
         })

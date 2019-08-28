@@ -9,7 +9,10 @@
 import UIKit
 import Accounts
 
+// なんかいい書き方あるのでは…？
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    private var viewModel = ViewModel.shared
     
     @IBOutlet weak var tableView: UITableView! {
         didSet{
@@ -26,7 +29,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         switch section {
         case 0: return nil
         case 1: return nil
-        case 2: return nil //NSLocalizedString("reviewSection", comment: "")
+        case 2: return NSLocalizedString("reviewSection", comment: "")
         case 3: return NSLocalizedString("about", comment: "")
         default: return nil
         }
@@ -46,7 +49,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         switch section {
         case 0: return 1
         case 1: return 2
-        case 2: return 0
+        case 2: return 2
         case 3: return 2
         default: return 0
         }
@@ -98,19 +101,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if indexPath.section != 1 { return }
         switch indexPath.row {
         case 0:
-//            if let url = URL(string: "https://itunes.apple.com/jp/app/id  ?mt=8&action=write-review") {
-//                UIApplication.shared.open(url)
-//            }
-            break
+            if let url = URL(string: "https://itunes.apple.com/jp/app/id1455960079?mt=8&action=write-review") {
+                UIApplication.shared.open(url)
+            }
         case 1:
-            break
-//            let activityItemSentence = NSLocalizedString("shareString", comment: "")
-//            let appURL = NSURL(fileURLWithPath: "https://life-is-tech.com/")
-//            let activityViewController = UIActivityViewController(
-//                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
-//            self.present(activityViewController, animated: true, completion: nil)
-        default:
-            break
+            let activityItemSentence = NSLocalizedString("shareString", comment: "")
+            let appURL = NSURL(fileURLWithPath: "https://itunes.apple.com/jp/app/direwalk/id1455960079")
+            let activityViewController = UIActivityViewController(
+                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
+            self.present(activityViewController, animated: true, completion: nil)
+        default: break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

@@ -11,6 +11,8 @@ import HealthKit
 import CoreMotion
 import GoogleMobileAds
 
+
+// 直す気すら起こらないクソコードの塊()
 class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
     
     var healthStore = HKHealthStore()
