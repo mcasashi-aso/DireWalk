@@ -19,22 +19,22 @@ class SelectColorViewController: UIViewController {
     @IBOutlet weak var colorAboutHeight: NSLayoutConstraint!
     @IBOutlet weak var arrowImageWidth: NSLayoutConstraint!
     
-    var arrowColorWhite: CGFloat!
+    private let viewModel = ViewModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        arrowColorWhite = CGFloat(UserDefaults.standard.float(forKey: udKey.arrowColorWhite.rawValue))
+        let arrowColor = viewModel.arrowColor
         
         slider.minimumValue = 0.0
         slider.maximumValue = 1.0
-        slider.value = Float(arrowColorWhite)
+        slider.value = Float(arrowColor)
         slider.minimumTrackTintColor = UIColor.black
         slider.maximumTrackTintColor = UIColor.white
         
         self.navigationItem.title = NSLocalizedString("arrowColor", comment: "")
         arrowImageView.image = UIImage(named: "Direction")?.withRenderingMode(.alwaysTemplate)
-        arrowImageView.tintColor = UIColor(white: arrowColorWhite, alpha: 1)
+        arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
         arrowImageView.transform = CGAffineTransform(rotationAngle: (45 * CGFloat.pi / 180))
         whiteAboutTextView.text = NSLocalizedString("whiteColorAbout", comment: "")
         blackAboutTextView.text = NSLocalizedString("blackColorAbout", comment: "")
@@ -47,10 +47,9 @@ class SelectColorViewController: UIViewController {
     }
     
     @IBAction func changeValue(_ sender: UISlider) {
-        arrowColorWhite = CGFloat(sender.value)
-        arrowImageView.tintColor = UIColor(white: arrowColorWhite, alpha: 1)
-        
-        UserDefaults.standard.set(Float(arrowColorWhite), forKey: udKey.arrowColorWhite.rawValue)
+        let arrowColor = CGFloat(sender.value)
+        arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
+        viewModel.arrowColor = arrowColor
     }
     
 }

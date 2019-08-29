@@ -6,12 +6,7 @@
 //  Copyright © 2019 麻生昌志. All rights reserved.
 //
 
-import Foundation
-
-// MARK: UserDefaultTypedKeys
-extension UserDefaultTypedKeys {
-    static let arrowColor = UserDefaultTypedKey<String>("arrowColorWhite")
-}
+import UIKit
 
 protocol UserDefaultConvertible {
     init?(with object: Any)
@@ -134,6 +129,30 @@ extension Array: UserDefaultConvertible where Element: UserDefaultConvertible {
 extension Place: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Place else { return nil }
+        self = value
+    }
+    func object() -> Any? { self }
+}
+
+extension Date: UserDefaultConvertible {
+    init?(with object: Any) {
+        guard let value = object as? Date else { return nil }
+        self = value
+    }
+    func object() -> Any? { self }
+}
+
+extension Bool: UserDefaultConvertible {
+    init?(with object: Any) {
+        guard let value = object as? Bool else { return nil }
+        self = value
+    }
+    func object() -> Any? { self }
+}
+
+extension CGFloat: UserDefaultConvertible {
+    init?(with object: Any) {
+        guard let value = object as? CGFloat else { return nil }
         self = value
     }
     func object() -> Any? { self }

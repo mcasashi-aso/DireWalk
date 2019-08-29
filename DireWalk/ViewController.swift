@@ -15,6 +15,7 @@ import GoogleMobileAds
 class ViewController: UIViewController {
     
     private let viewModel = ViewModel.shared
+    private let model = Model.shared
     private let userDefaults = UserDefaults.standard
     
     // these's used DirectionVCDelegate.arrivedDectination()
@@ -25,27 +26,27 @@ class ViewController: UIViewController {
         if viewModel.presentView == .direction { return }
         
         let direction: UIPageViewController.NavigationDirection = (viewModel.presentView == .activity) ? .forward : .reverse
-        let directionVC = getDirectionVC() ?? viewModel.getDirectionVC()
+        let directionVC = getDirectionVC() ?? viewModel.createDirectionVC()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
         updateLabels()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
-        let activityVC = getActivityVC() ?? viewModel.getActivityVC()
+        let activityVC = getActivityVC() ?? viewModel.createActivityVC()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
         updateLabels()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
-        let mapVC = getMapVC() ?? viewModel.getMapVC()
+        let mapVC = getMapVC() ?? viewModel.createMapVC()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
         updateLabels()
     }
     @IBAction func tapDestinationLabel() {
-        if viewModel.model.place == nil || viewModel.presentView == .direction {
+        if model.place == nil || viewModel.presentView == .direction {
             tapMap()
         }else { tapDirection() }
         updateLabels()
@@ -71,7 +72,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.delegate = self
-        viewModel.model.delegate = self
+        model.delegate = self
         
         setupViews()
         containerView.addSubview(contentPageVC.view)
@@ -121,7 +122,7 @@ class ViewController: UIViewController {
         contentPageVC.delegate = viewModel
         contentPageVC.dataSource = viewModel
         contentPageVC.didMove(toParent: self)
-        contentPageVC.setViewControllers([viewModel.getDirectionVC()], direction: .forward, animated: true, completion: nil)
+        contentPageVC.setViewControllers([viewModel.createDirectionVC()], direction: .forward, animated: true, completion: nil)
     }
     
     var usingTimer = Timer()
@@ -132,20 +133,20 @@ class ViewController: UIViewController {
         dateFormatter.dateFormat = "yyyyMMdd"
         let today = dateFormatter.string(from: now)
         var lastUsed: String!
-        if let notNil = userDefaults.string(forKey: "lastUsed") {
-            lastUsed = notNil
+        if let hoge = userDefaults.get(.lastUsed) {
+            lastUsed = hoge
         }else {
             lastUsed = today
-            userDefaults.set(today, forKey: "lastUsed")
+            userDefaults.set(today, forKey: .lastUsed)
         }
         var dayChanged = false
         if lastUsed != today {
-            userDefaults.set(0, forKey: udKey.usingTimes.rawValue)
-            userDefaults.set(today, forKey: "lastUsed")
+            userDefaults.set(0, forKey: .usingTimes)
+            userDefaults.set(today, forKey: .lastUsed)
             dayChanged = true
         }
-        let correntUsingTime = userDefaults.integer(forKey: udKey.usingTimes.rawValue)
-        userDefaults.set((correntUsingTime + 1), forKey: udKey.usingTimes.rawValue)
+        guard let correntUsingTime = userDefaults.get(.usingTimes) else { return }
+        userDefaults.set((correntUsingTime + 1), forKey: .usingTimes)
         
         if ceil(Double(correntUsingTime) / 60.0) !=
             ceil(Double(correntUsingTime + 1) / 60.0) {

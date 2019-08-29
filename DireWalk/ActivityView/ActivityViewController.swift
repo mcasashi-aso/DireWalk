@@ -147,7 +147,7 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         healthStore.execute(query)
     }
     func getDireWalkUsingTimes() {
-        let usingTimes = UserDefaults.standard.integer(forKey: udKey.usingTimes.rawValue)
+        guard let usingTimes = UserDefaults.standard.get(.usingTimes) else { return }
         var unit: String!
         let usingTimesMinutes = Int(ceil(Double(usingTimes) / 60.0))
         if usingTimesMinutes == 1 || usingTimes == 0 {

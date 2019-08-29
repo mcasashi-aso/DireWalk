@@ -131,14 +131,6 @@ extension Model {
     }
 }
 
-// MARK: View
-extension Model {
-//    @UserDefault(UserDefaultTypedKeys.arrowColor, defaultValue: 0)
-//    var arrowColor: Float
-    
-    
-}
-
 // MARK: CLLocationManagerDelegate
 extension Model: CLLocationManagerDelegate {
     
@@ -165,7 +157,7 @@ extension Model: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        UserDefaults.standard.set(Date(), forKey: "date")
+        UserDefaults.standard.set(Date(), forKey: .date)
         guard let location = manager.location else { return }
         self.currentLocation = location
         updateFar()

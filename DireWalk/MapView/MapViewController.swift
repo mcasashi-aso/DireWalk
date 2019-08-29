@@ -14,7 +14,6 @@ import GoogleMobileAds
 
 class MapViewController: UIViewController, UIScrollViewDelegate {
     
-    private let userDefaults = UserDefaults.standard
     private let viewModel = ViewModel.shared
     private let model = Model.shared
     
@@ -34,7 +33,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
-        if viewModel.model.locationManager.location == nil { return }
+        if model.locationManager.location == nil { return }
         guard sender.state == .began else { return }
         let location = sender.location(in: mapView)
         let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
@@ -45,9 +44,9 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     func addMarker(new: Bool) {
         mapView.removeAnnotation(annotation)
         
-        wait( { self.viewModel.model.place == nil } ) {
+        wait( { self.model.place == nil } ) {
             self.annotation.coordinate = self.model.coordinate
-            let place = self.viewModel.model.place
+            let place = self.model.place
             self.annotation.title = place?.placeTitle
             
             self.mapView.addAnnotation(self.annotation)
@@ -65,10 +64,10 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = viewModel.model
+        mapView.delegate = model
         mapView.userTrackingMode = MKUserTrackingMode.none
         var region: MKCoordinateRegion = mapView.region
-        region.center = viewModel.model.currentLocation.coordinate
+        region.center = model.currentLocation.coordinate
         region.span.latitudeDelta = 0.004
         region.span.longitudeDelta = 0.004
         mapView.setRegion(region, animated: true)

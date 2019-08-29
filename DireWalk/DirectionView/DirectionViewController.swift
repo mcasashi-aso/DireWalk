@@ -29,7 +29,7 @@ class DirectionViewController: UIViewController {
     private func setupViews() {
         headingImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
         distanceLabel.adjustsFontSizeToFitWidth = true
-        let whiteValue = CGFloat(userDefaults.float(forKey: udKey.arrowColorWhite.rawValue))
+        let whiteValue = viewModel.arrowColor
         headingImageView.tintColor = UIColor(white: whiteValue, alpha: 1)
         updateFar()
     }

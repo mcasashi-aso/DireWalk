@@ -20,7 +20,7 @@ class ViewModel: NSObject {
         super.init()
     }
     
-    var model = Model.shared
+    private var model = Model.shared
     var delegate: ViewModelDelegate?
     
     enum Status { case activity, direction, map, search, favorite, hideControllers }
@@ -53,7 +53,8 @@ class ViewModel: NSObject {
         }
     }
     var aboutLabelText: String {
-        if model.place == nil || UserDefaults.standard.bool(forKey: udKey.showFar.rawValue) { return " " }
+        let showFar = UserDefaults.standard.get(.showFar) ?? true
+        if model.place == nil || showFar { return " " }
         switch state {
         case .activity, .hideControllers: return " "
         case .direction, .map: return NSLocalizedString("destination", comment: "")
@@ -90,6 +91,13 @@ class ViewModel: NSObject {
     var buttonAngle: CGFloat { (model.heading - 45) * .pi / 180 }
     
     var searchText = ""
+    
+    
+    // MARK: ViewSettings
+    @UserDefault(.arrowColor, defaultValue: 0.75)
+    var arrowColor: CGFloat
+    @UserDefault(.showFar, defaultValue: true)
+    var showFar: Bool
 }
 
 
@@ -100,17 +108,17 @@ extension ViewModel {
 
 // MARK: UIPageVCDataSource
 extension ViewModel: UIPageViewControllerDataSource {
-    func getDirectionVC() -> DirectionViewController{
+    func createDirectionVC() -> DirectionViewController{
         let sb = UIStoryboard(name: "Direction", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! DirectionViewController
         return vc
     }
-    func getMapVC() -> MapViewController{
+    func createMapVC() -> MapViewController{
         let sb = UIStoryboard(name: "Map", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! MapViewController
         return vc
     }
-    func getActivityVC() -> ActivityViewController{
+    func createActivityVC() -> ActivityViewController{
         let sb = UIStoryboard(name: "Activity", bundle: nil)
         let vc = sb.instantiateInitialViewController() as! ActivityViewController
         return vc
@@ -119,16 +127,16 @@ extension ViewModel: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is ActivityViewController:  return nil
-        case is DirectionViewController: return getActivityVC()
-        case is MapViewController:       return getDirectionVC()
+        case is DirectionViewController: return createActivityVC()
+        case is MapViewController:       return createDirectionVC()
         default: return nil
         }
     }
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is MapViewController:       return nil
-        case is DirectionViewController: return getMapVC()
-        case is ActivityViewController:  return getDirectionVC()
+        case is DirectionViewController: return createMapVC()
+        case is ActivityViewController:  return createDirectionVC()
         default: return nil
         }
      }

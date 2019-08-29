@@ -14,6 +14,8 @@
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
 		BAF229362314DD7700D75930 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229352314DD7700D75930 /* Place.swift */; };
 		BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229372314DD9A00D75930 /* ViewModel.swift */; };
+		BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229392316A00400D75930 /* UserDefaultsExtension.swift */; };
+		BAF2293D23181B3400D75930 /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF2293C23181B3400D75930 /* NotificationNames.swift */; };
 		E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61933F7226C9D8D001F0C79 /* WalkThrough.swift */; };
 		E631DF492232BDAE00CC1A03 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E631DF4B2232BDAE00CC1A03 /* Localizable.strings */; };
 		E631DF4F2232C20800CC1A03 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E631DF512232C20800CC1A03 /* InfoPlist.strings */; };
@@ -74,6 +76,8 @@
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		BAF229352314DD7700D75930 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		BAF229372314DD9A00D75930 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		BAF229392316A00400D75930 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
+		BAF2293C23181B3400D75930 /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		E61933F7226C9D8D001F0C79 /* WalkThrough.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThrough.swift; sourceTree = "<group>"; };
 		E62F7574A2A73FEA89837089 /* Pods-DireWalkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkUITests.debug.xcconfig"; path = "Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E631DF4A2232BDAE00CC1A03 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -142,6 +146,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BAF2293B23181B1200D75930 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				E67C3A2022291FED00551AC6 /* Tools.swift */,
+				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
+				BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */,
+				BAF229392316A00400D75930 /* UserDefaultsExtension.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		CE2A30B13E534BEAACFAE82C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -246,12 +261,11 @@
 				E6C437C6222386F800542844 /* AppDelegate.swift */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
 				E6C437C8222386F800542844 /* ViewController.swift */,
-				E67C3A2022291FED00551AC6 /* Tools.swift */,
 				E6C437CD222386F900542844 /* Assets.xcassets */,
+				BAF229372314DD9A00D75930 /* ViewModel.swift */,
 				BA4274662312B3CC00CD3796 /* Model.swift */,
 				BAF229352314DD7700D75930 /* Place.swift */,
-				BAF229372314DD9A00D75930 /* ViewModel.swift */,
-				BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */,
+				BAF2293B23181B1200D75930 /* Tools */,
 				E67C39FF22261B9500551AC6 /* DirectionView */,
 				E67C3A0122261BDC00551AC6 /* MapView */,
 				E67C3A0022261BCD00551AC6 /* ActivityView */,
@@ -588,6 +602,7 @@
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
 				E69F09AF2249094200B77F6E /* MySlider.swift in Sources */,
+				BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */,
 				BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
@@ -601,6 +616,7 @@
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
+				BAF2293D23181B3400D75930 /* NotificationNames.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
 				E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */,
 			);

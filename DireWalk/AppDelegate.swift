@@ -26,21 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)
-        userDefaults.register(defaults: ["date" : measureOfNil])
+        userDefaults.register(measureOfNil, forKey: .date)
         let previous: Date = userDefaults.object(forKey: "date") as! Date
-        userDefaults.register(defaults: [udKey.previousAnnotation.rawValue : false])
-        if Date(timeInterval: -60*60*3, since: now) > previous{
-            userDefaults.set(false, forKey: udKey.previousAnnotation.rawValue)
+        userDefaults.register(false, forKey: .previousAnnotation)
+        
+        if Date(timeInterval: -60*60*3, since: now) > previous {
+            userDefaults.set(false, forKey: .previousAnnotation)
         }
         userDefaults.set(now, forKey: "date")
         
-        userDefaults.register(defaults: [udKey.showFar.rawValue : false])
-        userDefaults.set([Int](), forKey: udKey.deletedFavoritePlaces.rawValue)
-        userDefaults.set(false, forKey: udKey.favoritePlaceIsEditing.rawValue)
-        userDefaults.register(defaults: [udKey.arrowColorWhite.rawValue : Float(0.75)])
-        
         FirebaseApp.configure()
-
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         return true
