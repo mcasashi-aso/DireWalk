@@ -37,6 +37,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         guard sender.state == .began else { return }
         let location = sender.location(in: mapView)
         let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
+        print("a")
         model.setPlace(CLLocation(latitude: coordinate.latitude,
                                   longitude: coordinate.longitude))
     }

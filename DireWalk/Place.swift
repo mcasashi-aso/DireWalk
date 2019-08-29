@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
-struct Place: Hashable, Codable, Equatable {
+struct Place: Hashable, Equatable {
     var latitude: CLLocationDegrees
     var longitude: CLLocationDegrees
     
@@ -38,4 +38,16 @@ struct Place: Hashable, Codable, Equatable {
         self.placeTitle == place.placeTitle &&
             self.adress == place.adress
     }
+}
+
+extension Place: Codable {
+    
+}
+
+extension Place: UserDefaultConvertible {
+    init?(with object: Any) {
+        guard let value = object as? Place else { return nil }
+        self = value
+    }
+    func object() -> Any? { self }
 }

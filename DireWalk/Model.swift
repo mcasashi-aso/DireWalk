@@ -13,7 +13,6 @@ import MapKit
 
 protocol ModelDelegate {
     func showRequestAccessLocation()
-    func askAllowHealthKit()
     func addHeadingView(to annotationView: MKAnnotationView)
     
     func didChangePlace()
@@ -23,6 +22,7 @@ protocol ModelDelegate {
 
 class Model: NSObject {
     
+    @UserDefault(.place, defaultValue: nil)
     var place: Place? {
         didSet {
             updateFar()
@@ -93,8 +93,10 @@ extension Model {
             else { adr = "\(location.coordinate.latitude), \(location.coordinate.longitude)" }
         }
         wait({ title == nil && adr == nil }) {
+            print("here")
             self.place = Place(coordinate: location.coordinate,
                           placeTitle: title!, adress: adr!)
+            print("s")
         }
     }
 }
@@ -142,7 +144,6 @@ extension Model: CLLocationManagerDelegate {
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
             locationManager.startUpdatingHeading()
-            delegate?.askAllowHealthKit()
         default: delegate?.showRequestAccessLocation()
         }
         

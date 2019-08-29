@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 protocol UserDefaultConvertible {
     init?(with object: Any)
@@ -126,14 +127,6 @@ extension Array: UserDefaultConvertible where Element: UserDefaultConvertible {
     }
 }
 
-extension Place: UserDefaultConvertible {
-    init?(with object: Any) {
-        guard let value = object as? Place else { return nil }
-        self = value
-    }
-    func object() -> Any? { self }
-}
-
 extension Date: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Date else { return nil }
@@ -153,6 +146,14 @@ extension Bool: UserDefaultConvertible {
 extension CGFloat: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? CGFloat else { return nil }
+        self = value
+    }
+    func object() -> Any? { self }
+}
+
+extension CLLocationDegrees: UserDefaultConvertible {
+    init?(with object: Any) {
+        guard let value = object as? CLLocationDegrees else { return nil }
         self = value
     }
     func object() -> Any? { self }

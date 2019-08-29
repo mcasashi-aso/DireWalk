@@ -12,6 +12,7 @@ import UIKit
 extension UserDefaultTypedKeys {
     static let arrowColor = UserDefaultTypedKey<CGFloat>("arrowColorWhite")
     static let showFar = UserDefaultTypedKey<Bool>("showFar")
+    static let place = UserDefaultTypedKey<Optional<Place>>("place")
     
     static let date = UserDefaultTypedKey<Date>("date")
     static let lastUsed = UserDefaultTypedKey<String>("lastUsed")

@@ -150,9 +150,9 @@
 			isa = PBXGroup;
 			children = (
 				E67C3A2022291FED00551AC6 /* Tools.swift */,
-				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
 				BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */,
 				BAF229392316A00400D75930 /* UserDefaultsExtension.swift */,
+				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
