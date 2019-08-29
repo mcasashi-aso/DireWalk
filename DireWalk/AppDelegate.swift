@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /* 初期化用 */
         let domain = Bundle.main.bundleIdentifier
         userDefaults.removePersistentDomain(forName: domain!)
-        userDefaults.synchronize()
         
         let now = Date()
         let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)

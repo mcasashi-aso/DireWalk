@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 extension UIColor {
     public static let systemBlue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
@@ -34,4 +35,9 @@ func wait(_ waitContinuation: @escaping (() -> Bool), compleation: @escaping (()
             compleation()
         }
     }
+}
+
+
+extension CLLocationDegrees:  {
+    
 }
