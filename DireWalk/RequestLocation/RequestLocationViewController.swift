@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 
+// TODO: 直す気を起こすところから始めよう
 class RequestLocationViewController: UIViewController, CLLocationManagerDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var toSettingsButton: UIButton!

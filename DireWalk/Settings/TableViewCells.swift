@@ -15,6 +15,8 @@ class TextTableViewCell: UITableViewCell {
     }
 }
 
+// TODO: ToggleCellでまとめたい…
+
 class ChangeShowFarCell: UITableViewCell {
     @objc let changeSwitch = UISwitch()
     private let viewModel = ViewModel.shared
@@ -28,5 +30,21 @@ class ChangeShowFarCell: UITableViewCell {
     
     @objc func changeShowFar() {
         viewModel.showFar = changeSwitch.isOn
+    }
+}
+
+class ChangeAlwaysDarkModeCell: UITableViewCell {
+    @objc let changeSwitch = UISwitch()
+    private let viewModel = ViewModel.shared
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        changeSwitch.addTarget(self, action: #selector(changeShowFar), for: UIControl.Event.valueChanged)
+        changeSwitch.isOn = viewModel.isAlwaysDarkAppearance
+        accessoryView = changeSwitch
+    }
+    
+    @objc func changeShowFar() {
+        viewModel.isAlwaysDarkAppearance = changeSwitch.isOn
     }
 }

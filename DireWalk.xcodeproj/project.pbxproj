@@ -12,6 +12,12 @@
 		8A7575ED4287F9EDBC493045 /* Pods_DireWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48008B15EC0AC67676027950 /* Pods_DireWalk.framework */; };
 		BA4274672312B3CC00CD3796 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274662312B3CC00CD3796 /* Model.swift */; };
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
+		BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */; };
+		BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE42319556C0037EF6B /* MyColor.swift */; };
+		BA59EBFA231976760037EF6B /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBF9231976760037EF6B /* Annotation.swift */; };
+		BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA27231A664600499E17 /* TableViewSection.swift */; };
+		BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */; };
+		BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */; };
 		BAF229362314DD7700D75930 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229352314DD7700D75930 /* Place.swift */; };
 		BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229372314DD9A00D75930 /* ViewModel.swift */; };
 		BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF229392316A00400D75930 /* UserDefaultsExtension.swift */; };
@@ -63,6 +69,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BA59EBF8231972C40037EF6B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		11900438587AFCB618FB10AC /* Pods-DireWalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalk.debug.xcconfig"; path = "Target Support Files/Pods-DireWalk/Pods-DireWalk.debug.xcconfig"; sourceTree = "<group>"; };
 		1FE94CE3DA4BE688A5312CD3 /* Pods-DireWalkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkTests.debug.xcconfig"; path = "Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +93,15 @@
 		B70BF1FEBCD467FDAD7CAEE8 /* Pods-DireWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalk.release.xcconfig"; path = "Target Support Files/Pods-DireWalk/Pods-DireWalk.release.xcconfig"; sourceTree = "<group>"; };
 		BA4274662312B3CC00CD3796 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
+		BA59EBE42319556C0037EF6B /* MyColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyColor.swift; sourceTree = "<group>"; };
+		BA59EBEC231972C40037EF6B /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		BA59EBEF231972C40037EF6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		BA59EBF1231972C40037EF6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA59EBF9231976760037EF6B /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		BAD5CA27231A664600499E17 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
+		BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
+		BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultConvertibles.swift; sourceTree = "<group>"; };
 		BAF229352314DD7700D75930 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		BAF229372314DD9A00D75930 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BAF229392316A00400D75930 /* UserDefaultsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtension.swift; sourceTree = "<group>"; };
@@ -146,13 +174,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA59EBEB231972C40037EF6B /* DireWalkShareExtension */ = {
+			isa = PBXGroup;
+			children = (
+				BA59EBEC231972C40037EF6B /* ShareViewController.swift */,
+				BA59EBEE231972C40037EF6B /* MainInterface.storyboard */,
+				BA59EBF1231972C40037EF6B /* Info.plist */,
+			);
+			path = DireWalkShareExtension;
+			sourceTree = "<group>";
+		};
+		BAD5CA26231A662A00499E17 /* ArrowColor */ = {
+			isa = PBXGroup;
+			children = (
+				E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */,
+				E69F09AE2249094200B77F6E /* MySlider.swift */,
+			);
+			path = ArrowColor;
+			sourceTree = "<group>";
+		};
+		BAD5CA2B231A72F200499E17 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */,
+				BAF229392316A00400D75930 /* UserDefaultsExtension.swift */,
+				BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
 		BAF2293B23181B1200D75930 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E67C3A2022291FED00551AC6 /* Tools.swift */,
-				BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */,
-				BAF229392316A00400D75930 /* UserDefaultsExtension.swift */,
 				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
+				BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */,
+				BA59EBE42319556C0037EF6B /* MyColor.swift */,
+				E67C3A2022291FED00551AC6 /* Tools.swift */,
+				BAD5CA2B231A72F200499E17 /* UserDefaults */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -176,8 +234,9 @@
 				E6358E15222D7E660084E9CB /* Setting.storyboard */,
 				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
 				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
-				E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */,
-				E69F09AE2249094200B77F6E /* MySlider.swift */,
+				BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */,
+				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
+				BAD5CA26231A662A00499E17 /* ArrowColor */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -207,6 +266,7 @@
 			children = (
 				E67C3A0622261C3800551AC6 /* Map.storyboard */,
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
+				BA59EBF9231976760037EF6B /* Annotation.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -238,6 +298,7 @@
 				E6C437C5222386F800542844 /* DireWalk */,
 				E6C437DA222386FA00542844 /* DireWalkTests */,
 				E6C437E5222386FA00542844 /* DireWalkUITests */,
+				BA59EBEB231972C40037EF6B /* DireWalkShareExtension */,
 				E6C437C4222386F800542844 /* Products */,
 				E67C3A15222698E600551AC6 /* Frameworks */,
 				CE2A30B13E534BEAACFAE82C /* Pods */,
@@ -260,12 +321,12 @@
 				E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */,
 				E6C437C6222386F800542844 /* AppDelegate.swift */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
-				E6C437C8222386F800542844 /* ViewController.swift */,
 				E6C437CD222386F900542844 /* Assets.xcassets */,
 				BAF229372314DD9A00D75930 /* ViewModel.swift */,
 				BA4274662312B3CC00CD3796 /* Model.swift */,
 				BAF229352314DD7700D75930 /* Place.swift */,
 				BAF2293B23181B1200D75930 /* Tools */,
+				E6C437C8222386F800542844 /* ViewController.swift */,
 				E67C39FF22261B9500551AC6 /* DirectionView */,
 				E67C3A0122261BDC00551AC6 /* MapView */,
 				E67C3A0022261BCD00551AC6 /* ActivityView */,
@@ -310,6 +371,7 @@
 				E6C437C0222386F800542844 /* Frameworks */,
 				E6C437C1222386F800542844 /* Resources */,
 				63C8A41218FD2C4908D0702B /* [CP] Embed Pods Frameworks */,
+				BA59EBF8231972C40037EF6B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -366,7 +428,7 @@
 		E6C437BB222386F800542844 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1100;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "麻生昌志";
 				TargetAttributes = {
@@ -602,14 +664,18 @@
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
 				E69F09AF2249094200B77F6E /* MySlider.swift in Sources */,
+				BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */,
 				BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */,
 				BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
 				E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */,
+				BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
 				BAF229362314DD7700D75930 /* Place.swift in Sources */,
+				BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */,
+				BA59EBFA231976760037EF6B /* Annotation.swift in Sources */,
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,
 				E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
@@ -617,6 +683,8 @@
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
 				BAF2293D23181B3400D75930 /* NotificationNames.swift in Sources */,
+				BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */,
+				BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
 				E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */,
 			);
@@ -654,6 +722,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BA59EBEE231972C40037EF6B /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA59EBEF231972C40037EF6B /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		E631DF4B2232BDAE00CC1A03 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -812,6 +888,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 11900438587AFCB618FB10AC /* Pods-DireWalk.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DireWalk/DireWalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -832,6 +909,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B70BF1FEBCD467FDAD7CAEE8 /* Pods-DireWalk.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = DireWalk/DireWalk.entitlements;
 				CODE_SIGN_STYLE = Automatic;

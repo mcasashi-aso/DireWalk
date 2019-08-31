@@ -24,15 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userDefaults.removePersistentDomain(forName: domain!)
         
         let now = Date()
-        let measureOfNil = Date(timeInterval: -60*60*3+1, since: now)
-        userDefaults.register(measureOfNil, forKey: .date)
-        let previous: Date = userDefaults.object(forKey: "date") as! Date
-        userDefaults.register(false, forKey: .previousAnnotation)
+        let hoge = Date(timeInterval: -60*60*3+1, since: now)
+        let previous = userDefaults.get(.date) ?? hoge
         
         if Date(timeInterval: -60*60*3, since: now) > previous {
-            userDefaults.set(false, forKey: .previousAnnotation)
+            userDefaults.set(nil, forKey: .place)
         }
-        userDefaults.set(now, forKey: "date")
+        userDefaults.set(now, forKey: .date)
         
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)

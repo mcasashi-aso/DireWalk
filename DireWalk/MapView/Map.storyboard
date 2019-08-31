@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsCompass="NO" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zcU-6M-rKE">
-                                <rect key="frame" x="0.0" y="94" width="375" height="718"/>
+                                <rect key="frame" x="0.0" y="150" width="375" height="662"/>
                                 <gestureRecognizers/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iNz-Jq-imh" customClass="GADBannerView">
@@ -27,23 +27,21 @@
                                     <constraint firstAttribute="height" constant="50" id="jUP-An-8KE"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vl-LV-oQC">
-                                <rect key="frame" x="0.0" y="94" width="15" height="684"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="15" id="yFY-Zi-6ox"/>
-                                </constraints>
-                            </view>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-D8-iwz">
+                                <rect key="frame" x="0.0" y="94" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="Fbm-uE-QXR"/>
+                            <constraint firstItem="bcb-D8-iwz" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="8T8-jE-P0v"/>
+                            <constraint firstItem="zcU-6M-rKE" firstAttribute="top" secondItem="bcb-D8-iwz" secondAttribute="bottom" id="Hco-hm-ID7"/>
                             <constraint firstItem="iNz-Jq-imh" firstAttribute="top" secondItem="as5-6k-KjC" secondAttribute="top" id="Hff-uT-Xfd"/>
+                            <constraint firstItem="bcb-D8-iwz" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="SAV-Tj-HWo"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="zcU-6M-rKE" secondAttribute="trailing" id="V3b-1p-Gkw"/>
-                            <constraint firstItem="1vl-LV-oQC" firstAttribute="top" secondItem="iNz-Jq-imh" secondAttribute="bottom" id="ZM2-7L-LJO"/>
-                            <constraint firstItem="as5-6k-KjC" firstAttribute="bottom" secondItem="1vl-LV-oQC" secondAttribute="bottom" id="aMy-Ci-6Zy"/>
                             <constraint firstItem="zcU-6M-rKE" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="gz2-g9-J0L"/>
-                            <constraint firstItem="1vl-LV-oQC" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="iOB-m3-l6n"/>
+                            <constraint firstItem="bcb-D8-iwz" firstAttribute="trailing" secondItem="as5-6k-KjC" secondAttribute="trailing" id="nCF-fC-9Nn"/>
                             <constraint firstItem="iNz-Jq-imh" firstAttribute="leading" secondItem="as5-6k-KjC" secondAttribute="leading" id="ttP-0Z-aG1"/>
                             <constraint firstItem="as5-6k-KjC" firstAttribute="trailing" secondItem="iNz-Jq-imh" secondAttribute="trailing" id="uiF-4N-BNH"/>
                             <constraint firstAttribute="bottom" secondItem="zcU-6M-rKE" secondAttribute="bottom" id="zzH-bW-2IO"/>

@@ -27,6 +27,7 @@ class Model: NSObject {
         didSet {
             updateFar()
             delegate?.didChangePlace()
+//            userDefaults.set(place, forKey: .place)
         }
     }
     var coordinate: CLLocationCoordinate2D {
@@ -82,21 +83,19 @@ extension Model {
     func setPlace(_ location: CLLocation) {
         var title, adr: String?
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
+            print(location)
             guard let placemark = placemarks?.first, error == nil else {
                 title = "new pin"
                 adr = "adress"
                 return
             }
             if let interest = placemark.areasOfInterest?.first { title = interest }
-            else if let name = placemark.name{ title = name }
-            if let adress = placemark.name { adr = adress }
-            else { adr = "\(location.coordinate.latitude), \(location.coordinate.longitude)" }
+            else if let name = placemark.name { title = name }
+            adr = placemark.address
         }
         wait({ title == nil && adr == nil }) {
-            print("here")
             self.place = Place(coordinate: location.coordinate,
-                          placeTitle: title!, adress: adr!)
-            print("s")
+                               placeTitle: title!, adress: adr!)
         }
     }
 }
@@ -174,10 +173,28 @@ extension Model: MKMapViewDelegate {
         let reuseld = "pin"
         let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView ??
             MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseld)
+        pinView.canShowCallout = true
         pinView.annotation = annotation
-        pinView.isSelected = true
         pinView.animatesWhenAdded = true
+        
+        if let an = annotation as? Annotation {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+            if #available(iOS 13, *) {
+                button.setImage(an.isFavorite ? UIImage(systemName: "heart.fill")
+                                              : UIImage(systemName: "heart"),
+                                for: .normal)
+            }else {
+                button.setImage(UIImage(named: "DirectionTab"), for: .normal)
+            }
+            pinView.rightCalloutAccessoryView = button
+        }
         return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        guard control == view.rightCalloutAccessoryView else { return }
+        self.place?.isFavorite.toggle()
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
@@ -187,6 +204,10 @@ extension Model: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        delegate?.didChangeHeading()
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         delegate?.didChangeHeading()
     }
 }

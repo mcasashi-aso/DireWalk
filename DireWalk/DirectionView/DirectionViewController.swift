@@ -56,8 +56,10 @@ class DirectionViewController: UIViewController {
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
-        let force = (touch?.force)!/(touch?.maximumPossibleForce)!
-        if force == 1.0 {
+        guard let force = touch?.force,
+            let maximum = touch?.maximumPossibleForce else { return }
+        let percent = force / maximum
+        if percent == 1.0 {
             if !timer.isValid{
                 self.timer = Timer.scheduledTimer(timeInterval: 0.01,
                                                   target: self,
@@ -102,3 +104,5 @@ class DirectionViewController: UIViewController {
         }
     }
 }
+
+

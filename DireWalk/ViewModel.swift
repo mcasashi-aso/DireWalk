@@ -11,6 +11,8 @@ import MapKit
 
 protocol ViewModelDelegate {
     func updateLabels()
+    func didChangeSearchTableViewElements()
+    func hideControllers(_ isHidden: Bool)
 }
 
 class ViewModel: NSObject {
@@ -24,7 +26,11 @@ class ViewModel: NSObject {
     var delegate: ViewModelDelegate?
     
     enum Status { case activity, direction, map, search, favorite, hideControllers }
-    var state : Status = .direction
+    var state : Status = .direction {
+        didSet {
+            delegate?.hideControllers(state == .hideControllers)
+        }
+    }
     
     enum Views { case activity, direction, map }
     var presentView: Views {
@@ -47,7 +53,7 @@ class ViewModel: NSObject {
         
         switch state {
         case .activity: return "Today's Activity"
-        case .direction, .map: return place.placeTitle ?? place.adress ?? "Pin"
+        case .direction, .map: return place.placeTitle ?? place.address ?? "Pin"
         case .search, .favorite: return "Enter Destination //"
         case .hideControllers: return " "
         }
@@ -61,8 +67,10 @@ class ViewModel: NSObject {
         case .search, .favorite: return "Search //"
         }
     }
-    
     var farLabelText: NSMutableAttributedString {
+        if state == .hideControllers {
+            return NSMutableAttributedString()
+        }
         let distanceAttributed: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 80),
             .foregroundColor: UIColor.white
@@ -90,56 +98,24 @@ class ViewModel: NSObject {
     var headingImageAngle: CGFloat { model.heading * .pi / 180 }
     var buttonAngle: CGFloat { (model.heading - 45) * .pi / 180 }
     
-    var searchText = ""
+    var annotation: Annotation?
     
+    @UserDefault(.favoritePlaces, defaultValue: Set<Place>())
+    var favoritePlaces: Set<Place>
+    var searchText = "" {
+        didSet { setResultElements() }
+    }
+    var resultElements = [Place]() {
+        didSet { delegate?.didChangeSearchTableViewElements() }
+    }
     
     // MARK: ViewSettings
     @UserDefault(.arrowColor, defaultValue: 0.75)
     var arrowColor: CGFloat
     @UserDefault(.showFar, defaultValue: true)
     var showFar: Bool
-}
-
-
-extension ViewModel {
-    
-}
-
-
-// MARK: UIPageVCDataSource
-extension ViewModel: UIPageViewControllerDataSource {
-    func createDirectionVC() -> DirectionViewController{
-        let sb = UIStoryboard(name: "Direction", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! DirectionViewController
-        return vc
-    }
-    func createMapVC() -> MapViewController{
-        let sb = UIStoryboard(name: "Map", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! MapViewController
-        return vc
-    }
-    func createActivityVC() -> ActivityViewController{
-        let sb = UIStoryboard(name: "Activity", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! ActivityViewController
-        return vc
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        switch viewController {
-        case is ActivityViewController:  return nil
-        case is DirectionViewController: return createActivityVC()
-        case is MapViewController:       return createDirectionVC()
-        default: return nil
-        }
-    }
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        switch viewController {
-        case is MapViewController:       return nil
-        case is DirectionViewController: return createMapVC()
-        case is ActivityViewController:  return createDirectionVC()
-        default: return nil
-        }
-     }
+    @UserDefault(.isAlwaysDarkAppearance, defaultValue: false)
+    var isAlwaysDarkAppearance: Bool
 }
 
 
@@ -160,3 +136,36 @@ extension ViewModel: UIPageViewControllerDelegate {
     }
 }
 
+
+// MARK: UISearchBarDelegate
+extension ViewModel: UISearchBarDelegate {
+    
+    func setResultElements() {
+        if searchText.isEmpty {
+            resultElements = Array(favoritePlaces.sorted(by: { (lhs, rhs) -> Bool in
+                guard let l = lhs.placeTitle, let r = rhs.placeTitle else  { return true }
+                return l < r
+            }))
+        }
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = searchText
+        request.region = MKCoordinateRegion(center: model.coordinate,
+                                            latitudinalMeters: 10_000,
+                                            longitudinalMeters: 10_000)     // 10km四方
+        MKLocalSearch(request: request).start { (result, error) in
+            guard let mapItems = result?.mapItems, error != nil else {
+                self.resultElements = []
+                return
+            }
+            self.resultElements = mapItems.map { item in
+                Place(coordinate: item.placemark.coordinate,
+                      placeTitle: item.name ?? item.placemark.title ?? item.placemark.address,
+                      adress: item.placemark.address)
+            }
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.searchText = searchText
+    }
+}

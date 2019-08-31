@@ -18,8 +18,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     private let model = Model.shared
     
     @IBOutlet weak var mapView: MKMapView!
-    
-    private let annotation = MKPointAnnotation()
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var bannerView: GADBannerView! {
         didSet{
@@ -37,20 +36,16 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         guard sender.state == .began else { return }
         let location = sender.location(in: mapView)
         let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
-        print("a")
         model.setPlace(CLLocation(latitude: coordinate.latitude,
                                   longitude: coordinate.longitude))
     }
     
     func addMarker(new: Bool) {
-        mapView.removeAnnotation(annotation)
+        mapView.removeAnnotations(mapView.annotations)
         
         wait( { self.model.place == nil } ) {
-            self.annotation.coordinate = self.model.coordinate
-            let place = self.model.place
-            self.annotation.title = place?.placeTitle
-            
-            self.mapView.addAnnotation(self.annotation)
+            self.viewModel.annotation = Annotation(place: self.model.place!)
+            self.mapView.addAnnotation(self.viewModel.annotation!)
         }
         
         if new {

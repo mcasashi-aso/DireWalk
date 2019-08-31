@@ -26,21 +26,21 @@ class ViewController: UIViewController {
         if viewModel.presentView == .direction { return }
         
         let direction: UIPageViewController.NavigationDirection = (viewModel.presentView == .activity) ? .forward : .reverse
-        let directionVC = getDirectionVC() ?? viewModel.createDirectionVC()
+        let directionVC = getDirectionVC() ?? createDirectionVC()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
         updateLabels()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
-        let activityVC = getActivityVC() ?? viewModel.createActivityVC()
+        let activityVC = getActivityVC() ?? createActivityVC()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
         updateLabels()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
-        let mapVC = getMapVC() ?? viewModel.createMapVC()
+        let mapVC = getMapVC() ?? createMapVC()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
         updateLabels()
@@ -120,9 +120,9 @@ class ViewController: UIViewController {
         addChild(contentPageVC)
         contentPageVC.view.frame = containerView.bounds
         contentPageVC.delegate = viewModel
-        contentPageVC.dataSource = viewModel
+        contentPageVC.dataSource = self
         contentPageVC.didMove(toParent: self)
-        contentPageVC.setViewControllers([viewModel.createDirectionVC()], direction: .forward, animated: true, completion: nil)
+        contentPageVC.setViewControllers([createDirectionVC()], direction: .forward, animated: true, completion: nil)
     }
     
     var usingTimer = Timer()
@@ -166,7 +166,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: Get View Controller
-extension ViewController {
+extension ViewController: UIPageViewControllerDataSource {
     func getDirectionVC() -> DirectionViewController? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
         for vc in viewControllers {
@@ -194,6 +194,39 @@ extension ViewController {
         }
         return nil
     }
+    
+    func createDirectionVC() -> DirectionViewController{
+        let sb = UIStoryboard(name: "Direction", bundle: nil)
+        let vc = sb.instantiateInitialViewController() as! DirectionViewController
+        return vc
+    }
+    func createMapVC() -> MapViewController{
+        let sb = UIStoryboard(name: "Map", bundle: nil)
+        let vc = sb.instantiateInitialViewController() as! MapViewController
+        return vc
+    }
+    func createActivityVC() -> ActivityViewController{
+        let sb = UIStoryboard(name: "Activity", bundle: nil)
+        let vc = sb.instantiateInitialViewController() as! ActivityViewController
+        return vc
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        switch viewController {
+        case is ActivityViewController:  return nil
+        case is DirectionViewController: return getActivityVC() ?? createActivityVC()
+        case is MapViewController:       return getDirectionVC() ?? createDirectionVC()
+        default: return nil
+        }
+    }
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        switch viewController {
+        case is MapViewController:       return nil
+        case is DirectionViewController: return getMapVC() ?? createMapVC()
+        case is ActivityViewController:  return getDirectionVC() ?? createDirectionVC()
+        default: return nil
+        }
+     }
 }
 
 // MARK: ModelDelegate
@@ -251,5 +284,11 @@ extension ViewController: ModelDelegate {
 
 // MARK: ViewModelDelegate
 extension ViewController: ViewModelDelegate {
+    func hideControllers(_ isHidden: Bool) {
+        <#code#>
+    }
     
+    func didChangeSearchTableViewElements() {
+        
+    }
 }
