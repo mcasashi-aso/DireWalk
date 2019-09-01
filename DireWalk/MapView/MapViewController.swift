@@ -97,7 +97,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     var scaleView: MKScaleView!
     
     private func setupSearchBar() {
-        let bgColor = #colorLiteral(red: 0.7952535152, green: 0.7952535152, blue: 0.7952535152, alpha: 0.33)
+        let bgColor = #colorLiteral(red: 0.7952535152, green: 0.7952535152, blue: 0.7952535152, alpha: 0.4)
         if #available(iOS 13, *) {
             searchBar.searchTextField.backgroundColor = bgColor
         }else {

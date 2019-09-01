@@ -51,7 +51,7 @@ class ViewModel: NSObject {
             switch state {
             case .direction, .activity: return "selectDestination".localized
             case .map: return "longPressToSelect".localized
-            case .search: return "Enter Destination //"
+            case .search: return "enterDestination".localized
             case .hideControllers: return " "
             }
         }
@@ -66,7 +66,7 @@ class ViewModel: NSObject {
         switch state {
         case .activity, .hideControllers: return " "
         case .direction, .map: return "destination".localized
-        case .search: return "Search //"
+        case .search: return "search".localized
         }
     }
     var farLabelText: NSMutableAttributedString {

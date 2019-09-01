@@ -6,6 +6,9 @@
   Copyright © 2019 麻生昌志. All rights reserved.
 */
 
+"search" = "Search";
+"enterDestination" = "Enter Destination";
+
 "destination" = "Destination:";
 "selectDestination" = "Select Destination";
 "longPressToSelect" = "Press and Hold the Map to Select";

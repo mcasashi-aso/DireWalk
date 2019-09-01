@@ -6,6 +6,9 @@
   Copyright © 2019 麻生昌志. All rights reserved.
 */
 
+"search" = "検索";
+"enterDestination" = "目的地を入力";
+
 "destination" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
