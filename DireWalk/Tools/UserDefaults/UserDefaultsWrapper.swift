@@ -52,7 +52,6 @@ struct UserDefault<Value: UserDefaultConvertible> {
                 
             }else {
                 UserDefaults.standard.removeObject(forKey: typedKey.key)
-                print(type(of: newValue), "failer")
             }
         }
     }
