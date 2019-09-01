@@ -6,7 +6,7 @@
   Copyright © 2019 麻生昌志. All rights reserved.
 */
 
-CFBundleDisplayName = "DireWlak";
+CFBundleDisplayName = "DireWalk";
 NSHealthShareUsageDescription = "このアプリ内でアクティビティを確認できるようになります";
 NSLocationWhenInUseUsageDescription = "現在地から目的地までの方向、距離を計算するのに使います";
 NSHealthUpdateUsageDescription = "このアプリ内でアクティビティを確認できるようになります";

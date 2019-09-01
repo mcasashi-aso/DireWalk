@@ -11,7 +11,7 @@
 
 "destination" = "Destination:";
 "selectDestination" = "Select Destination";
-"longPressToSelect" = "Press and Hold the Map to Select";
+"longPressToSelect" = "Press the Map to Select";
 "swipe" = "Swipe and Select";
 
 "directionOnlyMode" = "Direction Only Mode";
