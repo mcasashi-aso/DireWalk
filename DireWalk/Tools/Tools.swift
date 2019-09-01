@@ -36,3 +36,20 @@ extension CLPlacemark {
         return components.compactMap { $0 }.joined(separator: "")
     }
 }
+
+
+extension String {
+    var localized: String {
+        NSLocalizedString(self, comment: "localized string with \(self)")
+    }
+}
+
+
+extension Date {
+    func isSameDay(to date: Date) -> Bool {
+        dateFormatter.dateFormat = "yyyyMMdd"
+        return dateFormatter.string(from: self) == dateFormatter.string(from: date)
+    }
+}
+
+let dateFormatter = DateFormatter()

@@ -35,17 +35,17 @@ class WalkThroughViewController: UIViewController {
         canLabel.adjustsFontSizeToFitWidth = true
         pleaseLabel.adjustsFontSizeToFitWidth = true
         
-        aboutLabel.text = NSLocalizedString("aboutThisApp", comment: "")
-        navigationLabel.text = NSLocalizedString("navigation", comment: "")
-        selectLabel.text = NSLocalizedString("select", comment: "")
-        swipeLabel.text = NSLocalizedString("swipeFromLeftEdge", comment: "")
-        canLabel.text = NSLocalizedString("always", comment: "")
-        forTextView.text = NSLocalizedString("thisIsFor", comment: "")
-        pleaseLabel.text = NSLocalizedString("pleaseAllowLocation", comment: "")
+        aboutLabel.text = "aboutThisApp".localized
+        navigationLabel.text = "navigation".localized
+        selectLabel.text = "select".localized
+        swipeLabel.text = "swipeFromLeftEdge".localized
+        canLabel.text = "always".localized
+        forTextView.text = "thisIsFor".localized
+        pleaseLabel.text = "pleaseAllowLocation".localized
         
-        mapImageView.image = UIImage(named: "Map")?.withRenderingMode(.alwaysTemplate)
+        mapImageView.image = UIImage(named: "Map")!.withRenderingMode(.alwaysTemplate)
         mapImageView.tintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-        directionImageView.image = UIImage(named: "Direction")?.withRenderingMode(.alwaysTemplate)
+        directionImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
         directionImageView.tintColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         directionImageView.transform = CGAffineTransform(rotationAngle: (45 * CGFloat.pi / 180))
         

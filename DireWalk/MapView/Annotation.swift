@@ -13,19 +13,18 @@ class Annotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var title: String?
     var subtitle: String?
-    var isFavorite: Bool
+    var place: Place?
     
     init(place: Place) {
         self.coordinate = CLLocationCoordinate2DMake(place.latitude,
                                                      place.longitude)
         self.title = place.placeTitle
-        self.isFavorite = place.isFavorite
+        self.place = place
     }
     
     init(mkAnnotation: MKAnnotation) {
         self.coordinate = mkAnnotation.coordinate
         self.title = mkAnnotation.title.flatMap { $0 }
         self.subtitle = mkAnnotation.subtitle.flatMap { $0 }
-        self.isFavorite = false
     }
 }

@@ -29,23 +29,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate {
                 UIApplication.shared.open(url)
             }
         case .share:
-            let activityItemSentence = NSLocalizedString("shareString", comment: "")
+            let activityItemSentence = "shareString".localized
             let appURL = NSURL(fileURLWithPath: "https://itunes.apple.com/jp/app/direwalk/id1455960079")
             let activityViewController = UIActivityViewController(
-                activityItems: [activityItemSentence, appURL], applicationActivities: nil)
+                activityItems: [activityItemSentence, appURL],
+                applicationActivities: nil)
             self.present(activityViewController, animated: true, completion: nil)
         default: break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    @IBOutlet weak var doneButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.title = NSLocalizedString("settings", comment: "")
-        doneButton.setTitle(NSLocalizedString("done", comment: ""), for: .normal)
+        self.navigationItem.title = "settings".localized
     }
     
     @IBAction func tapDone() {

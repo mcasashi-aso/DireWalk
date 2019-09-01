@@ -18,14 +18,11 @@ class ViewController: UIViewController {
     private let model = Model.shared
     private let userDefaults = UserDefaults.standard
     
-    // these's used DirectionVCDelegate.arrivedDectination()
-    var arrivalTimer = Timer()
-    var count = 0.0
-    
     @IBAction func tapDirection() {
         if viewModel.presentView == .direction { return }
         
-        let direction: UIPageViewController.NavigationDirection = (viewModel.presentView == .activity) ? .forward : .reverse
+        let direction: UIPageViewController.NavigationDirection
+        direction = (viewModel.presentView == .activity) ? .forward : .reverse
         let directionVC = getDirectionVC() ?? createDirectionVC()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
@@ -52,21 +49,26 @@ class ViewController: UIViewController {
         updateLabels()
     }
     
-    func updateLabels() {
-        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
-        aboutLabel.text = viewModel.aboutLabelText
-    }
-    
     @IBOutlet weak var directionButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var activityButton: UIButton!
     
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var destinationLabel: UIButton!
+    
     @IBOutlet weak var tabStackView: UIStackView!
+    @IBOutlet weak var titleBar: UIView!
+    @IBOutlet weak var statusBarBackgroundView: UIView!
+    @IBOutlet weak var homeIndicatorBackgroundView: UIView!
     
     @IBOutlet weak var containerView: UIView!
     var contentPageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    
+    @IBOutlet weak var bannerView: GADBannerView! {
+        didSet{
+            bannerView.adSize = kGADAdSizeSmartBannerPortrait
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,9 +77,8 @@ class ViewController: UIViewController {
         model.delegate = self
         
         setupViews()
+        setupAds()
         containerView.addSubview(contentPageVC.view)
-        
-        usingTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(usingUpdater), userInfo: nil, repeats: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,18 +86,10 @@ class ViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle { UIStatusBarStyle.lightContent }
-    var iosControllersHidden = false
-    override var prefersStatusBarHidden: Bool { iosControllersHidden }
-    override var prefersHomeIndicatorAutoHidden: Bool { iosControllersHidden }
+    override var prefersStatusBarHidden: Bool { viewModel.state == .hideControllers }
+    override var prefersHomeIndicatorAutoHidden: Bool { viewModel.state == .hideControllers }
     
-    private func setupViews(){
-        let statusbarBackgroundView = UIView()
-        statusbarBackgroundView.backgroundColor = UIColor.darkGray
-        statusbarBackgroundView.frame = CGRect(x: 0, y: 0,
-                                               width: UIScreen.main.bounds.width,
-                                               height: UIApplication.shared.statusBarFrame.height)
-        self.view.addSubview(statusbarBackgroundView)
-        
+    private func setupViews() {
         directionButton.imageView?.sizeThatFits(CGSize(
             width: Double(directionButton.bounds.width) * 2.0.squareRoot(),
             height: Double(directionButton.bounds.height) * 2.0.squareRoot()))
@@ -108,13 +101,10 @@ class ViewController: UIViewController {
         directionButton.layer.shadowOpacity = 0.5
         
         activityButton.contentMode = UIView.ContentMode.scaleAspectFill
-        activityButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0,
-                                                      right: directionButton.bounds.height / 2 / 2)
+        activityButton.imageEdgeInsets.right = directionButton.bounds.height / 2 / 2
         mapButton.contentMode = UIView.ContentMode.scaleAspectFill
-        mapButton.imageEdgeInsets = UIEdgeInsets(top: 0,
-                                                 left: directionButton.bounds.height / 2 / 2,
-                                                 bottom: 0, right: 0)
-        aboutLabel.text = NSLocalizedString("destination", comment: "")
+        mapButton.imageEdgeInsets.left = directionButton.bounds.height / 2 / 2
+        aboutLabel.text = "destination".localized
         destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
         
         addChild(contentPageVC)
@@ -122,50 +112,12 @@ class ViewController: UIViewController {
         contentPageVC.delegate = viewModel
         contentPageVC.dataSource = self
         contentPageVC.didMove(toParent: self)
-        contentPageVC.setViewControllers([createDirectionVC()], direction: .forward, animated: true, completion: nil)
-    }
-    
-    var usingTimer = Timer()
-    @objc func usingUpdater() {
-        let now = Date()
-        // TODO: DaeFormatterはたくさん作らない方が良い
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyyMMdd"
-        let today = dateFormatter.string(from: now)
-        var lastUsed: String!
-        if let hoge = userDefaults.get(.lastUsed) {
-            lastUsed = hoge
-        }else {
-            lastUsed = today
-            userDefaults.set(today, forKey: .lastUsed)
-        }
-        var dayChanged = false
-        if lastUsed != today {
-            userDefaults.set(0, forKey: .usingTimes)
-            userDefaults.set(today, forKey: .lastUsed)
-            dayChanged = true
-        }
-        guard let correntUsingTime = userDefaults.get(.usingTimes) else { return }
-        userDefaults.set((correntUsingTime + 1), forKey: .usingTimes)
-        
-        if ceil(Double(correntUsingTime) / 60.0) !=
-            ceil(Double(correntUsingTime + 1) / 60.0) {
-            for view in contentPageVC.viewControllers! {
-                if view.isKind(of: ActivityViewController.self) {
-                    let activityView = view as! ActivityViewController
-                    activityView.getDireWalkUsingTimes()
-                    if dayChanged {
-                        activityView.getWalkingDistance()
-                        activityView.getStepCount()
-                        activityView.getFlightsClimbed()
-                    }
-                }
-            }
-        }
+        contentPageVC.setViewControllers([createDirectionVC()],
+                                         direction: .forward, animated: true)
     }
 }
 
-// MARK: Get View Controller
+// MARK: UIPageViewControllerDataSource
 extension ViewController: UIPageViewControllerDataSource {
     func getDirectionVC() -> DirectionViewController? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
@@ -211,7 +163,8 @@ extension ViewController: UIPageViewControllerDataSource {
         return vc
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerBefore viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is ActivityViewController:  return nil
         case is DirectionViewController: return getActivityVC() ?? createActivityVC()
@@ -219,7 +172,8 @@ extension ViewController: UIPageViewControllerDataSource {
         default: return nil
         }
     }
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            viewControllerAfter viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is MapViewController:       return nil
         case is DirectionViewController: return getMapVC() ?? createMapVC()
@@ -238,13 +192,13 @@ extension ViewController: ModelDelegate {
             mapVC.addMarker(new: true)
         }
         if let directionVC = getDirectionVC() {
-            directionVC.updateFar()
+            directionVC.updateFarLabel()
         }
     }
     
     func didChangeFar() {
         if let directionVC = getDirectionVC() {
-            directionVC.updateFar()
+            directionVC.updateFarLabel()
         }
     }
     
@@ -270,8 +224,9 @@ extension ViewController: ModelDelegate {
             HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
             HKQuantityType.quantityType(forIdentifier: .flightsClimbed)
         ])
-        HKHealthStore().requestAuthorization(toShare: nil, read: readTypes as? Set<HKObjectType>, completion: { success, error in
-        })
+        guard let read = readTypes as? Set<HKObjectType> else { return }
+        HKHealthStore().requestAuthorization(toShare: nil, read: read) { success, error in
+        }
     }
     
     func showRequestAccessLocation() {
@@ -284,11 +239,79 @@ extension ViewController: ModelDelegate {
 
 // MARK: ViewModelDelegate
 extension ViewController: ViewModelDelegate {
-    func hideControllers(_ isHidden: Bool) {
-        <#code#>
+    
+    func updateLabels() {
+        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
+        aboutLabel.text = viewModel.aboutLabelText
     }
     
     func didChangeSearchTableViewElements() {
-        
+        getMapVC()?.tableView.reloadData()
+    }
+    
+    func didChangeState() {
+        hideControllers(viewModel.state == .hideControllers)
+        getMapVC()?.applyViewConstraints()
+        getMapVC()?.tableView.reloadData()
+    }
+    
+    func SearchedTableViewCellSelected() {
+        getMapVC()?.searchedTableViewCellSelected()
+    }
+    
+    func updateActivityViewData(dayChanged: Bool) {
+        guard let activityView = getActivityVC() else { return }
+        activityView.getDireWalkUsingTimes()
+        if dayChanged {
+            activityView.getWalkingDistance()
+            activityView.getFlightsClimbed()
+            activityView.getStepCount()
+        }
+    }
+}
+
+// MARK: Hide Controllers
+extension ViewController {
+    func hideControllers(_ isHidden: Bool) {
+        if isHidden { noticeControllersHidden() }
+        statusBarBackgroundView.isHidden = isHidden
+        titleBar.isHidden = isHidden
+        directionButton.isHidden = isHidden
+        tabStackView.isHidden = isHidden
+        homeIndicatorBackgroundView.isHidden = isHidden
+        bannerView.isHidden = isHidden
+        setNeedsStatusBarAppearanceUpdate()
+        setNeedsUpdateOfHomeIndicatorAutoHidden()
+        getDirectionVC()?.updateFarLabel()
+    }
+    func noticeControllersHidden() {
+        showHideAlart()
+        let generater = UINotificationFeedbackGenerator()
+        generater.prepare()
+        generater.notificationOccurred(.warning)
+    }
+    func showHideAlart() {
+        userDefaults.register(defaults: ["hideAlert" : true])
+        if userDefaults.bool(forKey: "hideAlert") {
+            let alert = UIAlertController(title: "directionOnlyMode".localized,
+                                          message: "directionOnlyModeCaption".localized,
+                                          preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alert.addAction(okAction)
+            userDefaults.set(false, forKey: "hideAlert")
+            present(alert, animated: true, completion: nil)
+        }
+    }
+}
+
+
+// MARK: GADBannerViewDelegate
+extension ViewController: GADBannerViewDelegate {
+    func setupAds() {
+        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
+        bannerView.rootViewController = self
+        let request = GADRequest()
+        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
+        bannerView.load(request)
     }
 }

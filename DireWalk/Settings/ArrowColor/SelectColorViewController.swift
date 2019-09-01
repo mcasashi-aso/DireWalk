@@ -17,7 +17,6 @@ class SelectColorViewController: UIViewController {
     @IBOutlet weak var blackAboutTextView: UITextView!
     @IBOutlet weak var previewLabel: UILabel!
     @IBOutlet weak var colorAboutHeight: NSLayoutConstraint!
-    @IBOutlet weak var arrowImageWidth: NSLayoutConstraint!
     
     private let viewModel = ViewModel.shared
     
@@ -32,18 +31,21 @@ class SelectColorViewController: UIViewController {
         slider.minimumTrackTintColor = UIColor.black
         slider.maximumTrackTintColor = UIColor.white
         
-        self.navigationItem.title = NSLocalizedString("arrowColor", comment: "")
-        arrowImageView.image = UIImage(named: "Direction")?.withRenderingMode(.alwaysTemplate)
+        self.navigationItem.title = "arrowColor".localized
+        arrowImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
         arrowImageView.transform = CGAffineTransform(rotationAngle: (45 * CGFloat.pi / 180))
-        whiteAboutTextView.text = NSLocalizedString("whiteColorAbout", comment: "")
-        blackAboutTextView.text = NSLocalizedString("blackColorAbout", comment: "")
+        
+        whiteAboutTextView.text = "whiteColorAbout".localized
+        blackAboutTextView.text = "blackColorAbout".localized
         if UIScreen.main.bounds.width < 375 {
             whiteAboutTextView.font = UIFont.preferredFont(forTextStyle: .title2)
             blackAboutTextView.font = UIFont.preferredFont(forTextStyle: .title2)
             colorAboutHeight.constant = 145
         }
-        previewLabel.text = NSLocalizedString("preview", comment: "")
+        previewLabel.text = "preview".localized
+        // iOS 13 dark modeでこうしないと色が辺になってしまった
+        whiteAboutTextView.backgroundColor = .white
     }
     
     @IBAction func changeValue(_ sender: UISlider) {

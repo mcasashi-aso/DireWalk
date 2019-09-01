@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grf-9x-lPW">
-    <device id="retina4_0" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="grf-9x-lPW">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cco-Jl-sbP">
-                                <rect key="frame" x="15" y="348" width="290" height="90"/>
+                                <rect key="frame" x="15" y="428" width="290" height="90"/>
                                 <accessibility key="accessibilityConfiguration" identifier="farLabel"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="90" id="mUD-hM-HI1"/>
@@ -28,7 +26,7 @@
                                     <fragment content=" ">
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="smallSystem"/>
+                                            <font key="NSFont" metaFont="message" size="11"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -36,10 +34,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NK9-fX-mad">
-                                <rect key="frame" x="0.0" y="20" width="320" height="320"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="388"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
-                                        <rect key="frame" x="48" y="48" width="224" height="224"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
+                                        <rect key="frame" x="40" y="74" width="240" height="240"/>
                                         <accessibility key="accessibilityConfiguration" identifier="headingImageView"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="pxi-JD-GsR" secondAttribute="height" multiplier="1:1" id="2pO-ta-YED"/>
@@ -48,25 +46,24 @@
                                 </subviews>
                                 <accessibility key="accessibilityConfiguration" identifier="secondBaseView"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="NK9-fX-mad" secondAttribute="height" multiplier="1:1" id="5EG-Mh-kX0"/>
-                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="width" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.7" id="RDe-z7-Tnl"/>
-                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="centerY" secondItem="NK9-fX-mad" secondAttribute="centerY" id="U7F-cF-gnG"/>
-                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="centerX" secondItem="NK9-fX-mad" secondAttribute="centerX" id="wcx-PO-GCf"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="width" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.75" id="6Yw-va-3gW"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="centerX" secondItem="NK9-fX-mad" secondAttribute="centerX" id="7Eu-ZN-I7c"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="centerY" secondItem="NK9-fX-mad" secondAttribute="centerY" id="UF6-C6-Guw"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="height" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="height" multiplier="0.75" id="emM-Ia-EXw"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="width" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.8" priority="900" id="v2r-bs-2Gr"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="lSy-B9-fVQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="trailing" id="2FW-Fk-Ksg"/>
+                            <constraint firstItem="NK9-fX-mad" firstAttribute="trailing" secondItem="lSy-B9-fVQ" secondAttribute="trailing" id="2bF-yJ-X3E"/>
+                            <constraint firstItem="Cco-Jl-sbP" firstAttribute="top" secondItem="NK9-fX-mad" secondAttribute="bottom" constant="40" id="9u8-Tp-BWQ"/>
                             <constraint firstItem="lSy-B9-fVQ" firstAttribute="trailing" secondItem="Cco-Jl-sbP" secondAttribute="trailing" constant="15" id="Eec-BP-fp7"/>
-                            <constraint firstItem="Cco-Jl-sbP" firstAttribute="top" secondItem="NK9-fX-mad" secondAttribute="bottom" constant="8" symbolic="YES" id="Lj4-93-YmR"/>
-                            <constraint firstItem="NK9-fX-mad" firstAttribute="centerX" secondItem="1j0-Ag-LuP" secondAttribute="centerX" id="NMj-Od-1rs"/>
+                            <constraint firstItem="NK9-fX-mad" firstAttribute="leading" secondItem="lSy-B9-fVQ" secondAttribute="leading" id="FE5-np-jZY"/>
                             <constraint firstItem="Cco-Jl-sbP" firstAttribute="centerX" secondItem="1j0-Ag-LuP" secondAttribute="centerX" id="bqR-H0-3Dd"/>
-                            <constraint firstItem="Cco-Jl-sbP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="bottom" id="ciY-yk-4PI"/>
-                            <constraint firstItem="NK9-fX-mad" firstAttribute="top" secondItem="lSy-B9-fVQ" secondAttribute="top" id="lnI-Sc-Gh5"/>
-                            <constraint firstItem="lSy-B9-fVQ" firstAttribute="bottom" secondItem="Cco-Jl-sbP" secondAttribute="bottom" constant="130" id="tNn-NC-EHI"/>
-                            <constraint firstItem="NK9-fX-mad" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="lSy-B9-fVQ" secondAttribute="leading" id="ueh-O2-jPu"/>
+                            <constraint firstItem="NK9-fX-mad" firstAttribute="top" secondItem="lSy-B9-fVQ" secondAttribute="top" id="q2A-Sm-ZAQ"/>
+                            <constraint firstItem="lSy-B9-fVQ" firstAttribute="bottom" secondItem="Cco-Jl-sbP" secondAttribute="bottom" constant="50" id="tNn-NC-EHI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lSy-B9-fVQ"/>
                         <connections>
@@ -76,19 +73,17 @@
                     <connections>
                         <outlet property="distanceLabel" destination="Cco-Jl-sbP" id="Nee-Tm-aXY"/>
                         <outlet property="headingImageView" destination="pxi-JD-GsR" id="c5T-0i-J7t"/>
+                        <outlet property="longPressGestureRecognizer" destination="dd0-AR-XPd" id="Iab-0S-sLK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LOV-tJ-Act" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="dd0-AR-XPd">
                     <connections>
-                        <action selector="longPressWithoutThreeDTouch:" destination="grf-9x-lPW" id="Aoo-MX-pZY"/>
+                        <action selector="longPress:" destination="grf-9x-lPW" id="gna-vl-MZr"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="168.75" y="100.35211267605634"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Direction" width="512" height="512"/>
-    </resources>
 </document>

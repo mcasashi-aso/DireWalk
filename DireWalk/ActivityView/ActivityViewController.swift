@@ -18,18 +18,18 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     var healthStore = HKHealthStore()
     
     var datas: [CellData] = [
-        CellData(about: NSLocalizedString("walkingDistance", comment: ""),
-                 number: NSLocalizedString("error", comment: ""),
-                 unit: NSLocalizedString("pleaseAllow", comment: "")),
-        CellData(about: NSLocalizedString("steps", comment: ""),
-                 number: NSLocalizedString("error", comment: ""),
-                 unit: NSLocalizedString("pleaseAllow", comment: "")),
-        CellData(about: NSLocalizedString("flightsClimbed", comment: ""),
-                 number: NSLocalizedString("error", comment: ""),
-                 unit: NSLocalizedString("pleaseAllow", comment: "")),
-        CellData(about: NSLocalizedString("DireWalk", comment: ""),
-                 number: NSLocalizedString("error", comment: ""),
-                 unit: NSLocalizedString("pleaseAllow", comment: "")),
+        CellData(about:  "walkingDistance".localized,
+                 number: "error".localized,
+                 unit:   "pleaseAllow".localized),
+        CellData(about:  "steps".localized,
+                 number: "error".localized,
+                 unit:   "pleaseAllow".localized),
+        CellData(about:  "flightsClimbed".localized,
+                 number: "error".localized,
+                 unit:   "pleaseAllow".localized),
+        CellData(about:  "DireWalk".localized,
+                 number: "error".localized,
+                 unit:   "pleaseAllow".localized)
     ]
     
     func checkUpdateHealth() {
@@ -76,11 +76,11 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 var unit: String!
                 if steps == 1 || steps == 0 {
-                    unit = NSLocalizedString("stepsUnit", comment: "")
+                    unit = "stepsUnit".localized
                 }else {
-                    unit = NSLocalizedString("stepsUnits", comment: "")
+                    unit = "stepsUnits".localized
                 }
-                let cellData = CellData(about: NSLocalizedString("steps", comment: ""),
+                let cellData = CellData(about: "steps".localized,
                                         number: String(steps),
                                         unit: unit)
                 self.datas[1] = cellData
@@ -106,9 +106,9 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
                 for sample in samples {
                     distance += sample.quantity.doubleValue(for: HKUnit.meter())
                 }
-                let cellData = CellData(about: NSLocalizedString("walkingDistance", comment: ""),
+                let cellData = CellData(about: "walkingDistance".localized,
                                         number: String(ceil(distance / 100.0) / 10.0),
-                                        unit: NSLocalizedString("walkingDistanceUnit", comment: ""))
+                                        unit: "walkingDistanceUnit".localized)
                 self.datas[0] = cellData
                 self.collectionView.reloadData()
             }
@@ -133,11 +133,11 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
                 }
                 var unit: String!
                 if climbed == 1 || climbed == 0 {
-                    unit = NSLocalizedString("flightsClimbedUnit", comment: "")
+                    unit = "flightsClimbedUnit".localized
                 }else {
-                    unit = NSLocalizedString("flightsClimbedUnits", comment: "")
+                    unit = "flightsClimbedUnits".localized
                 }
-                let cellData = CellData(about: NSLocalizedString("flightsClimbed", comment: ""),
+                let cellData = CellData(about: "flightsClimbed".localized,
                                         number: String(climbed),
                                         unit: unit)
                 self.datas[2] = cellData
@@ -151,12 +151,12 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         var unit: String!
         let usingTimesMinutes = Int(ceil(Double(usingTimes) / 60.0))
         if usingTimesMinutes == 1 || usingTimes == 0 {
-            unit = NSLocalizedString("DireWalkUnit", comment: "")
+            unit = "DireWalkUnit".localized
         }else {
-            unit = NSLocalizedString("DireWalkUnits", comment: "")
+            unit = "DireWalkUnits".localized
         }
         
-        let cellData = CellData(about: NSLocalizedString("DireWalk", comment: ""),
+        let cellData = CellData(about: "DireWalk".localized,
                                 number: String(usingTimesMinutes),
                                 unit: unit)
         datas[3] = cellData

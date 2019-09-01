@@ -20,17 +20,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         /* 初期化用 */
-        let domain = Bundle.main.bundleIdentifier
-        userDefaults.removePersistentDomain(forName: domain!)
+        // 前のバージョンからかなり修正が加わってるので、一度リセットする
+        userDefaults.register(defaults: ["first" : true])
+        if userDefaults.bool(forKey: "first") {
+            let domain = Bundle.main.bundleIdentifier
+            userDefaults.removePersistentDomain(forName: domain!)
+            userDefaults.set(false, forKey: "first")
+        }
         
+        // 前回起動から3時間以上経っていた場合、データを消す
         let now = Date()
         let hoge = Date(timeInterval: -60*60*3+1, since: now)
         let previous = userDefaults.get(.date) ?? hoge
-        
         if Date(timeInterval: -60*60*3, since: now) > previous {
             userDefaults.set(nil, forKey: .place)
         }
-        userDefaults.set(now, forKey: .date)
         
         FirebaseApp.configure()
         GADMobileAds.sharedInstance().start(completionHandler: nil)
@@ -49,8 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -64,7 +67,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
 }
 

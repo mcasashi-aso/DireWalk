@@ -18,6 +18,5 @@ extension UserDefaultTypedKeys {
     static let isAlwaysDarkAppearance = UserDefaultTypedKey<Bool>("isAlwaysDarkAppearance")
     
     static let date = UserDefaultTypedKey<Date>("date")
-    static let lastUsed = UserDefaultTypedKey<String>("lastUsed")
     static let usingTimes = UserDefaultTypedKey<Int>("usingTimes")
 }

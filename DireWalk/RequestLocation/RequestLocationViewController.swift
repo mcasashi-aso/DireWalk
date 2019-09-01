@@ -26,9 +26,9 @@ class RequestLocationViewController: UIViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toSettingsButton.setTitle(NSLocalizedString("toSettings", comment: ""), for: .normal)
-        stringsTextView.text = NSLocalizedString("reauestLocation", comment: "")
-        titleLabel.text = NSLocalizedString("pleaseAllowLocation", comment: "")
+        toSettingsButton.setTitle("toSettings".localized, for: .normal)
+        stringsTextView.text = "reauestLocation".localized
+        titleLabel.text = "pleaseAllowLocation".localized
         
         toSettingsButton.layer.cornerRadius = 13
         toSettingsButton.layer.masksToBounds = true
@@ -37,8 +37,8 @@ class RequestLocationViewController: UIViewController, CLLocationManagerDelegate
         locationManager.delegate = self
         
         walkThroughScrollView.delegate = self
-        nextButton.setTitle(NSLocalizedString("next", comment: ""), for: .normal)
-        backButton.setTitle(NSLocalizedString("back", comment: ""), for: .normal)
+        nextButton.setTitle("next".localized, for: .normal)
+        backButton.setTitle("back".localized, for: .normal)
         nextButton.layer.cornerRadius = 22
         nextButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         backButton.layer.cornerRadius = 22

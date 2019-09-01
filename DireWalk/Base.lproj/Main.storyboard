@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ow-hs-KRs">
-                                <rect key="frame" x="0.0" y="158" width="414" height="738"/>
+                                <rect key="frame" x="0.0" y="208" width="414" height="594"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jtB-v8-JlF">
                                 <rect key="frame" x="0.0" y="802" width="414" height="60"/>
@@ -102,7 +102,7 @@
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="11Q-J2-eSO" kind="presentation" id="Gvz-f6-O7l"/>
+                                            <segue destination="11Q-J2-eSO" kind="presentation" modalPresentationStyle="fullScreen" id="Gvz-f6-O7l"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -123,15 +123,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJG-9h-rX9" customClass="GADBannerView">
+                                <rect key="frame" x="0.0" y="158" width="414" height="50"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="adV-wR-TGe"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="YlZ-pU-bPE" firstAttribute="top" secondItem="Giz-1r-EVZ" secondAttribute="bottom" id="4nb-Vu-vtu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1ow-hs-KRs" secondAttribute="trailing" id="6g3-rJ-BDI"/>
+                            <constraint firstItem="AJG-9h-rX9" firstAttribute="top" secondItem="YlZ-pU-bPE" secondAttribute="bottom" id="9Sa-Ge-rmg"/>
                             <constraint firstItem="YlZ-pU-bPE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9sE-qg-99l"/>
                             <constraint firstItem="pxv-jK-AdM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Es7-Jg-eRn"/>
                             <constraint firstItem="KzF-c8-Z6p" firstAttribute="top" secondItem="jtB-v8-JlF" secondAttribute="bottom" id="FnP-W6-iDZ"/>
-                            <constraint firstAttribute="bottom" secondItem="1ow-hs-KRs" secondAttribute="bottom" id="Fyi-N8-hVE"/>
+                            <constraint firstItem="jtB-v8-JlF" firstAttribute="top" secondItem="1ow-hs-KRs" secondAttribute="bottom" id="Fyi-N8-hVE"/>
                             <constraint firstItem="jtB-v8-JlF" firstAttribute="bottom" secondItem="pxv-jK-AdM" secondAttribute="bottom" id="Mp6-hr-mCu"/>
                             <constraint firstItem="Giz-1r-EVZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NVc-vx-bQj"/>
                             <constraint firstItem="1ow-hs-KRs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Nhb-ch-YcK"/>
@@ -139,11 +147,13 @@
                             <constraint firstItem="YlZ-pU-bPE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aGB-fY-gDg"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jtB-v8-JlF" secondAttribute="bottom" id="aIU-Go-JrC"/>
                             <constraint firstAttribute="trailing" secondItem="jtB-v8-JlF" secondAttribute="trailing" id="cBh-KS-msD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="AJG-9h-rX9" secondAttribute="trailing" id="e21-vk-xdg"/>
                             <constraint firstAttribute="bottom" secondItem="KzF-c8-Z6p" secondAttribute="bottom" id="fNI-78-Odb"/>
                             <constraint firstItem="KzF-c8-Z6p" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gUC-Ec-fxc"/>
                             <constraint firstAttribute="trailing" secondItem="KzF-c8-Z6p" secondAttribute="trailing" id="ksh-Uv-zqX"/>
-                            <constraint firstItem="1ow-hs-KRs" firstAttribute="top" secondItem="YlZ-pU-bPE" secondAttribute="bottom" id="lvn-P9-ECf"/>
+                            <constraint firstItem="AJG-9h-rX9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pC6-CZ-Dyo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YlZ-pU-bPE" secondAttribute="trailing" id="tka-bs-d81"/>
+                            <constraint firstItem="1ow-hs-KRs" firstAttribute="top" secondItem="AJG-9h-rX9" secondAttribute="bottom" id="ukh-Tb-ZiM"/>
                             <constraint firstItem="jtB-v8-JlF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="z9f-33-4K0"/>
                             <constraint firstItem="Giz-1r-EVZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zGI-Yg-Gxd"/>
                         </constraints>
@@ -152,11 +162,15 @@
                     <connections>
                         <outlet property="aboutLabel" destination="OJW-vW-rZF" id="4wB-Nd-NCs"/>
                         <outlet property="activityButton" destination="tMd-bZ-z1V" id="4sD-zz-mUT"/>
+                        <outlet property="bannerView" destination="AJG-9h-rX9" id="HCW-xN-Vrr"/>
                         <outlet property="containerView" destination="1ow-hs-KRs" id="faz-bw-YF0"/>
                         <outlet property="destinationLabel" destination="TzG-Qx-CXm" id="0Z2-fB-N3W"/>
                         <outlet property="directionButton" destination="pxv-jK-AdM" id="tWG-8a-5bK"/>
+                        <outlet property="homeIndicatorBackgroundView" destination="KzF-c8-Z6p" id="i9Y-Kg-eYe"/>
                         <outlet property="mapButton" destination="dtT-ag-BOj" id="kaJ-um-pdx"/>
+                        <outlet property="statusBarBackgroundView" destination="Giz-1r-EVZ" id="gPF-NH-qdL"/>
                         <outlet property="tabStackView" destination="jtB-v8-JlF" id="TZg-KH-REi"/>
+                        <outlet property="titleBar" destination="YlZ-pU-bPE" id="SI4-To-K9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

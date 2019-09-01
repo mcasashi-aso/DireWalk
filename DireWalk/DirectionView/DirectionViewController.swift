@@ -18,91 +18,56 @@ class DirectionViewController: UIViewController {
     @IBOutlet weak var headingImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    func updateFar() {
+    func updateFarLabel() {
         distanceLabel.attributedText = viewModel.farLabelText
     }
     
     func updateHeadingImage() {
         headingImageView.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
     }
-    
-    private func setupViews() {
-        headingImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
-        distanceLabel.adjustsFontSizeToFitWidth = true
-        let whiteValue = viewModel.arrowColor
-        headingImageView.tintColor = UIColor(white: whiteValue, alpha: 1)
-        updateFar()
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        let image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
+        headingImageView.image = image
+        distanceLabel.adjustsFontSizeToFitWidth = true
     }
     
-    var isHidden = false
-    
-    var timer = Timer()
-    var count = 0.0
-    @objc func timeUpdater() {
-        count += 0.01
-        
-        if self.traitCollection.forceTouchCapability == .unavailable {
-            if count >= 0.5 && timer.isValid {
-                timer.invalidate()
-                taptic()
-                count = 0.0
-            }
+    override func viewWillAppear(_ animated: Bool) {
+        let whiteValue = viewModel.arrowColor
+        if #available(iOS 13, *) {
+            headingImageView.image?.withTintColor(UIColor(white: whiteValue, alpha: 1),
+                                                  renderingMode: .alwaysTemplate)
         }
+        headingImageView.tintColor = UIColor(white: whiteValue, alpha: 1)
+        updateFarLabel()
     }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         guard let force = touch?.force,
             let maximum = touch?.maximumPossibleForce else { return }
         let percent = force / maximum
         if percent == 1.0 {
-            if !timer.isValid{
-                self.timer = Timer.scheduledTimer(timeInterval: 0.01,
-                                                  target: self,
-                                                  selector: #selector(self.timeUpdater),
-                                                  userInfo: nil,
-                                                  repeats: true)
-                taptic()
-            }else if count >= 1.0 {
-                timer.invalidate()
-                count = 0.0
+            if viewModel.state != .hideControllers {
+                viewModel.state = .hideControllers
+            }else {
+                viewModel.state = .direction
             }
         }
     }
-    @IBAction func longPressWithoutThreeDTouch(_ sender: UILongPressGestureRecognizer) {
-        if self.traitCollection.forceTouchCapability == .available { return }
-        if sender.state == UIPanGestureRecognizer.State.began {
-            timer = Timer.scheduledTimer(timeInterval: 0.01,
-                                            target: self,
-                                            selector: #selector(self.timeUpdater),
-                                            userInfo: nil,
-                                            repeats: true)
+    @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer! {
+        didSet {
+            longPressGestureRecognizer.minimumPressDuration = 0.5
         }
     }
-    
-    func taptic() {
-        hideAlart()
-        let generater = UINotificationFeedbackGenerator()
-        generater.prepare()
-        generater.notificationOccurred(.warning)
-    }
-    
-    func hideAlart() {
-        userDefaults.register(defaults: ["hideAlert" : true])
-        if userDefaults.bool(forKey: "hideAlert") {
-            let alert = UIAlertController(title: NSLocalizedString("directionOnlyMode", comment: ""),
-                                          message: NSLocalizedString("directionOnlyModeCaption", comment: ""),
-                                          preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(okAction)
-            userDefaults.set(false, forKey: "hideAlert")
-            present(alert, animated: true, completion: nil)
+    @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == UIPanGestureRecognizer.State.began {
+            if viewModel.state != .hideControllers {
+                viewModel.state = .hideControllers
+            }else {
+                viewModel.state = .direction
+            }
         }
     }
 }
-
-

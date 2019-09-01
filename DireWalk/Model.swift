@@ -83,7 +83,7 @@ extension Model {
     func setPlace(_ location: CLLocation) {
         var title, adr: String?
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
-            print(location)
+            
             guard let placemark = placemarks?.first, error == nil else {
                 title = "new pin"
                 adr = "adress"
@@ -166,9 +166,10 @@ extension Model: CLLocationManagerDelegate {
 }
 
 
-// MKMapViewDelegate
+// MARK: MKMapViewDelegate
 extension Model: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView,
+                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
         let reuseld = "pin"
         let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView ??
@@ -178,32 +179,55 @@ extension Model: MKMapViewDelegate {
         pinView.animatesWhenAdded = true
         
         if let an = annotation as? Annotation {
-            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)))
+            guard let place = an.place else { return pinView }
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
             if #available(iOS 13, *) {
-                button.setImage(an.isFavorite ? UIImage(systemName: "heart.fill")
-                                              : UIImage(systemName: "heart"),
-                                for: .normal)
+                let image = an.place!.isFavorite ? UIImage(systemName: "heart.fill")!
+                                                 : UIImage(systemName: "heart")!
+                button.setImage(image, for: .normal)
             }else {
-                button.setImage(UIImage(named: "DirectionTab"), for: .normal)
+                let name = place.isFavorite ? "HeartFill" : "Heart"
+                let image = UIImage(named: name)!.withRenderingMode(.alwaysTemplate)
+                button.setImage(image, for: .normal)
+                button.tintColor = .systemBlue
             }
             pinView.rightCalloutAccessoryView = button
         }
         return pinView
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         guard control == view.rightCalloutAccessoryView else { return }
-        self.place?.isFavorite.toggle()
+        self.place?.toggleFavorite()
+        // ちょっと汚いけど mapView(_:, viewFor:)と同じ処理
+        if let an = view.annotation as? Annotation {
+            guard let place = an.place else { return }
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+            if #available(iOS 13, *) {
+                let image = an.place!.isFavorite ? UIImage(systemName: "heart.fill")!
+                                                 : UIImage(systemName: "heart")!
+                button.setImage(image, for: .normal)
+            }else {
+                let name = place.isFavorite ? "HeartFill" : "Heart"
+                let image = UIImage(named: name)!.withRenderingMode(.alwaysTemplate)
+                button.setImage(image, for: .normal)
+                button.tintColor = .systemBlue
+            }
+            view.rightCalloutAccessoryView = button
+        }
     }
     
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView,
+                 didAdd views: [MKAnnotationView]) {
         if views.last?.annotation is MKUserLocation {
             delegate?.addHeadingView(to: views.last!)
         }
     }
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView,
+                 regionDidChangeAnimated animated: Bool) {
         delegate?.didChangeHeading()
     }
     

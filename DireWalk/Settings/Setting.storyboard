@@ -29,7 +29,6 @@
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whn-71-NHK">
                                                     <rect key="frame" x="15" y="11" width="345" height="289.33333333333331"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -104,7 +103,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <color key="tintColor" red="0.4100230634" green="0.71321612599999995" blue="0.96270340679999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -139,7 +138,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="nka-fk-rS0" firstAttribute="trailing" secondItem="N6I-li-fkM" secondAttribute="trailing" id="1ox-17-jSr"/>
@@ -153,19 +152,13 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="bon-dC-SqT">
-                        <barButtonItem key="rightBarButtonItem" style="done" id="rXa-18-mWE">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0V8-CH-bcj">
-                                <rect key="frame" x="322" y="7" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="tapDone" destination="b3a-Te-qf7" eventType="touchUpInside" id="bya-4D-L0j"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="rXa-18-mWE">
+                            <connections>
+                                <action selector="tapDone" destination="b3a-Te-qf7" id="n37-BJ-oNF"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="doneButton" destination="0V8-CH-bcj" id="YKP-n8-n4V"/>
                         <outlet property="tableView" destination="N6I-li-fkM" id="BYw-1j-5J6"/>
                     </connections>
                 </viewController>
@@ -220,7 +213,7 @@
                                     <action selector="changeValue:" destination="4BA-JJ-QEK" eventType="valueChanged" id="NWb-xG-xIW"/>
                                 </connections>
                             </slider>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="Black color is low power consumption with iPhone X / Xs / Xs Max." textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVM-sP-Jlf">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Black color is low power consumption with iPhone X / Xs / Xs Max." textAlignment="right" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVM-sP-Jlf">
                                 <rect key="frame" x="0.0" y="591" width="187.66666666666666" height="187"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -231,12 +224,13 @@
                                 <rect key="frame" x="0.0" y="778" width="187.66666666666666" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" editable="NO" text="White color is easily for look with black background color." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gO-vh-NoU">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="White color is easily for look with black background color." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0gO-vh-NoU">
                                 <rect key="frame" x="187.66666666666663" y="591" width="187.33333333333337" height="187"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="187" id="d7t-Sg-6Av"/>
                                 </constraints>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -247,8 +241,12 @@
                                     <constraint firstAttribute="height" constant="1" id="W38-nh-fk5"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CWE-RO-bXz">
+                                <rect key="frame" x="187.66666666666663" y="778" width="187.33333333333337" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Ss-09-Q3Z" firstAttribute="leading" secondItem="nQK-yk-t6K" secondAttribute="leading" id="1le-wo-NHD"/>
                             <constraint firstItem="nQK-yk-t6K" firstAttribute="trailing" secondItem="ASj-eu-fHl" secondAttribute="trailing" id="1qf-al-tKQ"/>
@@ -262,6 +260,7 @@
                             <constraint firstItem="nQK-yk-t6K" firstAttribute="trailing" secondItem="hlZ-kc-rkU" secondAttribute="trailing" id="JIw-1p-1HH"/>
                             <constraint firstItem="ASj-eu-fHl" firstAttribute="leading" secondItem="nQK-yk-t6K" secondAttribute="leading" id="JVu-Rq-TjY"/>
                             <constraint firstItem="nQK-yk-t6K" firstAttribute="trailing" secondItem="6Ss-09-Q3Z" secondAttribute="trailing" id="N2W-4T-wye"/>
+                            <constraint firstAttribute="trailing" secondItem="CWE-RO-bXz" secondAttribute="trailing" id="N4t-8M-BEt"/>
                             <constraint firstItem="0gO-vh-NoU" firstAttribute="top" secondItem="ZIQ-Dd-Us0" secondAttribute="bottom" constant="20" id="OSe-zW-7v4"/>
                             <constraint firstAttribute="bottom" secondItem="Yqy-k0-8fv" secondAttribute="bottom" id="QJe-lq-hT3"/>
                             <constraint firstItem="nQK-yk-t6K" firstAttribute="trailing" secondItem="0gO-vh-NoU" secondAttribute="trailing" id="Qbc-Vk-grK"/>
@@ -271,10 +270,13 @@
                             <constraint firstItem="0gO-vh-NoU" firstAttribute="width" secondItem="5mN-U3-gkk" secondAttribute="width" multiplier="0.5" id="akp-St-hgD"/>
                             <constraint firstItem="hlZ-kc-rkU" firstAttribute="leading" secondItem="nQK-yk-t6K" secondAttribute="leading" id="cVb-T5-r7R"/>
                             <constraint firstItem="6Ss-09-Q3Z" firstAttribute="top" secondItem="ASj-eu-fHl" secondAttribute="bottom" id="dfy-aL-Sj1"/>
+                            <constraint firstItem="CWE-RO-bXz" firstAttribute="top" secondItem="0gO-vh-NoU" secondAttribute="bottom" id="eci-BW-bvT"/>
                             <constraint firstItem="Yqy-k0-8fv" firstAttribute="leading" secondItem="5mN-U3-gkk" secondAttribute="leading" id="eg8-3R-KLZ"/>
+                            <constraint firstItem="CWE-RO-bXz" firstAttribute="leading" secondItem="Yqy-k0-8fv" secondAttribute="trailing" id="h4A-9y-liJ"/>
                             <constraint firstItem="Yqy-k0-8fv" firstAttribute="width" secondItem="rVM-sP-Jlf" secondAttribute="width" id="hpH-Hj-Z94"/>
                             <constraint firstItem="nQK-yk-t6K" firstAttribute="bottom" secondItem="rVM-sP-Jlf" secondAttribute="bottom" id="kDM-Xc-YPr"/>
                             <constraint firstItem="hlZ-kc-rkU" firstAttribute="top" secondItem="6Ss-09-Q3Z" secondAttribute="bottom" id="qAX-w2-FPT"/>
+                            <constraint firstAttribute="bottom" secondItem="CWE-RO-bXz" secondAttribute="bottom" id="qzu-s9-nXf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nQK-yk-t6K"/>
                     </view>

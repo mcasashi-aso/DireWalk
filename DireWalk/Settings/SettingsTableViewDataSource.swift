@@ -17,10 +17,14 @@ class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [TableViewSection] = [
         TableViewSection(cells: [.about]),
-        TableViewSection(cells: [.arrowColor, .showFar], footer: NSLocalizedString("captionDoNotShowFar", comment: "")),
-        TableViewSection(cells: [.darkMode], footer: NSLocalizedString("captionAlwaysDarkMode", comment: "")),
-        TableViewSection(cells: [.review, .share], header: NSLocalizedString("reviewSection", comment: "")),
-        TableViewSection(cells: [.version, .createdBy], header: NSLocalizedString("about", comment: ""))
+        TableViewSection(cells: [.arrowColor, .showFar],
+                         footer: "captionDoNotShowFar".localized),
+//        TableViewSection(cells: [.darkMode],
+//                         footer: "captionAlwaysDarkMode".localized),
+        TableViewSection(cells: [.review, .share],
+                         header: "reviewSection".localized),
+        TableViewSection(cells: [.version, .createdBy],
+                         header: "about".localized)
     ]
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,36 +52,36 @@ class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         switch cellType {
         case .about:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
-            cell.textView.text = NSLocalizedString("aboutStrings", comment: "")
+            cell.textView.text = "aboutStrings".localized
             return cell
         case .arrowColor:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SelectColorCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("arrowColor", comment: "")
+            cell.textLabel?.text = "arrowColor".localized
             return cell
         case .showFar:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("doNotAlwaysShowFar", comment: "")
+            cell.textLabel?.text = "doNotAlwaysShowFar".localized
             return cell
         case .darkMode:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChangeDarkMode", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("alwaysDarkMode", comment: "")
+            cell.textLabel?.text = "alwaysDarkMode".localized
             return cell
         case .review:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("review", comment: "")
+            cell.textLabel?.text = "review".localized
             return cell
         case .share:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("share", comment: "")
+            cell.textLabel?.text = "share".localized
             return cell
         case .version:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("version", comment: "")
+            cell.textLabel?.text = "version".localized
             cell.detailTextLabel?.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
             return cell
         case .createdBy:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
-            cell.textLabel?.text = NSLocalizedString("createdby", comment: "")
+            cell.textLabel?.text = "createdby".localized
             cell.detailTextLabel?.text = "Masashi Aso"
             return cell
         }

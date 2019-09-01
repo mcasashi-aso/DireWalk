@@ -18,21 +18,19 @@ struct Place: Hashable, Equatable {
     var address: String?
     
     init(latitude: CLLocationDegrees, longitude: CLLocationDegrees,
-         placeTitle: String, adress: String) {
+         placeTitle: String?, adress: String?) {
         self.latitude = latitude
         self.longitude = longitude
         self.placeTitle = placeTitle
         self.address = adress
-        self.isFavorite = isFavoritesContatined(latitude: latitude, longitude: longitude)
     }
     
     init(coordinate: CLLocationCoordinate2D,
-         placeTitle: String, adress: String) {
+         placeTitle: String?, adress: String?) {
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
         self.placeTitle = placeTitle
         self.address = adress
-        self.isFavorite = isFavoritesContatined(latitude: latitude, longitude: longitude)
     }
     
     /// 同じ建物かどうかを返す。
@@ -43,18 +41,22 @@ struct Place: Hashable, Equatable {
     } 
     
     var isFavorite: Bool {
-        didSet {
-            switch isFavorite {
-            case true:
-                var favorites = UserDefaults.standard.get(.favoritePlaces) ?? Set<Place>()
-                favorites.insert(self)
-                UserDefaults.standard.set(favorites, forKey: .favoritePlaces)
-            case false:
-                var favorites = UserDefaults.standard.get(.favoritePlaces) ?? Set<Place>()
-                favorites.remove(self)
-                UserDefaults.standard.set(favorites, forKey: .favoritePlaces)
-            }
+        guard let favorites = UserDefaults.standard.get(.favoritePlaces) else { return false }
+        return favorites.contains(self)
+    }
+    
+    func toggleFavorite() {
+        let userDefaults = UserDefaults.standard
+        if isFavorite {
+            guard var favorites = userDefaults.get(.favoritePlaces) else { return }
+            favorites.remove(self)
+            userDefaults.set(favorites, forKey: .favoritePlaces)
+        }else {
+            var favorites = userDefaults.get(.favoritePlaces) ?? Set<Place>()
+            favorites.insert(self)
+            userDefaults.set(favorites, forKey: .favoritePlaces)
         }
+        NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
     }
     
     static func ==(lhs: Place, rhs: Place) -> Bool {
@@ -64,12 +66,3 @@ struct Place: Hashable, Equatable {
 }
 
 extension Place: Codable, UserDefaultConvertible {}
-
-
-func isFavoritesContatined(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> Bool {
-    let favorites = UserDefaults.standard.get(.favoritePlaces) ?? Set<Place>()
-    return favorites.contains { (place) -> Bool in
-        place.latitude == latitude &&
-        place.longitude == longitude
-    }
-}

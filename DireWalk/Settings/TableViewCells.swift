@@ -24,12 +24,12 @@ class ChangeShowFarCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         changeSwitch.addTarget(self, action: #selector(changeShowFar), for: UIControl.Event.valueChanged)
-        changeSwitch.isOn = viewModel.showFar
+        changeSwitch.isOn = !viewModel.showFar
         accessoryView = changeSwitch
     }
     
     @objc func changeShowFar() {
-        viewModel.showFar = changeSwitch.isOn
+        viewModel.showFar = !changeSwitch.isOn
     }
 }
 
