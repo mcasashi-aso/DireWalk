@@ -11,6 +11,12 @@ import CoreLocation
 
 class DirectionViewController: UIViewController {
     
+    static func create() -> DirectionViewController {
+        let sb = UIStoryboard(name: "Direction", bundle: nil)
+        let vc = sb.instantiateInitialViewController() as! DirectionViewController
+        return vc
+    }
+    
     let userDefaults = UserDefaults.standard
     let viewModel = ViewModel.shared
     let model = Model.shared

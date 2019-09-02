@@ -23,21 +23,21 @@ class ViewController: UIViewController {
         
         let direction: UIPageViewController.NavigationDirection
         direction = (viewModel.presentView == .activity) ? .forward : .reverse
-        let directionVC = getDirectionVC() ?? createDirectionVC()
+        let directionVC = getDirectionVC() ?? DirectionViewController.create()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
         updateLabels()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
-        let activityVC = getActivityVC() ?? createActivityVC()
+        let activityVC = getActivityVC() ?? ActivityViewController.create()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
         updateLabels()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
-        let mapVC = getMapVC() ?? createMapVC()
+        let mapVC = getMapVC() ?? MapViewController.create()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
         updateLabels()
@@ -112,13 +112,14 @@ class ViewController: UIViewController {
         contentPageVC.delegate = viewModel
         contentPageVC.dataSource = self
         contentPageVC.didMove(toParent: self)
-        contentPageVC.setViewControllers([createDirectionVC()],
+        contentPageVC.setViewControllers([DirectionViewController.create()],
                                          direction: .forward, animated: true)
     }
 }
 
 // MARK: UIPageViewControllerDataSource
 extension ViewController: UIPageViewControllerDataSource {
+    
     func getDirectionVC() -> DirectionViewController? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
         for vc in viewControllers {
@@ -147,28 +148,12 @@ extension ViewController: UIPageViewControllerDataSource {
         return nil
     }
     
-    func createDirectionVC() -> DirectionViewController{
-        let sb = UIStoryboard(name: "Direction", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! DirectionViewController
-        return vc
-    }
-    func createMapVC() -> MapViewController{
-        let sb = UIStoryboard(name: "Map", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! MapViewController
-        return vc
-    }
-    func createActivityVC() -> ActivityViewController{
-        let sb = UIStoryboard(name: "Activity", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! ActivityViewController
-        return vc
-    }
-    
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is ActivityViewController:  return nil
-        case is DirectionViewController: return getActivityVC() ?? createActivityVC()
-        case is MapViewController:       return getDirectionVC() ?? createDirectionVC()
+        case is DirectionViewController: return getActivityVC() ?? ActivityViewController.create()
+        case is MapViewController:       return getDirectionVC() ?? DirectionViewController.create()
         default: return nil
         }
     }
@@ -176,8 +161,8 @@ extension ViewController: UIPageViewControllerDataSource {
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is MapViewController:       return nil
-        case is DirectionViewController: return getMapVC() ?? createMapVC()
-        case is ActivityViewController:  return getDirectionVC() ?? createDirectionVC()
+        case is DirectionViewController: return getMapVC() ?? MapViewController.create()
+        case is ActivityViewController:  return getDirectionVC() ?? DirectionViewController.create()
         default: return nil
         }
      }

@@ -15,6 +15,12 @@ import GoogleMobileAds
 // 直す気すら起こらないクソコードの塊()
 class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
     
+    static func create() -> ActivityViewController {
+        let sb = UIStoryboard(name: "Activity", bundle: nil)
+        let vc = sb.instantiateInitialViewController() as! ActivityViewController
+        return vc
+    }
+    
     var healthStore = HKHealthStore()
     
     var datas: [CellData] = [
