@@ -37,6 +37,9 @@ class DirectionViewController: UIViewController {
         let image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
         headingImageView.image = image
         distanceLabel.adjustsFontSizeToFitWidth = true
+        
+        updateFarLabel()
+        updateHeadingImage()
     }
     
     override func viewWillAppear(_ animated: Bool) {

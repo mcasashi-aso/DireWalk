@@ -21,12 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /* 初期化用 */
         // 前のバージョンからかなり修正が加わってるので、一度リセットする
-        userDefaults.register(defaults: ["first" : true])
-        if userDefaults.bool(forKey: "first") {
+//        userDefaults.register(defaults: ["first" : true])
+//        if userDefaults.bool(forKey: "first") {
             let domain = Bundle.main.bundleIdentifier
             userDefaults.removePersistentDomain(forName: domain!)
-            userDefaults.set(false, forKey: "first")
-        }
+//            userDefaults.set(false, forKey: "first")
+//        }
         
         // 前回起動から3時間以上経っていた場合、データを消す
         let now = Date()

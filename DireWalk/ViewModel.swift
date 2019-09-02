@@ -100,7 +100,9 @@ class ViewModel: NSObject {
         return text
     }
     
-    var headingImageAngle: CGFloat { model.heading * .pi / 180 }
+    var headingImageAngle: CGFloat {
+        model.place != nil ? (model.heading * .pi / 180) : (.pi / 2)
+    }
     var buttonAngle: CGFloat { (model.heading - 45) * .pi / 180 }
     
     var annotation: Annotation?
