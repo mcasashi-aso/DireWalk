@@ -16,8 +16,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
     
     static func create() -> MapViewController {
         let sb = UIStoryboard(name: "Map", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! MapViewController
-        return vc
+        return sb.instantiateInitialViewController() as! MapViewController
     }
     
     private let viewModel = ViewModel.shared

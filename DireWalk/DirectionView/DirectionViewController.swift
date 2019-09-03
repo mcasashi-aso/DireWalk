@@ -13,8 +13,7 @@ class DirectionViewController: UIViewController {
     
     static func create() -> DirectionViewController {
         let sb = UIStoryboard(name: "Direction", bundle: nil)
-        let vc = sb.instantiateInitialViewController() as! DirectionViewController
-        return vc
+        return sb.instantiateInitialViewController() as! DirectionViewController
     }
     
     let userDefaults = UserDefaults.standard
@@ -58,11 +57,7 @@ class DirectionViewController: UIViewController {
             let maximum = touch?.maximumPossibleForce else { return }
         let percent = force / maximum
         if percent == 1.0 {
-            if viewModel.state != .hideControllers {
-                viewModel.state = .hideControllers
-            }else {
-                viewModel.state = .direction
-            }
+            changeHiddenState()
         }
     }
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer! {
@@ -72,11 +67,14 @@ class DirectionViewController: UIViewController {
     }
     @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
         if sender.state == UIPanGestureRecognizer.State.began {
-            if viewModel.state != .hideControllers {
-                viewModel.state = .hideControllers
-            }else {
-                viewModel.state = .direction
-            }
+            changeHiddenState()
+        }
+    }
+    func changeHiddenState() {
+        if viewModel.state != .hideControllers {
+            viewModel.state = .hideControllers
+        }else {
+            viewModel.state = .direction
         }
     }
 }

@@ -9,6 +9,9 @@
 import Foundation
 import MapKit
 
+
+// 暗いMapViewを再現するためのOverlay
+// 使ってみたけど、真っ黒だったし、markerが一切出てこなかったからボツ
 class DarkModeMapOverlay: MKTileOverlay {
     init() {
         super.init(urlTemplate: nil)

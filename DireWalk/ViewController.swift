@@ -122,12 +122,7 @@ extension ViewController: UIPageViewControllerDataSource {
     
     func getVC<VC: UIViewController>(_ type: VC.Type) -> VC? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
-        for vc in viewControllers {
-            if let result = vc as? VC {
-                return result
-            }
-        }
-        return nil
+        return viewControllers.compactMap { $0 as? VC }.first
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
@@ -238,11 +233,11 @@ extension ViewController: ViewModelDelegate {
     
     func updateActivityViewData(dayChanged: Bool) {
         if let activityView = getVC(ActivityViewController.self) {
-            activityView.getDireWalkUsingTimes()
+            activityView.updateDireWalkUsingTimes()
             if dayChanged {
-                activityView.getWalkingDistance()
-                activityView.getFlightsClimbed()
-                activityView.getStepCount()
+                activityView.updateWalkingDistance()
+                activityView.updateFlightsClimbed()
+                activityView.updateStepCount()
             }
         }
     }

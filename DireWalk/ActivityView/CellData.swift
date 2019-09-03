@@ -10,14 +10,7 @@ import Foundation
 
 struct CellData {
     
-    var about: String!
-    var number: String!
-    var unit: String!
-    
-    init(about: String, number: String!, unit: String) {
-        self.about = about
-        self.number = number
-        self.unit = unit
-    }
-    
+    var about: String
+    var number: String
+    var unit: String
 }
