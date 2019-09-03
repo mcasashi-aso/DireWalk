@@ -77,7 +77,7 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
         
         addMarker(new: false)
         
-        applyViewConstraints()
+        applyViewConstraints(animated: false)
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(keyboardWillShow(_:)),
@@ -108,7 +108,6 @@ class MapViewController: UIViewController, UIScrollViewDelegate {
             searchBar.searchTextField.backgroundColor = bgColor
         }else {
             let textField = searchBar.value(forKey: "_searchField") as! UITextField
-
             textField.backgroundColor = bgColor
         }
     }
@@ -235,9 +234,9 @@ extension MapViewController: UIGestureRecognizerDelegate {
 
 // MARK: Search
 extension MapViewController {
-    func applyViewConstraints() {
+    func applyViewConstraints(animated: Bool = true) {
         if viewModel.state == .search {
-            tableViewHeightConstranit.constant = mapView.frame.height
+            tableViewHeightConstranit.constant = mapView.frame.height - searchBar.frame.height - 40
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
                 self.view.layoutIfNeeded()
                 self.userTrackingButton.alpha = 0
@@ -248,7 +247,7 @@ extension MapViewController {
             })
         }else {
             tableViewHeightConstranit.constant = 0
-            UIView.animate(withDuration: 0.28, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
+            UIView.animate(withDuration: animated ? 0.28 : 0, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
                 self.view.layoutIfNeeded()
                 self.userTrackingButton.alpha = 1
                 self.compassButton.alpha = 1

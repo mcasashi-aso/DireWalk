@@ -23,21 +23,21 @@ class ViewController: UIViewController {
         
         let direction: UIPageViewController.NavigationDirection
         direction = (viewModel.presentView == .activity) ? .forward : .reverse
-        let directionVC = getDirectionVC() ?? DirectionViewController.create()
+        let directionVC = getVC(DirectionViewController.self) ?? DirectionViewController.create()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
         updateLabels()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
-        let activityVC = getActivityVC() ?? ActivityViewController.create()
+        let activityVC = getVC(ActivityViewController.self) ?? ActivityViewController.create()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
         updateLabels()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
-        let mapVC = getMapVC() ?? MapViewController.create()
+        let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
         updateLabels()
@@ -120,29 +120,11 @@ class ViewController: UIViewController {
 // MARK: UIPageViewControllerDataSource
 extension ViewController: UIPageViewControllerDataSource {
     
-    func getDirectionVC() -> DirectionViewController? {
+    func getVC<VC: UIViewController>(_ type: VC.Type) -> VC? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
         for vc in viewControllers {
-            if let directionVC = vc as? DirectionViewController {
-                return directionVC
-            }
-        }
-        return nil
-    }
-    func getMapVC() -> MapViewController? {
-        guard let viewControllers = contentPageVC.viewControllers else { return nil }
-        for vc in viewControllers {
-            if let mapVC = vc as? MapViewController {
-                return mapVC
-            }
-        }
-        return nil
-    }
-    func getActivityVC() -> ActivityViewController? {
-        guard let viewControllers = contentPageVC.viewControllers else { return nil }
-        for vc in viewControllers {
-            if let activityVC = vc as? ActivityViewController {
-                return activityVC
+            if let result = vc as? VC {
+                return result
             }
         }
         return nil
@@ -152,8 +134,10 @@ extension ViewController: UIPageViewControllerDataSource {
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is ActivityViewController:  return nil
-        case is DirectionViewController: return getActivityVC() ?? ActivityViewController.create()
-        case is MapViewController:       return getDirectionVC() ?? DirectionViewController.create()
+        case is DirectionViewController:
+            return getVC(ActivityViewController.self) ?? ActivityViewController.create()
+        case is MapViewController:
+            return getVC(DirectionViewController.self) ?? DirectionViewController.create()
         default: return nil
         }
     }
@@ -161,8 +145,10 @@ extension ViewController: UIPageViewControllerDataSource {
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         switch viewController {
         case is MapViewController:       return nil
-        case is DirectionViewController: return getMapVC() ?? MapViewController.create()
-        case is ActivityViewController:  return getDirectionVC() ?? DirectionViewController.create()
+        case is DirectionViewController:
+            return getVC(MapViewController.self) ?? MapViewController.create()
+        case is ActivityViewController:
+            return getVC(DirectionViewController.self) ?? DirectionViewController.create()
         default: return nil
         }
      }
@@ -173,25 +159,25 @@ extension ViewController: ModelDelegate {
     
     func didChangePlace() {
         updateLabels()
-        if let mapVC = getMapVC() {
+        if let mapVC = getVC(MapViewController.self) {
             mapVC.addMarker(new: true)
         }
-        if let directionVC = getDirectionVC() {
+        if let directionVC = getVC(DirectionViewController.self) {
             directionVC.updateFarLabel()
         }
     }
     
     func didChangeFar() {
-        if let directionVC = getDirectionVC() {
+        if let directionVC = getVC(DirectionViewController.self) {
             directionVC.updateFarLabel()
         }
     }
     
     func didChangeHeading() {
-        if let directionVC = getDirectionVC() {
+        if let directionVC = getVC(DirectionViewController.self) {
             directionVC.updateHeadingImage()
         }
-        if let mapVC = getMapVC() {
+        if let mapVC = getVC(MapViewController.self) {
             mapVC.updateHeadingImageView()
         }
         let affineTransform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
@@ -199,7 +185,7 @@ extension ViewController: ModelDelegate {
     }
     
     func addHeadingView(to annotationView: MKAnnotationView) {
-        guard let mapVC = getMapVC() else { return }
+        guard let mapVC = getVC(MapViewController.self) else { return }
         mapVC.addHeadingView(to: annotationView)
     }
     
@@ -231,26 +217,33 @@ extension ViewController: ViewModelDelegate {
     }
     
     func didChangeSearchTableViewElements() {
-        getMapVC()?.tableView.reloadData()
+        if let mapVC = getVC(MapViewController.self) {
+            mapVC.tableView.reloadData()
+        }
     }
     
     func didChangeState() {
         hideControllers(viewModel.state == .hideControllers)
-        getMapVC()?.applyViewConstraints()
-        getMapVC()?.tableView.reloadData()
+        if let mapVC = getVC(MapViewController.self) {
+            mapVC.applyViewConstraints()
+            mapVC.tableView.reloadData()
+        }
     }
     
     func SearchedTableViewCellSelected() {
-        getMapVC()?.searchedTableViewCellSelected()
+        if let mapVC = getVC(MapViewController.self) {
+            mapVC.searchedTableViewCellSelected()
+        }
     }
     
     func updateActivityViewData(dayChanged: Bool) {
-        guard let activityView = getActivityVC() else { return }
-        activityView.getDireWalkUsingTimes()
-        if dayChanged {
-            activityView.getWalkingDistance()
-            activityView.getFlightsClimbed()
-            activityView.getStepCount()
+        if let activityView = getVC(ActivityViewController.self) {
+            activityView.getDireWalkUsingTimes()
+            if dayChanged {
+                activityView.getWalkingDistance()
+                activityView.getFlightsClimbed()
+                activityView.getStepCount()
+            }
         }
     }
 }
@@ -267,7 +260,7 @@ extension ViewController {
         bannerView.isHidden = isHidden
         setNeedsStatusBarAppearanceUpdate()
         setNeedsUpdateOfHomeIndicatorAutoHidden()
-        getDirectionVC()?.updateFarLabel()
+        getVC(DirectionViewController.self)?.updateFarLabel()
     }
     func noticeControllersHidden() {
         showHideAlart()
