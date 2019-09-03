@@ -207,7 +207,7 @@
                                     <constraint firstItem="pMa-sG-j9v" firstAttribute="leading" secondItem="ASj-eu-fHl" secondAttribute="leading" constant="15" id="qMz-jo-d5G"/>
                                 </constraints>
                             </view>
-                            <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZIQ-Dd-Us0" customClass="MySlider" customModule="DireWalk" customModuleProvider="target">
+                            <slider opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZIQ-Dd-Us0" customClass="TappableSlider" customModule="DireWalk" customModuleProvider="target">
                                 <rect key="frame" x="28" y="541" width="319" height="31"/>
                                 <connections>
                                     <action selector="changeValue:" destination="4BA-JJ-QEK" eventType="valueChanged" id="NWb-xG-xIW"/>

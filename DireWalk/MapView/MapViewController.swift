@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 import GoogleMobileAds
 
-class MapViewController: UIViewController, UIScrollViewDelegate {
+final class MapViewController: UIViewController, UIScrollViewDelegate {
     
     static func create() -> MapViewController {
         let sb = UIStoryboard(name: "Map", bundle: nil)

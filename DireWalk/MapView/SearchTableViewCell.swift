@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell {
     @objc let favoriteButton = UIButton()
     var place: Place!
     
@@ -34,7 +34,7 @@ class SearchTableViewCell: UITableViewCell {
     }
     
     @objc func tapFavorite() {
-        place.toggleFavorite()
+        place.isFavorite.toggle()
         favoriteButton.isHidden = !place.isFavorite
     }
 }

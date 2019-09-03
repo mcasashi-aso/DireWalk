@@ -9,7 +9,7 @@
 import UIKit
 import GoogleMobileAds
 
-class ActivityCollectionViewCell: UICollectionViewCell {
+final class ActivityCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var aboutLable: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
@@ -20,7 +20,7 @@ class ActivityCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var unitLabelBottomInset: NSLayoutConstraint!
     @IBOutlet weak var unitLabelRightInset: NSLayoutConstraint!
     
-    func setData(cellData: CellData) {
+    func setData(cellData: ActivityData) {
         setCell()
         self.aboutLable.text = cellData.about
         self.numberLabel.text = String(cellData.number)

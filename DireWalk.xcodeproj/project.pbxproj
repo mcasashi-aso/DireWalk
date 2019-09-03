@@ -36,7 +36,7 @@
 		E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */; };
 		E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A0E2226429300551AC6 /* MapViewController.swift */; };
 		E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */; };
-		E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* CellData.swift */; };
+		E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* ActivityData.swift */; };
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
 		E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Tools.swift */; };
 		E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */; };
@@ -124,7 +124,7 @@
 		E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		E67C3A0E2226429300551AC6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewCell.swift; sourceTree = "<group>"; };
-		E67C3A1222267E0C00551AC6 /* CellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellData.swift; sourceTree = "<group>"; };
+		E67C3A1222267E0C00551AC6 /* ActivityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityData.swift; sourceTree = "<group>"; };
 		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
 		E67C3A2022291FED00551AC6 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 				E67C3A0222261C1400551AC6 /* Activity.storyboard */,
 				E67C3A0C2226428A00551AC6 /* ActivityViewController.swift */,
 				E67C3A10222643B200551AC6 /* ActivityCollectionViewCell.swift */,
-				E67C3A1222267E0C00551AC6 /* CellData.swift */,
+				E67C3A1222267E0C00551AC6 /* ActivityData.swift */,
 			);
 			path = ActivityView;
 			sourceTree = "<group>";
@@ -686,7 +686,7 @@
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,
 				E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */,
 				BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */,
-				E67C3A1322267E0C00551AC6 /* CellData.swift in Sources */,
+				E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,

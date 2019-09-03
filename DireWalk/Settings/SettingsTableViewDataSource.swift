@@ -13,7 +13,7 @@ enum SettingsTableViewCellType {
 }
 
 // もっといい書き方あると思うんだけど時間と技術的にここが限界
-class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
+final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [TableViewSection] = [
         TableViewSection(cells: [.about]),

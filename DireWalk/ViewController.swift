@@ -12,7 +12,7 @@ import MapKit
 import HealthKit
 import GoogleMobileAds
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
     
     private let viewModel = ViewModel.shared
     private let model = Model.shared

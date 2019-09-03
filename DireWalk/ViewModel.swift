@@ -17,7 +17,7 @@ protocol ViewModelDelegate {
     func updateActivityViewData(dayChanged: Bool)
 }
 
-class ViewModel: NSObject {
+final class ViewModel: NSObject {
     
     static let shared = ViewModel()
     private override init() {

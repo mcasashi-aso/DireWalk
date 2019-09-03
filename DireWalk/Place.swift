@@ -33,30 +33,24 @@ struct Place: Hashable, Equatable {
         self.address = adress
     }
     
-    /// 同じ建物かどうかを返す。
-    /// ピンの場所が正確には違っていても、同じ敷地であれば true
-    func isEqualPlace(to place: Place) -> Bool {
-        self.placeTitle == place.placeTitle &&
-            self.address == place.address
-    } 
-    
     var isFavorite: Bool {
-        guard let favorites = UserDefaults.standard.get(.favoritePlaces) else { return false }
-        return favorites.contains(self)
-    }
-    
-    func toggleFavorite() {
-        let userDefaults = UserDefaults.standard
-        if isFavorite {
-            guard var favorites = userDefaults.get(.favoritePlaces) else { return }
-            favorites.remove(self)
-            userDefaults.set(favorites, forKey: .favoritePlaces)
-        }else {
-            var favorites = userDefaults.get(.favoritePlaces) ?? Set<Place>()
-            favorites.insert(self)
-            userDefaults.set(favorites, forKey: .favoritePlaces)
+        get {
+            guard let favorites = UserDefaults.standard.get(.favoritePlaces) else { return false }
+            return favorites.contains(self)
         }
-        NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
+        set {
+            let userDefaults = UserDefaults.standard
+            if newValue {
+                guard var favorites = userDefaults.get(.favoritePlaces) else { return }
+                favorites.remove(self)
+                userDefaults.set(favorites, forKey: .favoritePlaces)
+            }else {
+                var favorites = userDefaults.get(.favoritePlaces) ?? Set<Place>()
+                favorites.insert(self)
+                userDefaults.set(favorites, forKey: .favoritePlaces)
+            }
+            NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
+        }
     }
     
     static func ==(lhs: Place, rhs: Place) -> Bool {

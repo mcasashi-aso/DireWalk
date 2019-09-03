@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MySlider: UISlider {
+final class TappableSlider: UISlider {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         return true

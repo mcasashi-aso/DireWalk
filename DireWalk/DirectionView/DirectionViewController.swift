@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class DirectionViewController: UIViewController {
+final class DirectionViewController: UIViewController {
     
     static func create() -> DirectionViewController {
         let sb = UIStoryboard(name: "Direction", bundle: nil)

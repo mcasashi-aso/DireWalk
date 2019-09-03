@@ -6,13 +6,12 @@
 //  Copyright © 2019 麻生昌志. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class SelectColorViewController: UIViewController {
+final class SelectColorViewController: UIViewController {
     
     @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet weak var slider: MySlider!
+    @IBOutlet weak var slider: TappableSlider!
     @IBOutlet weak var whiteAboutTextView: UITextView!
     @IBOutlet weak var blackAboutTextView: UITextView!
     @IBOutlet weak var previewLabel: UILabel!

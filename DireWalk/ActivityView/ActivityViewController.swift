@@ -11,8 +11,8 @@ import HealthKit
 import CoreMotion
 import GoogleMobileAds
 
-// 直す気すら起こらないクソコードの塊()
-class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
+// CollectionViewで組み立てる方式以外にしたい
+final class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
     
     static func create() -> ActivityViewController {
         let sb = UIStoryboard(name: "Activity", bundle: nil)
@@ -21,19 +21,19 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var healthStore = HKHealthStore()
     
-    var datas: [CellData] = [
-        CellData(about:  "walkingDistance".localized,
-                 number: "error".localized,
-                 unit:   "pleaseAllow".localized),
-        CellData(about:  "steps".localized,
-                 number: "error".localized,
-                 unit:   "pleaseAllow".localized),
-        CellData(about:  "flightsClimbed".localized,
-                 number: "error".localized,
-                 unit:   "pleaseAllow".localized),
-        CellData(about:  "DireWalk".localized,
-                 number: "error".localized,
-                 unit:   "pleaseAllow".localized)
+    var datas: [ActivityData] = [
+        ActivityData(about:  "walkingDistance".localized,
+                     number: "error".localized,
+                     unit:   "pleaseAllow".localized),
+        ActivityData(about:  "steps".localized,
+                     number: "error".localized,
+                     unit:   "pleaseAllow".localized),
+        ActivityData(about:  "flightsClimbed".localized,
+                     number: "error".localized,
+                     unit:   "pleaseAllow".localized),
+        ActivityData(about:  "DireWalk".localized,
+                     number: "error".localized,
+                     unit:   "pleaseAllow".localized)
     ]
     
     func setQueries() {
@@ -77,18 +77,18 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         getHealthData(.stepCount, unit: .count()) { count in
             let steps = Int(count)
             let unit = (steps == 1 || steps == 0) ? "stepsUnit" : "stepsUnits"
-            let cellData = CellData(about: "steps".localized,
-                                    number: String(steps),
-                                    unit: unit.localized)
+            let cellData = ActivityData(about: "steps".localized,
+                                        number: String(steps),
+                                        unit: unit.localized)
             self.datas[1] = cellData
             self.collectionView.reloadData()
         }
     }
     func updateWalkingDistance() {
         getHealthData(.distanceWalkingRunning, unit: .meter()) { distance in
-            let cellData = CellData(about: "walkingDistance".localized,
-                                    number: String(ceil(distance / 100.0) / 10.0),
-                                    unit: "walkingDistanceUnit".localized)
+            let cellData = ActivityData(about: "walkingDistance".localized,
+                                        number: String(ceil(distance / 100.0) / 10.0),
+                                        unit: "walkingDistanceUnit".localized)
             self.datas[0] = cellData
             self.collectionView.reloadData()
         }
@@ -97,9 +97,9 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         getHealthData(.flightsClimbed, unit: .count()) { count in
             let climbed = Int(count)
             let unit = (climbed == 1 || climbed == 0) ? "flightsClimbedUnit" : "flightsClimbedUnits"
-            let cellData = CellData(about: "flightsClimbed".localized,
-                                    number: String(climbed),
-                                    unit: unit.localized)
+            let cellData = ActivityData(about: "flightsClimbed".localized,
+                                        number: String(climbed),
+                                        unit: unit.localized)
             self.datas[2] = cellData
             self.collectionView.reloadData()
         }
@@ -108,9 +108,9 @@ class ActivityViewController: UIViewController, UICollectionViewDelegate, UIColl
         guard let usingTimes = UserDefaults.standard.get(.usingTimes) else { return }
         let usingTimesMinutes = Int(ceil(Double(usingTimes) / 60.0))
         let unit = (usingTimesMinutes == 1 || usingTimes == 0) ? "DireWalkUnit" : "DireWalkUnits"
-        let cellData = CellData(about: "DireWalk".localized,
-                                number: String(usingTimesMinutes),
-                                unit: unit.localized)
+        let cellData = ActivityData(about: "DireWalk".localized,
+                                    number: String(usingTimesMinutes),
+                                    unit: unit.localized)
         datas[3] = cellData
         collectionView.reloadData()
     }

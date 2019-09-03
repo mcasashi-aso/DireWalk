@@ -20,7 +20,7 @@ protocol ModelDelegate {
     func didChangeHeading()
 }
 
-class Model: NSObject {
+final class Model: NSObject {
     
     @UserDefault(.place, defaultValue: nil)
     var place: Place? {
@@ -200,7 +200,7 @@ extension Model: MKMapViewDelegate {
                  annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
         guard control == view.rightCalloutAccessoryView else { return }
-        self.place?.toggleFavorite()
+        self.place?.isFavorite.toggle()
         // ちょっと汚いけど mapView(_:, viewFor:)と同じ処理
         if let an = view.annotation as? Annotation {
             guard let place = an.place else { return }

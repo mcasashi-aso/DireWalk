@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableViewSection {
+struct TableViewSection {
     var cells: [SettingsTableViewCellType]
     var header: String?
     var footer: String?

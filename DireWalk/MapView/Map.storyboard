@@ -29,9 +29,9 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardAppearance="alert" returnKeyType="search" smartDashesType="yes" smartInsertDeleteType="yes" smartQuotesType="yes" textContentType="location"/>
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="got-1x-NQc">
-                                <rect key="frame" x="0.0" y="56" width="4" height="756"/>
+                                <rect key="frame" x="0.0" y="56" width="8" height="756"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="4" id="fle-bD-kOh"/>
+                                    <constraint firstAttribute="width" constant="8" id="fle-bD-kOh"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="18l-0H-CJt">

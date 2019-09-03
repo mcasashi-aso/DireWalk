@@ -9,7 +9,7 @@
 import UIKit
 import Accounts
 
-class SettingsViewController: UIViewController, UITableViewDelegate {
+final class SettingsViewController: UIViewController, UITableViewDelegate {
     
     private var viewModel = ViewModel.shared
     private let dataSource = SettingsTableViewDataSource()

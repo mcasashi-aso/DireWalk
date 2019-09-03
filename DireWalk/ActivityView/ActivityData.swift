@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct CellData {
-    
+struct ActivityData {
     var about: String
     var number: String
     var unit: String
