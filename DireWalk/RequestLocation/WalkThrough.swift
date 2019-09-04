@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WalkThroughViewController: UIViewController {
+final class WalkThroughViewController: UIViewController {
     
     @IBOutlet weak var aboutLabel: UILabel!
     @IBOutlet weak var navigationLabel: UILabel!

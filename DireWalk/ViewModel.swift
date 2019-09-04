@@ -254,7 +254,8 @@ extension ViewModel: UITableViewDataSource {
 // MARK: Using Time
 extension ViewModel {
     @objc func usingTimeUpdater() {
-        let dayChanged = !date.isSameDay(to: Date())
+        let now = Date()
+        let dayChanged = !date.isSameDay(to: now)
         if dayChanged {
             usingTime = 0
         }
@@ -264,5 +265,6 @@ extension ViewModel {
         if ceil(Double(usingTime) / 60) != ceil(Double(usingTime + 1) / 60) {
             delegate?.updateActivityViewData(dayChanged: dayChanged)
         }
+        date = now
     }
 }
