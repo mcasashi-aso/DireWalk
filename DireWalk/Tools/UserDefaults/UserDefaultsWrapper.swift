@@ -49,7 +49,6 @@ struct UserDefault<Value: UserDefaultConvertible> {
         set {
             if let object = newValue.object() {
                 UserDefaults.standard.set(object, forKey: typedKey.key)
-                
             }else {
                 UserDefaults.standard.removeObject(forKey: typedKey.key)
             }

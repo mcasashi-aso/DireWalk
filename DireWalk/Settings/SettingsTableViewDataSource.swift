@@ -9,7 +9,7 @@
 import UIKit
 
 enum SettingsTableViewCellType {
-    case about, arrowColor, showFar, darkMode, review, share, version, createdBy
+    case about, arrowColor, showFar, darkMode, review, share, version, createdBy, purchase, restore
 }
 
 // もっといい書き方あると思うんだけど時間と技術的にここが限界
@@ -23,6 +23,8 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
 //                         footer: "captionAlwaysDarkMode".localized),
         TableViewSection(cells: [.review, .share],
                          header: "reviewSection".localized),
+//        TableViewSection(cells: [.purchase, .restore],
+//                         header: "adAndPurchase".localized),
         TableViewSection(cells: [.version, .createdBy],
                          header: "about".localized)
     ]
@@ -67,11 +69,11 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             cell.textLabel?.text = "alwaysDarkMode".localized
             return cell
         case .review:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
             cell.textLabel?.text = "review".localized
             return cell
         case .share:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TapableCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
             cell.textLabel?.text = "share".localized
             return cell
         case .version:
@@ -83,6 +85,14 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
             cell.textLabel?.text = "createdby".localized
             cell.detailTextLabel?.text = "Masashi Aso"
+            return cell
+        case .purchase:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            cell.textLabel?.text = "Remove Ad"
+            return cell
+        case .restore:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            cell.textLabel?.text = "Restore Purchase"
             return cell
         }
     }

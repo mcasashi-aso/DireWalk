@@ -237,8 +237,8 @@
 			children = (
 				E6358E15222D7E660084E9CB /* Setting.storyboard */,
 				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
-				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
 				BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */,
+				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
 				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
 				BAD5CA26231A662A00499E17 /* ArrowColor */,
 			);
