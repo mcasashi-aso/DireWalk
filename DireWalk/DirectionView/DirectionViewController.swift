@@ -28,7 +28,8 @@ final class DirectionViewController: UIViewController {
     }
     
     func updateHeadingImage() {
-        headingImageView.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
+        let affineTransform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
+        headingImageView.transform = affineTransform
     }
 
     override func viewDidLoad() {

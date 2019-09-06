@@ -75,8 +75,8 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         setupSearchBar()
         
         addMarker(new: false)
-        
         applyViewConstraints(animated: false)
+        
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(keyboardWillShow(_:)),

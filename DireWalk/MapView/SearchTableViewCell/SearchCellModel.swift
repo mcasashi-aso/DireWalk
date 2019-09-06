@@ -62,7 +62,7 @@ final class SearchCellModel: NSObject {
     let locationManager = CLLocationManager()
     private let userDefaults = UserDefaults.standard
     private let healthStore = HKHealthStore()
-    var delegate: ModelDelegate?
+    var delegate: SearchCellModelDelegate?
 }
 
 // MARK: Heading

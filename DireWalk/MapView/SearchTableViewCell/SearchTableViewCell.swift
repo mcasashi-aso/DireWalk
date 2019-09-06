@@ -25,6 +25,8 @@ final class SearchTableViewCell: UITableViewCell {
         model.delegate = self
         nameLabel.text = place.placeTitle
         detailTextLabel?.text = place.address
+        didChangeFar()
+        didChangeHeading()
     }
 }
 
@@ -35,7 +37,7 @@ extension SearchTableViewCell: SearchCellModelDelegate {
     }
     
     func didChangeHeading() {
-        let affine
-        directionImageView.
+        let affineTransform = CGAffineTransform(rotationAngle: model.heading)
+        directionImageView.transform = affineTransform
     }
 }

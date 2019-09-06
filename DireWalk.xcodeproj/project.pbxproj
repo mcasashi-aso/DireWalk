@@ -225,6 +225,16 @@
 			path = Tools;
 			sourceTree = "<group>";
 		};
+		BAF6B89E2322107600A98E88 /* SearchTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */,
+				BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */,
+				BA8ED9132322098300A1232D /* SearchCellModel.swift */,
+			);
+			path = SearchTableViewCell;
+			sourceTree = "<group>";
+		};
 		CE2A30B13E534BEAACFAE82C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,9 +288,7 @@
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
 				BA59EBF9231976760037EF6B /* Annotation.swift */,
 				BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */,
-				BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */,
-				BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */,
-				BA8ED9132322098300A1232D /* SearchCellModel.swift */,
+				BAF6B89E2322107600A98E88 /* SearchTableViewCell */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
