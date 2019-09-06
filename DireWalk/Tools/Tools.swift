@@ -42,6 +42,10 @@ extension String {
     var localized: String {
         NSLocalizedString(self, comment: "localized string with \(self)")
     }
+    
+    var localizedYet: String {
+        "Please Localize \"\(self)\""
+    }
 }
 
 

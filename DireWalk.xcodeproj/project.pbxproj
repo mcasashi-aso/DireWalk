@@ -3,20 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		5B9453E8EE75841EACC6F1EF /* Pods_DireWalkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FFCE3EF6E7FFE8BF2A5063E /* Pods_DireWalkTests.framework */; };
 		85DDE4D764C1FAEBCB55C2E8 /* Pods_DireWalkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66ABC43BEDC52AE058FA4BF1 /* Pods_DireWalkUITests.framework */; };
 		8A7575ED4287F9EDBC493045 /* Pods_DireWalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48008B15EC0AC67676027950 /* Pods_DireWalk.framework */; };
-		BA3E206E231AA5B5005861DD /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E206D231AA5B5005861DD /* SearchTableViewCell.swift */; };
+		BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */; };
+		BA26E8F82320D9FB00A18652 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */; };
 		BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */; };
 		BA4274672312B3CC00CD3796 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274662312B3CC00CD3796 /* Model.swift */; };
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
 		BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */; };
 		BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE42319556C0037EF6B /* MyColor.swift */; };
 		BA59EBFA231976760037EF6B /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBF9231976760037EF6B /* Annotation.swift */; };
+		BA8ED9122321817800A1232D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9112321817800A1232D /* Settings.swift */; };
+		BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9132322098300A1232D /* SearchCellModel.swift */; };
 		BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA27231A664600499E17 /* TableViewSection.swift */; };
 		BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */; };
 		BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */; };
@@ -93,7 +96,8 @@
 		7372F7D2370C50844CB32966 /* Pods-DireWalkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkUITests.release.xcconfig"; path = "Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9C25B50BC868A003B4F96F1E /* Pods-DireWalkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalkTests.release.xcconfig"; path = "Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests.release.xcconfig"; sourceTree = "<group>"; };
 		B70BF1FEBCD467FDAD7CAEE8 /* Pods-DireWalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DireWalk.release.xcconfig"; path = "Target Support Files/Pods-DireWalk/Pods-DireWalk.release.xcconfig"; sourceTree = "<group>"; };
-		BA3E206D231AA5B5005861DD /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
 		BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMapOverlay.swift; sourceTree = "<group>"; };
 		BA4274662312B3CC00CD3796 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 		BA59EBEF231972C40037EF6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		BA59EBF1231972C40037EF6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA59EBF9231976760037EF6B /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
 		BAD5CA27231A664600499E17 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
 		BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultConvertibles.swift; sourceTree = "<group>"; };
@@ -272,7 +278,9 @@
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
 				BA59EBF9231976760037EF6B /* Annotation.swift */,
 				BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */,
-				BA3E206D231AA5B5005861DD /* SearchTableViewCell.swift */,
+				BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */,
+				BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */,
+				BA8ED9132322098300A1232D /* SearchCellModel.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -329,6 +337,7 @@
 				E6C437CD222386F900542844 /* Assets.xcassets */,
 				BAF229372314DD9A00D75930 /* ViewModel.swift */,
 				BA4274662312B3CC00CD3796 /* Model.swift */,
+				BA8ED9112321817800A1232D /* Settings.swift */,
 				BAF229352314DD7700D75930 /* Place.swift */,
 				BAF2293B23181B1200D75930 /* Tools */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
@@ -496,6 +505,7 @@
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
 				E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */,
 				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
+				BA26E8F82320D9FB00A18652 /* SearchTableViewCell.xib in Resources */,
 				E6C437CC222386F800542844 /* Main.storyboard in Resources */,
 				E631DF492232BDAE00CC1A03 /* Localizable.strings in Resources */,
 				E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */,
@@ -528,18 +538,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkTests/Pods-DireWalkTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -552,18 +555,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalkUITests/Pods-DireWalkUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -576,18 +572,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-DireWalk/Pods-DireWalk-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalk/Pods-DireWalk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-DireWalk/Pods-DireWalk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -667,6 +656,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA8ED9122321817800A1232D /* Settings.swift in Sources */,
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
 				E69F09AF2249094200B77F6E /* MySlider.swift in Sources */,
@@ -675,12 +665,13 @@
 				BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */,
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
+				BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */,
 				E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */,
-				BA3E206E231AA5B5005861DD /* SearchTableViewCell.swift in Sources */,
 				BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
 				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
 				BAF229362314DD7700D75930 /* Place.swift in Sources */,
+				BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */,
 				BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */,
 				BA59EBFA231976760037EF6B /* Annotation.swift in Sources */,
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,

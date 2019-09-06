@@ -74,7 +74,6 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel.delegate = self
-        model.delegate = self
         
         setupViews()
         setupAds()
@@ -104,8 +103,18 @@ final class ViewController: UIViewController {
         activityButton.imageEdgeInsets.right = directionButton.bounds.height / 2 / 2
         mapButton.contentMode = UIView.ContentMode.scaleAspectFill
         mapButton.imageEdgeInsets.left = directionButton.bounds.height / 2 / 2
-        aboutLabel.text = "destination".localized
+        
         destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
+        destinationLabel.titleLabel?.numberOfLines = 1
+        destinationLabel.titleLabel?.font = .preferredFont(forTextStyle: .largeTitle)
+        
+        destinationLabel.titleLabel?.adjustsFontForContentSizeCategory = true
+        
+        directionButton.accessibilityLabel = "Direction Tab"
+        mapButton.accessibilityLabel = "Map Tab"
+        activityButton.accessibilityLabel = "Activity Tab"
+        destinationLabel.accessibilityLabel = "Destination"
+        
         
         addChild(contentPageVC)
         contentPageVC.view.frame = containerView.bounds
@@ -149,39 +158,57 @@ extension ViewController: UIPageViewControllerDataSource {
      }
 }
 
-// MARK: ModelDelegate
-extension ViewController: ModelDelegate {
+
+// MARK: ViewModelDelegate
+extension ViewController: ViewModelDelegate {
+    
+    func addHeadingView(to annotationView: MKAnnotationView) {
+        getVC(MapViewController.self)?.addHeadingView(to: annotationView)
+    }
     
     func didChangePlace() {
         updateLabels()
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.addMarker(new: true)
-        }
-        if let directionVC = getVC(DirectionViewController.self) {
-            directionVC.updateFarLabel()
-        }
+        getVC(MapViewController.self)?.addMarker(new: true)
     }
     
-    func didChangeFar() {
-        if let directionVC = getVC(DirectionViewController.self) {
-            directionVC.updateFarLabel()
-        }
-    }
-    
-    func didChangeHeading() {
-        if let directionVC = getVC(DirectionViewController.self) {
-            directionVC.updateHeadingImage()
-        }
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.updateHeadingImageView()
-        }
+    func didChangeRotation() {
+        getVC(DirectionViewController.self)?.updateHeadingImage()
+        getVC(MapViewController.self)?.updateHeadingImageView()
         let affineTransform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
         directionButton.transform = affineTransform
     }
     
-    func addHeadingView(to annotationView: MKAnnotationView) {
-        guard let mapVC = getVC(MapViewController.self) else { return }
-        mapVC.addHeadingView(to: annotationView)
+    func updateLabels() {
+        getVC(DirectionViewController.self)?.updateFarLabel()
+        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
+        aboutLabel.text = viewModel.aboutLabelText
+    }
+    
+    func didChangeSearchTableViewElements() {
+        getVC(MapViewController.self)?.tableView.reloadData()
+    }
+    
+    func didChangeState() {
+        hideControllers(viewModel.state == .hideControllers)
+        if let mapVC = getVC(MapViewController.self) {
+            mapVC.applyViewConstraints()
+            mapVC.tableView.reloadData()
+        }
+    }
+    
+    func SearchedTableViewCellSelected() {
+        getVC(MapViewController.self)?.searchedTableViewCellSelected()
+    }
+    
+    func updateActivityViewData(dayChanged: Bool) {
+        if let activityView = getVC(ActivityViewController.self) {
+            activityView.updateDireWalkUsingTimes()
+            if dayChanged {
+                activityView.updateWalkingDistance()
+                activityView.updateFlightsClimbed()
+                activityView.updateStepCount()
+            }
+        }
     }
     
     func askAllowHealthKit() {
@@ -199,47 +226,6 @@ extension ViewController: ModelDelegate {
         let sb = UIStoryboard(name: "RequestLocation", bundle: nil)
         let view = sb.instantiateInitialViewController()
         self.present(view!, animated: true, completion: nil)
-    }
-}
-
-
-// MARK: ViewModelDelegate
-extension ViewController: ViewModelDelegate {
-    
-    func updateLabels() {
-        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
-        aboutLabel.text = viewModel.aboutLabelText
-    }
-    
-    func didChangeSearchTableViewElements() {
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.tableView.reloadData()
-        }
-    }
-    
-    func didChangeState() {
-        hideControllers(viewModel.state == .hideControllers)
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.applyViewConstraints()
-            mapVC.tableView.reloadData()
-        }
-    }
-    
-    func SearchedTableViewCellSelected() {
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.searchedTableViewCellSelected()
-        }
-    }
-    
-    func updateActivityViewData(dayChanged: Bool) {
-        if let activityView = getVC(ActivityViewController.self) {
-            activityView.updateDireWalkUsingTimes()
-            if dayChanged {
-                activityView.updateWalkingDistance()
-                activityView.updateFlightsClimbed()
-                activityView.updateStepCount()
-            }
-        }
     }
 }
 

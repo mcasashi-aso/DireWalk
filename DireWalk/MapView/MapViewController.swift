@@ -64,7 +64,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = model
+        mapView.delegate = viewModel
         searchBar.delegate = viewModel
         tableView.delegate = viewModel
         tableView.dataSource = viewModel
@@ -109,6 +109,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             let textField = searchBar.value(forKey: "_searchField") as! UITextField
             textField.backgroundColor = bgColor
         }
+        searchBar.accessibilityLabel = "Search Bar"
     }
     private func setupMapView() {
         mapView.userTrackingMode = MKUserTrackingMode.none
@@ -118,7 +119,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         region.center = model.currentLocation.coordinate
         region.span.latitudeDelta = 0.004
         region.span.longitudeDelta = 0.004
-        mapView.setRegion(region, animated: true)
+        mapView.setRegion(region, animated: false)
         mapView.mapType = .mutedStandard
     }
     private func setupMapButtons() {

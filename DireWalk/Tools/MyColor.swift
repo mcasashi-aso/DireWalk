@@ -22,7 +22,7 @@ import UIKit
  */
 var isDarkTheme: Bool {
     if #available(iOS 13, *),
-        !ViewModel.shared.isAlwaysDarkAppearance,
+        !ViewModel.shared.settings.isAlwaysDarkAppearance,
         UITraitCollection.current.userInterfaceStyle == .light{
         return true
     }else {

@@ -39,15 +39,15 @@ struct Place: Hashable, Equatable {
             return favorites.contains(self)
         }
         set {
-            let userDefaults = UserDefaults.standard
+            let ud = UserDefaults.standard
             if newValue {
-                guard var favorites = userDefaults.get(.favoritePlaces) else { return }
+                guard var favorites = ud.get(.favoritePlaces) else { return }
                 favorites.remove(self)
-                userDefaults.set(favorites, forKey: .favoritePlaces)
+                ud.set(favorites, forKey: .favoritePlaces)
             }else {
-                var favorites = userDefaults.get(.favoritePlaces) ?? Set<Place>()
+                var favorites = ud.get(.favoritePlaces) ?? Set<Place>()
                 favorites.insert(self)
-                userDefaults.set(favorites, forKey: .favoritePlaces)
+                ud.set(favorites, forKey: .favoritePlaces)
             }
             NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
         }
@@ -56,6 +56,18 @@ struct Place: Hashable, Equatable {
     static func ==(lhs: Place, rhs: Place) -> Bool {
         lhs.latitude == rhs.latitude &&
             lhs.longitude == rhs.longitude
+    }
+    
+    func distance(from place: Place) -> CLLocationDistance {
+        let loca = CLLocation(latitude: latitude, longitude: longitude)
+        let location = CLLocation(latitude: place.latitude,
+                           longitude: place.longitude)
+        return loca.distance(from: location)
+    }
+    
+    func distance(from location: CLLocation) -> CLLocationDistance {
+        let loca = CLLocation(latitude: latitude, longitude: longitude)
+        return loca.distance(from: location)
     }
 }
 

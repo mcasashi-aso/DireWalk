@@ -24,7 +24,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         TableViewSection(cells: [.review, .share],
                          header: "reviewSection".localized),
 //        TableViewSection(cells: [.purchase, .restore],
-//                         header: "adAndPurchase".localized),
+//                         header: "adAndPurchase".localizedYet),
         TableViewSection(cells: [.version, .createdBy],
                          header: "about".localized)
     ]
@@ -88,11 +88,11 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             return cell
         case .purchase:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
-            cell.textLabel?.text = "Remove Ad"
+            cell.textLabel?.text = "Remove Ad".localizedYet
             return cell
         case .restore:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
-            cell.textLabel?.text = "Restore Purchase"
+            cell.textLabel?.text = "Restore Purchase".localizedYet
             return cell
         }
     }

@@ -10,9 +10,15 @@ import UIKit
 import MapKit
 
 protocol ViewModelDelegate {
+    func addHeadingView(to annotationView: MKAnnotationView)
+    func showRequestAccessLocation()
+    
     func updateLabels()
     func didChangeSearchTableViewElements()
+    func didChangePlace()
     func didChangeState()
+    func didChangeRotation()
+    
     func SearchedTableViewCellSelected()
     func updateActivityViewData(dayChanged: Bool)
 }
@@ -22,11 +28,12 @@ final class ViewModel: NSObject {
     static let shared = ViewModel()
     private override init() {
         super.init()
+        model.delegate = self
         self.usingTimer = .scheduledTimer(timeInterval: 1, target: self, selector: #selector(usingTimeUpdater), userInfo: nil, repeats: true)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeFavorites), name: .didChangeFavorites, object: nil)
     }
     
-    private var model = Model.shared
+    private let model = Model.shared
     private var userDefaults = UserDefaults.standard
     var delegate: ViewModelDelegate?
     
@@ -86,9 +93,7 @@ final class ViewModel: NSObject {
                 string: "swipe".localized,
                 attributes: unitAttributed)
         }
-        guard (userDefaults.get(.showFar) ?? true) else {
-            return NSMutableAttributedString()
-        }
+        guard settings.showFar else { return NSMutableAttributedString() }
         let (far, unit) = model.farDescriprion
         let text = NSMutableAttributedString()
         text.append(NSAttributedString(string: "   ",
@@ -114,24 +119,15 @@ final class ViewModel: NSObject {
         didSet { delegate?.didChangeSearchTableViewElements() }
     }
     var searchTableViewPlaces: [Place] {
-        if searchText.isEmpty || searchResults.isEmpty {
-            return Array(favoritePlaces).sorted { lhs, rhs in
-                guard let l = lhs.placeTitle,
-                    let r = rhs.placeTitle else { return true }
-                return l > r
-            }
-        }else {
-            return searchResults
+        let isEmpty = searchText.isEmpty || searchResults.isEmpty
+        let array = isEmpty ? Array(favoritePlaces) : searchResults
+        return array.sorted { lhs, rhs in
+            let location = model.currentLocation
+            return lhs.distance(from: location) < rhs.distance(from: location)
         }
     }
     
-    // MARK: ViewSettings
-    @UserDefault(.arrowColor, defaultValue: 0.75)
-    var arrowColor: CGFloat
-    @UserDefault(.showFar, defaultValue: true)
-    var showFar: Bool
-    @UserDefault(.isAlwaysDarkAppearance, defaultValue: true)
-    var isAlwaysDarkAppearance: Bool
+    var settings = Settings.shared
     
     var usingTimer = Timer()
     @UserDefault(.usingTimes, defaultValue: 0)
@@ -245,6 +241,11 @@ extension ViewModel: UITableViewDataSource {
         return searchCell
     }
     
+    func tableView(_ tableView: UITableView,
+                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        return nil
+    }
+    
     @objc func didChangeFavorites() {
         delegate?.didChangeSearchTableViewElements()
     }
@@ -256,9 +257,7 @@ extension ViewModel {
     @objc func usingTimeUpdater() {
         let now = Date()
         let dayChanged = !date.isSameDay(to: now)
-        if dayChanged {
-            usingTime = 0
-        }
+        if dayChanged { usingTime = 0 }
         usingTime += 1
         
         // 1分毎に
@@ -266,5 +265,89 @@ extension ViewModel {
             delegate?.updateActivityViewData(dayChanged: dayChanged)
         }
         date = now
+    }
+}
+
+
+// MARK: MKMapViewDelegate
+extension ViewModel: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView,
+                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        let reuseld = "pin"
+        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView ??
+            MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseld)
+        pinView.canShowCallout = true
+        pinView.annotation = annotation
+        pinView.animatesWhenAdded = true
+        
+        if let an = annotation as? Annotation {
+            pinView.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
+        }
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView,
+                 annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        guard control == view.rightCalloutAccessoryView else { return }
+        model.place?.isFavorite.toggle()
+        if let an = view.annotation as? Annotation {
+            view.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
+        }
+    }
+    
+    func getAnnotationButton(annotation: Annotation) -> UIButton? {
+        guard let place = annotation.place else { return nil }
+        let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
+        if #available(iOS 13, *) {
+            let image = annotation.place!.isFavorite ? UIImage(systemName: "heart.fill")!
+                                                     : UIImage(systemName: "heart")!
+            button.setImage(image, for: .normal)
+        }else {
+            let name = place.isFavorite ? "HeartFill" : "Heart"
+            let image = UIImage(named: name)!.withRenderingMode(.alwaysTemplate)
+            button.setImage(image, for: .normal)
+            button.tintColor = .systemBlue
+        }
+        return button
+    }
+    
+    func mapView(_ mapView: MKMapView,
+                 didAdd views: [MKAnnotationView]) {
+        if views.last?.annotation is MKUserLocation {
+            delegate?.addHeadingView(to: views.last!)
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView,
+                 regionDidChangeAnimated animated: Bool) {
+        delegate?.didChangeRotation()
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        delegate?.didChangeRotation()
+    }
+}
+
+
+// MARK: ModelDelegate
+extension ViewModel: ModelDelegate {
+    func showRequestAccessLocation() {
+        delegate?.showRequestAccessLocation()
+    }
+    
+    func didChangePlace() {
+        delegate?.didChangeRotation()
+        delegate?.updateLabels()
+        delegate?.didChangePlace()
+    }
+    
+    func didChangeFar() {
+        delegate?.updateLabels()
+    }
+    
+    func didChangeHeading() {
+        delegate?.didChangeRotation()
     }
 }

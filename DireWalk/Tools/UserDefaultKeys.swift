@@ -8,15 +8,17 @@
 
 import UIKit
 
+fileprivate typealias Key = UserDefaultTypedKey
+
 extension UserDefaultTypedKeys {
-    static let place = UserDefaultTypedKey<Place?>("place")
-    static let favoritePlaces = UserDefaultTypedKey<Set<Place>>("favoritePlaces")
+    static let place = Key<Place?>("place")
+    static let favoritePlaces = Key<Set<Place>>("favoritePlaces")
     
     // MARK: ViewSettings
-    static let showFar = UserDefaultTypedKey<Bool>("showFar")
-    static let arrowColor = UserDefaultTypedKey<CGFloat>("arrowColorWhite")
-    static let isAlwaysDarkAppearance = UserDefaultTypedKey<Bool>("isAlwaysDarkAppearance")
+    static let showFar = Key<Bool>("showFar")
+    static let arrowColor = Key<CGFloat>("arrowColorWhite")
+    static let isAlwaysDarkAppearance = Key<Bool>("isAlwaysDarkAppearance")
     
-    static let date = UserDefaultTypedKey<Date>("date")
-    static let usingTimes = UserDefaultTypedKey<Int>("usingTimes")
+    static let date = Key<Date>("date")
+    static let usingTimes = Key<Int>("usingTimes")
 }

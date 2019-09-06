@@ -42,7 +42,7 @@ final class DirectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let whiteValue = viewModel.arrowColor
+        let whiteValue = viewModel.settings.arrowColor
         if #available(iOS 13, *) {
             headingImageView.image?.withTintColor(UIColor(white: whiteValue, alpha: 1),
                                                   renderingMode: .alwaysTemplate)

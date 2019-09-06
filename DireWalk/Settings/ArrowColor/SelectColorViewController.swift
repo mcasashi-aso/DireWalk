@@ -22,7 +22,7 @@ final class SelectColorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let arrowColor = viewModel.arrowColor
+        let arrowColor = viewModel.settings.arrowColor
         
         slider.minimumValue = 0.0
         slider.maximumValue = 1.0
@@ -50,7 +50,7 @@ final class SelectColorViewController: UIViewController {
     @IBAction func changeValue(_ sender: UISlider) {
         let arrowColor = CGFloat(sender.value)
         arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
-        viewModel.arrowColor = arrowColor
+        viewModel.settings.arrowColor = arrowColor
     }
     
 }

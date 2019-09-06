@@ -24,12 +24,12 @@ class ChangeShowFarCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         changeSwitch.addTarget(self, action: #selector(changeShowFar), for: UIControl.Event.valueChanged)
-        changeSwitch.isOn = !viewModel.showFar
+        changeSwitch.isOn = !viewModel.settings.showFar
         accessoryView = changeSwitch
     }
     
     @objc func changeShowFar() {
-        viewModel.showFar = !changeSwitch.isOn
+        viewModel.settings.showFar = !changeSwitch.isOn
     }
 }
 
@@ -40,11 +40,11 @@ class ChangeAlwaysDarkModeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         changeSwitch.addTarget(self, action: #selector(changeShowFar), for: UIControl.Event.valueChanged)
-        changeSwitch.isOn = viewModel.isAlwaysDarkAppearance
+        changeSwitch.isOn = viewModel.settings.isAlwaysDarkAppearance
         accessoryView = changeSwitch
     }
     
     @objc func changeShowFar() {
-        viewModel.isAlwaysDarkAppearance = changeSwitch.isOn
+        viewModel.settings.isAlwaysDarkAppearance = changeSwitch.isOn
     }
 }
