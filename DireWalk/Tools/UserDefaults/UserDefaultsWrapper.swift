@@ -60,7 +60,7 @@ class UserDefaultTypedKeys {
     init() {}
 }
 
-class UserDefaultTypedKey<T>: UserDefaultTypedKeys {
+class UserDefaultTypedKey<T: UserDefaultConvertible>: UserDefaultTypedKeys {
     let key: String
     init(_ key: String) {
         self.key = key

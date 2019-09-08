@@ -187,7 +187,8 @@ extension ViewModel: UISearchBarDelegate {
         return true
     }
     
-    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func searchBar(_ searchBar: UISearchBar,
+                   shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let nsString = (searchBar.text ?? "") as NSString
         searchText = nsString.replacingCharacters(in: range, with: text) as String
         return true
@@ -286,9 +287,8 @@ extension ViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView,
                  viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
-        let reuseld = "pin"
-        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseld) as? MKMarkerAnnotationView ??
-            MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: reuseld)
+        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKMarkerAnnotationView
+            ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
         pinView.canShowCallout = true
         pinView.annotation = annotation
         pinView.animatesWhenAdded = true
@@ -302,19 +302,18 @@ extension ViewModel: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView,
                  annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        guard control == view.rightCalloutAccessoryView else { return }
-        model.place?.isFavorite.toggle()
-        if let an = view.annotation as? Annotation {
-            view.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
-        }
+        guard control == view.rightCalloutAccessoryView,
+            let an = view.annotation as? Annotation else { return }
+        an.place?.isFavorite.toggle()
+        view.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
     }
     
     func getAnnotationButton(annotation: Annotation) -> UIButton? {
         guard let place = annotation.place else { return nil }
         let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 30, height: 30)))
         if #available(iOS 13, *) {
-            let image = annotation.place!.isFavorite ? UIImage(systemName: "heart.fill")!
-                                                     : UIImage(systemName: "heart")!
+            let name = place.isFavorite ? "heart.fill" : "heart"
+            let image = UIImage(systemName: name)!
             button.setImage(image, for: .normal)
         }else {
             let name = place.isFavorite ? "HeartFill" : "Heart"
