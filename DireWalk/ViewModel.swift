@@ -19,6 +19,8 @@ protocol ViewModelDelegate {
     func didChangeState()
     func didChangeRotation()
     
+    
+    func presentationEditPlaceView(place: Place)
     func SearchedTableViewCellSelected()
     func updateActivityViewData(dayChanged: Bool)
 }
@@ -89,9 +91,8 @@ final class ViewModel: NSObject {
             .foregroundColor : UIColor.white
         ]
         guard model.place != nil else {
-            return NSMutableAttributedString(
-                string: "swipe".localized,
-                attributes: unitAttributed)
+            return NSMutableAttributedString(string: "swipe".localized,
+                                             attributes: unitAttributed)
         }
         guard settings.showFar else { return NSMutableAttributedString() }
         let (far, unit) = model.farDescriprion
@@ -234,19 +235,30 @@ extension ViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         guard let searchCell = cell as? SearchTableViewCell else { return cell }
-        guard searchTableViewPlaces.indices.contains(indexPath.row) else { return searchCell }
-        searchCell.setPlace(searchTableViewPlaces[indexPath.row])
+        guard let place = searchTableViewPlaces[safe: indexPath.row] else { return searchCell }
+        searchCell.setPlace(place)
         return searchCell
     }
     
     func tableView(_ tableView: UITableView,
-                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return nil
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard var place = self.searchTableViewPlaces[safe: indexPath.row] else { return nil }
+        let toEditAction = UIContextualAction(style: .normal, title: "Edit") {
+            (action, view, completion) in
+            // delegate.presentationEditPlaceView(place: place)
+        }
+        let toggleFavoriteAction = UIContextualAction(style: .normal, title: "Favorite") {
+            (action, view, completion) in
+            place.isFavorite.toggle()
+        }
+        let actions = place.isFavorite ? [toEditAction, toggleFavoriteAction] : [toggleFavoriteAction]
+        return UISwipeActionsConfiguration(actions: actions)
     }
     
     @objc func didChangeFavorites() {
+        print(favoritePlaces)
         delegate?.didChangeSearchTableViewElements()
     }
 }

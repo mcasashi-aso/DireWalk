@@ -28,17 +28,17 @@
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TlE-lW-wyU">
-                    <rect key="frame" x="20" y="75" width="61.5" height="62"/>
+                    <rect key="frame" x="20" y="82" width="48" height="48.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3r-xK-JC2">
-                            <rect key="frame" x="0.0" y="0.0" width="61.5" height="31.5"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                            <rect key="frame" x="0.0" y="0.0" width="48" height="24"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aw5-ST-vZT">
-                            <rect key="frame" x="0.0" y="41.5" width="42" height="20.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <rect key="frame" x="0.0" y="34" width="31" height="14.5"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -65,30 +65,5 @@
             </connections>
             <point key="canvasLocation" x="188.40579710144928" y="348.88392857142856"/>
         </view>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="G7W-Cn-F5H" detailTextLabel="QTN-CO-IQJ" rowHeight="118" style="IBUITableViewCellStyleSubtitle" id="JsO-LS-tW3" customClass="SearchTableViewCell" customModule="DireWalk" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="466" height="118"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JsO-LS-tW3" id="u5G-xv-aCz">
-                <rect key="frame" x="0.0" y="0.0" width="466" height="118"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G7W-Cn-F5H">
-                        <rect key="frame" x="20" y="39" width="33.5" height="20.5"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QTN-CO-IQJ">
-                        <rect key="frame" x="20" y="62.5" width="44" height="14.5"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-            </tableViewCellContentView>
-            <point key="canvasLocation" x="-24.637681159420293" y="149.33035714285714"/>
-        </tableViewCell>
     </objects>
 </document>

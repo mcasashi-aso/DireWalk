@@ -57,3 +57,9 @@ extension Date {
 }
 
 let dateFormatter = DateFormatter()
+
+extension Array {
+    public subscript(safe index: Index) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}

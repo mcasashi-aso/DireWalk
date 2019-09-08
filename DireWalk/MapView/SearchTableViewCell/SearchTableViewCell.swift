@@ -24,7 +24,7 @@ final class SearchTableViewCell: UITableViewCell {
         model = SearchCellModel(place)
         model.delegate = self
         nameLabel.text = place.placeTitle
-        detailTextLabel?.text = place.address
+        addressLabel.text = place.address
         didChangeFar()
         didChangeHeading()
     }

@@ -77,6 +77,8 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         addMarker(new: false)
         applyViewConstraints(animated: false)
         
+        let nib = UINib(nibName: "SearchTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "cell")
         
         NotificationCenter.default.addObserver(
             self, selector: #selector(keyboardWillShow(_:)),

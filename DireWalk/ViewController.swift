@@ -162,6 +162,10 @@ extension ViewController: UIPageViewControllerDataSource {
 // MARK: ViewModelDelegate
 extension ViewController: ViewModelDelegate {
     
+    func presentationEditPlaceView(place: Place) {
+        // TODO: アイウエオ
+    }
+    
     func addHeadingView(to annotationView: MKAnnotationView) {
         getVC(MapViewController.self)?.addHeadingView(to: annotationView)
     }

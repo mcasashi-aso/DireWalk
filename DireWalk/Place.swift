@@ -40,11 +40,12 @@ struct Place: Hashable, Equatable {
         }
         set {
             let ud = UserDefaults.standard
-            if newValue {
+            switch newValue {
+            case true:
                 guard var favorites = ud.get(.favoritePlaces) else { return }
                 favorites.remove(self)
                 ud.set(favorites, forKey: .favoritePlaces)
-            }else {
+            case false:
                 var favorites = ud.get(.favoritePlaces) ?? Set<Place>()
                 favorites.insert(self)
                 ud.set(favorites, forKey: .favoritePlaces)
