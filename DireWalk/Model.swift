@@ -8,12 +8,9 @@
 
 import UIKit
 import CoreLocation
-import HealthKit
 import MapKit
 
 protocol ModelDelegate {
-    func showRequestAccessLocation()
-    
     func didChangePlace()
     func didChangeFar()
     func didChangeHeading()
@@ -36,18 +33,6 @@ final class Model: NSObject {
     var far: Double? {
         didSet { delegate?.didChangeFar() }
     }
-    var farDescriprion: (String, String) {
-        guard let far = far else { return ("Error", " ") }
-        switch Int(far) {
-        case ..<100:  return (String(Int(far)), "m")
-        case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
-        default:
-            let double = Double(Int(far) / 100 + 1) / 10
-            if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
-                return (String(Int(double)), "km")
-            }else { return (String(double),  "km") }
-        }
-    }
     
     var heading: CGFloat { destinationHeadingRadian - userHeadingRadian }
     private var destinationHeadingRadian = CGFloat() {
@@ -64,15 +49,13 @@ final class Model: NSObject {
     static let shared = Model()
     private override init() {
         super.init()
-        locationManager.delegate = self
-        locationManager.activityType = .fitness
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.headingFilter = CLLocationDegrees(floatLiteral: 0.1)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)), name: .didUpdateLocation, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateHeading, object: nil)
     }
     
-    let locationManager = CLLocationManager()
+    let locationManager = CurrentLocationManager.shared
     private let userDefaults = UserDefaults.standard
-    private let healthStore = HKHealthStore()
+    private let notificationCenter = NotificationCenter.default
     var delegate: ModelDelegate?
 }
 
@@ -100,16 +83,14 @@ extension Model {
 // MARK: Heading
 extension Model {
     func updateDestinationHeading() {
-        func toRadian(_ angle: CLLocationDegrees) -> CGFloat {
-            return CGFloat(angle) * .pi / 180
-        }
+        func toRadian(_ angle: CLLocationDegrees) -> CGFloat { CGFloat(angle) * .pi / 180 }
         
         guard let place = self.place else { return }
         
         let destinationLatitude = toRadian(place.latitude)
         let destinationLongitude = toRadian(place.longitude)
-        let userLatitude = toRadian((locationManager.location?.coordinate.latitude)!)
-        let userLongitude = toRadian((locationManager.location?.coordinate.longitude)!)
+        let userLatitude = toRadian(currentLocation.coordinate.latitude)
+        let userLongitude = toRadian(currentLocation.coordinate.longitude)
         
         let difLongitude = destinationLongitude - userLongitude
         let y = sin(difLongitude)
@@ -122,42 +103,23 @@ extension Model {
  // MARK: Far
 extension Model {
     func updateFar() {
-        guard let lat = place?.latitude,
-            let lon = place?.longitude else { return }
-        let destination = CLLocation(latitude: lat, longitude: lon)
-        self.far = destination.distance(from: currentLocation)
+        guard let place = place else { return }
+        self.far = place.distance(from: currentLocation)
     }
 }
 
-// MARK: CLLocationManagerDelegate
-extension Model: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        // 許可の管理
-        switch status {
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-        default: delegate?.showRequestAccessLocation()
-        }
-        
-        if status == .authorizedWhenInUse || status == .authorizedWhenInUse {
-            locationManager.startUpdatingHeading()
-            locationManager.startUpdatingLocation()
-        }
+
+// MARK: CurrentLocationManagerDelegate
+extension Model {
+    @objc func didUpdateHeading(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String : Any],
+            let heading = userInfo["heading"] as? CLHeading else { return }
+        userHeadingRadian = CGFloat(heading.magneticHeading)
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        userHeadingRadian = CGFloat(newHeading.magneticHeading)
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        UserDefaults.standard.set(Date(), forKey: .date)
-        guard let location = manager.location else { return }
-        self.currentLocation = location
-        updateFar()
-        updateDestinationHeading()
+    @objc func didUpdateLocation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String : Any],
+            let location = userInfo["location"] as? CLLocation else { return }
+        currentLocation = location
     }
 }

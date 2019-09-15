@@ -42,12 +42,12 @@ struct Place: Hashable, Equatable {
             let ud = UserDefaults.standard
             switch newValue {
             case true:
-                guard var favorites = ud.get(.favoritePlaces) else { return }
-                favorites.remove(self)
-                ud.set(favorites, forKey: .favoritePlaces)
-            case false:
                 var favorites = ud.get(.favoritePlaces) ?? Set<Place>()
                 favorites.insert(self)
+                ud.set(favorites, forKey: .favoritePlaces)
+            case false:
+                guard var favorites = ud.get(.favoritePlaces) else { return }
+                favorites.remove(self)
                 ud.set(favorites, forKey: .favoritePlaces)
             }
             NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
@@ -73,3 +73,7 @@ struct Place: Hashable, Equatable {
 }
 
 extension Place: Codable, UserDefaultConvertible {}
+
+extension Place: CustomDebugStringConvertible {
+    var debugDescription: String { "\(placeTitle ?? "") - \(address ?? "")" }
+}

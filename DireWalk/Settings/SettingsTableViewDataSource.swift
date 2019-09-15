@@ -8,14 +8,14 @@
 
 import UIKit
 
-enum SettingsTableViewCellType {
+enum SettingsTableViewCellType: TableViewCellType {
     case about, arrowColor, showFar, darkMode, review, share, version, createdBy, purchase, restore
 }
 
 // もっといい書き方あると思うんだけど時間と技術的にここが限界
 final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     
-    var sections: [TableViewSection] = [
+    var sections: [TableViewSection<SettingsTableViewCellType>] = [
         TableViewSection(cells: [.about]),
         TableViewSection(cells: [.arrowColor, .showFar],
                          footer: "captionDoNotShowFar".localized),

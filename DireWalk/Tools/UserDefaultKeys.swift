@@ -15,6 +15,7 @@ extension UserDefaultTypedKeys {
     static let favoritePlaces = Key<Set<Place>>("favoritePlaces")
     
     // MARK: ViewSettings
+    static let arrowImageName = Key<Settings.ArrowImage>("arrowImageName")
     static let showFar = Key<Bool>("showFar")
     static let arrowColor = Key<CGFloat>("arrowColorWhite")
     static let isAlwaysDarkAppearance = Key<Bool>("isAlwaysDarkAppearance")

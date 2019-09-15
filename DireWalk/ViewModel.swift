@@ -9,16 +9,14 @@
 import UIKit
 import MapKit
 
-protocol ViewModelDelegate {
+protocol ViewModelDelegate: class {
     func addHeadingView(to annotationView: MKAnnotationView)
-    func showRequestAccessLocation()
     
     func updateLabels()
     func didChangeSearchTableViewElements()
     func didChangePlace()
     func didChangeState()
     func didChangeRotation()
-    
     
     func presentationEditPlaceView(place: Place)
     func SearchedTableViewCellSelected()
@@ -37,37 +35,41 @@ final class ViewModel: NSObject {
     
     private let model = Model.shared
     private var userDefaults = UserDefaults.standard
-    var delegate: ViewModelDelegate?
+    weak var delegate: ViewModelDelegate?
     
     enum Status { case activity, direction, map, search, hideControllers }
     var state : Status = .direction {
         didSet {
             delegate?.didChangeState()
+            UIApplication.shared.isIdleTimerDisabled = (state == .hideControllers)
         }
     }
+    
+    // TODO: いつかLabelのSwipe中の中間表現もつけてフルイドインターフェースさせたい
+    // https://codeday.me/jp/qa/20190314/417737.html
+    var swiping = false
     
     enum Views { case activity, direction, map }
     var presentView: Views {
         switch state {
-        case .activity:                    return .activity
+        case .activity: return .activity
         case .direction, .hideControllers: return .direction
-        case .map, .search:                return .map
+        case .map, .search: return .map
         }
     }
     
     var labelTitle: String {
         guard let place = model.place else {
             switch state {
-            case .direction, .activity: return "selectDestination".localized
+            case .direction, .hideControllers, .activity: return "selectDestination".localized
             case .map: return "longPressToSelect".localized
             case .search: return "enterDestination".localized
-            case .hideControllers: return " "
             }
         }
         switch state {
         case .activity: return "Today's Activity"
-        case .direction, .map, .search: return place.placeTitle ?? place.address ?? "Pin"
-        case .hideControllers: return " "
+        case .direction, .hideControllers, .map, .search:
+            return place.placeTitle ?? place.address ?? "Pin"
         }
     }
     var aboutLabelText: String {
@@ -79,30 +81,27 @@ final class ViewModel: NSObject {
         }
     }
     var farLabelText: NSMutableAttributedString {
-        if state == .hideControllers {
-            return NSMutableAttributedString()
-        }
-        let distanceAttributed: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 80),
-            .foregroundColor: UIColor.white
-        ]
-        let unitAttributed: [NSAttributedString.Key : Any] = [
-            .font : UIFont.systemFont(ofSize: 40),
-            .foregroundColor : UIColor.white
-        ]
         guard model.place != nil else {
-            return NSMutableAttributedString(string: "swipe".localized,
-                                             attributes: unitAttributed)
+            return NSMutableAttributedString(attributedString:
+                .get("swipe".localized, attributes: .white40))
         }
-        guard settings.showFar else { return NSMutableAttributedString() }
-        let (far, unit) = model.farDescriprion
+        
+        let (far, unit) = { () -> (String, String) in
+            guard let far = model.far else { return ("Error", "  ") }
+            switch Int(far) {
+            case ..<100:  return (String(Int(far)), "m")
+            case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
+            default:
+                let double = Double(Int(far) / 100 + 1) / 10
+                if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
+                    return (String(Int(double)), "km")
+                }else { return (String(double),  "km") }
+            }
+        }()
         let text = NSMutableAttributedString()
-        text.append(NSAttributedString(string: "   ",
-                                       attributes: unitAttributed))
-        text.append(NSAttributedString(string: far,
-                                       attributes: distanceAttributed))
-        text.append(NSAttributedString(string: "  \(unit)",
-                                       attributes: unitAttributed))
+        text.append(NSAttributedString.get("  ", attributes: .white40))
+        text.append(NSAttributedString.get(far, attributes: .white80))
+        text.append(NSAttributedString.get(" \(unit)", attributes: .white40))
         return text
     }
     
@@ -343,11 +342,7 @@ extension ViewModel: MKMapViewDelegate {
 
 
 // MARK: ModelDelegate
-extension ViewModel: ModelDelegate {
-    func showRequestAccessLocation() {
-        delegate?.showRequestAccessLocation()
-    }
-    
+extension ViewModel: ModelDelegate {   
     func didChangePlace() {
         delegate?.didChangeRotation()
         delegate?.updateLabels()

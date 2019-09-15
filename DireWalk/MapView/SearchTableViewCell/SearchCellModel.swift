@@ -47,35 +47,36 @@ final class SearchCellModel: NSObject {
     }
     
     var currentLocation = CLLocation() {
-        didSet { updateFar() }
+        didSet {
+            updateFar()
+            updateDestinationHeading()
+        }
     }
     
     init(_ place: Place) {
         self.place = place
         super.init()
-        locationManager.delegate = self
-        locationManager.activityType = .fitness
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.headingFilter = CLLocationDegrees(floatLiteral: 0.1)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateHeading, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)), name: .didUpdateLocation, object: nil)
     }
     
-    let locationManager = CLLocationManager()
+    let locationManager = CurrentLocationManager.shared
     private let userDefaults = UserDefaults.standard
-    private let healthStore = HKHealthStore()
     var delegate: SearchCellModelDelegate?
+    var notificationCenter = NotificationCenter.default
 }
 
 // MARK: Heading
 extension SearchCellModel {
     func updateDestinationHeading() {
-        func toRadian(_ angle: CLLocationDegrees) -> CGFloat {
-            return CGFloat(angle) * .pi / 180
-        }
+        guard let location = locationManager.location else { return }
+        
+        func toRadian(_ angle: CLLocationDegrees) -> CGFloat { CGFloat(angle) * .pi / 180 }
         
         let destinationLatitude = toRadian(place.latitude)
         let destinationLongitude = toRadian(place.longitude)
-        let userLatitude = toRadian((locationManager.location?.coordinate.latitude)!)
-        let userLongitude = toRadian((locationManager.location?.coordinate.longitude)!)
+        let userLatitude = toRadian(location.coordinate.latitude)
+        let userLongitude = toRadian(location.coordinate.longitude)
         
         let difLongitude = destinationLongitude - userLongitude
         let y = sin(difLongitude)
@@ -88,23 +89,22 @@ extension SearchCellModel {
  // MARK: Far
 extension SearchCellModel {
     func updateFar() {
-        let destination = CLLocation(latitude: place.latitude, longitude: place.longitude)
-        self.far = destination.distance(from: currentLocation)
+        guard let location = locationManager.location else { return }
+        self.far = place.distance(from: location)
     }
 }
 
-// MARK: CLLocationManagerDelegate
-extension SearchCellModel: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        userHeadingRadian = CGFloat(newHeading.magneticHeading)
+// MARK: CurrentLocationManagerDelegate
+extension SearchCellModel {
+    @objc func didUpdateHeading(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String : Any],
+            let heading = userInfo["heading"] as? CLHeading else { return }
+        userHeadingRadian = CGFloat(heading.magneticHeading)
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        UserDefaults.standard.set(Date(), forKey: .date)
-        guard let location = manager.location else { return }
-        self.currentLocation = location
-        updateFar()
-        updateDestinationHeading()
+    @objc func didUpdateLocation(_ notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String : Any],
+            let location = userInfo["location"] as? CLLocation else { return }
+        currentLocation = location
     }
 }

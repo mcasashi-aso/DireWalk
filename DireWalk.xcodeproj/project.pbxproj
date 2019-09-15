@@ -20,6 +20,9 @@
 		BA59EBFA231976760037EF6B /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBF9231976760037EF6B /* Annotation.swift */; };
 		BA8ED9122321817800A1232D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9112321817800A1232D /* Settings.swift */; };
 		BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9132322098300A1232D /* SearchCellModel.swift */; };
+		BAC1FB932329EC4B00B5A866 /* CurrentLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */; };
+		BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */; };
+		BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */; };
 		BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA27231A664600499E17 /* TableViewSection.swift */; };
 		BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */; };
 		BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */; };
@@ -43,10 +46,10 @@
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
 		E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Tools.swift */; };
 		E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */; };
-		E69F09AF2249094200B77F6E /* MySlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AE2249094200B77F6E /* MySlider.swift */; };
+		E69F09AF2249094200B77F6E /* ArrowColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */; };
 		E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A8097822354E2D0086E146 /* RequestLocation.storyboard */; };
 		E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097C22354E600086E146 /* RequestLocationViewController.swift */; };
-		E6A809802235B9900086E146 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* TableViewCells.swift */; };
+		E6A809802235B9900086E146 /* SettingsTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* SettingsTableViewCells.swift */; };
 		E6C437C7222386F800542844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C6222386F800542844 /* AppDelegate.swift */; };
 		E6C437C9222386F800542844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C8222386F800542844 /* ViewController.swift */; };
 		E6C437CC222386F800542844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CA222386F800542844 /* Main.storyboard */; };
@@ -109,6 +112,9 @@
 		BA59EBF9231976760037EF6B /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
+		BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationManager.swift; sourceTree = "<group>"; };
+		BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArrowSetting.storyboard; sourceTree = "<group>"; };
+		BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowImageStyleViewTableTableViewCell.swift; sourceTree = "<group>"; };
 		BAD5CA27231A664600499E17 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
 		BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultConvertibles.swift; sourceTree = "<group>"; };
@@ -135,10 +141,10 @@
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
 		E67C3A2022291FED00551AC6 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
-		E69F09AE2249094200B77F6E /* MySlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySlider.swift; sourceTree = "<group>"; };
+		E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowColorTableViewCell.swift; sourceTree = "<group>"; };
 		E6A8097822354E2D0086E146 /* RequestLocation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestLocation.storyboard; sourceTree = "<group>"; };
 		E6A8097C22354E600086E146 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
-		E6A8097F2235B9900086E146 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
+		E6A8097F2235B9900086E146 /* SettingsTableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCells.swift; sourceTree = "<group>"; };
 		E6C437C3222386F800542844 /* DireWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DireWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C437C6222386F800542844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6C437C8222386F800542844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +190,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA448E29232E0014006799D4 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */,
+				E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		BA59EBEB231972C40037EF6B /* DireWalkShareExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,8 +212,9 @@
 		BAD5CA26231A662A00499E17 /* ArrowColor */ = {
 			isa = PBXGroup;
 			children = (
+				BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */,
 				E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */,
-				E69F09AE2249094200B77F6E /* MySlider.swift */,
+				BA448E29232E0014006799D4 /* Cells */,
 			);
 			path = ArrowColor;
 			sourceTree = "<group>";
@@ -220,6 +236,7 @@
 				BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */,
 				BA59EBE42319556C0037EF6B /* MyColor.swift */,
 				E67C3A2022291FED00551AC6 /* Tools.swift */,
+				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
 				BAD5CA2B231A72F200499E17 /* UserDefaults */,
 			);
 			path = Tools;
@@ -254,8 +271,7 @@
 				E6358E15222D7E660084E9CB /* Setting.storyboard */,
 				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
 				BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */,
-				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
-				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
+				E6A8097F2235B9900086E146 /* SettingsTableViewCells.swift */,
 				BAD5CA26231A662A00499E17 /* ArrowColor */,
 			);
 			path = Settings;
@@ -346,6 +362,7 @@
 				BAF229372314DD9A00D75930 /* ViewModel.swift */,
 				BA4274662312B3CC00CD3796 /* Model.swift */,
 				BA8ED9112321817800A1232D /* Settings.swift */,
+				BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */,
 				BAF229352314DD7700D75930 /* Place.swift */,
 				BAF2293B23181B1200D75930 /* Tools */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
@@ -511,6 +528,7 @@
 				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
 				E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */,
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
+				BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */,
 				E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */,
 				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
 				BA26E8F82320D9FB00A18652 /* SearchTableViewCell.xib in Resources */,
@@ -667,7 +685,8 @@
 				BA8ED9122321817800A1232D /* Settings.swift in Sources */,
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
-				E69F09AF2249094200B77F6E /* MySlider.swift in Sources */,
+				E69F09AF2249094200B77F6E /* ArrowColorTableViewCell.swift in Sources */,
+				BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */,
 				BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */,
 				BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */,
 				BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */,
@@ -677,7 +696,7 @@
 				E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */,
 				BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
-				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
+				E6A809802235B9900086E146 /* SettingsTableViewCells.swift in Sources */,
 				BAF229362314DD7700D75930 /* Place.swift in Sources */,
 				BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */,
 				BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */,
@@ -687,6 +706,7 @@
 				BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
+				BAC1FB932329EC4B00B5A866 /* CurrentLocationManager.swift in Sources */,
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
 				BAF2293D23181B3400D75930 /* NotificationNames.swift in Sources */,

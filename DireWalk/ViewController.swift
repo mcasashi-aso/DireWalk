@@ -78,6 +78,10 @@ final class ViewController: UIViewController {
         setupViews()
         setupAds()
         containerView.addSubview(contentPageVC.view)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showRequestAccessLocation), name: .showRequestAccessLocation, object: nil)
+        
+        updateLabels()
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,8 +109,6 @@ final class ViewController: UIViewController {
         mapButton.imageEdgeInsets.left = directionButton.bounds.height / 2 / 2
         
         destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-        destinationLabel.titleLabel?.numberOfLines = 1
-        destinationLabel.titleLabel?.font = .preferredFont(forTextStyle: .largeTitle)
         
         destinationLabel.titleLabel?.adjustsFontForContentSizeCategory = true
         
@@ -115,7 +117,6 @@ final class ViewController: UIViewController {
         activityButton.accessibilityLabel = "Activity Tab"
         destinationLabel.accessibilityLabel = "Destination"
         
-        
         addChild(contentPageVC)
         contentPageVC.view.frame = containerView.bounds
         contentPageVC.delegate = viewModel
@@ -123,6 +124,9 @@ final class ViewController: UIViewController {
         contentPageVC.didMove(toParent: self)
         contentPageVC.setViewControllers([DirectionViewController.create()],
                                          direction: .forward, animated: true)
+        for view in contentPageVC.view.subviews where view is UIScrollView {
+            (view as! UIScrollView).delegate = self
+        }
     }
 }
 
@@ -137,7 +141,7 @@ extension ViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         switch viewController {
-        case is ActivityViewController:  return nil
+        case is ActivityViewController: return nil
         case is DirectionViewController:
             return getVC(ActivityViewController.self) ?? ActivityViewController.create()
         case is MapViewController:
@@ -148,14 +152,18 @@ extension ViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         switch viewController {
-        case is MapViewController:       return nil
+        case is MapViewController: return nil
         case is DirectionViewController:
             return getVC(MapViewController.self) ?? MapViewController.create()
         case is ActivityViewController:
             return getVC(DirectionViewController.self) ?? DirectionViewController.create()
         default: return nil
         }
-     }
+    }
+}
+
+extension ViewController: UIScrollViewDelegate {
+    
 }
 
 
@@ -184,6 +192,7 @@ extension ViewController: ViewModelDelegate {
     
     func updateLabels() {
         getVC(DirectionViewController.self)?.updateFarLabel()
+        getVC(DirectionViewController.self)?.updateHeadingImage()
         destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
         aboutLabel.text = viewModel.aboutLabelText
     }
@@ -197,6 +206,9 @@ extension ViewController: ViewModelDelegate {
         if let mapVC = getVC(MapViewController.self) {
             mapVC.applyViewConstraints()
             mapVC.tableView.reloadData()
+            if viewModel.presentView != .map {
+                mapVC.searchBar.showsCancelButton = false
+            }
         }
     }
     
@@ -205,16 +217,20 @@ extension ViewController: ViewModelDelegate {
     }
     
     func updateActivityViewData(dayChanged: Bool) {
-        if let activityView = getVC(ActivityViewController.self) {
-            activityView.updateDireWalkUsingTimes()
-            if dayChanged {
-                activityView.updateWalkingDistance()
-                activityView.updateFlightsClimbed()
-                activityView.updateStepCount()
-            }
+        let activityView = getVC(ActivityViewController.self)
+        activityView?.updateDireWalkUsingTimes()
+        if dayChanged {
+            activityView?.updateWalkingDistance()
+            activityView?.updateFlightsClimbed()
+            activityView?.updateStepCount()
         }
+        
     }
-    
+}
+
+
+// MARK: UserRequest
+extension ViewController {
     func askAllowHealthKit() {
         let readTypes = Set([
             HKQuantityType.quantityType(forIdentifier: .stepCount),
@@ -226,7 +242,7 @@ extension ViewController: ViewModelDelegate {
         }
     }
     
-    func showRequestAccessLocation() {
+    @objc func showRequestAccessLocation() {
         let sb = UIStoryboard(name: "RequestLocation", bundle: nil)
         let view = sb.instantiateInitialViewController()
         self.present(view!, animated: true, completion: nil)

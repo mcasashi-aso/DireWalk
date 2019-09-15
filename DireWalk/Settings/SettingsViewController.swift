@@ -11,7 +11,7 @@ import Accounts
 
 final class SettingsViewController: UIViewController, UITableViewDelegate {
     
-    private var viewModel = ViewModel.shared
+    private let settings = Settings.shared
     private let dataSource = SettingsTableViewDataSource()
     
     @IBOutlet weak var tableView: UITableView! {

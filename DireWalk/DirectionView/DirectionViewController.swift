@@ -16,9 +16,19 @@ final class DirectionViewController: UIViewController {
         return sb.instantiateInitialViewController() as! DirectionViewController
     }
     
-    let userDefaults = UserDefaults.standard
-    let viewModel = ViewModel.shared
-    let model = Model.shared
+    private let userDefaults = UserDefaults.standard
+    private let viewModel = ViewModel.shared
+    private let model = Model.shared
+    
+    private var isHidable = true {
+        didSet {
+            guard !isHidable else { return }
+            // 1秒経ったら変更可能にする
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isHidable = true
+            }
+        }
+    }
     
     @IBOutlet weak var headingImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
@@ -53,10 +63,8 @@ final class DirectionViewController: UIViewController {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touch = touches.first
-        guard let force = touch?.force,
-            let maximum = touch?.maximumPossibleForce else { return }
-        let percent = force / maximum
+        guard let touch = touches.first else { return }
+        let percent = touch.force / touch.maximumPossibleForce
         if percent == 1.0 {
             changeHiddenState()
         }
@@ -72,10 +80,9 @@ final class DirectionViewController: UIViewController {
         }
     }
     func changeHiddenState() {
-        if viewModel.state != .hideControllers {
-            viewModel.state = .hideControllers
-        }else {
-            viewModel.state = .direction
-        }
+        guard isHidable else { return }
+        isHidable = false
+        let isHiding = viewModel.state == .hideControllers
+        viewModel.state = isHiding ? .direction : .hideControllers
     }
 }

@@ -31,15 +31,13 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var tableViewHeightConstranit: NSLayoutConstraint!
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer! {
-        didSet {
-            longPressGestureRecognizer.minimumPressDuration = 0.5
-        }
+        didSet { longPressGestureRecognizer.minimumPressDuration = 0.5 }
     }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
-        if model.locationManager.location == nil { return }
-        guard sender.state == .began else { return }
+        guard viewModel.state == .map,
+            sender.state == .began else { return }
         let location = sender.location(in: mapView)
-        let coordinate: CLLocationCoordinate2D = mapView.convert(location, toCoordinateFrom: mapView)
+        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
         model.setPlace(CLLocation(latitude: coordinate.latitude,
                                   longitude: coordinate.longitude))
     }
@@ -73,6 +71,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         setupMapButtons()
         setupGesture()
         setupSearchBar()
+        handleSwipeDelegate()
         
         addMarker(new: false)
         applyViewConstraints(animated: false)
@@ -159,6 +158,16 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             origin: CGPoint(x: 10, y: searchBarHeight + 4),
             size: scaleView.bounds.size)
         self.view.addSubview(scaleView)
+    }
+    
+    func handleSwipeDelegate() {
+        guard let pageVC = parent?.parent as? UIPageViewController else { return }
+        pageVC.scrollView?.canCancelContentTouches = false
+        tableView.gestureRecognizers?.forEach { recognizer in
+            let name = String(describing: type(of: recognizer))
+            guard name == "_UISwipeActionPanGestureRecognizer" else { return }
+            pageVC.scrollView?.panGestureRecognizer.require(toFail: recognizer)
+        }
     }
 }
 
@@ -265,4 +274,10 @@ extension MapViewController {
         mapView.setCenter(model.coordinate, animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
     }
+}
+
+
+// MARK: GestureRecognizer
+extension MapViewController {
+    
 }

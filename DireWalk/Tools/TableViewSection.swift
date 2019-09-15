@@ -8,13 +8,15 @@
 
 import UIKit
 
-struct TableViewSection {
-    var cells: [SettingsTableViewCellType]
+protocol TableViewCellType {}
+
+
+struct TableViewSection<Type: TableViewCellType> {
+    var cells: [Type]
     var header: String?
     var footer: String?
     
-    init(cells: [SettingsTableViewCellType],
-         header: String? = nil, footer: String? = nil) {
+    init(cells: [Type], header: String? = nil, footer: String? = nil) {
         self.cells = cells
         self.header = header
         self.footer = footer

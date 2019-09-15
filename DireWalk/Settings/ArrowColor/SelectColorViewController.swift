@@ -8,49 +8,89 @@
 
 import UIKit
 
-final class SelectColorViewController: UIViewController {
+final class ArrowSettingViewController: UIViewController {
+    
+    var sections: [TableViewSection<ArrowTableViewCellType>] = [
+        TableViewSection(cells: [.imageStyle, .color],
+                         footer: "about color".localized),
+        TableViewSection(cells: [.aboutOnly],
+                         header: "about".localized)
+    ]
     
     @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet weak var slider: TappableSlider!
-    @IBOutlet weak var whiteAboutTextView: UITextView!
-    @IBOutlet weak var blackAboutTextView: UITextView!
     @IBOutlet weak var previewLabel: UILabel!
-    @IBOutlet weak var colorAboutHeight: NSLayoutConstraint!
+    @IBOutlet weak var tableView: UITableView!
     
-    private let viewModel = ViewModel.shared
+    private let settings = Settings.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let arrowColor = viewModel.settings.arrowColor
-        
-        slider.minimumValue = 0.0
-        slider.maximumValue = 1.0
-        slider.value = Float(arrowColor)
-        slider.minimumTrackTintColor = UIColor.black
-        slider.maximumTrackTintColor = UIColor.white
-        
-        self.navigationItem.title = "arrowColor".localized
-        arrowImageView.image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
-        arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
         arrowImageView.transform = CGAffineTransform(rotationAngle: (45 * CGFloat.pi / 180))
         
-        whiteAboutTextView.text = "whiteColorAbout".localized
-        blackAboutTextView.text = "blackColorAbout".localized
-        if UIScreen.main.bounds.width < 375 {
-            whiteAboutTextView.font = UIFont.preferredFont(forTextStyle: .title2)
-            blackAboutTextView.font = UIFont.preferredFont(forTextStyle: .title2)
-            colorAboutHeight.constant = 145
-        }
+        self.navigationItem.title = "arrowColor".localized
         previewLabel.text = "preview".localized
-        // iOS 13 dark modeでこうしないと色が辺になってしまった
-        whiteAboutTextView.backgroundColor = .white
+        
+        tableView.dataSource = self
     }
     
-    @IBAction func changeValue(_ sender: UISlider) {
-        let arrowColor = CGFloat(sender.value)
+    func updatePreview() {
+        let arrowColor = settings.arrowColor
+        let image = settings.arrowImage.image
+        
+        arrowImageView.image = image.withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
-        viewModel.settings.arrowColor = arrowColor
+    }
+}
+
+
+enum ArrowTableViewCellType: TableViewCellType {
+    case imageStyle, color, aboutOnly
+}
+
+extension ArrowSettingViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sections[section].header
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        sections[section].cells.count
+    }
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        sections[section].footer
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let type = sections[indexPath.section].cells[indexPath.row]
+        switch type {
+        case .imageStyle:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "imageStyle", for: indexPath) as! ArrowImageStyleTableViewCell
+            cell.delegate = self
+            return cell
+        case .color:
+            break
+        case .aboutOnly:
+            break
+        }
+        return UITableViewCell()
+    }
+}
+
+
+extension ArrowSettingViewController: ArrowImageStyleTableViewCellDelegate {
+    func didChangeArrowImageStyle(_ style: Settings.ArrowImage) {
+        settings.arrowImage = style
+        updatePreview()
+    }
+}
+
+
+extension ArrowSettingViewController: ArrowColorTableViewCellDelegate {
+    func didChangeArrowColor(_ whiteValue: CGFloat) {
+        settings.arrowColor = whiteValue
+        updatePreview()
+    }
 }
