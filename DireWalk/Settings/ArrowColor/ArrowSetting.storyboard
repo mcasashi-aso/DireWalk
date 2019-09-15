@@ -11,7 +11,7 @@
         <!--Arrow Color-->
         <scene sceneID="yXT-7t-FVV">
             <objects>
-                <viewController id="mi7-C5-0gz" customClass="SelectColorViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mi7-C5-0gz" customClass="ArrowSettingViewController" customModule="DireWalk" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fea-ff-b7a">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,33 +46,8 @@
                                 <rect key="frame" x="0.0" y="354.5" width="414" height="541.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="g1F-VT-BgY" rowHeight="70" style="IBUITableViewCellStyleDefault" id="Uh6-PI-3nj">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uh6-PI-3nj" id="yao-Xq-ct0">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g1F-VT-BgY">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="70"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="77" id="9W1-ZT-PAc">
-                                        <rect key="frame" x="0.0" y="98" width="414" height="77"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9W1-ZT-PAc" id="Y2d-LL-Yyc">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="77"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="121" id="3Fw-dK-7Y9">
-                                        <rect key="frame" x="0.0" y="175" width="414" height="121"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageStyle" rowHeight="121" id="3Fw-dK-7Y9" customClass="ArrowImageStyleTableViewCell" customModule="DireWalk" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Fw-dK-7Y9" id="5GS-6H-NqU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
@@ -96,8 +71,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Arrow Color" id="m3X-uT-H7e"/>
                     <connections>
-                        <outlet property="arrowImageView" destination="piV-j5-KN0" id="tw7-6j-lwN"/>
-                        <outlet property="previewLabel" destination="sAr-og-6a6" id="wKb-yz-P2h"/>
+                        <outlet property="arrowImageView" destination="piV-j5-KN0" id="vjD-Vu-S8e"/>
+                        <outlet property="previewLabel" destination="sAr-og-6a6" id="gy2-fq-438"/>
+                        <outlet property="tableView" destination="rIP-5V-RBt" id="3JA-3p-KR2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Pb-uu-eeS" userLabel="First Responder" sceneMemberID="firstResponder"/>

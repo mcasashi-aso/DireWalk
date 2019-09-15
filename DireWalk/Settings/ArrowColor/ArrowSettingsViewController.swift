@@ -71,11 +71,17 @@ extension ArrowSettingViewController: UITableViewDataSource {
             cell.delegate = self
             return cell
         case .color:
-            break
+            let cell: SliderTableViewCell = tableView.getCell(indexPath: indexPath)
+            cell.setup(title: "color".localizedYet, initialValue: Float(settings.arrowColor)) { value in
+                self.settings.arrowColor = CGFloat(value)
+                self.updatePreview()
+            }
+            return cell
         case .aboutOnly:
-            break
+            let cell: TextTableViewCell = tableView.getCell(indexPath: indexPath)
+            cell.textView.text = "arrowAbout".localizedYet
+            return cell
         }
-        return UITableViewCell()
     }
 }
 
@@ -83,14 +89,6 @@ extension ArrowSettingViewController: UITableViewDataSource {
 extension ArrowSettingViewController: ArrowImageStyleTableViewCellDelegate {
     func didChangeArrowImageStyle(_ style: Settings.ArrowImage) {
         settings.arrowImage = style
-        updatePreview()
-    }
-}
-
-
-extension ArrowSettingViewController: ArrowColorTableViewCellDelegate {
-    func didChangeArrowColor(_ whiteValue: CGFloat) {
-        settings.arrowColor = whiteValue
         updatePreview()
     }
 }

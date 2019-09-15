@@ -65,16 +65,17 @@ extension EditFavoriteViewController: UITableViewDataSource {
         let type = sections[indexPath.section].cells[indexPath.row]
         switch type {
         case .name:
-            <#code#>
+            break
         case .address:
-            <#code#>
+            break
         case .latitude:
-            <#code#>
+            break
         case .longitude:
-            <#code#>
+            break
         case .delete:
-            <#code#>
+            break
         }
+        return UITableViewCell()
     }
 }
 

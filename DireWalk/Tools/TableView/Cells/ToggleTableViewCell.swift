@@ -1,22 +1,14 @@
 //
-//  TableViewCells.swift
+//  ToggleTableViewCell.swift
 //  DireWalk
 //
-//  Created by 麻生昌志 on 2019/03/11.
+//  Created by Masashi Aso on 2019/09/15.
 //  Copyright © 2019 麻生昌志. All rights reserved.
 //
 
 import UIKit
 
-class TextTableViewCell: UITableViewCell {
-    @IBOutlet weak var textView: UITextView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-}
-
-
-class ToggleTableViewCell: UITableViewCell {
+final class ToggleTableViewCell: UITableViewCell, Nibable {
     @objc let toggleSwitch = UISwitch()
     
     var didChange: ((Bool) -> Void)?
@@ -28,6 +20,7 @@ class ToggleTableViewCell: UITableViewCell {
     }
     
     func setup(title: String, initialValue: Bool, didChange: @escaping (Bool) -> Void) {
+        textLabel?.text = title
         toggleSwitch.isOn = initialValue
         self.didChange = didChange
     }
@@ -37,3 +30,4 @@ class ToggleTableViewCell: UITableViewCell {
         f(sender.isOn)
     }
 }
+

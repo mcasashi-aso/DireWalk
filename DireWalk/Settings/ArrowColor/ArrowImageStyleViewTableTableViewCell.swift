@@ -12,7 +12,7 @@ protocol ArrowImageStyleTableViewCellDelegate: class {
     func didChangeArrowImageStyle(_ style: Settings.ArrowImage)
 }
 final class ArrowImageStyleTableViewCell: UITableViewCell {
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @objc var segmentedControl = UISegmentedControl()
     
     private var settings = Settings.shared
     weak var delegate: ArrowImageStyleTableViewCellDelegate?
@@ -21,6 +21,7 @@ final class ArrowImageStyleTableViewCell: UITableViewCell {
         super.awakeFromNib()
         segmentedControl.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
         
+        textLabel?.text = "arrowImageStyle".localizedYet
         let allImageType = Settings.ArrowImage.allCases
         for (index, imageType) in allImageType.enumerated() {
             let imageName = imageType.name
@@ -29,6 +30,7 @@ final class ArrowImageStyleTableViewCell: UITableViewCell {
                 segmentedControl.selectedSegmentIndex = index
             }
         }
+        accessoryView = segmentedControl
     }
     
     @objc func valueChanged(_ sender: UISegmentedControl) {

@@ -22,7 +22,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         TableViewSection(cells: [.arrowColor, .showFar],
                          footer: "captionDoNotShowFar".localized),
 //        TableViewSection(cells: [.darkMode],
-//                         footer: "captionAlwaysDarkMode".localized),
+//                         footer: "captionAlwaysDarkMode".localizedYet),
         TableViewSection(cells: [.review, .share],
                          header: "reviewSection".localized),
 //        TableViewSection(cells: [.purchase, .restore],
@@ -34,19 +34,13 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count
     }
-    
-    func tableView(_ tableView: UITableView,
-                   titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         sections[section].header
     }
-    
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sections[section].cells.count
     }
-    
-    func tableView(_ tableView: UITableView,
-                   titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         sections[section].footer
     }
     
@@ -55,7 +49,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         let cellType = sections[indexPath.section].cells[indexPath.row]
         switch cellType {
         case .about:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextTableViewCell
+            let cell: TextTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textView.text = "aboutStrings".localized
             return cell
         case .arrowColor:
@@ -63,41 +57,41 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             cell.textLabel?.text = "arrowColor".localized
             return cell
         case .showFar:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath) as! ToggleTableViewCell
+            let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.setup(title: "doNotAlwaysShowFar".localized,
                        initialValue: !settings.showFar,
-                       didChange: { (isOn) in settings.showFar = !isOn })
+                       didChange: { (isOn) in self.settings.showFar = !isOn })
             return cell
         case .darkMode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath) as! ToggleTableViewCell
+            let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.setup(title: "alwaysDarkMode".localized,
-                       initialValue: settings.alwaysDarkMode,
-                       didChange: { (isOn) in settings.alwaysDarkMode = isOn})
+                       initialValue: settings.isAlwaysDarkAppearance,
+                       didChange: { (isOn) in self.settings.isAlwaysDarkAppearance = isOn})
             return cell
         case .review:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "review".localized
             return cell
         case .share:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "share".localized
             return cell
         case .version:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
+            let cell: DetailTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "version".localized
             cell.detailTextLabel?.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
             return cell
         case .createdBy:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath)
+            let cell: DetailTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "createdby".localized
             cell.detailTextLabel?.text = "Masashi Aso"
             return cell
         case .purchase:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "Remove Ad".localizedYet
             return cell
         case .restore:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)
+            let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textLabel?.text = "Restore Purchase".localizedYet
             return cell
         }

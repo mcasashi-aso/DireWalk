@@ -10,7 +10,6 @@ import UIKit
 
 protocol TableViewCellType {}
 
-
 struct TableViewSection<Type: TableViewCellType> {
     var cells: [Type]
     var header: String?

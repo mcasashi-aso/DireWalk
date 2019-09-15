@@ -290,7 +290,7 @@ extension ViewController: GADBannerViewDelegate {
         bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
         bannerView.rootViewController = self
         let request = GADRequest()
-        request.testDevices = ["08414f421dd5519a221bf0414a3ec95e"]
+        request.testDevices = ["16bf9f6807aafaa19ee8b65b15618e2e"]
         bannerView.load(request)
     }
 }

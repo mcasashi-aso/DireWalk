@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class CurrentLocationManager: NSObject {
+final class CurrentLocationManager: NSObject {
     
     static let shared = CurrentLocationManager()
     

@@ -8,34 +8,33 @@
 
 import UIKit
 
-protocol ArrowColorTableViewCellDelegate: class {
-    func didChangeArrowColor(_ whiteValue: CGFloat)
-}
-final class ArrowColorTableViewCell: UITableViewCell {
+final class SliderTableViewCell: UITableViewCell, Nibable {
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var slider: TappableSlider!
-    private var settings = Settings.shared
-    weak var delegate: ArrowColorTableViewCellDelegate?
+    var didChange: ((Float) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let arrowColor = settings.arrowColor
-        
-        slider.minimumValue = 0
-        slider.maximumValue = 1
-        slider.value = Float(arrowColor)
-        slider.minimumTrackTintColor = UIColor.black
-        slider.maximumTrackTintColor = UIColor.white
         slider.addTarget(self, action: #selector(changeValue(_:)), for: .valueChanged)
     }
     
+    func setup(title: String,
+               initialValue: Float, minimumValue: Float = 0, maximumValue: Float = 1,
+               didChange: @escaping (Float) -> Void) {
+        titleLabel.text = title
+        slider.minimumValue = minimumValue
+        slider.maximumValue = maximumValue
+        slider.value = initialValue
+        self.didChange = didChange
+    }
+    
     @objc func changeValue(_ sender: TappableSlider) {
-        delegate?.didChangeArrowColor(CGFloat(sender.value))
+        guard let f = didChange else { return }
+        f(sender.value)
     }
 }
 
-
-final class TappableSlider: UISlider {
+class TappableSlider: UISlider {
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         return true

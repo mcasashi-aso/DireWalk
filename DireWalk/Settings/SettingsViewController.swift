@@ -35,7 +35,9 @@ final class SettingsViewController: UIViewController, UITableViewDelegate {
                 activityItems: [activityItemSentence, appURL],
                 applicationActivities: nil)
             self.present(activityViewController, animated: true, completion: nil)
-        default: break
+        case .purchase: break
+        case .restore: break
+        case .about, .arrowColor, .showFar, .darkMode, .version, .createdBy: break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -44,10 +46,17 @@ final class SettingsViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
 
         self.navigationItem.title = "settings".localized
+        registerCells()
     }
     
     @IBAction func tapDone() {
         self.dismiss(animated: true, completion: nil)
     }
 
+    func registerCells() {
+        tableView.register(ToggleTableViewCell.self)
+        tableView.register(TextTableViewCell.self)
+        tableView.register(TappableTableViewCell.self)
+        tableView.register(DetailTableViewCell.self)
+    }
 }

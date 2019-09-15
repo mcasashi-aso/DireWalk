@@ -14,6 +14,15 @@
 		BA259195232E6A7200E9689E /* EditFavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA259194232E6A7200E9689E /* EditFavoriteViewController.swift */; };
 		BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */; };
 		BA26E8F82320D9FB00A18652 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */; };
+		BA274525232E80E200E12451 /* ToggleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274524232E80E200E12451 /* ToggleTableViewCell.xib */; };
+		BA274527232E812800E12451 /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274526232E812800E12451 /* TextTableViewCell.xib */; };
+		BA27452A232E87FD00E12451 /* ToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */; };
+		BA27452C232E880C00E12451 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA27452B232E880C00E12451 /* TextTableViewCell.swift */; };
+		BA27452F232E890300E12451 /* TappableTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA27452E232E890300E12451 /* TappableTableViewCell.xib */; };
+		BA274531232E891F00E12451 /* TappableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA274530232E891F00E12451 /* TappableTableViewCell.swift */; };
+		BA274533232E897A00E12451 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA274532232E897A00E12451 /* DetailTableViewCell.swift */; };
+		BA274535232E89AB00E12451 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274534232E89AB00E12451 /* DetailTableViewCell.xib */; };
+		BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274536232E987100E12451 /* SliderTableViewCell.xib */; };
 		BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */; };
 		BA4274672312B3CC00CD3796 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274662312B3CC00CD3796 /* Model.swift */; };
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
@@ -47,11 +56,11 @@
 		E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A1222267E0C00551AC6 /* ActivityData.swift */; };
 		E67C3A1E2226AB7100551AC6 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E67C3A1D2226AB7100551AC6 /* HealthKit.framework */; };
 		E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C3A2022291FED00551AC6 /* Tools.swift */; };
-		E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */; };
-		E69F09AF2249094200B77F6E /* ArrowColorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */; };
+		E69F09AD2248E6B600B77F6E /* ArrowSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AC2248E6B600B77F6E /* ArrowSettingsViewController.swift */; };
+		E69F09AF2249094200B77F6E /* SliderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F09AE2249094200B77F6E /* SliderTableViewCell.swift */; };
 		E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6A8097822354E2D0086E146 /* RequestLocation.storyboard */; };
 		E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097C22354E600086E146 /* RequestLocationViewController.swift */; };
-		E6A809802235B9900086E146 /* TableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* TableViewCells.swift */; };
+		E6A809802235B9900086E146 /* TableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A8097F2235B9900086E146 /* TableViewExtensions.swift */; };
 		E6C437C7222386F800542844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C6222386F800542844 /* AppDelegate.swift */; };
 		E6C437C9222386F800542844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C437C8222386F800542844 /* ViewController.swift */; };
 		E6C437CC222386F800542844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C437CA222386F800542844 /* Main.storyboard */; };
@@ -105,6 +114,15 @@
 		BA259194232E6A7200E9689E /* EditFavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFavoriteViewController.swift; sourceTree = "<group>"; };
 		BA26E8F52320D9CF00A18652 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		BA26E8F72320D9FB00A18652 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		BA274524232E80E200E12451 /* ToggleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToggleTableViewCell.xib; sourceTree = "<group>"; };
+		BA274526232E812800E12451 /* TextTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextTableViewCell.xib; sourceTree = "<group>"; };
+		BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleTableViewCell.swift; sourceTree = "<group>"; };
+		BA27452B232E880C00E12451 /* TextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
+		BA27452E232E890300E12451 /* TappableTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TappableTableViewCell.xib; sourceTree = "<group>"; };
+		BA274530232E891F00E12451 /* TappableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableTableViewCell.swift; sourceTree = "<group>"; };
+		BA274532232E897A00E12451 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		BA274534232E89AB00E12451 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
+		BA274536232E987100E12451 /* SliderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTableViewCell.xib; sourceTree = "<group>"; };
 		BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMapOverlay.swift; sourceTree = "<group>"; };
 		BA4274662312B3CC00CD3796 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
@@ -144,11 +162,11 @@
 		E67C3A1D2226AB7100551AC6 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DireWalk.entitlements; sourceTree = "<group>"; };
 		E67C3A2022291FED00551AC6 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
-		E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorViewController.swift; sourceTree = "<group>"; };
-		E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowColorTableViewCell.swift; sourceTree = "<group>"; };
+		E69F09AC2248E6B600B77F6E /* ArrowSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowSettingsViewController.swift; sourceTree = "<group>"; };
+		E69F09AE2249094200B77F6E /* SliderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderTableViewCell.swift; sourceTree = "<group>"; };
 		E6A8097822354E2D0086E146 /* RequestLocation.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RequestLocation.storyboard; sourceTree = "<group>"; };
 		E6A8097C22354E600086E146 /* RequestLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationViewController.swift; sourceTree = "<group>"; };
-		E6A8097F2235B9900086E146 /* TableViewCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCells.swift; sourceTree = "<group>"; };
+		E6A8097F2235B9900086E146 /* TableViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewExtensions.swift; sourceTree = "<group>"; };
 		E6C437C3222386F800542844 /* DireWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DireWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6C437C6222386F800542844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6C437C8222386F800542844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -203,11 +221,29 @@
 			path = EditFavoriteView;
 			sourceTree = "<group>";
 		};
-		BA448E29232E0014006799D4 /* Cells */ = {
+		BA274528232E87B900E12451 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */,
-				E69F09AE2249094200B77F6E /* ArrowColorTableViewCell.swift */,
+				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
+				E6A8097F2235B9900086E146 /* TableViewExtensions.swift */,
+				BA27452D232E883100E12451 /* Cells */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
+		BA27452D232E883100E12451 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BA274524232E80E200E12451 /* ToggleTableViewCell.xib */,
+				BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */,
+				BA274526232E812800E12451 /* TextTableViewCell.xib */,
+				BA27452B232E880C00E12451 /* TextTableViewCell.swift */,
+				BA27452E232E890300E12451 /* TappableTableViewCell.xib */,
+				BA274530232E891F00E12451 /* TappableTableViewCell.swift */,
+				BA274534232E89AB00E12451 /* DetailTableViewCell.xib */,
+				BA274532232E897A00E12451 /* DetailTableViewCell.swift */,
+				BA274536232E987100E12451 /* SliderTableViewCell.xib */,
+				E69F09AE2249094200B77F6E /* SliderTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,8 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */,
-				E69F09AC2248E6B600B77F6E /* SelectColorViewController.swift */,
-				BA448E29232E0014006799D4 /* Cells */,
+				E69F09AC2248E6B600B77F6E /* ArrowSettingsViewController.swift */,
+				BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */,
 			);
 			path = ArrowColor;
 			sourceTree = "<group>";
@@ -260,8 +296,8 @@
 				BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */,
 				BA59EBE42319556C0037EF6B /* MyColor.swift */,
 				E67C3A2022291FED00551AC6 /* Tools.swift */,
-				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
 				BAD5CA2B231A72F200499E17 /* UserDefaults */,
+				BA274528232E87B900E12451 /* TableView */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -295,7 +331,6 @@
 				E6358E15222D7E660084E9CB /* Setting.storyboard */,
 				E6358E17222D7E850084E9CB /* SettingsViewController.swift */,
 				BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */,
-				E6A8097F2235B9900086E146 /* TableViewCells.swift */,
 				BAD5CA26231A662A00499E17 /* ArrowColor */,
 			);
 			path = Settings;
@@ -548,18 +583,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
+				BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */,
 				E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */,
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
+				BA27452F232E890300E12451 /* TappableTableViewCell.xib in Resources */,
 				BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */,
 				E6358E16222D7E660084E9CB /* Setting.storyboard in Resources */,
 				E67C3A0522261C2200551AC6 /* Direction.storyboard in Resources */,
 				BA26E8F82320D9FB00A18652 /* SearchTableViewCell.xib in Resources */,
 				E6C437CC222386F800542844 /* Main.storyboard in Resources */,
 				BA259193232E6A4000E9689E /* EditFavorite.storyboard in Resources */,
+				BA274535232E89AB00E12451 /* DetailTableViewCell.xib in Resources */,
+				BA274525232E80E200E12451 /* ToggleTableViewCell.xib in Resources */,
 				E631DF492232BDAE00CC1A03 /* Localizable.strings in Resources */,
 				E67C3A0322261C1400551AC6 /* Activity.storyboard in Resources */,
 				E631DF4F2232C20800CC1A03 /* InfoPlist.strings in Resources */,
 				E6EA4052223F58D800BA27C2 /* GoogleService-Info.plist in Resources */,
+				BA274527232E812800E12451 /* TextTableViewCell.xib in Resources */,
 				E67C3A0722261C3800551AC6 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -708,7 +748,7 @@
 				BA8ED9122321817800A1232D /* Settings.swift in Sources */,
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
-				E69F09AF2249094200B77F6E /* ArrowColorTableViewCell.swift in Sources */,
+				E69F09AF2249094200B77F6E /* SliderTableViewCell.swift in Sources */,
 				BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */,
 				BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */,
 				BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */,
@@ -716,10 +756,10 @@
 				E67C3A2122291FEE00551AC6 /* Tools.swift in Sources */,
 				E67C3A0F2226429300551AC6 /* MapViewController.swift in Sources */,
 				BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */,
-				E69F09AD2248E6B600B77F6E /* SelectColorViewController.swift in Sources */,
+				E69F09AD2248E6B600B77F6E /* ArrowSettingsViewController.swift in Sources */,
 				BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */,
 				E6A8097D22354E600086E146 /* RequestLocationViewController.swift in Sources */,
-				E6A809802235B9900086E146 /* TableViewCells.swift in Sources */,
+				E6A809802235B9900086E146 /* TableViewExtensions.swift in Sources */,
 				BAF229362314DD7700D75930 /* Place.swift in Sources */,
 				BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */,
 				BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */,
@@ -727,6 +767,7 @@
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,
 				E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */,
 				BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */,
+				BA274531232E891F00E12451 /* TappableTableViewCell.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
 				BAC1FB932329EC4B00B5A866 /* CurrentLocationManager.swift in Sources */,
@@ -734,10 +775,13 @@
 				E6C437C7222386F800542844 /* AppDelegate.swift in Sources */,
 				E67C3A0D2226428A00551AC6 /* ActivityViewController.swift in Sources */,
 				BAF2293D23181B3400D75930 /* NotificationNames.swift in Sources */,
+				BA27452C232E880C00E12451 /* TextTableViewCell.swift in Sources */,
 				BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */,
 				BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */,
+				BA274533232E897A00E12451 /* DetailTableViewCell.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
 				E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */,
+				BA27452A232E87FD00E12451 /* ToggleTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
