@@ -171,7 +171,8 @@ extension ViewController: UIScrollViewDelegate {
 extension ViewController: ViewModelDelegate {
     
     func presentationEditPlaceView(place: Place) {
-        // TODO: アイウエオ
+        let vc = EditFavoriteViewController.create(place)
+        present(vc, animated: true, completion: nil)
     }
     
     func addHeadingView(to annotationView: MKAnnotationView) {

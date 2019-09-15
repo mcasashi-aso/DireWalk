@@ -15,6 +15,8 @@ enum SettingsTableViewCellType: TableViewCellType {
 // もっといい書き方あると思うんだけど時間と技術的にここが限界
 final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     
+    private let settings = Settings.shared
+    
     var sections: [TableViewSection<SettingsTableViewCellType>] = [
         TableViewSection(cells: [.about]),
         TableViewSection(cells: [.arrowColor, .showFar],
@@ -57,16 +59,20 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             cell.textView.text = "aboutStrings".localized
             return cell
         case .arrowColor:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SelectColorCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToSelectColorCell", for: indexPath)
             cell.textLabel?.text = "arrowColor".localized
             return cell
         case .showFar:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath)
-            cell.textLabel?.text = "doNotAlwaysShowFar".localized
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath) as! ToggleTableViewCell
+            cell.setup(title: "doNotAlwaysShowFar".localized,
+                       initialValue: !settings.showFar,
+                       didChange: { (isOn) in settings.showFar = !isOn })
             return cell
         case .darkMode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ChangeDarkMode", for: indexPath)
-            cell.textLabel?.text = "alwaysDarkMode".localized
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToggleCell", for: indexPath) as! ToggleTableViewCell
+            cell.setup(title: "alwaysDarkMode".localized,
+                       initialValue: settings.alwaysDarkMode,
+                       didChange: { (isOn) in settings.alwaysDarkMode = isOn})
             return cell
         case .review:
             let cell = tableView.dequeueReusableCell(withIdentifier: "TappableCell", for: indexPath)

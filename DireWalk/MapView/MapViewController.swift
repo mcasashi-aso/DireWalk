@@ -111,12 +111,11 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             textField.backgroundColor = bgColor
         }
         searchBar.accessibilityLabel = "Search Bar"
+        
     }
     private func setupMapView() {
         mapView.userTrackingMode = MKUserTrackingMode.none
         var region: MKCoordinateRegion = mapView.region
-        region.center = CLLocationCoordinate2DMake(model.currentLocation.coordinate.latitude,
-                                                   model.currentLocation.coordinate.longitude)
         region.center = model.currentLocation.coordinate
         region.span.latitudeDelta = 0.004
         region.span.longitudeDelta = 0.004

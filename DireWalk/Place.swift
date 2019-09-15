@@ -54,9 +54,9 @@ struct Place: Hashable, Equatable {
         }
     }
     
-    static func ==(lhs: Place, rhs: Place) -> Bool {
-        lhs.latitude == rhs.latitude &&
-            lhs.longitude == rhs.longitude
+    func isSamePlace(to place: Place) -> Bool {
+        self.latitude == place.latitude &&
+            self.longitude == place.longitude
     }
     
     func distance(from place: Place) -> CLLocationDistance {
