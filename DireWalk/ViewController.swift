@@ -212,7 +212,7 @@ extension ViewController: ViewModelDelegate {
         }
     }
     
-    func SearchedTableViewCellSelected() {
+    func searchedTableViewCellSelected() {
         getVC(MapViewController.self)?.searchedTableViewCellSelected()
     }
     
@@ -224,7 +224,6 @@ extension ViewController: ViewModelDelegate {
             activityView?.updateFlightsClimbed()
             activityView?.updateStepCount()
         }
-        
     }
 }
 

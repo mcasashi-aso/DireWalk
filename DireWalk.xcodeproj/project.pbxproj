@@ -199,6 +199,17 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		BA448E2A232E3585006799D4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BAF229372314DD9A00D75930 /* ViewModel.swift */,
+				BA4274662312B3CC00CD3796 /* Model.swift */,
+				BA8ED9112321817800A1232D /* Settings.swift */,
+				BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		BA59EBEB231972C40037EF6B /* DireWalkShareExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,11 +370,8 @@
 				E67C3A1F2226AC4200551AC6 /* DireWalk.entitlements */,
 				E6C437C6222386F800542844 /* AppDelegate.swift */,
 				E6C437CD222386F900542844 /* Assets.xcassets */,
-				BAF229372314DD9A00D75930 /* ViewModel.swift */,
-				BA4274662312B3CC00CD3796 /* Model.swift */,
-				BA8ED9112321817800A1232D /* Settings.swift */,
-				BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */,
 				BAF229352314DD7700D75930 /* Place.swift */,
+				BA448E2A232E3585006799D4 /* Models */,
 				BAF2293B23181B1200D75930 /* Tools */,
 				E6C437CA222386F800542844 /* Main.storyboard */,
 				E6C437C8222386F800542844 /* ViewController.swift */,

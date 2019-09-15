@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+// MARK: function wait
 func wait(_ waitContinuation: @escaping (() -> Bool), compleation: @escaping (() -> Void)) {
     var wait = waitContinuation()
     // 0.01秒周期で待機条件をクリアするまで待ちます。
@@ -29,7 +30,7 @@ func wait(_ waitContinuation: @escaping (() -> Bool), compleation: @escaping (()
     }
 }
 
-
+// MARK: CLPlacemark
 extension CLPlacemark {
     var address: String {
         let components = [self.administrativeArea, self.locality, self.thoroughfare, self.subThoroughfare]
@@ -37,7 +38,7 @@ extension CLPlacemark {
     }
 }
 
-
+// MARK: String
 extension String {
     var localized: String {
         NSLocalizedString(self, comment: "localized string with \(self)")
@@ -48,46 +49,47 @@ extension String {
     }
 }
 
-
+// MARK: Date
 extension Date {
     func isSameDay(to date: Date) -> Bool {
         dateFormatter.dateFormat = "yyyyMMdd"
         return dateFormatter.string(from: self) == dateFormatter.string(from: date)
     }
 }
-
 let dateFormatter = DateFormatter()
 
+// MARK: Array
 extension Array {
     public subscript(safe index: Index) -> Element? {
         indices.contains(index) ? self[index] : nil
     }
 }
 
-
+// MARK: UIPageViewController
 extension UIPageViewController {
     var scrollView: UIScrollView? {
         view.subviews.first { $0 is UIScrollView } as? UIScrollView
     }
 }
 
+// MARK: UISearchBar
+extension UISearchBar {
+    var cancelButton: UIButton? {
+        value(forKey: "cancelButton") as? UIButton
+    }
+}
 
+// MARK: NSAttributedString
 extension NSAttributedString {
     enum MyAttributes {
         case white40, white80
         
         func value() -> [NSAttributedString.Key : Any] {
             switch self {
-            case .white80:
-                return [
-                    .font: UIFont.systemFont(ofSize: 80),
-                    .foregroundColor: UIColor.white
-                ]
-            case .white40:
-                return [
-                    .font : UIFont.systemFont(ofSize: 40),
-                    .foregroundColor : UIColor.white
-                ]
+            case .white80: return [.font: UIFont.systemFont(ofSize: 80),
+                                   .foregroundColor: UIColor.white]
+            case .white40: return [.font : UIFont.systemFont(ofSize: 40),
+                                   .foregroundColor : UIColor.white]
             }
         }
     }

@@ -128,12 +128,13 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         let searchBarHeight = searchBar.frame.height
         
         userTrackingButton = MKUserTrackingButton(mapView: mapView)
-        userTrackingButton.backgroundColor = UIColor.white
         let userTrackingButtonWidth = userTrackingButton.bounds.width
         userTrackingButton.frame = CGRect(
             origin: CGPoint(x: screenWidth - userTrackingButtonWidth - 3,
                             y: searchBarHeight + 3),
             size: userTrackingButton.bounds.size)
+        // TODO: COlOR
+        userTrackingButton.backgroundColor = .background
         userTrackingButton.layer.cornerRadius = userTrackingButton.bounds.height / 6
         userTrackingButton.layer.masksToBounds = true
         userTrackingButton.layer.shadowColor = UIColor.black.cgColor
@@ -148,7 +149,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         
         compassButton.frame = CGRect(
             origin: CGPoint(x: screenWidth - compassButtonWidth - 4,
-                            y: userTrackingButton.frame.maxY + 4),
+                            y: userTrackingButton.frame.maxY + 8),
             size: compassButton.bounds.size)
         self.view.addSubview(compassButton)
         
@@ -161,7 +162,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func handleSwipeDelegate() {
-        guard let pageVC = parent?.parent as? UIPageViewController else { return }
+        guard let pageVC = parent as? UIPageViewController else { return }
         pageVC.scrollView?.canCancelContentTouches = false
         tableView.gestureRecognizers?.forEach { recognizer in
             let name = String(describing: type(of: recognizer))
@@ -238,7 +239,8 @@ extension MapViewController: UIGestureRecognizerDelegate {
     }
     
     /* MKMapViewに元から設定されているDoubleTapと、自分で設定したLongPressを同時に機能させる */
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
@@ -266,6 +268,7 @@ extension MapViewController {
                 self.tableView.alpha = 0
                 self.searchBarBackgroundView.alpha = 0
             })
+            searchBar.setShowsCancelButton(false, animated: true)
             searchBar.resignFirstResponder()
         }
     }
@@ -274,10 +277,4 @@ extension MapViewController {
         mapView.setCenter(model.coordinate, animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
     }
-}
-
-
-// MARK: GestureRecognizer
-extension MapViewController {
-    
 }

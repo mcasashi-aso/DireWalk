@@ -13,13 +13,14 @@ protocol ViewModelDelegate: class {
     func addHeadingView(to annotationView: MKAnnotationView)
     
     func updateLabels()
-    func didChangeSearchTableViewElements()
     func didChangePlace()
     func didChangeState()
     func didChangeRotation()
     
+    func didChangeSearchTableViewElements()
+    func searchedTableViewCellSelected()
     func presentationEditPlaceView(place: Place)
-    func SearchedTableViewCellSelected()
+    
     func updateActivityViewData(dayChanged: Bool)
 }
 
@@ -44,10 +45,6 @@ final class ViewModel: NSObject {
             UIApplication.shared.isIdleTimerDisabled = (state == .hideControllers)
         }
     }
-    
-    // TODO: いつかLabelのSwipe中の中間表現もつけてフルイドインターフェースさせたい
-    // https://codeday.me/jp/qa/20190314/417737.html
-    var swiping = false
     
     enum Views { case activity, direction, map }
     var presentView: Views {
@@ -85,6 +82,8 @@ final class ViewModel: NSObject {
             return NSMutableAttributedString(attributedString:
                 .get("swipe".localized, attributes: .white40))
         }
+        
+        if state == .hideControllers { return NSMutableAttributedString() }
         
         let (far, unit) = { () -> (String, String) in
             guard let far = model.far else { return ("Error", "  ") }
@@ -146,7 +145,7 @@ extension ViewModel: UIPageViewControllerDelegate {
         let vc = pageViewController.viewControllers?.first
         switch vc {
         case is DirectionViewController: state = .direction
-        case is MapViewController:       state = .map
+        case is MapViewController:       state = (state == .search) ? .search : .map
         case is ActivityViewController:  state = .activity
         default: return
         }
@@ -208,7 +207,7 @@ extension ViewModel: UISearchBarDelegate {
         }else {
             // 検索結果がある場合はキーボードだけ消す
             searchBar.resignFirstResponder()
-            if let cancelButton = searchBar.value(forKey: "cancelButton") as? UIButton {
+            if let cancelButton = searchBar.cancelButton {
                 cancelButton.isEnabled = true
             }
         }
@@ -221,7 +220,7 @@ extension ViewModel: UITableViewDelegate {
                    didSelectRowAt indexPath: IndexPath) {
         model.place = searchTableViewPlaces[indexPath.row]
         state = .map
-        delegate?.SearchedTableViewCellSelected()
+        delegate?.searchedTableViewCellSelected()
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
@@ -245,15 +244,32 @@ extension ViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard var place = self.searchTableViewPlaces[safe: indexPath.row] else { return nil }
-        let toEditAction = UIContextualAction(style: .normal, title: "Edit") {
-            (action, view, completion) in
-            // delegate.presentationEditPlaceView(place: place)
-        }
-        let toggleFavoriteAction = UIContextualAction(style: .normal, title: "Favorite") {
-            (action, view, completion) in
-            place.isFavorite.toggle()
-        }
-        let actions = place.isFavorite ? [toEditAction, toggleFavoriteAction] : [toggleFavoriteAction]
+        let toggleFavoriteAction: UIContextualAction = {
+            let action = UIContextualAction(style: .normal, title: "Favorite") {
+                (action, view, completion) in
+                place.isFavorite.toggle()
+                completion(true)
+            }
+            action.backgroundColor = .red
+            let image: UIImage
+            if #available(iOS 13, *) {
+                image = UIImage(systemName: place.isFavorite ? "heart" : "heart.fill")!
+            }else {
+                image = UIImage(named: place.isFavorite ? "Heart" : "HeartFill")!
+            }
+            action.image = image
+            return action
+        }()
+        let toEditAction: UIContextualAction = {
+            let action = UIContextualAction(style: .normal, title: "Edit") {
+                (action, view, completion) in
+                self.delegate?.presentationEditPlaceView(place: place)
+            }
+            action.backgroundColor = .darkGray
+            return action
+        }()
+        let actions = place.isFavorite ? [toggleFavoriteAction, toEditAction]
+                                       : [toggleFavoriteAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
     
@@ -323,15 +339,13 @@ extension ViewModel: MKMapViewDelegate {
         return button
     }
     
-    func mapView(_ mapView: MKMapView,
-                 didAdd views: [MKAnnotationView]) {
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
         if views.last?.annotation is MKUserLocation {
             delegate?.addHeadingView(to: views.last!)
         }
     }
     
-    func mapView(_ mapView: MKMapView,
-                 regionDidChangeAnimated animated: Bool) {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         delegate?.didChangeRotation()
     }
     
