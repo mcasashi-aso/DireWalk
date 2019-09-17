@@ -45,13 +45,13 @@ extension CurrentLocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        notificationCenter.post(name: .didUpdateHeading, object: nil,
+        notificationCenter.post(name: .didUpdateUserHeading, object: nil,
                                 userInfo: ["heading" : newHeading])
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = manager.location else { return }
-        notificationCenter.post(name: .didUpdateLocation, object: nil,
+        notificationCenter.post(name: .didUpdateUserLocation, object: nil,
                                 userInfo: ["location" : location])
     }
     

@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sc2-9S-YEd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="sc2-9S-YEd">
                                 <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
@@ -31,8 +31,16 @@
                         <viewLayoutGuide key="safeArea" id="SA3-Nd-BJ8"/>
                     </view>
                     <navigationItem key="navigationItem" id="ed3-Vu-IEb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="UFv-te-rcl"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="uTC-82-RJg"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="UFv-te-rcl">
+                            <connections>
+                                <action selector="cancel" destination="aQX-RJ-hWv" id="xvU-jx-TUR"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="uTC-82-RJg">
+                            <connections>
+                                <action selector="done" destination="aQX-RJ-hWv" id="g38-Wq-rqI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="UFv-te-rcl" id="SS5-8D-6tI"/>

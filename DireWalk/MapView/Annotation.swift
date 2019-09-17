@@ -18,7 +18,7 @@ class Annotation: NSObject, MKAnnotation {
     init(place: Place) {
         self.coordinate = CLLocationCoordinate2DMake(place.latitude,
                                                      place.longitude)
-        self.title = place.placeTitle
+        self.title = place.title
         self.place = place
     }
     

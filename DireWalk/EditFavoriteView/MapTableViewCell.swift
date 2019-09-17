@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 
 final class MapTableViewCell: UITableViewCell, NibReusable {
-    @IBOutlet weak var mapView: MKMapView! {
+    @IBOutlet weak var mapView: ZoomableMapView! {
         didSet {
             mapView.delegate = self
         }
@@ -18,13 +18,13 @@ final class MapTableViewCell: UITableViewCell, NibReusable {
     
     func setPlace(_ place: Place) {
         let center = CLLocationCoordinate2DMake(place.latitude, place.longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04)
+        let span = MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004)
         let region = MKCoordinateRegion(center: center, span: span)
         mapView.setRegion(region, animated: false)
         
         let annotation = MKPointAnnotation()
         annotation.coordinate = center
-        annotation.title = place.placeTitle
+        annotation.title = place.title
         mapView.addAnnotation(annotation)
     }
 }

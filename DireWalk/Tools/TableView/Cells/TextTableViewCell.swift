@@ -10,7 +10,4 @@ import UIKit
 
 final class TextTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet weak var textView: UITextView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
 }

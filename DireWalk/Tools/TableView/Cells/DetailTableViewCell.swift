@@ -9,7 +9,6 @@
 import UIKit
 
 final class DetailTableViewCell: UITableViewCell, NibReusable {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    var titleLabel: UILabel { textLabel! }
+    var detailLabel: UILabel { detailTextLabel! }
 }

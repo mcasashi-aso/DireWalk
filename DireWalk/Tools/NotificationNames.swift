@@ -10,8 +10,10 @@ import Foundation
 
 extension Notification.Name {
     public static var didChangeFavorites = Notification.Name("didChangeFavorites")
-    public static var didUpdateHeading = Notification.Name("didUpdateHeading")
-    public static var didUpdateLocation = Notification.Name("didUpdateLocation")
+    
+    public static var didUpdateUserHeading = Notification.Name("didUpdateHeading")
+    public static var didUpdateUserLocation = Notification.Name("didUpdateLocation")
+    
     public static var showRequestAccessLocation = Notification.Name("showRequestAccessLocation")
 }
 

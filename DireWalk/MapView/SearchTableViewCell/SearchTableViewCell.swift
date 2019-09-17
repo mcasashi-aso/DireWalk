@@ -29,7 +29,7 @@ final class SearchTableViewCell: UITableViewCell, NibReusable, SearchCellModelDe
     func setPlace(_ place: Place) {
         model = SearchCellModel(place)
         model.delegate = self
-        nameLabel.text = place.placeTitle
+        nameLabel.text = place.title
         addressLabel.text = place.address
         didChangeFar()
         didChangeHeading()

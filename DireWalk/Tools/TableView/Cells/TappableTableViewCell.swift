@@ -9,7 +9,5 @@
 import UIKit
 
 final class TappableTableViewCell: UITableViewCell, NibReusable {
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
+    var titleLabel: UILabel { textLabel! }
 }

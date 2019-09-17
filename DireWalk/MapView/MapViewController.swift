@@ -23,8 +23,11 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     private let model = Model.shared
     
     // MARK: - Views
-    @IBOutlet weak var mapView: MKMapView! {
+    @IBOutlet weak var mapView: ZoomableMapView! {
         didSet {
+            if #available(iOS 13, *) {}else {
+                mapView.setupGesture()
+            }
             mapView.userTrackingMode = MKUserTrackingMode.none
             var region: MKCoordinateRegion = mapView.region
             region.center = model.currentLocation.coordinate

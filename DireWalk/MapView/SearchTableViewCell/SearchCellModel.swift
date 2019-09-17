@@ -94,9 +94,9 @@ final class SearchCellModel: NSObject {
         updateFar()
         updateDestinationHeading()
         notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)),
-                                       name: .didUpdateHeading, object: nil)
+                                       name: .didUpdateUserHeading, object: nil)
         notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)),
-                                       name: .didUpdateLocation, object: nil)
+                                       name: .didUpdateUserLocation, object: nil)
     }
     
     // MARK: - CurrentLocationManager

@@ -12,7 +12,7 @@ import MapKit
 import HealthKit
 import GoogleMobileAds
 
-final class ViewController: UIViewController {
+final class ViewController: UIViewController, UIPageViewControllerDataSource, ViewModelDelegate, SettingsViewControllerDelegate, EditFavoriteViewControllerDelegate, GADBannerViewDelegate {
     
     // MARK: - Model
     private let viewModel = ViewModel.shared
@@ -106,11 +106,7 @@ final class ViewController: UIViewController {
             containerView.addSubview(contentPageVC.view)
         }
     }
-    var contentPageVC: UIPageViewController! {
-        didSet {
-            
-        }
-    }
+    var contentPageVC: UIPageViewController!
     
     @IBOutlet weak var bannerView: GADBannerView! {
         didSet{
@@ -161,16 +157,8 @@ final class ViewController: UIViewController {
         default: break
         }
     }
-    
-    // MARK: - iOS Controllers
-    override var preferredStatusBarStyle: UIStatusBarStyle { UIStatusBarStyle.lightContent }
-    override var prefersStatusBarHidden: Bool { viewModel.state == .hideControllers }
-    override var prefersHomeIndicatorAutoHidden: Bool { viewModel.state == .hideControllers }
-}
 
-// MARK: - UIPageViewControllerDataSource
-extension ViewController: UIPageViewControllerDataSource {
-    
+    // MARK: - UIPageViewControllerDataSource
     func getVC<VC: UIViewController>(_ type: VC.Type) -> VC? {
         guard let viewControllers = contentPageVC.viewControllers else { return nil }
         return viewControllers.compactMap { $0 as? VC }.first
@@ -198,14 +186,13 @@ extension ViewController: UIPageViewControllerDataSource {
         default: return nil
         }
     }
-}
-
-// MARK: - ViewModelDelegate
-extension ViewController: ViewModelDelegate {
     
+    // MARK: - ViewModelDelegate
     func presentationEditPlaceView(place: Place) {
-        let vc = EditFavoriteViewController.create(place)
-        present(vc, animated: true, completion: nil)
+        let navigationController = EditFavoriteViewController.create(place)
+        let vc = navigationController.topViewController as! EditFavoriteViewController
+        vc.delegate = self
+        present(navigationController, animated: true, completion: nil)
     }
     
     func addHeadingView(to annotationView: MKAnnotationView) {
@@ -259,11 +246,8 @@ extension ViewController: ViewModelDelegate {
             activityView?.updateStepCount()
         }
     }
-}
 
-
-// MARK: - UserRequest
-extension ViewController {
+    // MARK: - UserRequest
     func askAllowHealthKit() {
         let readTypes = Set([
             HKQuantityType.quantityType(forIdentifier: .stepCount),
@@ -280,10 +264,8 @@ extension ViewController {
         let view = sb.instantiateInitialViewController()
         self.present(view!, animated: true, completion: nil)
     }
-}
 
-// MARK: - Hide Controllers
-extension ViewController {
+    // MARK: - Hide Controllers
     func hideControllers(_ isHidden: Bool) {
         if isHidden { noticeControllersHidden() }
         statusBarBackgroundView.isHidden = isHidden
@@ -296,6 +278,11 @@ extension ViewController {
         setNeedsUpdateOfHomeIndicatorAutoHidden()
         getVC(DirectionViewController.self)?.updateFarLabel()
     }
+    
+    // status bar & home indicator
+    override var preferredStatusBarStyle: UIStatusBarStyle { UIStatusBarStyle.lightContent }
+    override var prefersStatusBarHidden: Bool { viewModel.state == .hideControllers }
+    override var prefersHomeIndicatorAutoHidden: Bool { viewModel.state == .hideControllers }
     
     func noticeControllersHidden() {
         showHideAlart()
@@ -316,15 +303,16 @@ extension ViewController {
             present(alert, animated: true, completion: nil)
         }
     }
-}
 
-// MARK: - SettingsViewControllerDelegate
-extension ViewController: SettingsViewControllerDelegate {
+    // MARK: - Settings Delegate
     func settingsViewControllerDidFinish(_ settingsViewController: SettingsViewController) {
         updateLabels()
+        dismiss(animated: true)
+    }
+    
+    // MARK: - Edit Delegate
+    func editFavoriteViewControllerDidFinish() {
+        dismiss(animated: true)
     }
 }
 
-
-// MARK: - GADBannerViewDelegate
-extension ViewController: GADBannerViewDelegate {}

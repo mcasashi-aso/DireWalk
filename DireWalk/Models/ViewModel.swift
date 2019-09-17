@@ -73,7 +73,7 @@ final class ViewModel: NSObject {
         switch state {
         case .activity: return "Today's Activity"
         case .direction, .hideControllers, .map, .search:
-            return place.placeTitle ?? place.address ?? "Pin"
+            return place.title ?? place.address ?? "Pin"
         }
     }
     var aboutLabelText: String {
@@ -174,7 +174,7 @@ extension ViewModel: UISearchBarDelegate {
             guard let mapItems = result?.mapItems, error == nil else { return }
             let results = mapItems.map { item in
                 Place(coordinate: item.placemark.coordinate,
-                      placeTitle: item.name ?? item.placemark.title ?? item.placemark.address,
+                      title: item.name ?? item.placemark.title ?? item.placemark.address,
                       adress: item.placemark.address)
             }
             if !results.isEmpty {

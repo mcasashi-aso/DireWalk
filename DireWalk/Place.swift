@@ -10,29 +10,48 @@ import Foundation
 import CoreLocation
 import MapKit
 
-struct Place: Hashable, Equatable {
+struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomStringConvertible {
+    
+    // MARK: - Base
     var latitude: CLLocationDegrees
     var longitude: CLLocationDegrees
     
-    var placeTitle: String?
+    var title: String? {
+        didSet {
+            guard title != oldValue else { return }
+            var favorites = UserDefaults.standard.get(.favoritePlaces) ?? []
+            if let old = favorites.first(where: { $0.isSamePlace(to: self) }) {
+                favorites.remove(old)
+                favorites.insert(self)
+                UserDefaults.standard.set(favorites, forKey: .favoritePlaces)
+                NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
+            }
+        }
+    }
     var address: String?
     
+    // MARK: - Initializer
     init(latitude: CLLocationDegrees, longitude: CLLocationDegrees,
-         placeTitle: String?, adress: String?) {
+         title: String?, adress: String?) {
         self.latitude = latitude
         self.longitude = longitude
-        self.placeTitle = placeTitle
+        self.title = title
         self.address = adress
+        let favorites = UserDefaults.standard.get(.favoritePlaces) ?? []
+        if let favorite = favorites.first(where: { $0.isSamePlace(to: self) }) {
+            self.title = favorite.title
+        }
     }
     
     init(coordinate: CLLocationCoordinate2D,
-         placeTitle: String?, adress: String?) {
+         title: String?, adress: String?) {
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
-        self.placeTitle = placeTitle
+        self.title = title
         self.address = adress
     }
     
+    // MARK: - Favorite
     var isFavorite: Bool {
         get {
             guard let favorites = UserDefaults.standard.get(.favoritePlaces) else { return false }
@@ -54,6 +73,7 @@ struct Place: Hashable, Equatable {
         }
     }
     
+    // MARK: - Functions
     func isSamePlace(to place: Place) -> Bool {
         self.latitude == place.latitude &&
             self.longitude == place.longitude
@@ -70,10 +90,7 @@ struct Place: Hashable, Equatable {
         let loca = CLLocation(latitude: latitude, longitude: longitude)
         return loca.distance(from: location)
     }
-}
-
-extension Place: Codable, UserDefaultConvertible {}
-
-extension Place: CustomDebugStringConvertible {
-    var debugDescription: String { "\(placeTitle ?? "") - \(address ?? "")" }
+    
+    // MARK: - Other
+    var description: String { "\(title ?? "Title")  -\(address ?? "Address")" }
 }

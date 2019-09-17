@@ -54,8 +54,8 @@ final class Model: NSObject {
     static let shared = Model()
     private override init() {
         super.init()
-        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)), name: .didUpdateLocation, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateHeading, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)), name: .didUpdateUserLocation, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateUserHeading, object: nil)
     }
     
     let locationManager = CurrentLocationManager.shared
@@ -78,7 +78,7 @@ final class Model: NSObject {
         }
         wait({ title == nil && adr == nil }) {
             self.place = Place(coordinate: location.coordinate,
-                               placeTitle: title!, adress: adr!)
+                               title: title!, adress: adr!)
         }
     }
 

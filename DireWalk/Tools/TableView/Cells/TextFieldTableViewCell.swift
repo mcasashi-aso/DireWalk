@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextFieldTableViewCell: UITableViewCell, NibReusable {
+class TextFieldTableViewCell: UITableViewCell, NibReusable, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     var placeholderText: String?
     var didChange: ((String?) -> Void)!
@@ -24,23 +24,17 @@ class TextFieldTableViewCell: UITableViewCell, NibReusable {
         textField.text = initialValue
         self.didChange = didChange
     }
-}
 
-
-extension TextFieldTableViewCell: UITextFieldDelegate {
-    
+    // MARK: - TextViewDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // TODO: なんかすべきだったきが
-        if let f = didChange {
-            f(textField.text)
-        }
+        let nsString = NSString(string: textField.text ?? "")
+        let text = nsString.replacingCharacters(in: range, with: string) as String
+        didChange(text)
         return true
     }
-    
-    
 }

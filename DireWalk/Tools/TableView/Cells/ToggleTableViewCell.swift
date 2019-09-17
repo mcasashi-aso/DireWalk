@@ -11,7 +11,7 @@ import UIKit
 final class ToggleTableViewCell: UITableViewCell, NibReusable {
     @objc let toggleSwitch = UISwitch()
     
-    var didChange: ((Bool) -> Void)?
+    var didChange: ((Bool) -> Void)!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,8 +26,7 @@ final class ToggleTableViewCell: UITableViewCell, NibReusable {
     }
     
     @objc func didChangeValue(_ sender: UISwitch) {
-        guard let f = didChange else { return }
-        f(sender.isOn)
+        didChange(sender.isOn)
     }
 }
 

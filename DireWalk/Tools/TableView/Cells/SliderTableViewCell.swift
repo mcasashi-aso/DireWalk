@@ -11,7 +11,7 @@ import UIKit
 final class SliderTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var slider: TappableSlider!
-    var didChange: ((Float) -> Void)?
+    var didChange: ((Float) -> Void)!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,8 +29,7 @@ final class SliderTableViewCell: UITableViewCell, NibReusable {
     }
     
     @objc func changeValue(_ sender: TappableSlider) {
-        guard let f = didChange else { return }
-        f(sender.value)
+        didChange(sender.value)
     }
 }
 

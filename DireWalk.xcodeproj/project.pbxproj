@@ -28,6 +28,9 @@
 		BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */; };
 		BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE42319556C0037EF6B /* MyColor.swift */; };
 		BA59EBFA231976760037EF6B /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBF9231976760037EF6B /* Annotation.swift */; };
+		BA6210CC233115A1007D548F /* ZoomableMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6210CB233115A1007D548F /* ZoomableMapView.swift */; };
+		BA6210CE23312975007D548F /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6210CD23312975007D548F /* TitleTableViewCell.swift */; };
+		BA6210D023312A2F007D548F /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6210CF23312A2F007D548F /* TitleTableViewCell.xib */; };
 		BA8ED9122321817800A1232D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9112321817800A1232D /* Settings.swift */; };
 		BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9132322098300A1232D /* SearchCellModel.swift */; };
 		BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */; };
@@ -37,7 +40,7 @@
 		BABAD45A2330E07900976FFC /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD4592330E07900976FFC /* MapTableViewCell.xib */; };
 		BAC1FB932329EC4B00B5A866 /* CurrentLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */; };
 		BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */; };
-		BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */; };
+		BAC1FB99232C6EC600B5A866 /* SegmentedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB98232C6EC600B5A866 /* SegmentedTableViewCell.swift */; };
 		BAD5CA28231A664600499E17 /* TableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA27231A664600499E17 /* TableViewSection.swift */; };
 		BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */; };
 		BAD5CA2D231A730900499E17 /* UserDefaultConvertibles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */; };
@@ -135,6 +138,9 @@
 		BA59EBEF231972C40037EF6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		BA59EBF1231972C40037EF6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA59EBF9231976760037EF6B /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		BA6210CB233115A1007D548F /* ZoomableMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomableMapView.swift; sourceTree = "<group>"; };
+		BA6210CD23312975007D548F /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
+		BA6210CF23312A2F007D548F /* TitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
 		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
 		BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedTableViewCell.xib; sourceTree = "<group>"; };
@@ -144,7 +150,7 @@
 		BABAD4592330E07900976FFC /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationManager.swift; sourceTree = "<group>"; };
 		BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArrowSetting.storyboard; sourceTree = "<group>"; };
-		BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowImageStyleViewTableTableViewCell.swift; sourceTree = "<group>"; };
+		BAC1FB98232C6EC600B5A866 /* SegmentedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedTableViewCell.swift; sourceTree = "<group>"; };
 		BAD5CA27231A664600499E17 /* TableViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSection.swift; sourceTree = "<group>"; };
 		BAD5CA29231A68BD00499E17 /* SettingsTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewDataSource.swift; sourceTree = "<group>"; };
 		BAD5CA2C231A730900499E17 /* UserDefaultConvertibles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultConvertibles.swift; sourceTree = "<group>"; };
@@ -244,18 +250,22 @@
 		BA27452D232E883100E12451 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BA274524232E80E200E12451 /* ToggleTableViewCell.xib */,
-				BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */,
-				BA274526232E812800E12451 /* TextTableViewCell.xib */,
-				BA27452B232E880C00E12451 /* TextTableViewCell.swift */,
-				BA27452E232E890300E12451 /* TappableTableViewCell.xib */,
-				BA274530232E891F00E12451 /* TappableTableViewCell.swift */,
 				BA274534232E89AB00E12451 /* DetailTableViewCell.xib */,
 				BA274532232E897A00E12451 /* DetailTableViewCell.swift */,
+				BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */,
+				BAC1FB98232C6EC600B5A866 /* SegmentedTableViewCell.swift */,
 				BA274536232E987100E12451 /* SliderTableViewCell.xib */,
 				E69F09AE2249094200B77F6E /* SliderTableViewCell.swift */,
+				BA27452E232E890300E12451 /* TappableTableViewCell.xib */,
+				BA274530232E891F00E12451 /* TappableTableViewCell.swift */,
+				BA274526232E812800E12451 /* TextTableViewCell.xib */,
+				BA27452B232E880C00E12451 /* TextTableViewCell.swift */,
 				BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */,
 				BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */,
+				BA6210CF23312A2F007D548F /* TitleTableViewCell.xib */,
+				BA6210CD23312975007D548F /* TitleTableViewCell.swift */,
+				BA274524232E80E200E12451 /* ToggleTableViewCell.xib */,
+				BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -286,8 +296,6 @@
 			children = (
 				BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */,
 				E69F09AC2248E6B600B77F6E /* ArrowSettingsViewController.swift */,
-				BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */,
-				BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */,
 			);
 			path = ArrowColor;
 			sourceTree = "<group>";
@@ -305,8 +313,8 @@
 		BAF2293B23181B1200D75930 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
 				BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */,
+				BAF2293C23181B3400D75930 /* NotificationNames.swift */,
 				BA59EBE42319556C0037EF6B /* MyColor.swift */,
 				E67C3A2022291FED00551AC6 /* Tools.swift */,
 				BAD5CA2B231A72F200499E17 /* UserDefaults */,
@@ -374,6 +382,7 @@
 			children = (
 				E67C3A0622261C3800551AC6 /* Map.storyboard */,
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
+				BA6210CB233115A1007D548F /* ZoomableMapView.swift */,
 				BA59EBF9231976760037EF6B /* Annotation.swift */,
 				BAF6B89E2322107600A98E88 /* SearchTableViewCell */,
 			);
@@ -597,6 +606,7 @@
 				BABAD45A2330E07900976FFC /* MapTableViewCell.xib in Resources */,
 				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
 				BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */,
+				BA6210D023312A2F007D548F /* TitleTableViewCell.xib in Resources */,
 				BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */,
 				E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */,
 				BABAD452232F87F500976FFC /* TextFieldTableViewCell.xib in Resources */,
@@ -760,11 +770,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA6210CE23312975007D548F /* TitleTableViewCell.swift in Sources */,
 				BA8ED9122321817800A1232D /* Settings.swift in Sources */,
 				E67C3A11222643B200551AC6 /* ActivityCollectionViewCell.swift in Sources */,
 				BA4274672312B3CC00CD3796 /* Model.swift in Sources */,
 				E69F09AF2249094200B77F6E /* SliderTableViewCell.swift in Sources */,
-				BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */,
+				BAC1FB99232C6EC600B5A866 /* SegmentedTableViewCell.swift in Sources */,
 				BA59EBE52319556C0037EF6B /* MyColor.swift in Sources */,
 				BAF2293A2316A00400D75930 /* UserDefaultsExtension.swift in Sources */,
 				BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */,
@@ -777,6 +788,7 @@
 				E6A809802235B9900086E146 /* TableViewExtensions.swift in Sources */,
 				BAF229362314DD7700D75930 /* Place.swift in Sources */,
 				BA26E8F62320D9CF00A18652 /* SearchTableViewCell.swift in Sources */,
+				BA6210CC233115A1007D548F /* ZoomableMapView.swift in Sources */,
 				BAD5CA2A231A68BD00499E17 /* SettingsTableViewDataSource.swift in Sources */,
 				BA59EBFA231976760037EF6B /* Annotation.swift in Sources */,
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,

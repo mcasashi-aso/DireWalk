@@ -21,6 +21,7 @@ final class SegmentedTableViewCell: UITableViewCell, NibReusable {
     func setup(title: String, array: [String], initialValue: String,
                didChange: @escaping (Int) -> Void) {
         titleLabel.text = title
+        segmentedControl.removeAllSegments()
         for (index, value) in array.enumerated() {
             segmentedControl.insertSegment(withTitle: value, at: index, animated: false)
             if value == initialValue {
