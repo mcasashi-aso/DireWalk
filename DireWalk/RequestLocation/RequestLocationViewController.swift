@@ -26,7 +26,7 @@ final class RequestLocationViewController: UIViewController, CLLocationManagerDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        toSettingsButton.setTitle("toSettings".localized, for: .normal)
+        toSettingsButton.setTitle("openSettings".localized, for: .normal)
         stringsTextView.text = "reauestLocation".localized
         titleLabel.text = "pleaseAllowLocation".localized
         

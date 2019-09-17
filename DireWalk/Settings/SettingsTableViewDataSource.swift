@@ -19,7 +19,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     var sections: [TableViewSection<SettingsTableViewCellType>] = [
         TableViewSection(cells: [.about]),
         TableViewSection(cells: [.arrowColor, .showFar],
-                         footer: "captionDoNotShowFar".localized),
+                         footer: "doNotShowFarCaption".localized),
 //        TableViewSection(cells: [.darkMode],
 //                         footer: "captionAlwaysDarkMode".localizedYet),
         TableViewSection(cells: [.review, .share],
@@ -27,7 +27,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
 //        TableViewSection(cells: [.purchase, .restore],
 //                         header: "adAndPurchase".localizedYet),
         TableViewSection(cells: [.version, .createdBy],
-                         header: "about".localized)
+                         header: "aboutSection".localized)
     ]
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,19 +54,19 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         // MARK: arrow color
         case .arrowColor:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ToSelectColorCell", for: indexPath)
-            cell.textLabel?.text = "arrowColor".localized
+            cell.textLabel?.text = "arrow".localized
             return cell
         // MARK: show far
         case .showFar:
             let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "doNotAlwaysShowFar".localized,
+            cell.setup(title: "doNotAlwaysShowFar".localizedYet,
                        initialValue: !settings.showFar,
                        didChange: { (isOn) in self.settings.showFar = !isOn })
             return cell
         // MARK: dark mode
         case .darkMode:
             let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "alwaysDarkMode".localized,
+            cell.setup(title: "alwaysDarkMode".localizedYet,
                        initialValue: settings.isAlwaysDarkAppearance,
                        didChange: { (isOn) in self.settings.isAlwaysDarkAppearance = isOn})
             return cell
@@ -95,12 +95,12 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         // MARK: purchase
         case .purchase:
             let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.textLabel?.text = "Remove Ad".localizedYet
+            cell.textLabel?.text = "removeAd".localized
             return cell
         // MARK: restore
         case .restore:
             let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.textLabel?.text = "Restore Purchase".localizedYet
+            cell.textLabel?.text = "restorePurchase".localized
             return cell
         }
     }

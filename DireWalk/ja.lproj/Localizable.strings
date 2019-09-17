@@ -10,27 +10,38 @@
 "DireWalk" = "DireWalk";
 "done" = "完了";
 "cancel" = "キャンセル";
+"delete" = "削除";
 "error" = "エラー";
 "search" = "検索";
 "settings" = "設定";
 "share" = "共有";
 "about" = "About";
+"discardChanges" = "変更を破棄";
+"arrow" = "矢印";
 
 // MARK: - View Controller
 "destination" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
 
+"arrowOnlyMode" = "矢印だけモード";
+"arrowOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックが\nオフになります.\nOLED搭載端末では\n消費電力が抑えられます.";
+
 // MARK: - Direction VC
 "swipe" = "スワイプして選択";
 
-"directionOnlyMode" = "方向のみモード";
-"directionOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックが\nオフになります.\nOLED搭載端末では\n消費電力が抑えられます.";
 
 // MARK: - Map VC
 
 // MARK: - Search
 "enterDestination" = "目的地を入力";
+
+// MARK: - Edit Favorite VC
+"editName" = "名前を編集";
+
+"placeName" = "名前";
+"address" = "住所";
+"removeFromFavorite" = "お気に入りから削除";
 
 // MARK: - Activity VC
 "steps" = "歩数";
@@ -50,6 +61,9 @@
 // MARK: - Settings VC
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
 
+"doNotAlwaysShowFar" = "距離を表示しない";
+"doNotShowFarCaption" = "目的地の30m圏内に入ると自動的に再表示します";
+
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";
 "shareString" = "DireWalkを使って楽しく歩こう！";
@@ -61,10 +75,10 @@
 "createdby" = "作成者";
 
 // MARK: - Arrow Settings VC
-"arrowColor" = "矢印の色";
 "preview" = "プレビュー";
-"doNotAlwaysShowFar" = "距離を表示しない";
-"captionDoNotShowFar" = "目的地の30m圏内に入ると自動的に再表示します";
+"arrowStyle" = "矢印の形";
+"arrowColor" = "矢印の色";
+"arrowCaption" = "矢印の形と色を選択することができます.\nまた、ホームで長押しすると\"矢印だけモード\"をオンにできます. このモードでは矢印以外の情報が全て消えます.";
 
 // MARK: - RequestVC
 "pleaseAllowLocation" = "位置情報の利用を許可してください";

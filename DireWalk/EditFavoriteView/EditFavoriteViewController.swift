@@ -31,9 +31,9 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
     
     var sections: [TableViewSection<EditFavoriteTableViewCellType>] = [
         TableViewSection(cells: [.name],
-                         header: "name".localizedYet),
+                         header: "placeName".localized),
         TableViewSection(cells: [.address, .map],
-                         header: "address".localizedYet),
+                         header: "address".localized),
         TableViewSection(cells: [.delete])
     ]
     
@@ -71,7 +71,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "editName".localizedYet
+        navigationItem.title = "editName".localized
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +98,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
             let doneAction = UIAlertAction(title: "done".localized, style: .default) { _ in
                 self.save()
             }
-            let discardAction = UIAlertAction(title: "discardChanges".localizedYet, style: .destructive) { _ in
+            let discardAction = UIAlertAction(title: "discardChanges".localized, style: .destructive) { _ in
                 self.delegate?.editFavoriteViewControllerDidFinish()
             }
             let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel)
@@ -163,7 +163,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
             return cell
         case .delete:
             let cell: TappableTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.textLabel?.text = "removeFromFavorite".localizedYet
+            cell.textLabel?.text = "removeFromFavorite".localized
             cell.textLabel?.textColor = .systemRed
             cell.textLabel?.textAlignment = .center
             return cell
@@ -184,7 +184,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
         switch type {
         case .delete:
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let deleteAction = UIAlertAction(title: "Delete".localizedYet, style: .destructive) { _ in
+            let deleteAction = UIAlertAction(title: "Delete".localized, style: .destructive) { _ in
                 self.original.isFavorite.toggle()
                 self.delegate?.editFavoriteViewControllerDidFinish()
             }

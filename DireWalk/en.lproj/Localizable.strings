@@ -10,27 +10,37 @@
 "DireWalk" = "DireWalk";
 "done" = "Done";
 "cancel" = "Cancel";
+"delete" = "Delete";
 "error" = "Error";
 "search" = "Search";
 "settings" = "Settings";
 "share" = "Share";
 "about" = "About";
+"discardChanges" = "Discard Changes";
+"arrow" = "Arrow";
 
 // MARK: - View Controller
 "destination:" = "Destination:";
 "selectDestination" = "Select Destination";
 "longPressToSelect" = "Press the Map to Select";
-"swipeAndSelect" = "Swipe and Select";
 
-"directionOnlyMode" = "Direction Only Mode";
-"directionOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.\nBut, power consumption is rediced with iPhone using OLED";
+"arrowOnlyMode" = "Arrow Only Mode";
+"arrowOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.\nBut, power consumption is rediced with iPhone using OLED";
 
 // MARK: - Direction VC
+"swipeAndSelect" = "Swipe and Select";
 
 // MARK: - Map VC
 
 // MARK: - Search
 "enterDestination" = "Enter Destination";
+
+// MARK: - Edit Favoite VC
+"editName" = "Edit Place Name";
+
+"placeName" = "Place Name";
+"address" = "Address";
+"removeFromFavorite" = "Remove From Favorite";
 
 // MARK: - Activity VC
 "steps" = "Steps";
@@ -50,21 +60,25 @@
 // MARK: - Settings VC
 "aboutStrings" = "DireWalk is an application for people who want to walk freely.\nIf you would want to go somewhere, you might use maps. But it’s boring because the way is limited.\nIf you would use DireWalk, you can enjoy walking and reach a destination.";
 
+"doNotAlwaysShowFar" = "Don't always show distance";
+"doNotShowFarCaption" = "This mode show distance automatic when you go into 30m near destination";
+
 "reviewSection" = "Review & Share";
 "review" = "Review on App Store";
 "shareString" = "Let's use DireWalk and enjoy walking!";
 
 "removeAd" = "Remove Ad"
-"restore" = "Restore";
+"restorePurchase" = "Restore Purchase";
 
+"aboutSection" = "About DireWalk"
 "version" = "version";
 "createdby" = "created by";
 
 // MARK: - Arrow Settings VC
 "preview" = "Preview";
+"arrowStyle" = "Arrow Image Style"
 "arrowColor" = "Arrow Color";
-"doNotAlwaysShowFar" = "Don't always show distance";
-"captionDoNotShowFar" = "This mode show distance automatic when you go into 30m near destination";
+"arrowCaption" = "You can choose arrow image style and color now.\nYou long press on Home, then turns on \"Direction Only Mode\". This mode hides Controllers.";
 
 // MARK: - Request VC
 "pleaseAllowLocation" = "Please Allow the Use of Location";

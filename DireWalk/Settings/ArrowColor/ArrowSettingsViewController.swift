@@ -16,8 +16,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
     
     // MARK: - Model
     var sections: [TableViewSection<ArrowTableViewCellType>] = [
-        TableViewSection(cells: [.imageStyle, .color],
-                         footer: "about color".localizedYet),
+        TableViewSection(cells: [.imageStyle, .color]),
         TableViewSection(cells: [.aboutOnly],
                          header: "about".localized)
     ]
@@ -53,7 +52,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "arrowColor".localized
+        self.navigationItem.title = "arrow".localized
     }
     
     func updatePreview() {
@@ -94,14 +93,14 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
                 self.settings.arrowImage = array[index]
                 self.updatePreview()
             }
-            cell.setup(title: "arrowStyle".localizedYet,
+            cell.setup(title: "arrowStyle".localized,
                        array: Settings.ArrowImage.allCases.map({$0.rawValue}),
                        initialValue: settings.arrowImage.rawValue,
                        didChange: didChange)
             return cell
         case .color:
             let cell: SliderTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "color".localizedYet, initialValue: Float(settings.arrowColor)) { value in
+            cell.setup(title: "arrowColor".localized, initialValue: Float(settings.arrowColor)) { value in
                 self.settings.arrowColor = CGFloat(value)
                 self.updatePreview()
             }
@@ -110,7 +109,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
             return cell
         case .aboutOnly:
             let cell: TextTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.textView.text = "arrowAbout".localizedYet
+            cell.textView.text = "arrowCaption".localizedYet
             return cell
         }
     }

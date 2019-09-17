@@ -286,8 +286,8 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     func showHideAlart() {
         userDefaults.register(defaults: ["hideAlert" : true])
         if userDefaults.bool(forKey: "hideAlert") {
-            let alert = UIAlertController(title: "directionOnlyMode".localized,
-                                          message: "directionOnlyModeCaption".localized,
+            let alert = UIAlertController(title: "arrowOnlyMode".localized,
+                                          message: "arrowOnlyModeCaption".localized,
                                           preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             alert.addAction(okAction)
