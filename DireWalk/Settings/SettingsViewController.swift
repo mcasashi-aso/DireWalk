@@ -10,10 +10,11 @@ import UIKit
 import Accounts
 
 protocol SettingsViewControllerDelegate: class {
-    func settingsViewControllerDidFinish(_ settingsViewController: SettingsViewController)
+    func settingsViewController(didFinish settingsViewController: SettingsViewController)
+    func settingsViewController(didChange settingsViewController: SettingsViewController)
 }
 
-final class SettingsViewController: UIViewController, UITableViewDelegate, UIAdaptivePresentationControllerDelegate {
+final class SettingsViewController: UIViewController, UITableViewDelegate, ArrowSettingViewControllerDelegate {
     
     // MARK: - Models
     private let settings = Settings.shared
@@ -23,7 +24,11 @@ final class SettingsViewController: UIViewController, UITableViewDelegate, UIAda
     weak var delegate: SettingsViewControllerDelegate?
     
     func sendDidFinish() {
-        delegate?.settingsViewControllerDidFinish(self)
+        delegate?.settingsViewController(didFinish: self)
+    }
+    
+    func sendDidChange() {
+        delegate?.settingsViewController(didChange: self)
     }
     
     // MARK: - Views
@@ -41,6 +46,16 @@ final class SettingsViewController: UIViewController, UITableViewDelegate, UIAda
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "settings".localized
+    }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "toArrow":
+            let vc = segue.destination as! ArrowSettingViewController
+            vc.delegate = self
+        default: break
+        }
     }
     
     // MARK: - TableViewDelegate
@@ -70,7 +85,8 @@ final class SettingsViewController: UIViewController, UITableViewDelegate, UIAda
         sendDidFinish()
     }
     
-    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        sendDidFinish()
+    // MARK: - Arrow Settings Delegate
+    func arrowSettingViewController(didChange arrowSettingViewController: ArrowSettingViewController) {
+        sendDidChange()
     }
 }

@@ -143,6 +143,7 @@
 		BA6210CF23312A2F007D548F /* TitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
 		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
+		BAAD978223315DFD003D30BE /* TableViewCells.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TableViewCells.md; sourceTree = "<group>"; };
 		BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
@@ -240,6 +241,7 @@
 		BA274528232E87B900E12451 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				BAAD978223315DFD003D30BE /* TableViewCells.md */,
 				BAD5CA27231A664600499E17 /* TableViewSection.swift */,
 				E6A8097F2235B9900086E146 /* TableViewExtensions.swift */,
 				BA27452D232E883100E12451 /* Cells */,

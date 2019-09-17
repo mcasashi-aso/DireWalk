@@ -13,10 +13,9 @@ import MapKit
 protocol ViewModelDelegate: class {
     func addHeadingView(to annotationView: MKAnnotationView)
     
-    func updateLabels()
+    func updateViews()
     func didChangePlace()
     func didChangeState()
-    func didChangeRotation()
     
     func didChangeSearchTableViewElements()
     func searchedTableViewCellSelected()
@@ -80,14 +79,14 @@ final class ViewModel: NSObject {
         if model.place == nil { return " " }
         switch state {
         case .activity, .hideControllers: return " "
-        case .direction, .map: return "destination".localized
+        case .direction, .map: return "destination:".localized
         case .search: return "search".localized
         }
     }
     var farLabelText: NSMutableAttributedString {
         guard model.place != nil else {
             return NSMutableAttributedString(attributedString:
-                .get("swipe".localized, attributes: .white40))
+                .get("swipeAndSelect".localized, attributes: .white40))
         }
         
         if state == .hideControllers { return NSMutableAttributedString() }
@@ -157,7 +156,7 @@ extension ViewModel: UIPageViewControllerDelegate {
         case is ActivityViewController:  state = .activity
         default: return
         }
-        delegate?.updateLabels()
+        delegate?.updateViews()
     }
 }
 
@@ -340,18 +339,18 @@ extension ViewModel: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        let containUserLocation = views.contains { $0 is MKUserLocation }
+        let containUserLocation = views.contains { $0.annotation is MKUserLocation }
         if containUserLocation {
             delegate?.addHeadingView(to: views.last!)
         }
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        delegate?.didChangeRotation()
+        delegate?.updateViews()
     }
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        delegate?.didChangeRotation()
+        delegate?.updateViews()
     }
 }
 
@@ -359,16 +358,14 @@ extension ViewModel: MKMapViewDelegate {
 // MARK: - ModelDelegate
 extension ViewModel: ModelDelegate {   
     func didChangePlace() {
-        delegate?.didChangeRotation()
-        delegate?.updateLabels()
         delegate?.didChangePlace()
     }
     
     func didChangeFar() {
-        delegate?.updateLabels()
+        delegate?.updateViews()
     }
     
     func didChangeHeading() {
-        delegate?.didChangeRotation()
+        delegate?.updateViews()
     }
 }

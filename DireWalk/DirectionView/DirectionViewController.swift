@@ -19,7 +19,7 @@ final class DirectionViewController: UIViewController {
     // MARK: - Models
     private let userDefaults = UserDefaults.standard
     private let viewModel = ViewModel.shared
-    private let model = Model.shared
+    private let settings = Settings.shared
     
     private var isHidable = true {
         didSet {
@@ -47,22 +47,18 @@ final class DirectionViewController: UIViewController {
     // MARK: - View's Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        let image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
-        headingImageView.image = image
         distanceLabel.adjustsFontSizeToFitWidth = true
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupDirectionImage()
         updateFarLabel()
         updateHeadingImage()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        let whiteValue = viewModel.settings.arrowColor
-        if #available(iOS 13, *) {
-            headingImageView.image?.withTintColor(UIColor(white: whiteValue, alpha: 1),
-                                                  renderingMode: .alwaysTemplate)
-        }
-        headingImageView.tintColor = UIColor(white: whiteValue, alpha: 1)
-        updateFarLabel()
+    func setupDirectionImage() {
+        headingImageView.image = settings.arrowImage.image.withRenderingMode(.alwaysTemplate)
+        headingImageView.tintColor = UIColor(white: settings.arrowColor, alpha: 1)
     }
     
     // MARK: - Gestures

@@ -6,18 +6,33 @@
   Copyright © 2019 麻生昌志. All rights reserved.
 */
 
+// MARK: - Most Words
+"DireWalk" = "DireWalk";
+"done" = "完了";
+"cancel" = "キャンセル";
+"error" = "エラー";
 "search" = "検索";
-"enterDestination" = "目的地を入力";
+"settings" = "設定";
+"share" = "共有";
+"about" = "About";
 
+// MARK: - View Controller
 "destination" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
+
+// MARK: - Direction VC
 "swipe" = "スワイプして選択";
 
 "directionOnlyMode" = "方向のみモード";
 "directionOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックが\nオフになります.\nOLED搭載端末では\n消費電力が抑えられます.";
 
-"DireWalk" = "DireWalk";
+// MARK: - Map VC
+
+// MARK: - Search
+"enterDestination" = "目的地を入力";
+
+// MARK: - Activity VC
 "steps" = "歩数";
 "flightsClimbed" = "上った階数";
 "walkingDistance" = "歩いた距離";
@@ -30,31 +45,31 @@
 "flightsClimbedUnit" = "階";
 "flightsClimbedUnits" = "階";
 
-"error" = "エラー";
 "pleaseAllow" = "許可してください";
 
-"settings" = "設定";
+// MARK: - Settings VC
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
-
-"arrowColor" = "矢印の色";
-"preview" = "プレビュー";
-"whiteColorAbout" = "白色は\nこのアプリの\n背景が\n黒いので\n見えやすい";
-"blackColorAbout" = "黒色は\niPhone X / Xs\n/ Xs Maxで\n電力消費が\n抑えられる";
-"doNotAlwaysShowFar" = "距離を表示しない";
-"captionDoNotShowFar" = "目的地の30m圏内に入ると自動的に再表示します";
 
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";
-"share" = "共有";
 "shareString" = "DireWalkを使って楽しく歩こう！";
 
-"about" = "このアプリについて";
+"removeAd" = "広告を消す";
+"restore" = "購入したものを復元する";
+
 "version" = "バージョン";
 "createdby" = "作成者";
 
+// MARK: - Arrow Settings VC
+"arrowColor" = "矢印の色";
+"preview" = "プレビュー";
+"doNotAlwaysShowFar" = "距離を表示しない";
+"captionDoNotShowFar" = "目的地の30m圏内に入ると自動的に再表示します";
+
+// MARK: - RequestVC
 "pleaseAllowLocation" = "位置情報の利用を許可してください";
 "reauestLocation" = "このアプリを使うには位置情報が必要です。目的地への方向と距離を計算するのに使用します";
-"toSettings" = "設定を開く";
+"openSettings" = "設定を開く";
 "aboutThisApp" = "このアプリの使い方";
 "select" = "まずマップで目的地を選択してください";
 "swipeFromLeftEdge" = "すると画面の左端からスワイプするだけで\nもう目的地への方向は表示されています";
@@ -64,5 +79,3 @@
 "next" = "次へ";
 "back" = "戻る";
 "navigation" = "スワイプ→";
-
-"restore" = "元に戻す";

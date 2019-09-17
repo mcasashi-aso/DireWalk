@@ -8,7 +8,11 @@
 
 import UIKit
 
-final class ArrowSettingViewController: UIViewController {
+protocol ArrowSettingViewControllerDelegate: class {
+    func arrowSettingViewController(didChange arrowSettingViewController: ArrowSettingViewController)
+}
+
+final class ArrowSettingViewController: UIViewController, UITableViewDataSource {
     
     // MARK: - Model
     var sections: [TableViewSection<ArrowTableViewCellType>] = [
@@ -20,6 +24,13 @@ final class ArrowSettingViewController: UIViewController {
     
     private let settings = Settings.shared
     
+    // MARK: - Delegate
+    weak var delegate: ArrowSettingViewControllerDelegate?
+    
+    func didChange() {
+        delegate?.arrowSettingViewController(didChange: self)
+    }
+    
     // MARK: - Views
     @IBOutlet weak var arrowImageView: UIImageView! {
         didSet {
@@ -29,9 +40,7 @@ final class ArrowSettingViewController: UIViewController {
         }
     }
     @IBOutlet weak var previewLabel: UILabel! {
-        didSet {
-            previewLabel.text = "preview".localized
-        }
+        didSet { previewLabel.text = "preview".localized }
     }
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -53,16 +62,14 @@ final class ArrowSettingViewController: UIViewController {
         
         arrowImageView.image = image.withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
+        
+        didChange()
     }
-}
 
-
-// MARK: - TableViewDataSource
-enum ArrowTableViewCellType: TableViewCellType {
-    case imageStyle, color, aboutOnly
-}
-
-extension ArrowSettingViewController: UITableViewDataSource {
+    // MARK: - TableViewDataSource
+    enum ArrowTableViewCellType: TableViewCellType {
+        case imageStyle, color, aboutOnly
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         sections.count

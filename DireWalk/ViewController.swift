@@ -28,27 +28,27 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         let directionVC = getVC(DirectionViewController.self) ?? DirectionViewController.create()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
-        updateLabels()
+        updateViews()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
         let activityVC = getVC(ActivityViewController.self) ?? ActivityViewController.create()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
-        updateLabels()
+        updateViews()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map { return }
         let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
-        updateLabels()
+        updateViews()
     }
     @IBAction func tapDestinationLabel() {
         if model.place == nil || viewModel.presentView == .direction {
             tapMap()
         }else { tapDirection() }
-        updateLabels()
+        updateViews()
     }
     
     // MARK: - Views
@@ -127,7 +127,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         activityButton.imageEdgeInsets.right = imageInsets
         mapButton.imageEdgeInsets.left = imageInsets
         
-        updateLabels()
+        updateViews()
         
         viewModel.delegate = self
         
@@ -152,7 +152,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         case "settings":
             let navigationController = segue.destination as! UINavigationController
             let settingsVC = navigationController.topViewController as! SettingsViewController
-            navigationController.presentationController?.delegate = settingsVC
             settingsVC.delegate = self
         default: break
         }
@@ -200,22 +199,15 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     }
     
     func didChangePlace() {
-        updateLabels()
+        updateViews()
         getVC(MapViewController.self)?.addMarker(new: true)
     }
     
-    func didChangeRotation() {
-        getVC(DirectionViewController.self)?.updateHeadingImage()
-        getVC(MapViewController.self)?.updateHeadingImageView()
-        let affineTransform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
-        directionButton.transform = affineTransform
-    }
-    
-    func updateLabels() {
+    func updateViews() {
         getVC(DirectionViewController.self)?.updateFarLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
-        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
-        aboutLabel.text = viewModel.aboutLabelText
+        getVC(MapViewController.self)?.updateHeadingImageView()
+        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
     }
     
     func didChangeSearchTableViewElements() {
@@ -305,8 +297,12 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     }
 
     // MARK: - Settings Delegate
-    func settingsViewControllerDidFinish(_ settingsViewController: SettingsViewController) {
-        updateLabels()
+    func settingsViewController(didChange settingsViewController: SettingsViewController) {
+        getVC(DirectionViewController.self)?.setupDirectionImage()
+    }
+    
+    func settingsViewController(didFinish settingsViewController: SettingsViewController) {
+        getVC(DirectionViewController.self)?.setupDirectionImage()
         dismiss(animated: true)
     }
     

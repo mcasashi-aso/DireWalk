@@ -40,7 +40,12 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
     // MARK: - Model
     var original: Place!
     var editingText: String? {
-        didSet { doneButton.isEnabled = doneble }
+        didSet {
+            doneButton.isEnabled = doneble
+            if #available(iOS 13, *) {
+                isModalInPresentation = doneble
+            }
+        }
     }
     var hasChanges: Bool { original.title != editingText }
     var doneble: Bool {
@@ -69,7 +74,13 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
         navigationItem.title = "editName".localizedYet
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let cell = tableView.visibleCells.first(where: { $0 is TextFieldTableViewCell }) {
+            let nameCell = cell as! TextFieldTableViewCell
+            nameCell.textField.becomeFirstResponder()
+        }
+    }
     
     // MARK: - Events
     @IBAction func cancel() {
