@@ -72,7 +72,7 @@
                     <size key="freeformSize" width="375" height="812"/>
                     <connections>
                         <outlet property="longPressGestureRecognizer" destination="ApB-fL-tl2" id="3Kw-rL-HTb"/>
-                        <outlet property="mapView" destination="zcU-6M-rKE" id="rEl-sh-Nex"/>
+                        <outlet property="mapView" destination="zcU-6M-rKE" id="76U-rn-TKH"/>
                         <outlet property="searchBar" destination="bcb-D8-iwz" id="8td-TY-8lW"/>
                         <outlet property="searchBarBackgroundView" destination="PlO-qs-Kch" id="NJ6-qw-bMw"/>
                         <outlet property="tableView" destination="18l-0H-CJt" id="ENX-Zp-Gur"/>

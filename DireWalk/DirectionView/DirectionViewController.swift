@@ -16,6 +16,7 @@ final class DirectionViewController: UIViewController {
         return sb.instantiateInitialViewController() as! DirectionViewController
     }
     
+    // MARK: - Models
     private let userDefaults = UserDefaults.standard
     private let viewModel = ViewModel.shared
     private let model = Model.shared
@@ -30,6 +31,7 @@ final class DirectionViewController: UIViewController {
         }
     }
     
+    // MARK: - Views
     @IBOutlet weak var headingImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
     
@@ -42,6 +44,7 @@ final class DirectionViewController: UIViewController {
         headingImageView.transform = affineTransform
     }
 
+    // MARK: - View's Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         let image = UIImage(named: "Direction")!.withRenderingMode(.alwaysTemplate)
@@ -62,6 +65,7 @@ final class DirectionViewController: UIViewController {
         updateFarLabel()
     }
     
+    // MARK: - Gestures
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let percent = touch.force / touch.maximumPossibleForce

@@ -10,28 +10,41 @@ import UIKit
 
 final class ArrowSettingViewController: UIViewController {
     
+    // MARK: - Model
     var sections: [TableViewSection<ArrowTableViewCellType>] = [
         TableViewSection(cells: [.imageStyle, .color],
-                         footer: "about color".localized),
+                         footer: "about color".localizedYet),
         TableViewSection(cells: [.aboutOnly],
                          header: "about".localized)
     ]
     
-    @IBOutlet weak var arrowImageView: UIImageView!
-    @IBOutlet weak var previewLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    
     private let settings = Settings.shared
+    
+    // MARK: - Views
+    @IBOutlet weak var arrowImageView: UIImageView! {
+        didSet {
+            let transform = CGAffineTransform(rotationAngle: 45 * .pi / 180)
+            arrowImageView.transform = transform
+            updatePreview()
+        }
+    }
+    @IBOutlet weak var previewLabel: UILabel! {
+        didSet {
+            previewLabel.text = "preview".localized
+        }
+    }
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.register(SegmentedTableViewCell.self)
+            tableView.register(SliderTableViewCell.self)
+            tableView.register(TextTableViewCell.self)
+            tableView.dataSource = self
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        arrowImageView.transform = CGAffineTransform(rotationAngle: (45 * CGFloat.pi / 180))
-        
         self.navigationItem.title = "arrowColor".localized
-        previewLabel.text = "preview".localized
-        
-        tableView.dataSource = self
     }
     
     func updatePreview() {
@@ -44,6 +57,7 @@ final class ArrowSettingViewController: UIViewController {
 }
 
 
+// MARK: - TableViewDataSource
 enum ArrowTableViewCellType: TableViewCellType {
     case imageStyle, color, aboutOnly
 }
@@ -67,8 +81,16 @@ extension ArrowSettingViewController: UITableViewDataSource {
         let type = sections[indexPath.section].cells[indexPath.row]
         switch type {
         case .imageStyle:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "imageStyle", for: indexPath) as! ArrowImageStyleTableViewCell
-            cell.delegate = self
+            let cell: SegmentedTableViewCell = tableView.getCell(indexPath: indexPath)
+            let didChange = { (index: Int) -> Void in
+                let array = Settings.ArrowImage.allCases.map({$0})
+                self.settings.arrowImage = array[index]
+                self.updatePreview()
+            }
+            cell.setup(title: "arrowStyle".localizedYet,
+                       array: Settings.ArrowImage.allCases.map({$0.rawValue}),
+                       initialValue: settings.arrowImage.rawValue,
+                       didChange: didChange)
             return cell
         case .color:
             let cell: SliderTableViewCell = tableView.getCell(indexPath: indexPath)
@@ -76,19 +98,13 @@ extension ArrowSettingViewController: UITableViewDataSource {
                 self.settings.arrowColor = CGFloat(value)
                 self.updatePreview()
             }
+            cell.slider.minimumTrackTintColor = .white
+            cell.slider.maximumTrackTintColor = .black
             return cell
         case .aboutOnly:
             let cell: TextTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.textView.text = "arrowAbout".localizedYet
             return cell
         }
-    }
-}
-
-
-extension ArrowSettingViewController: ArrowImageStyleTableViewCellDelegate {
-    func didChangeArrowImageStyle(_ style: Settings.ArrowImage) {
-        settings.arrowImage = style
-        updatePreview()
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ToggleTableViewCell: UITableViewCell, Nibable {
+final class ToggleTableViewCell: UITableViewCell, NibReusable {
     @objc let toggleSwitch = UISwitch()
     
     var didChange: ((Bool) -> Void)?

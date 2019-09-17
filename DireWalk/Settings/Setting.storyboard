@@ -37,7 +37,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="fRa-8y-HTR" kind="showDetail" id="xXY-XC-uXx"/>
+                                            <segue destination="fRa-8y-HTR" kind="show" id="xXY-XC-uXx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -75,7 +75,9 @@
         <!--ArrowSetting-->
         <scene sceneID="Ptm-18-35U">
             <objects>
-                <viewControllerPlaceholder storyboardName="ArrowSetting" id="fRa-8y-HTR" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ArrowSetting" id="fRa-8y-HTR" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="BbM-xk-PoF"/>
+                </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dnw-Tf-cw3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1356" y="143"/>

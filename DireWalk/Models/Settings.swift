@@ -13,31 +13,24 @@ final class Settings {
     static let shared = Settings()
     private init() {}
     
-    public enum ArrowImage: String, CaseIterable, Codable, UserDefaultConvertible {
+    public enum ArrowImage: String, Codable, CaseIterable, UserDefaultConvertible {
         case fillLocation, location
         
-        var name: String {
+        var image: UIImage {
             switch self {
             case .fillLocation:
                 if #available(iOS 13, *) {
-                    return "location.north.fill"
+                    return UIImage(systemName: "location.north.fill")!
                 }else {
-                    return "Direction"
+                    return UIImage(named: "Direction")!
                 }
             case .location:
                 if #available(iOS 13, *) {
-                    return "location.north"
+                    let config = UIImage.SymbolConfiguration(weight: .light)
+                    return UIImage(systemName: "location.north", withConfiguration: config)!
                 }else {
-                    return "Direction"
+                    return UIImage(named: "Direction")!
                 }
-            }
-        }
-        
-        var image: UIImage {
-            if #available(iOS 13, *) {
-                return UIImage(systemName: name)!
-            }else {
-                return UIImage(named: name)!
             }
         }
     }

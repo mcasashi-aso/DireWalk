@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class TappableTableViewCell: UITableViewCell, Nibable {
+final class TappableTableViewCell: UITableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class DetailTableViewCell: UITableViewCell, Nibable {
+final class DetailTableViewCell: UITableViewCell, NibReusable {
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -23,7 +23,6 @@
 		BA274533232E897A00E12451 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA274532232E897A00E12451 /* DetailTableViewCell.swift */; };
 		BA274535232E89AB00E12451 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274534232E89AB00E12451 /* DetailTableViewCell.xib */; };
 		BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274536232E987100E12451 /* SliderTableViewCell.xib */; };
-		BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */; };
 		BA4274672312B3CC00CD3796 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274662312B3CC00CD3796 /* Model.swift */; };
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
 		BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */; };
@@ -31,6 +30,11 @@
 		BA59EBFA231976760037EF6B /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBF9231976760037EF6B /* Annotation.swift */; };
 		BA8ED9122321817800A1232D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9112321817800A1232D /* Settings.swift */; };
 		BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9132322098300A1232D /* SearchCellModel.swift */; };
+		BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */; };
+		BABAD450232F77A200976FFC /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */; };
+		BABAD452232F87F500976FFC /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */; };
+		BABAD4582330C9CA00976FFC /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAD4572330C9CA00976FFC /* MapTableViewCell.swift */; };
+		BABAD45A2330E07900976FFC /* MapTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD4592330E07900976FFC /* MapTableViewCell.xib */; };
 		BAC1FB932329EC4B00B5A866 /* CurrentLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */; };
 		BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */; };
 		BAC1FB99232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */; };
@@ -123,7 +127,6 @@
 		BA274532232E897A00E12451 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		BA274534232E89AB00E12451 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
 		BA274536232E987100E12451 /* SliderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTableViewCell.xib; sourceTree = "<group>"; };
-		BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeMapOverlay.swift; sourceTree = "<group>"; };
 		BA4274662312B3CC00CD3796 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
@@ -134,6 +137,11 @@
 		BA59EBF9231976760037EF6B /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
+		BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedTableViewCell.xib; sourceTree = "<group>"; };
+		BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
+		BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
+		BABAD4572330C9CA00976FFC /* MapTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
+		BABAD4592330E07900976FFC /* MapTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapTableViewCell.xib; sourceTree = "<group>"; };
 		BAC1FB922329EC4B00B5A866 /* CurrentLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationManager.swift; sourceTree = "<group>"; };
 		BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ArrowSetting.storyboard; sourceTree = "<group>"; };
 		BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowImageStyleViewTableTableViewCell.swift; sourceTree = "<group>"; };
@@ -217,6 +225,8 @@
 			children = (
 				BA259192232E6A4000E9689E /* EditFavorite.storyboard */,
 				BA259194232E6A7200E9689E /* EditFavoriteViewController.swift */,
+				BABAD4592330E07900976FFC /* MapTableViewCell.xib */,
+				BABAD4572330C9CA00976FFC /* MapTableViewCell.swift */,
 			);
 			path = EditFavoriteView;
 			sourceTree = "<group>";
@@ -244,6 +254,8 @@
 				BA274532232E897A00E12451 /* DetailTableViewCell.swift */,
 				BA274536232E987100E12451 /* SliderTableViewCell.xib */,
 				E69F09AE2249094200B77F6E /* SliderTableViewCell.swift */,
+				BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */,
+				BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -275,6 +287,7 @@
 				BAC1FB94232C60F900B5A866 /* ArrowSetting.storyboard */,
 				E69F09AC2248E6B600B77F6E /* ArrowSettingsViewController.swift */,
 				BAC1FB98232C6EC600B5A866 /* ArrowImageStyleViewTableTableViewCell.swift */,
+				BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */,
 			);
 			path = ArrowColor;
 			sourceTree = "<group>";
@@ -362,7 +375,6 @@
 				E67C3A0622261C3800551AC6 /* Map.storyboard */,
 				E67C3A0E2226429300551AC6 /* MapViewController.swift */,
 				BA59EBF9231976760037EF6B /* Annotation.swift */,
-				BA3E206F231BAA27005861DD /* DarkModeMapOverlay.swift */,
 				BAF6B89E2322107600A98E88 /* SearchTableViewCell */,
 			);
 			path = MapView;
@@ -582,9 +594,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BABAD45A2330E07900976FFC /* MapTableViewCell.xib in Resources */,
 				E6C437D1222386F900542844 /* LaunchScreen.storyboard in Resources */,
 				BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */,
+				BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */,
 				E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */,
+				BABAD452232F87F500976FFC /* TextFieldTableViewCell.xib in Resources */,
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
 				BA27452F232E890300E12451 /* TappableTableViewCell.xib in Resources */,
 				BAC1FB95232C60F900B5A866 /* ArrowSetting.storyboard in Resources */,
@@ -766,7 +781,6 @@
 				BA59EBFA231976760037EF6B /* Annotation.swift in Sources */,
 				BAF229382314DD9A00D75930 /* ViewModel.swift in Sources */,
 				E61933F8226C9D8D001F0C79 /* WalkThrough.swift in Sources */,
-				BA3E2070231BAA27005861DD /* DarkModeMapOverlay.swift in Sources */,
 				BA274531232E891F00E12451 /* TappableTableViewCell.swift in Sources */,
 				E67C3A1322267E0C00551AC6 /* ActivityData.swift in Sources */,
 				E6C437C9222386F800542844 /* ViewController.swift in Sources */,
@@ -780,8 +794,10 @@
 				BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */,
 				BA274533232E897A00E12451 /* DetailTableViewCell.swift in Sources */,
 				E67C3A0922263DB600551AC6 /* DirectionViewController.swift in Sources */,
+				BABAD4582330C9CA00976FFC /* MapTableViewCell.swift in Sources */,
 				E6358E18222D7E850084E9CB /* SettingsViewController.swift in Sources */,
 				BA27452A232E87FD00E12451 /* ToggleTableViewCell.swift in Sources */,
+				BABAD450232F77A200976FFC /* TextFieldTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -997,7 +1013,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1019,7 +1035,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

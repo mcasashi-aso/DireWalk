@@ -42,17 +42,45 @@
                                     <constraint firstItem="sAr-og-6a6" firstAttribute="leading" secondItem="hgd-Yx-A2Z" secondAttribute="leading" constant="15" id="qFY-kq-ukz"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rIP-5V-RBt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rIP-5V-RBt">
                                 <rect key="frame" x="0.0" y="354.5" width="414" height="541.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageStyle" rowHeight="121" id="3Fw-dK-7Y9" customClass="ArrowImageStyleTableViewCell" customModule="DireWalk" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="121"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageStyle" rowHeight="121" id="3Fw-dK-7Y9" customClass="ArrowImageStyleTableViewCell" customModule="DireWalk" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3Fw-dK-7Y9" id="5GS-6H-NqU">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="121"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="G8E-np-ZB4">
+                                                    <rect key="frame" x="263" y="45" width="131" height="32"/>
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                    </segments>
+                                                </segmentedControl>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxA-R7-agu">
+                                                    <rect key="frame" x="20" y="50" width="150" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="150" id="yiT-kz-1dK"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="G8E-np-ZB4" secondAttribute="trailing" id="8SE-Kh-Vbt"/>
+                                                <constraint firstItem="OxA-R7-agu" firstAttribute="centerY" secondItem="5GS-6H-NqU" secondAttribute="centerY" id="Jae-bQ-FeQ"/>
+                                                <constraint firstItem="G8E-np-ZB4" firstAttribute="centerY" secondItem="5GS-6H-NqU" secondAttribute="centerY" id="W17-2v-sn7"/>
+                                                <constraint firstItem="OxA-R7-agu" firstAttribute="leading" secondItem="5GS-6H-NqU" secondAttribute="leadingMargin" id="nAS-sP-Fdr"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="segmentedControl" destination="G8E-np-ZB4" id="SJi-Xr-joJ"/>
+                                            <outlet property="titleLabel" destination="OxA-R7-agu" id="ToT-6a-8FC"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

@@ -8,34 +8,30 @@
 
 import UIKit
 
-protocol ArrowImageStyleTableViewCellDelegate: class {
-    func didChangeArrowImageStyle(_ style: Settings.ArrowImage)
-}
-final class ArrowImageStyleTableViewCell: UITableViewCell {
-    @objc var segmentedControl = UISegmentedControl()
+final class SegmentedTableViewCell: UITableViewCell, NibReusable {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl! {
+        didSet {
+            segmentedControl.removeAllSegments()
+            segmentedControl.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
+        }
+    }
+    var didChange: ((Int) -> Void)?
     
-    private var settings = Settings.shared
-    weak var delegate: ArrowImageStyleTableViewCellDelegate?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        segmentedControl.addTarget(self, action: #selector(valueChanged(_:)), for: .valueChanged)
-        
-        textLabel?.text = "arrowImageStyle".localizedYet
-        let allImageType = Settings.ArrowImage.allCases
-        for (index, imageType) in allImageType.enumerated() {
-            let imageName = imageType.name
-            segmentedControl.insertSegment(with: UIImage(named: imageName), at: index, animated: false)
-            if imageType == settings.arrowImage {
+    func setup(title: String, array: [String], initialValue: String,
+               didChange: @escaping (Int) -> Void) {
+        titleLabel.text = title
+        for (index, value) in array.enumerated() {
+            segmentedControl.insertSegment(withTitle: value, at: index, animated: false)
+            if value == initialValue {
                 segmentedControl.selectedSegmentIndex = index
             }
         }
-        accessoryView = segmentedControl
+        self.didChange = didChange
     }
     
     @objc func valueChanged(_ sender: UISegmentedControl) {
-        let index = sender.selectedSegmentIndex
-        let style = Settings.ArrowImage.allCases[index]
-        delegate?.didChangeArrowImageStyle(style)
+        guard let f = didChange else { return }
+        f(sender.selectedSegmentIndex)
     }
 }

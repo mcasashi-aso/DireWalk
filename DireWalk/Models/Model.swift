@@ -18,6 +18,7 @@ protocol ModelDelegate {
 
 final class Model: NSObject {
     
+    // MARK: - Model
     @UserDefault(.place, defaultValue: nil)
     var place: Place? {
         didSet {
@@ -25,8 +26,8 @@ final class Model: NSObject {
             delegate?.didChangePlace()
         }
     }
-    var coordinate: CLLocationCoordinate2D {
-        guard let p = place else { return CLLocationCoordinate2D()  }
+    var coordinate: CLLocationCoordinate2D? {
+        guard let p = place else { return nil }
         return CLLocationCoordinate2DMake(p.latitude, p.longitude)
     }
     
@@ -43,9 +44,13 @@ final class Model: NSObject {
     }
     
     var currentLocation = CLLocation() {
-        didSet { updateFar() }
+        didSet {
+            updateFar()
+            updateDestinationHeading()
+        }
     }
     
+    // MARK: - Singlton
     static let shared = Model()
     private override init() {
         super.init()
@@ -57,10 +62,8 @@ final class Model: NSObject {
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     var delegate: ModelDelegate?
-}
 
-// MARK: Marker
-extension Model {
+    // MARK: - Marker
     func setPlace(_ location: CLLocation) {
         var title, adr: String?
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
@@ -78,10 +81,8 @@ extension Model {
                                placeTitle: title!, adress: adr!)
         }
     }
-}
 
-// MARK: Heading
-extension Model {
+    // MARK: - Heading
     func updateDestinationHeading() {
         func toRadian(_ angle: CLLocationDegrees) -> CGFloat { CGFloat(angle) * .pi / 180 }
         
@@ -98,19 +99,14 @@ extension Model {
         let p = atan2(y, x) * 180 / CGFloat.pi
         destinationHeadingRadian = (p >= 0) ? p : p + 360
     }
-}
 
- // MARK: Far
-extension Model {
+    // MARK: - Far
     func updateFar() {
         guard let place = place else { return }
         self.far = place.distance(from: currentLocation)
     }
-}
 
-
-// MARK: CurrentLocationManagerDelegate
-extension Model {
+    // MARK: - CurrentLocationManagerDelegate
     @objc func didUpdateHeading(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String : Any],
             let heading = userInfo["heading"] as? CLHeading else { return }

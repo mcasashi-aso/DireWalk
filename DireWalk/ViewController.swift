@@ -14,10 +14,12 @@ import GoogleMobileAds
 
 final class ViewController: UIViewController {
     
+    // MARK: - Model
     private let viewModel = ViewModel.shared
     private let model = Model.shared
     private let userDefaults = UserDefaults.standard
     
+    // MARK: - Controller Button Action
     @IBAction func tapDirection() {
         if viewModel.presentView == .direction { return }
         
@@ -49,88 +51,124 @@ final class ViewController: UIViewController {
         updateLabels()
     }
     
-    @IBOutlet weak var directionButton: UIButton!
-    @IBOutlet weak var mapButton: UIButton!
-    @IBOutlet weak var activityButton: UIButton!
+    // MARK: - Views
+    @IBOutlet weak var directionButton: UIButton! {
+        didSet {
+            directionButton.imageView?.sizeThatFits(CGSize(
+                width: Double(directionButton.bounds.width) * 2.0.squareRoot(),
+                height: Double(directionButton.bounds.height) * 2.0.squareRoot()))
+            
+            directionButton.layer.cornerRadius = directionButton.bounds.height / 2
+            directionButton.layer.masksToBounds = true
+            directionButton.layer.shadowOffset = CGSize(width: 1, height: 1)
+            directionButton.layer.shadowRadius = 4
+            directionButton.layer.shadowOpacity = 0.5
+            directionButton.accessibilityLabel = "Direction Tab"
+        }
+    }
+    @IBOutlet weak var mapButton: UIButton! {
+        didSet {
+            mapButton.contentMode = UIView.ContentMode.scaleAspectFill
+            mapButton.accessibilityLabel = "Map Tab"
+        }
+    }
+    @IBOutlet weak var activityButton: UIButton! {
+        didSet {
+            activityButton.contentMode = UIView.ContentMode.scaleAspectFill
+            activityButton.accessibilityLabel = "Activity Tab"
+        }
+    }
     
     @IBOutlet weak var aboutLabel: UILabel!
-    @IBOutlet weak var destinationLabel: UIButton!
+    @IBOutlet weak var destinationLabel: UIButton! {
+        didSet {
+            destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
+            destinationLabel.titleLabel?.adjustsFontForContentSizeCategory = true
+            destinationLabel.accessibilityLabel = "Destination"
+        }
+    }
     
     @IBOutlet weak var tabStackView: UIStackView!
     @IBOutlet weak var titleBar: UIView!
     @IBOutlet weak var statusBarBackgroundView: UIView!
     @IBOutlet weak var homeIndicatorBackgroundView: UIView!
     
-    @IBOutlet weak var containerView: UIView!
-    var contentPageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    @IBOutlet weak var containerView: UIView! {
+        didSet {
+            contentPageVC = UIPageViewController(transitionStyle: .scroll,
+                                              navigationOrientation: .horizontal)
+            contentPageVC.view.frame = containerView.bounds
+            contentPageVC.delegate = viewModel
+            contentPageVC.dataSource = self
+            contentPageVC.didMove(toParent: self)
+            contentPageVC.setViewControllers([DirectionViewController.create()],
+                                             direction: .forward, animated: true)
+            containerView.addSubview(contentPageVC.view)
+        }
+    }
+    var contentPageVC: UIPageViewController! {
+        didSet {
+            
+        }
+    }
     
     @IBOutlet weak var bannerView: GADBannerView! {
         didSet{
             bannerView.adSize = kGADAdSizeSmartBannerPortrait
+            bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
+            bannerView.rootViewController = self
+            let request = GADRequest()
+            request.testDevices = ["16bf9f6807aafaa19ee8b65b15618e2e"]
+            bannerView.load(request)
         }
     }
     
+    // MARK: - View's Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.delegate = self
-        
-        setupViews()
-        setupAds()
-        containerView.addSubview(contentPageVC.view)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showRequestAccessLocation), name: .showRequestAccessLocation, object: nil)
+        let imageInsets = directionButton.bounds.height / 4
+        activityButton.imageEdgeInsets.right = imageInsets
+        mapButton.imageEdgeInsets.left = imageInsets
         
         updateLabels()
+        
+        viewModel.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showRequestAccessLocation), name: .showRequestAccessLocation, object: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        aboutLabel.text = viewModel.aboutLabelText
+        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
+        contentPageVC.viewControllers?.forEach { $0.view.layoutIfNeeded() }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case "settings":
+            let navigationController = segue.destination as! UINavigationController
+            let settingsVC = navigationController.topViewController as! SettingsViewController
+            navigationController.presentationController?.delegate = settingsVC
+            settingsVC.delegate = self
+        default: break
+        }
+    }
+    
+    // MARK: - iOS Controllers
     override var preferredStatusBarStyle: UIStatusBarStyle { UIStatusBarStyle.lightContent }
     override var prefersStatusBarHidden: Bool { viewModel.state == .hideControllers }
     override var prefersHomeIndicatorAutoHidden: Bool { viewModel.state == .hideControllers }
-    
-    private func setupViews() {
-        directionButton.imageView?.sizeThatFits(CGSize(
-            width: Double(directionButton.bounds.width) * 2.0.squareRoot(),
-            height: Double(directionButton.bounds.height) * 2.0.squareRoot()))
-        
-        directionButton.layer.cornerRadius = directionButton.bounds.height / 2
-        directionButton.layer.masksToBounds = true
-        directionButton.layer.shadowOffset = CGSize(width: 1, height: 1)
-        directionButton.layer.shadowRadius = 4
-        directionButton.layer.shadowOpacity = 0.5
-        
-        activityButton.contentMode = UIView.ContentMode.scaleAspectFill
-        activityButton.imageEdgeInsets.right = directionButton.bounds.height / 2 / 2
-        mapButton.contentMode = UIView.ContentMode.scaleAspectFill
-        mapButton.imageEdgeInsets.left = directionButton.bounds.height / 2 / 2
-        
-        destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-        destinationLabel.titleLabel?.adjustsFontForContentSizeCategory = true
-        
-        directionButton.accessibilityLabel = "Direction Tab"
-        mapButton.accessibilityLabel = "Map Tab"
-        activityButton.accessibilityLabel = "Activity Tab"
-        destinationLabel.accessibilityLabel = "Destination"
-        
-        addChild(contentPageVC)
-        contentPageVC.view.frame = containerView.bounds
-        contentPageVC.delegate = viewModel
-        contentPageVC.dataSource = self
-        contentPageVC.didMove(toParent: self)
-        contentPageVC.setViewControllers([DirectionViewController.create()],
-                                         direction: .forward, animated: true)
-        for view in contentPageVC.view.subviews where view is UIScrollView {
-            (view as! UIScrollView).delegate = self
-        }
-    }
 }
 
-// MARK: UIPageViewControllerDataSource
+// MARK: - UIPageViewControllerDataSource
 extension ViewController: UIPageViewControllerDataSource {
     
     func getVC<VC: UIViewController>(_ type: VC.Type) -> VC? {
@@ -162,12 +200,7 @@ extension ViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension ViewController: UIScrollViewDelegate {
-    
-}
-
-
-// MARK: ViewModelDelegate
+// MARK: - ViewModelDelegate
 extension ViewController: ViewModelDelegate {
     
     func presentationEditPlaceView(place: Place) {
@@ -229,7 +262,7 @@ extension ViewController: ViewModelDelegate {
 }
 
 
-// MARK: UserRequest
+// MARK: - UserRequest
 extension ViewController {
     func askAllowHealthKit() {
         let readTypes = Set([
@@ -249,7 +282,7 @@ extension ViewController {
     }
 }
 
-// MARK: Hide Controllers
+// MARK: - Hide Controllers
 extension ViewController {
     func hideControllers(_ isHidden: Bool) {
         if isHidden { noticeControllersHidden() }
@@ -263,12 +296,14 @@ extension ViewController {
         setNeedsUpdateOfHomeIndicatorAutoHidden()
         getVC(DirectionViewController.self)?.updateFarLabel()
     }
+    
     func noticeControllersHidden() {
         showHideAlart()
         let generater = UINotificationFeedbackGenerator()
         generater.prepare()
         generater.notificationOccurred(.warning)
     }
+    
     func showHideAlart() {
         userDefaults.register(defaults: ["hideAlert" : true])
         if userDefaults.bool(forKey: "hideAlert") {
@@ -283,14 +318,13 @@ extension ViewController {
     }
 }
 
-
-// MARK: GADBannerViewDelegate
-extension ViewController: GADBannerViewDelegate {
-    func setupAds() {
-        bannerView.adUnitID = "ca-app-pub-7482106968377175/7907556553"
-        bannerView.rootViewController = self
-        let request = GADRequest()
-        request.testDevices = ["16bf9f6807aafaa19ee8b65b15618e2e"]
-        bannerView.load(request)
+// MARK: - SettingsViewControllerDelegate
+extension ViewController: SettingsViewControllerDelegate {
+    func settingsViewControllerDidFinish(_ settingsViewController: SettingsViewController) {
+        updateLabels()
     }
 }
+
+
+// MARK: - GADBannerViewDelegate
+extension ViewController: GADBannerViewDelegate {}

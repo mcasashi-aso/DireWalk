@@ -9,18 +9,41 @@
 import UIKit
 import Accounts
 
-final class SettingsViewController: UIViewController, UITableViewDelegate {
+protocol SettingsViewControllerDelegate: class {
+    func settingsViewControllerDidFinish(_ settingsViewController: SettingsViewController)
+}
+
+final class SettingsViewController: UIViewController, UITableViewDelegate, UIAdaptivePresentationControllerDelegate {
     
+    // MARK: - Models
     private let settings = Settings.shared
     private let dataSource = SettingsTableViewDataSource()
     
+    // MARK: - Delegate
+    weak var delegate: SettingsViewControllerDelegate?
+    
+    func sendDidFinish() {
+        delegate?.settingsViewControllerDidFinish(self)
+    }
+    
+    // MARK: - Views
     @IBOutlet weak var tableView: UITableView! {
         didSet{
+            tableView.register(ToggleTableViewCell.self)
+            tableView.register(TextTableViewCell.self)
+            tableView.register(TappableTableViewCell.self)
+            tableView.register(DetailTableViewCell.self)
             tableView.delegate = self
             tableView.dataSource = dataSource
         }
     }
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.title = "settings".localized
+    }
+    
+    // MARK: - TableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let type = dataSource.sections[indexPath.section].cells[indexPath.row]
         switch type {
@@ -42,21 +65,12 @@ final class SettingsViewController: UIViewController, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.navigationItem.title = "settings".localized
-        registerCells()
+    // MARK: - Event
+    @IBAction func tapDone() {
+        sendDidFinish()
     }
     
-    @IBAction func tapDone() {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    func registerCells() {
-        tableView.register(ToggleTableViewCell.self)
-        tableView.register(TextTableViewCell.self)
-        tableView.register(TappableTableViewCell.self)
-        tableView.register(DetailTableViewCell.self)
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        sendDidFinish()
     }
 }

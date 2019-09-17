@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-// MARK: function wait
+// MARK: - wait function
 func wait(_ waitContinuation: @escaping (() -> Bool), compleation: @escaping (() -> Void)) {
     var wait = waitContinuation()
     // 0.01秒周期で待機条件をクリアするまで待ちます。
@@ -30,7 +30,7 @@ func wait(_ waitContinuation: @escaping (() -> Bool), compleation: @escaping (()
     }
 }
 
-// MARK: CLPlacemark
+// MARK: - CLPlacemark
 extension CLPlacemark {
     var address: String {
         let components = [self.administrativeArea, self.locality, self.thoroughfare, self.subThoroughfare]
@@ -38,7 +38,7 @@ extension CLPlacemark {
     }
 }
 
-// MARK: String
+// MARK: - String
 extension String {
     var localized: String {
         NSLocalizedString(self, comment: "localized string with \(self)")
@@ -49,7 +49,7 @@ extension String {
     }
 }
 
-// MARK: Date
+// MARK: - Date
 extension Date {
     func isSameDay(to date: Date) -> Bool {
         dateFormatter.dateFormat = "yyyyMMdd"
@@ -58,28 +58,28 @@ extension Date {
 }
 let dateFormatter = DateFormatter()
 
-// MARK: Array
+// MARK: - Array
 extension Array {
     public subscript(safe index: Index) -> Element? {
         indices.contains(index) ? self[index] : nil
     }
 }
 
-// MARK: UIPageViewController
+// MARK: - UIPageViewController
 extension UIPageViewController {
     var scrollView: UIScrollView? {
         view.subviews.first { $0 is UIScrollView } as? UIScrollView
     }
 }
 
-// MARK: UISearchBar
+// MARK: - UISearchBar
 extension UISearchBar {
     var cancelButton: UIButton? {
         value(forKey: "cancelButton") as? UIButton
     }
 }
 
-// MARK: NSAttributedString
+// MARK: - NSAttributedString
 extension NSAttributedString {
     enum MyAttributes {
         case white40, white80

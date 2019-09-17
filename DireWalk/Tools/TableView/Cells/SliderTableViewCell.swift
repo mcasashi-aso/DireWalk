@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SliderTableViewCell: UITableViewCell, Nibable {
+final class SliderTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var slider: TappableSlider!
     var didChange: ((Float) -> Void)?
@@ -18,12 +18,12 @@ final class SliderTableViewCell: UITableViewCell, Nibable {
         slider.addTarget(self, action: #selector(changeValue(_:)), for: .valueChanged)
     }
     
+    
+    
     func setup(title: String,
-               initialValue: Float, minimumValue: Float = 0, maximumValue: Float = 1,
+               initialValue: Float,
                didChange: @escaping (Float) -> Void) {
         titleLabel.text = title
-        slider.minimumValue = minimumValue
-        slider.maximumValue = maximumValue
         slider.value = initialValue
         self.didChange = didChange
     }

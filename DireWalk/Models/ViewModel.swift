@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 
+// MARK: - ViewModelDelegate
 protocol ViewModelDelegate: class {
     func addHeadingView(to annotationView: MKAnnotationView)
     
@@ -24,8 +25,10 @@ protocol ViewModelDelegate: class {
     func updateActivityViewData(dayChanged: Bool)
 }
 
+// MARK: - ViewModel
 final class ViewModel: NSObject {
     
+    // MARK: - Singlton
     static let shared = ViewModel()
     private override init() {
         super.init()
@@ -34,10 +37,13 @@ final class ViewModel: NSObject {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeFavorites), name: .didChangeFavorites, object: nil)
     }
     
+    // MARK: - Other Models
     private let model = Model.shared
+    var settings = Settings.shared
     private var userDefaults = UserDefaults.standard
     weak var delegate: ViewModelDelegate?
     
+    // MARK: - View State
     enum Status { case activity, direction, map, search, hideControllers }
     var state : Status = .direction {
         didSet {
@@ -55,6 +61,7 @@ final class ViewModel: NSObject {
         }
     }
     
+    // MARK: - Label Text
     var labelTitle: String {
         guard let place = model.place else {
             switch state {
@@ -98,12 +105,13 @@ final class ViewModel: NSObject {
             }
         }()
         let text = NSMutableAttributedString()
-        text.append(NSAttributedString.get("  ", attributes: .white40))
-        text.append(NSAttributedString.get(far, attributes: .white80))
-        text.append(NSAttributedString.get(" \(unit)", attributes: .white40))
+        text.append(.get("  ", attributes: .white40))
+        text.append(.get(far, attributes: .white80))
+        text.append(.get(" \(unit)", attributes: .white40))
         return text
     }
     
+    // MARK: - User Heading
     var headingImageAngle: CGFloat {
         model.place != nil ? (model.heading * .pi / 180) : (.pi / 2)
     }
@@ -111,6 +119,7 @@ final class ViewModel: NSObject {
     
     var annotation: Annotation?
     
+    // MARK: - Favorites & Search
     @UserDefault(.favoritePlaces, defaultValue: Set<Place>())
     var favoritePlaces: Set<Place>
     var searchText = "" { didSet { setResultElements() } }
@@ -126,7 +135,6 @@ final class ViewModel: NSObject {
         }
     }
     
-    var settings = Settings.shared
     
     var usingTimer = Timer()
     @UserDefault(.usingTimes, defaultValue: 0)
@@ -136,7 +144,7 @@ final class ViewModel: NSObject {
 }
 
 
-// MARK: UIPageVCDelegate
+// MARK: - UIPageVCDelegate
 extension ViewModel: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
@@ -154,12 +162,12 @@ extension ViewModel: UIPageViewControllerDelegate {
 }
 
 
-// MARK: UISearchBarDelegate
+// MARK: - UISearchBarDelegate
 extension ViewModel: UISearchBarDelegate {
     func setResultElements() {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
-        request.region = MKCoordinateRegion(center: model.coordinate,
+        request.region = MKCoordinateRegion(center: model.currentLocation.coordinate,
                                             latitudinalMeters: 10_000,
                                             longitudinalMeters: 10_000)     // 10km四方
         MKLocalSearch(request: request).start { (result, error) in
@@ -181,7 +189,6 @@ extension ViewModel: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         state = .search
-        searchBar.setShowsCancelButton(true, animated: true)
         return true
     }
     
@@ -195,15 +202,12 @@ extension ViewModel: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         state = .map
         searchBar.resignFirstResponder()
-        searchBar.setShowsCancelButton(false, animated: true)
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         setResultElements()
         if (searchBar.text?.isEmpty ?? false) || searchTableViewPlaces.isEmpty {
             // 検索結果がない場合検索モードを終了する
             state = .map
-            searchBar.resignFirstResponder()
-            searchBar.setShowsCancelButton(false, animated: true)
         }else {
             // 検索結果がある場合はキーボードだけ消す
             searchBar.resignFirstResponder()
@@ -214,7 +218,7 @@ extension ViewModel: UISearchBarDelegate {
     }
     
 }
-// MARK: SearchTableViewDelegate
+// MARK: - SearchTableViewDelegate
 extension ViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
@@ -222,23 +226,6 @@ extension ViewModel: UITableViewDelegate {
         state = .map
         delegate?.searchedTableViewCellSelected()
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
-
-// MARK: SearchTableDataSource
-extension ViewModel: UITableViewDataSource {
-    func tableView(_ tableView: UITableView,
-                   numberOfRowsInSection section: Int) -> Int {
-        searchTableViewPlaces.count
-    }
-    
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        guard let searchCell = cell as? SearchTableViewCell else { return cell }
-        guard let place = searchTableViewPlaces[safe: indexPath.row] else { return searchCell }
-        searchCell.setPlace(place)
-        return searchCell
     }
     
     func tableView(_ tableView: UITableView,
@@ -272,6 +259,20 @@ extension ViewModel: UITableViewDataSource {
                                        : [toggleFavoriteAction]
         return UISwipeActionsConfiguration(actions: actions)
     }
+}
+
+// MARK: - SearchTableDataSource
+extension ViewModel: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        searchTableViewPlaces.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: SearchTableViewCell = tableView.getCell(indexPath: indexPath)
+        guard let place = searchTableViewPlaces[safe: indexPath.row] else { return cell }
+        cell.setPlace(place)
+        return cell
+    }
     
     @objc func didChangeFavorites() {
         print(favoritePlaces)
@@ -280,7 +281,7 @@ extension ViewModel: UITableViewDataSource {
 }
 
 
-// MARK: Using Time
+// MARK: - Using Time
 extension ViewModel {
     @objc func usingTimeUpdater() {
         let now = Date()
@@ -297,21 +298,20 @@ extension ViewModel {
 }
 
 
-// MARK: MKMapViewDelegate
+// MARK: - MKMapViewDelegate
 extension ViewModel: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView,
-                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
-        let pinView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKMarkerAnnotationView
+        let markerView = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") as? MKMarkerAnnotationView
             ?? MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-        pinView.canShowCallout = true
-        pinView.annotation = annotation
-        pinView.animatesWhenAdded = true
+        markerView.canShowCallout = true
+        markerView.annotation = annotation
+        markerView.animatesWhenAdded = true
         
         if let an = annotation as? Annotation {
-            pinView.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
+            markerView.rightCalloutAccessoryView = getAnnotationButton(annotation: an)
         }
-        return pinView
+        return markerView
     }
     
     func mapView(_ mapView: MKMapView,
@@ -340,7 +340,8 @@ extension ViewModel: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        if views.last?.annotation is MKUserLocation {
+        let containUserLocation = views.contains { $0 is MKUserLocation }
+        if containUserLocation {
             delegate?.addHeadingView(to: views.last!)
         }
     }
@@ -355,7 +356,7 @@ extension ViewModel: MKMapViewDelegate {
 }
 
 
-// MARK: ModelDelegate
+// MARK: - ModelDelegate
 extension ViewModel: ModelDelegate {   
     func didChangePlace() {
         delegate?.didChangeRotation()

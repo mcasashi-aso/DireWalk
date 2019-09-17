@@ -19,14 +19,23 @@ protocol SearchCellModelDelegate {
 
 final class SearchCellModel: NSObject {
     
+    // MARK: - Model
     let place: Place
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2DMake(place.latitude, place.longitude)
     }
     
-    var far: Double? { didSet { delegate?.didChangeFar() } }
+    let locationManager = CurrentLocationManager.shared
+    private let userDefaults = UserDefaults.standard
+    var delegate: SearchCellModelDelegate?
+    var notificationCenter = NotificationCenter.default
+    
+    // MARK: - Far
+    var far: Double? {
+        didSet { delegate?.didChangeFar() }
+    }
     var farDescriprion: (String, String) {
-        guard let far = far else { return ("Error", " ") }
+        guard let far = far else { return ("", "") }
         switch Int(far) {
         case ..<100:  return (String(Int(far)), "m")
         case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
@@ -38,7 +47,15 @@ final class SearchCellModel: NSObject {
         }
     }
     
-    var heading: CGFloat { destinationHeadingRadian - userHeadingRadian }
+    func updateFar() {
+        guard let location = locationManager.location else { return }
+        self.far = place.distance(from: location)
+    }
+    
+    // MARK: - Heading
+    var heading: CGFloat {
+        destinationHeadingRadian - userHeadingRadian
+    }
     private var destinationHeadingRadian = CGFloat() {
         didSet { delegate?.didChangeHeading() }
     }
@@ -46,56 +63,43 @@ final class SearchCellModel: NSObject {
         didSet { delegate?.didChangeHeading() }
     }
     
-    var currentLocation = CLLocation() {
+    func updateDestinationHeading() {
+        func toRadian(_ angle: CLLocationDegrees) -> CGFloat { CGFloat(angle) * .pi / 180 }
+        
+        let destinationLatitude = toRadian(place.latitude)
+        let destinationLongitude = toRadian(place.longitude)
+        let userLatitude = toRadian(currentLocation.coordinate.latitude)
+        let userLongitude = toRadian(currentLocation.coordinate.longitude)
+        
+        let difLongitude = destinationLongitude - userLongitude
+        let y = sin(difLongitude)
+        let x = cos(userLatitude) * tan(destinationLatitude) - sin(userLatitude) * cos(difLongitude)
+        let p = atan2(y, x) * 180 / CGFloat.pi
+        destinationHeadingRadian = p
+    }
+    
+    // MARK: - Location
+    var currentLocation: CLLocation! {
         didSet {
             updateFar()
             updateDestinationHeading()
         }
     }
     
+    // MARK: - Initializer
     init(_ place: Place) {
         self.place = place
+        self.currentLocation = locationManager.location ?? CLLocation()
         super.init()
-        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateHeading, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)), name: .didUpdateLocation, object: nil)
+        updateFar()
+        updateDestinationHeading()
+        notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)),
+                                       name: .didUpdateHeading, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didUpdateLocation(_:)),
+                                       name: .didUpdateLocation, object: nil)
     }
     
-    let locationManager = CurrentLocationManager.shared
-    private let userDefaults = UserDefaults.standard
-    var delegate: SearchCellModelDelegate?
-    var notificationCenter = NotificationCenter.default
-}
-
-// MARK: Heading
-extension SearchCellModel {
-    func updateDestinationHeading() {
-        guard let location = locationManager.location else { return }
-        
-        func toRadian(_ angle: CLLocationDegrees) -> CGFloat { CGFloat(angle) * .pi / 180 }
-        
-        let destinationLatitude = toRadian(place.latitude)
-        let destinationLongitude = toRadian(place.longitude)
-        let userLatitude = toRadian(location.coordinate.latitude)
-        let userLongitude = toRadian(location.coordinate.longitude)
-        
-        let difLongitude = destinationLongitude - userLongitude
-        let y = sin(difLongitude)
-        let x = cos(userLatitude) * tan(destinationLatitude) - sin(userLatitude) * cos(difLongitude)
-        let p = atan2(y, x) * 180 / CGFloat.pi
-        destinationHeadingRadian = (p >= 0) ? p : p + 360
-    }
-}
-
- // MARK: Far
-extension SearchCellModel {
-    func updateFar() {
-        guard let location = locationManager.location else { return }
-        self.far = place.distance(from: location)
-    }
-}
-
-// MARK: CurrentLocationManagerDelegate
-extension SearchCellModel {
+    // MARK: - CurrentLocationManager
     @objc func didUpdateHeading(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String : Any],
             let heading = userInfo["heading"] as? CLHeading else { return }

@@ -8,17 +8,23 @@
 
 import UIKit
 
-final class SearchTableViewCell: UITableViewCell {
+final class SearchTableViewCell: UITableViewCell, NibReusable, SearchCellModelDelegate {
+    
+    // MARK: - Views
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var directionImageView: UIImageView!
-    
-    var model: SearchCellModel!
-    
-    override func awakeFromNib() {
-        
+    @IBOutlet var distanceLabel: UILabel! {
+        didSet { /*didChangeFar()*/ }
     }
+    @IBOutlet var directionImageView: UIImageView! {
+        didSet {
+            directionImageView.image = UIImage(named: "DirectionTab")
+//            didChangeHeading()
+        }
+    }
+    
+    // MARK: - Model
+    var model: SearchCellModel!
     
     func setPlace(_ place: Place) {
         model = SearchCellModel(place)
@@ -28,16 +34,15 @@ final class SearchTableViewCell: UITableViewCell {
         didChangeFar()
         didChangeHeading()
     }
-}
 
-extension SearchTableViewCell: SearchCellModelDelegate {
+    // MARK: - Model Delegate
     func didChangeFar() {
         let (far, unit) = model.farDescriprion
         distanceLabel.text = "\(far)\(unit)"
     }
     
     func didChangeHeading() {
-        let affineTransform = CGAffineTransform(rotationAngle: model.heading)
+        let affineTransform = CGAffineTransform(rotationAngle: model.heading / 180 * .pi)
         directionImageView.transform = affineTransform
     }
 }

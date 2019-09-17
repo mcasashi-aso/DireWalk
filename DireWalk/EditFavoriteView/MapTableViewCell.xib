@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="300" id="MMR-L0-QRa">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MMR-L0-QRa" id="52N-dA-x1j">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KPG-U0-HJd" customClass="ZoomableMapView" customModule="DireWalk" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
+                    </mapView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="KPG-U0-HJd" firstAttribute="leading" secondItem="52N-dA-x1j" secondAttribute="leading" id="0Y1-Pr-tMq"/>
+                    <constraint firstItem="KPG-U0-HJd" firstAttribute="top" secondItem="52N-dA-x1j" secondAttribute="top" id="Ulm-6h-2hA"/>
+                    <constraint firstAttribute="trailing" secondItem="KPG-U0-HJd" secondAttribute="trailing" id="aNG-qz-Nyi"/>
+                    <constraint firstAttribute="bottom" secondItem="KPG-U0-HJd" secondAttribute="bottom" id="zTW-8s-6r1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mapView" destination="KPG-U0-HJd" id="Tpe-0v-SGi"/>
+            </connections>
+            <point key="canvasLocation" x="482.60869565217394" y="59.598214285714285"/>
+        </tableViewCell>
+    </objects>
+</document>
