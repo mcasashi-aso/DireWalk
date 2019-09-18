@@ -43,6 +43,12 @@ final class DirectionViewController: UIViewController {
         let affineTransform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
         headingImageView.transform = affineTransform
     }
+    
+    func applyToSettings() {
+        headingImageView.image = settings.arrowImage.image.withRenderingMode(.alwaysTemplate)
+        headingImageView.tintColor = UIColor(white: settings.arrowColor, alpha: 1)
+        updateFarLabel()
+    }
 
     // MARK: - View's Life Cycle
     override func viewDidLoad() {
@@ -51,14 +57,9 @@ final class DirectionViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setupDirectionImage()
+        applyToSettings()
         updateFarLabel()
         updateHeadingImage()
-    }
-    
-    func setupDirectionImage() {
-        headingImageView.image = settings.arrowImage.image.withRenderingMode(.alwaysTemplate)
-        headingImageView.tintColor = UIColor(white: settings.arrowColor, alpha: 1)
     }
     
     // MARK: - Gestures

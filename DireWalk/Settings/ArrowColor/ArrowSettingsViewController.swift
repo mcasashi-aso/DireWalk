@@ -95,7 +95,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
             }
             cell.setup(title: "arrowStyle".localized,
                        array: Settings.ArrowImage.allCases.map({$0.name}),
-                       initialValue: settings.arrowImage.rawValue,
+                       initialValue: settings.arrowImage.name,
                        didChange: didChange)
             return cell
         case .color:
@@ -104,7 +104,12 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
                 self.settings.arrowColor = CGFloat(value)
                 self.updatePreview()
             }
-            cell.slider.minimumTrackTintColor = .white
+            cell.slider.minimumValue = 0.2
+            if #available(iOS 13, *) {
+                cell.slider.minimumTrackTintColor = .white
+            }else {
+                cell.slider.minimumTrackTintColor = .lightGray
+            }
             cell.slider.maximumTrackTintColor = .black
             return cell
         case .aboutOnly:

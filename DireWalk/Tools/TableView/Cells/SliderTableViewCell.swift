@@ -18,8 +18,6 @@ final class SliderTableViewCell: UITableViewCell, NibReusable {
         slider.addTarget(self, action: #selector(changeValue(_:)), for: .valueChanged)
     }
     
-    
-    
     func setup(title: String,
                initialValue: Float,
                didChange: @escaping (Float) -> Void) {

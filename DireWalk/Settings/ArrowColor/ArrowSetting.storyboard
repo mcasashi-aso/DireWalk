@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hgd-Yx-A2Z">
-                                <rect key="frame" x="0.0" y="44" width="414" height="310.5"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="233"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Direction" translatesAutoresizingMaskIntoConstraints="NO" id="piV-j5-KN0">
-                                        <rect key="frame" x="98" y="16" width="248" height="248.5"/>
+                                        <rect key="frame" x="134.5" y="14" width="175" height="175"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="piV-j5-KN0" secondAttribute="height" multiplier="1:1" id="VyK-mO-NA5"/>
                                         </constraints>
@@ -35,15 +35,15 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="sAr-og-6a6" firstAttribute="top" secondItem="hgd-Yx-A2Z" secondAttribute="top" constant="15" id="Q9B-yX-5Rq"/>
-                                    <constraint firstAttribute="width" secondItem="hgd-Yx-A2Z" secondAttribute="height" multiplier="4:3" id="RdE-Z5-pdu"/>
-                                    <constraint firstItem="piV-j5-KN0" firstAttribute="width" secondItem="hgd-Yx-A2Z" secondAttribute="width" multiplier="0.6" id="hVA-Qa-aMf"/>
+                                    <constraint firstAttribute="width" secondItem="hgd-Yx-A2Z" secondAttribute="height" multiplier="16:9" id="RdE-Z5-pdu"/>
+                                    <constraint firstItem="piV-j5-KN0" firstAttribute="height" secondItem="hgd-Yx-A2Z" secondAttribute="height" multiplier="0.75" id="i29-xs-WRk"/>
                                     <constraint firstItem="piV-j5-KN0" firstAttribute="centerX" secondItem="hgd-Yx-A2Z" secondAttribute="centerX" constant="15" id="lRR-Af-pU1"/>
                                     <constraint firstItem="piV-j5-KN0" firstAttribute="centerY" secondItem="hgd-Yx-A2Z" secondAttribute="centerY" constant="-15" id="lag-w6-bWd"/>
                                     <constraint firstItem="sAr-og-6a6" firstAttribute="leading" secondItem="hgd-Yx-A2Z" secondAttribute="leading" constant="15" id="qFY-kq-ukz"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="rIP-5V-RBt">
-                                <rect key="frame" x="0.0" y="354.5" width="414" height="541.5"/>
+                                <rect key="frame" x="0.0" y="277" width="414" height="619"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="imageStyle" rowHeight="121" id="3Fw-dK-7Y9" customClass="ArrowImageStyleTableViewCell" customModule="DireWalk" customModuleProvider="target">
@@ -85,7 +85,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HV3-XO-LXR" firstAttribute="trailing" secondItem="rIP-5V-RBt" secondAttribute="trailing" id="4Py-zs-R3s"/>
                             <constraint firstItem="rIP-5V-RBt" firstAttribute="leading" secondItem="HV3-XO-LXR" secondAttribute="leading" id="4yW-xk-wej"/>

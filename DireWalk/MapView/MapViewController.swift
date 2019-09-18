@@ -19,39 +19,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         return sb.instantiateInitialViewController() as! MapViewController
     }
     
-    var tableViewElements = [Place]() {
-        didSet {
-            // TODO: later iOS 14 (15?), then replace to UITableDifferenceDataSource
-            if #available(iOS 13, *) {
-                let difference = tableViewElements.difference(from: oldValue)
-                guard difference.count <= 1 else {
-                    tableView.reloadData(); return
-                }
-                if let dif = difference.inferringMoves().first {
-                    tableView.beginUpdates()
-                    switch dif {
-                    case let .insert(offset: offset, element: _, associatedWith: to):
-                        if let toIndex = to {
-                            tableView.moveRow(at: .init(row: offset, section: 0),
-                                              to: .init(row: toIndex, section: 0))
-                        }else {
-                            tableView.insertRows(at: [.init(row: offset, section: 0)], with: .automatic)
-                        }
-                    case let .remove(offset: offset, element: _, associatedWith: from):
-                        if let fromIndex = from {
-                            tableView.moveRow(at: .init(row: fromIndex, section: 0),
-                                              to: .init(row: offset, section: 0))
-                        }else {
-                            tableView.deleteRows(at: [.init(row: offset, section: 0)], with: .automatic)
-                        }
-                    }
-                    tableView.endUpdates()
-                }
-            } else {
-                tableView.reloadData()
-            }
-        }
-    }
     private let viewModel = ViewModel.shared
     private let model = Model.shared
     
@@ -202,10 +169,8 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             pageVC.scrollView?.panGestureRecognizer.require(toFail: recognizer)
         }
     }
-}
 
-// MARK: - HeadingView
-extension MapViewController {
+    // MARK: - HeadingView
     func addHeadingView(to annotationView: MKAnnotationView) {
         headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
                                         y: (annotationView.frame.size.height - 40)/2,
@@ -217,10 +182,8 @@ extension MapViewController {
         let rotation = (model.userHeadingRadian - CGFloat(mapView.camera.heading)) * .pi / 180
         headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
     }
-}
 
-// MARK: - Search
-extension MapViewController {
+    // MARK: - Search
     func applyViewConstraints(animated: Bool = true) {
         if viewModel.state == .search {
             tableViewHeightConstranit.constant = mapView.frame.height - searchBar.frame.height - 40
@@ -246,6 +209,39 @@ extension MapViewController {
             })
             searchBar.setShowsCancelButton(false, animated: true)
             searchBar.resignFirstResponder()
+        }
+    }
+    
+    // MARK: - Table View
+    func reloadTableView(new: [Place], old: [Place]) {
+        if #available(iOS 13, *) {
+            let difference = new.difference(from: old)
+            guard difference.count <= 1 else {
+                tableView.reloadData()
+                return
+            }
+            if let dif = difference.inferringMoves().first {
+                tableView.beginUpdates()
+                switch dif {
+                case let .insert(offset: row, element: _, associatedWith: to):
+                    if let toIntdex = to {
+                        tableView.moveRow(at: .init(row: row, section: 0),
+                                          to: .init(row: toIntdex, section: 0))
+                    }else {
+                        tableView.insertRows(at: [.init(row: row, section: 0)], with: .fade)
+                    }
+                case let .remove(offset: row, element: _, associatedWith: from):
+                    if let fromIndex = from {
+                        tableView.moveRow(at: .init(row: fromIndex, section: 0),
+                                          to: .init(row: row, section: 0))
+                    }else {
+                        tableView.deleteRows(at: [.init(row: row, section: 0)], with: .fade)
+                    }
+                }
+                tableView.endUpdates()
+            }
+        }else {
+            tableView.reloadData()
         }
     }
     

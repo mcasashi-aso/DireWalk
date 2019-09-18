@@ -17,7 +17,7 @@ protocol ViewModelDelegate: class {
     func didChangePlace()
     func didChangeState()
     
-    func didChangeSearchTableViewElements()
+    func reloadTableViewData(new: [Place], old: [Place])
     func moveCenterToPlace()
     func presentEditPlaceView(place: Place)
     
@@ -34,6 +34,7 @@ final class ViewModel: NSObject {
         model.delegate = self
         self.usingTimer = .scheduledTimer(timeInterval: 1, target: self, selector: #selector(usingTimeUpdater), userInfo: nil, repeats: true)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeFavorites), name: .didChangeFavorites, object: nil)
+        updateTableView()
     }
     
     // MARK: - Other Models
@@ -107,6 +108,9 @@ final class ViewModel: NSObject {
         text.append(.get("  ", attributes: .white40))
         text.append(.get(far, attributes: .white80))
         text.append(.get(" \(unit)", attributes: .white40))
+        if settings.alwaysDontShowsFar && (model.far ?? 0) > 50 {
+            return NSMutableAttributedString()
+        }
         return text
     }
     
@@ -127,8 +131,8 @@ final class ViewModel: NSObject {
     }
     var searchTableViewPlaces = [Place]() {
         didSet {
-            guard oldValue != searchTableViewPlaces else { return }
-            delegate?.didChangeSearchTableViewElements()
+            guard searchTableViewPlaces != oldValue else { return }
+            delegate?.reloadTableViewData(new: searchTableViewPlaces, old: oldValue)
         }
     }
     func updateTableView() {
@@ -242,7 +246,7 @@ extension ViewModel: UITableViewDelegate {
                 place.isFavorite.toggle()
                 completion(true)
             }
-            action.backgroundColor = .red
+            action.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.262745098, blue: 0.2117647059, alpha: 1)
             let image: UIImage
             if #available(iOS 13, *) {
                 image = UIImage(systemName: place.isFavorite ? "heart" : "heart.fill")!
@@ -253,7 +257,7 @@ extension ViewModel: UITableViewDelegate {
             return action
         }()
         let toEditAction: UIContextualAction = {
-            let action = UIContextualAction(style: .normal, title: "Edit") {
+            let action = UIContextualAction(style: .normal, title: "edit".localized) {
                 (action, view, completion) in
                 self.delegate?.presentEditPlaceView(place: place)
             }
@@ -349,9 +353,8 @@ extension ViewModel: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        if views.last?.annotation is MKUserLocation {
-            delegate?.addHeadingView(to: views.last!)
-        }
+        guard let view = views.filter({ $0.annotation is MKUserLocation }).first else { return }
+        delegate?.addHeadingView(to: view)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

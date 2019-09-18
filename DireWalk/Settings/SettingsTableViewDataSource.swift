@@ -60,8 +60,8 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         case .showFar:
             let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.setup(title: "doNotAlwaysShowFar".localized,
-                       initialValue: !settings.showFar,
-                       didChange: { (isOn) in self.settings.showFar = !isOn })
+                       initialValue: settings.alwaysDontShowsFar,
+                       didChange: { (isOn) in self.settings.alwaysDontShowsFar = isOn })
             return cell
         // MARK: dark mode
         case .darkMode:

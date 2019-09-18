@@ -42,8 +42,8 @@ final class Settings {
     var arrowImage: ArrowImage
     @UserDefault(.arrowColor, defaultValue: 0.75)
     var arrowColor: CGFloat
-    @UserDefault(.showFar, defaultValue: true)
-    var showFar: Bool
+    @UserDefault(.showFar, defaultValue: false)
+    var alwaysDontShowsFar: Bool
     @UserDefault(.isAlwaysDarkAppearance, defaultValue: true)
     var isAlwaysDarkAppearance: Bool
     

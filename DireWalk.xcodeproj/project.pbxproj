@@ -33,6 +33,7 @@
 		BA6210D023312A2F007D548F /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA6210CF23312A2F007D548F /* TitleTableViewCell.xib */; };
 		BA8ED9122321817800A1232D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9112321817800A1232D /* Settings.swift */; };
 		BA8ED9142322098300A1232D /* SearchCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8ED9132322098300A1232D /* SearchCellModel.swift */; };
+		BAAD978423324BFF003D30BE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BAAD978323324BFE003D30BE /* Default-568h@2x.png */; };
 		BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */; };
 		BABAD450232F77A200976FFC /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */; };
 		BABAD452232F87F500976FFC /* TextFieldTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */; };
@@ -144,6 +145,7 @@
 		BA8ED9112321817800A1232D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BA8ED9132322098300A1232D /* SearchCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCellModel.swift; sourceTree = "<group>"; };
 		BAAD978223315DFD003D30BE /* TableViewCells.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TableViewCells.md; sourceTree = "<group>"; };
+		BAAD978323324BFE003D30BE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BABAD44D232F670B00976FFC /* SegmentedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentedTableViewCell.xib; sourceTree = "<group>"; };
 		BABAD44F232F77A200976FFC /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		BABAD451232F87F500976FFC /* TextFieldTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldTableViewCell.xib; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		E6C437BA222386F800542844 = {
 			isa = PBXGroup;
 			children = (
+				BAAD978323324BFE003D30BE /* Default-568h@2x.png */,
 				E6C437C5222386F800542844 /* DireWalk */,
 				E6C437DA222386FA00542844 /* DireWalkTests */,
 				E6C437E5222386FA00542844 /* DireWalkUITests */,
@@ -610,6 +613,7 @@
 				BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */,
 				BA6210D023312A2F007D548F /* TitleTableViewCell.xib in Resources */,
 				BABAD44E232F670B00976FFC /* SegmentedTableViewCell.xib in Resources */,
+				BAAD978423324BFF003D30BE /* Default-568h@2x.png in Resources */,
 				E6A8097922354E2D0086E146 /* RequestLocation.storyboard in Resources */,
 				BABAD452232F87F500976FFC /* TextFieldTableViewCell.xib in Resources */,
 				E6C437CE222386F900542844 /* Assets.xcassets in Resources */,
@@ -1019,6 +1023,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7947K7LHD3;
 				INFOPLIST_FILE = DireWalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1041,6 +1046,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7947K7LHD3;
 				INFOPLIST_FILE = DireWalk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

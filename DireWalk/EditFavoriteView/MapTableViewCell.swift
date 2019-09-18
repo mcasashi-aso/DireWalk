@@ -37,7 +37,6 @@ extension MapTableViewCell: MKMapViewDelegate {
         markerView.canShowCallout = true
         markerView.annotation = annotation
         markerView.animatesWhenAdded = true
-        markerView.isSelected = true
         return markerView
     }
 }

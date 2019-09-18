@@ -9,14 +9,14 @@
 import UIKit
 
 class TextFieldTableViewCell: UITableViewCell, NibReusable, UITextFieldDelegate {
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField! {
+        didSet {
+            textField.delegate = self
+            textField.clearButtonMode = .always
+        }
+    }
     var placeholderText: String?
     var didChange: ((String?) -> Void)!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        textField.delegate = self
-    }
     
     func setup(placeholderText: String?, initialValue: String?,
                didChange: @escaping (String?) -> Void) {

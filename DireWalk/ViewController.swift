@@ -218,8 +218,8 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         getVC(MapViewController.self)?.addHeadingView(to: annotationView)
     }
     
-    func didChangeSearchTableViewElements() {
-        getVC(MapViewController.self)?.tableViewElements = viewModel.searchTableViewPlaces
+    func reloadTableViewData(new: [Place], old: [Place]) {
+        getVC(MapViewController.self)?.reloadTableView(new: new, old: old)
     }
     
     func moveCenterToPlace() {
@@ -295,11 +295,11 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
 
     // MARK: - Settings Delegate
     func settingsViewController(didChange settingsViewController: SettingsViewController) {
-        getVC(DirectionViewController.self)?.setupDirectionImage()
+        getVC(DirectionViewController.self)?.applyToSettings()
     }
     
     func settingsViewController(didFinish settingsViewController: SettingsViewController) {
-        getVC(DirectionViewController.self)?.setupDirectionImage()
+        getVC(DirectionViewController.self)?.applyToSettings()
         dismiss(animated: true)
     }
     
