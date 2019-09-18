@@ -94,7 +94,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
                 self.updatePreview()
             }
             cell.setup(title: "arrowStyle".localized,
-                       array: Settings.ArrowImage.allCases.map({$0.rawValue}),
+                       array: Settings.ArrowImage.allCases.map({$0.name}),
                        initialValue: settings.arrowImage.rawValue,
                        didChange: didChange)
             return cell
@@ -109,7 +109,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
             return cell
         case .aboutOnly:
             let cell: TextTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.textView.text = "arrowCaption".localizedYet
+            cell.textView.text = "arrowCaption".localized
             return cell
         }
     }

@@ -75,7 +75,7 @@ final class RequestLocationViewController: UIViewController, CLLocationManagerDe
     }
     func changeContentViewOfWalkThroughView(next: Bool) {
         let svX = walkThroughScrollView.contentOffset.x
-        var viewNumber: CGFloat = 0
+        var viewNumber: CGFloat
         if svX < screenWidth * 0 {
             viewNumber = 0
         }else if svX < screenWidth * 1 {

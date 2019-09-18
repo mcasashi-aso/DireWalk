@@ -187,7 +187,27 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     }
     
     // MARK: - ViewModelDelegate
-    func presentationEditPlaceView(place: Place) {
+    func didChangeState() {
+        hideControllers(viewModel.state == .hideControllers)
+        getVC(MapViewController.self)?.applyViewConstraints()
+        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
+        aboutLabel.text = viewModel.aboutLabelText
+    }
+    
+    func didChangePlace() {
+        destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
+        getVC(MapViewController.self)?.addMarker(new: true)
+        updateViews()
+    }
+    
+    func updateViews() {
+        getVC(DirectionViewController.self)?.updateFarLabel()
+        getVC(DirectionViewController.self)?.updateHeadingImage()
+        getVC(MapViewController.self)?.updateHeadingImageView()
+        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
+    }
+    
+    func presentEditPlaceView(place: Place) {
         let navigationController = EditFavoriteViewController.create(place)
         let vc = navigationController.topViewController as! EditFavoriteViewController
         vc.delegate = self
@@ -198,35 +218,12 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         getVC(MapViewController.self)?.addHeadingView(to: annotationView)
     }
     
-    func didChangePlace() {
-        updateViews()
-        getVC(MapViewController.self)?.addMarker(new: true)
-    }
-    
-    func updateViews() {
-        getVC(DirectionViewController.self)?.updateFarLabel()
-        getVC(DirectionViewController.self)?.updateHeadingImage()
-        getVC(MapViewController.self)?.updateHeadingImageView()
-        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
-    }
-    
     func didChangeSearchTableViewElements() {
-        getVC(MapViewController.self)?.tableView.reloadData()
+        getVC(MapViewController.self)?.tableViewElements = viewModel.searchTableViewPlaces
     }
     
-    func didChangeState() {
-        hideControllers(viewModel.state == .hideControllers)
-        if let mapVC = getVC(MapViewController.self) {
-            mapVC.applyViewConstraints()
-            mapVC.tableView.reloadData()
-            if viewModel.presentView != .map {
-                mapVC.searchBar.showsCancelButton = false
-            }
-        }
-    }
-    
-    func searchedTableViewCellSelected() {
-        getVC(MapViewController.self)?.searchedTableViewCellSelected()
+    func moveCenterToPlace() {
+        getVC(MapViewController.self)?.moveCenterToPlace()
     }
     
     func updateActivityViewData(dayChanged: Bool) {

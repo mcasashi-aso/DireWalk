@@ -14,7 +14,10 @@ final class Settings {
     private init() {}
     
     public enum ArrowImage: String, Codable, CaseIterable, UserDefaultConvertible {
-        case fillLocation, location
+        case fillLocation = "fillLocation"
+        case location = "borderLocation"
+        
+        var name: String { self.rawValue.localized }
         
         var image: UIImage {
             switch self {

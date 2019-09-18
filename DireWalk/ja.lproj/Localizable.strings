@@ -11,6 +11,7 @@
 "done" = "完了";
 "cancel" = "キャンセル";
 "delete" = "削除";
+"save" = "保存";
 "error" = "エラー";
 "search" = "検索";
 "settings" = "設定";
@@ -20,12 +21,12 @@
 "arrow" = "矢印";
 
 // MARK: - View Controller
-"destination" = "目的地:";
+"destination:" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
 
 "arrowOnlyMode" = "矢印だけモード";
-"arrowOnlyModeCaption" = "画面を押し込むと矢印のみになります.\nこのモードでは画面の自動ロックが\nオフになります.\nOLED搭載端末では\n消費電力が抑えられます.";
+"arrowOnlyModeCaption" = "画面を押し込むと矢印のみになります。\nこのモードでは画面の自動ロックが\nオフになります。\nOLED搭載端末では\n消費電力が抑えられます。";
 
 // MARK: - Direction VC
 "swipe" = "スワイプして選択";
@@ -71,6 +72,7 @@
 "removeAd" = "広告を消す";
 "restore" = "購入したものを復元する";
 
+"aboutSection" = "DireWalkについて";
 "version" = "バージョン";
 "createdby" = "作成者";
 
@@ -78,7 +80,10 @@
 "preview" = "プレビュー";
 "arrowStyle" = "矢印の形";
 "arrowColor" = "矢印の色";
-"arrowCaption" = "矢印の形と色を選択することができます.\nまた、ホームで長押しすると\"矢印だけモード\"をオンにできます. このモードでは矢印以外の情報が全て消えます.";
+"arrowCaption" = "矢印の形と色を選択することができます。\nまた、ホームで長押しすると\"矢印だけモード\"をオンにできます。 このモードでは矢印以外の情報が全て消えます。";
+
+"fillLocation" = "塗りつぶし";
+"borderLocation" = "枠のみ";
 
 // MARK: - RequestVC
 "pleaseAllowLocation" = "位置情報の利用を許可してください";

@@ -95,7 +95,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
         print(#function)
         if doneble {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let doneAction = UIAlertAction(title: "done".localized, style: .default) { _ in
+            let doneAction = UIAlertAction(title: "save".localized, style: .default) { _ in
                 self.save()
             }
             let discardAction = UIAlertAction(title: "discardChanges".localized, style: .destructive) { _ in

@@ -19,6 +19,39 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         return sb.instantiateInitialViewController() as! MapViewController
     }
     
+    var tableViewElements = [Place]() {
+        didSet {
+            // TODO: later iOS 14 (15?), then replace to UITableDifferenceDataSource
+            if #available(iOS 13, *) {
+                let difference = tableViewElements.difference(from: oldValue)
+                guard difference.count <= 1 else {
+                    tableView.reloadData(); return
+                }
+                if let dif = difference.inferringMoves().first {
+                    tableView.beginUpdates()
+                    switch dif {
+                    case let .insert(offset: offset, element: _, associatedWith: to):
+                        if let toIndex = to {
+                            tableView.moveRow(at: .init(row: offset, section: 0),
+                                              to: .init(row: toIndex, section: 0))
+                        }else {
+                            tableView.insertRows(at: [.init(row: offset, section: 0)], with: .automatic)
+                        }
+                    case let .remove(offset: offset, element: _, associatedWith: from):
+                        if let fromIndex = from {
+                            tableView.moveRow(at: .init(row: fromIndex, section: 0),
+                                              to: .init(row: offset, section: 0))
+                        }else {
+                            tableView.deleteRows(at: [.init(row: offset, section: 0)], with: .automatic)
+                        }
+                    }
+                    tableView.endUpdates()
+                }
+            } else {
+                tableView.reloadData()
+            }
+        }
+    }
     private let viewModel = ViewModel.shared
     private let model = Model.shared
     
@@ -93,7 +126,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // MARK: View's Life Cycle
+    // MARK: - View's Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -200,6 +233,7 @@ extension MapViewController {
                 self.tableView.alpha = 1
                 self.searchBarBackgroundView.alpha = 1
             })
+            tableView.reloadData()
         }else {
             tableViewHeightConstranit.constant = 0
             UIView.animate(withDuration: animated ? 0.28 : 0, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
@@ -215,7 +249,7 @@ extension MapViewController {
         }
     }
     
-    func searchedTableViewCellSelected() {
+    func moveCenterToPlace() {
         mapView.setCenter(model.coordinate ?? model.currentLocation.coordinate, animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
     }

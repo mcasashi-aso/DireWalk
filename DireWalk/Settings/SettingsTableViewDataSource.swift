@@ -59,7 +59,7 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
         // MARK: show far
         case .showFar:
             let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "doNotAlwaysShowFar".localizedYet,
+            cell.setup(title: "doNotAlwaysShowFar".localized,
                        initialValue: !settings.showFar,
                        didChange: { (isOn) in self.settings.showFar = !isOn })
             return cell

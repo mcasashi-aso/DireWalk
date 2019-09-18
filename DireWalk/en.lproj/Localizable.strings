@@ -11,6 +11,7 @@
 "done" = "Done";
 "cancel" = "Cancel";
 "delete" = "Delete";
+"save" = "Save";
 "error" = "Error";
 "search" = "Search";
 "settings" = "Settings";
@@ -67,18 +68,21 @@
 "review" = "Review on App Store";
 "shareString" = "Let's use DireWalk and enjoy walking!";
 
-"removeAd" = "Remove Ad"
+"removeAd" = "Remove Ad";
 "restorePurchase" = "Restore Purchase";
 
-"aboutSection" = "About DireWalk"
+"aboutSection" = "About DireWalk";
 "version" = "version";
 "createdby" = "created by";
 
 // MARK: - Arrow Settings VC
 "preview" = "Preview";
-"arrowStyle" = "Arrow Image Style"
+"arrowStyle" = "Arrow Image Style";
 "arrowColor" = "Arrow Color";
 "arrowCaption" = "You can choose arrow image style and color now.\nYou long press on Home, then turns on \"Direction Only Mode\". This mode hides Controllers.";
+
+"fillLocation" = "Fill";
+"borderLocation" = "Border";
 
 // MARK: - Request VC
 "pleaseAllowLocation" = "Please Allow the Use of Location";

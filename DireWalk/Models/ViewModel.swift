@@ -18,8 +18,8 @@ protocol ViewModelDelegate: class {
     func didChangeState()
     
     func didChangeSearchTableViewElements()
-    func searchedTableViewCellSelected()
-    func presentationEditPlaceView(place: Place)
+    func moveCenterToPlace()
+    func presentEditPlaceView(place: Place)
     
     func updateActivityViewData(dayChanged: Bool)
 }
@@ -123,18 +123,24 @@ final class ViewModel: NSObject {
     var favoritePlaces: Set<Place>
     var searchText = "" { didSet { setResultElements() } }
     var searchResults = [Place]() {
-        didSet { delegate?.didChangeSearchTableViewElements() }
+        didSet { updateTableView() }
     }
-    var searchTableViewPlaces: [Place] {
+    var searchTableViewPlaces = [Place]() {
+        didSet {
+            guard oldValue != searchTableViewPlaces else { return }
+            delegate?.didChangeSearchTableViewElements()
+        }
+    }
+    func updateTableView() {
         let isEmpty = searchText.isEmpty || searchResults.isEmpty
         let array = isEmpty ? Array(favoritePlaces) : searchResults
-        return array.sorted { lhs, rhs in
+        searchTableViewPlaces = array.sorted { a, b in
             let location = model.currentLocation
-            return lhs.distance(from: location) < rhs.distance(from: location)
+            return a.distance(from: location) < b.distance(from: location)
         }
     }
     
-    
+    // MARK: - Using Timer
     var usingTimer = Timer()
     @UserDefault(.usingTimes, defaultValue: 0)
     var usingTime: Int
@@ -204,7 +210,7 @@ extension ViewModel: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         setResultElements()
-        if (searchBar.text?.isEmpty ?? false) || searchTableViewPlaces.isEmpty {
+        if searchTableViewPlaces.isEmpty {
             // 検索結果がない場合検索モードを終了する
             state = .map
         }else {
@@ -223,7 +229,7 @@ extension ViewModel: UITableViewDelegate {
                    didSelectRowAt indexPath: IndexPath) {
         model.place = searchTableViewPlaces[indexPath.row]
         state = .map
-        delegate?.searchedTableViewCellSelected()
+        delegate?.moveCenterToPlace()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -249,7 +255,7 @@ extension ViewModel: UITableViewDelegate {
         let toEditAction: UIContextualAction = {
             let action = UIContextualAction(style: .normal, title: "Edit") {
                 (action, view, completion) in
-                self.delegate?.presentationEditPlaceView(place: place)
+                self.delegate?.presentEditPlaceView(place: place)
             }
             action.backgroundColor = .darkGray
             return action
@@ -274,8 +280,12 @@ extension ViewModel: UITableViewDataSource {
     }
     
     @objc func didChangeFavorites() {
-        print(favoritePlaces)
-        delegate?.didChangeSearchTableViewElements()
+        updateTableView()
+        // 選択中のPlaceの名前が変更された時
+        guard let place = model.place else { return }
+        if let new = favoritePlaces.first(where: { $0.isSamePlace(to: place) }) {
+            model.place = new
+        }
     }
 }
 
@@ -339,8 +349,7 @@ extension ViewModel: MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        let containUserLocation = views.contains { $0.annotation is MKUserLocation }
-        if containUserLocation {
+        if views.last?.annotation is MKUserLocation {
             delegate?.addHeadingView(to: views.last!)
         }
     }
