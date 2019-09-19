@@ -83,6 +83,7 @@ final class DirectionViewController: UIViewController {
     func changeHiddenState() {
         guard isHidable else { return }
         isHidable = false
+        guard viewModel.canHidden else { return }
         let isHiding = viewModel.state == .hideControllers
         viewModel.state = isHiding ? .direction : .hideControllers
     }

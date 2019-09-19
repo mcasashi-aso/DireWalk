@@ -191,8 +191,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     
     // MARK: - ViewModelDelegate
     func didChangeState() {
-        let canHide = (model.far ?? 0) > 50
-        hideControllers((viewModel.state == .hideControllers) && canHide)
+        hideControllers(viewModel.state == .hideControllers)
         getVC(MapViewController.self)?.applyViewConstraints()
         destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
         aboutLabel.text = viewModel.aboutLabelText
@@ -260,7 +259,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
 
     // MARK: - Hide Controllers
     func hideControllers(_ isHidden: Bool) {
-        if isHidden { noticeControllersHidden() }
+        print(viewModel.state)
         statusBarBackgroundView.isHidden = isHidden
         titleBar.isHidden = isHidden
         directionButton.isHidden = isHidden
@@ -270,6 +269,9 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         setNeedsStatusBarAppearanceUpdate()
         setNeedsUpdateOfHomeIndicatorAutoHidden()
         getVC(DirectionViewController.self)?.updateFarLabel()
+        if isHidden {
+            noticeControllersHidden()
+        }
     }
     
     // status bar & home indicator

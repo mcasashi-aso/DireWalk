@@ -48,3 +48,36 @@ final class Settings {
     var isAlwaysDarkAppearance: Bool
     
 }
+
+
+// iOS 12でenumのCodableがうまくいかない(無理？)
+// アプデした場合はnilってdefaultValueが呼ばれるから大丈夫なはず！
+extension Settings.ArrowImage {
+    init?(with object: Any) {
+        if #available(iOS 13, *) {
+            guard let data = object as? Data,
+                let value = try? JSONDecoder().decode(Self.self, from: data) else {
+                    return nil
+            }
+            self = value
+        }else {
+            guard let raw = object as? String else { return nil }
+            let array = Self.allCases.map({$0})
+            for c in array {
+                if c.rawValue == raw {
+                    self = c
+                    return
+                }
+            }
+            return nil
+        }
+    }
+    
+    func object() -> Any? {
+        if #available(iOS 13, *) {
+            return try? JSONEncoder().encode(self)
+        }else {
+            return rawValue
+        }
+    }
+}

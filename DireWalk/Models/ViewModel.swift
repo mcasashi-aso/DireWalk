@@ -62,6 +62,8 @@ final class ViewModel: NSObject {
         }
     }
     
+    var canHidden: Bool { (model.far ?? 0) > 50 }
+    
     // MARK: - Label Text
     var labelTitle: String {
         guard let place = model.place else {
@@ -256,7 +258,10 @@ extension ViewModel: UITableViewDelegate {
             if #available(iOS 13, *) {
                 image = UIImage(systemName: place.isFavorite ? "heart" : "heart.fill")!
             }else {
-                image = UIImage(named: place.isFavorite ? "Heart" : "HeartFill")!
+                image = UIGraphicsImageRenderer(size: CGSize(width: 30, height: 30)).image { _ in
+                    UIImage(named: place.isFavorite ? "Heart" : "HeartFill")!
+                        .draw(in: CGRect(x: 0, y: 0, width: 30, height: 30))
+                }
             }
             action.image = image
             return action

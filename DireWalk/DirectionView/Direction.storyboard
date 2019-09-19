@@ -26,7 +26,7 @@
                                     <fragment content=" ">
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="menu" size="11"/>
+                                            <font key="NSFont" metaFont="message" size="11"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
@@ -37,7 +37,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="408"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pxi-JD-GsR">
-                                        <rect key="frame" x="40" y="84" width="240" height="240"/>
+                                        <rect key="frame" x="48" y="92" width="224" height="224"/>
                                         <accessibility key="accessibilityConfiguration" identifier="headingImageView"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="pxi-JD-GsR" secondAttribute="height" multiplier="1:1" id="2pO-ta-YED"/>
@@ -46,10 +46,10 @@
                                 </subviews>
                                 <accessibility key="accessibilityConfiguration" identifier="secondBaseView"/>
                                 <constraints>
-                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="width" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.75" id="6Yw-va-3gW"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="width" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.7" id="6Yw-va-3gW"/>
                                     <constraint firstItem="pxi-JD-GsR" firstAttribute="centerX" secondItem="NK9-fX-mad" secondAttribute="centerX" id="7Eu-ZN-I7c"/>
                                     <constraint firstItem="pxi-JD-GsR" firstAttribute="centerY" secondItem="NK9-fX-mad" secondAttribute="centerY" id="UF6-C6-Guw"/>
-                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="height" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="height" multiplier="0.75" id="emM-Ia-EXw"/>
+                                    <constraint firstItem="pxi-JD-GsR" firstAttribute="height" relation="lessThanOrEqual" secondItem="NK9-fX-mad" secondAttribute="height" multiplier="0.7" id="emM-Ia-EXw"/>
                                     <constraint firstItem="pxi-JD-GsR" firstAttribute="width" secondItem="NK9-fX-mad" secondAttribute="width" multiplier="0.8" priority="900" id="v2r-bs-2Gr"/>
                                 </constraints>
                             </view>
