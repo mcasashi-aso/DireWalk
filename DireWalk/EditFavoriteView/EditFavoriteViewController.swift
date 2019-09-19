@@ -120,8 +120,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     func save() {
-        var place = original
-        place?.title = editingText
+        original.title = editingText
         delegate?.editFavoriteViewControllerDidFinish()
     }
 

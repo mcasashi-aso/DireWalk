@@ -11,9 +11,7 @@ import MapKit
 
 final class MapTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet weak var mapView: ZoomableMapView! {
-        didSet {
-            mapView.delegate = self
-        }
+        didSet { mapView.delegate = self }
     }
     
     func setPlace(_ place: Place) {

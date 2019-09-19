@@ -221,15 +221,17 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Table View Difference
     func reloadTableView(new: [Place], old: [Place]) {
-        // TODO: iOS 14 later, replace UITableViewDifferenceDaaSource
-        // 上手くできないのと時間の関係もあり、Favoriteにも関係する1つの編集のみに対応
+        // TODO: iOS 14 later, replace to UITableViewDifferenceDataSource
+        // 上手くできないのと時間の関係もあり、せめてDeleteが綺麗に見えるように1つの編集のみに対応
+        // 計算コストも大きいらしいしね
         if #available(iOS 13, *) {
             let difference = new.difference(from: old)
-            guard difference.count <= 1 else {
+            guard (difference.count <= 1/* || new.count == old.count*/) else {
                 tableView.reloadData()
                 return
             }
             if let dif = difference.inferringMoves().first {
+                print(dif)
                 tableView.beginUpdates()
                 switch dif {
                 case let .insert(offset: row, element: _, associatedWith: to):
@@ -252,15 +254,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         }else {
             tableView.reloadData()
         }
-    }
-    
-    var tableViewHeightState: TableViewHeightState = .none {
-        didSet {
-            
-        }
-    }
-    enum TableViewHeightState {
-        case none, withKeyboard, full
     }
     
     //　MARK: - Other

@@ -34,6 +34,7 @@ final class ViewModel: NSObject {
         model.delegate = self
         self.usingTimer = .scheduledTimer(timeInterval: 1, target: self, selector: #selector(usingTimeUpdater), userInfo: nil, repeats: true)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeFavorites), name: .didChangeFavorites, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .didUpdateUserLocation, object: nil)
         updateTableView()
     }
     
@@ -133,13 +134,13 @@ final class ViewModel: NSObject {
             delegate?.reloadTableViewData(new: searchTableViewPlaces, old: oldValue)
         }
     }
-    func updateTableView() {
-        let isEmpty = searchText.isEmpty || searchResults.isEmpty
-        let array = isEmpty ? Array(favoritePlaces) : searchResults
+    @objc func updateTableView() {
+        let array = searchText.isEmpty ? Array(favoritePlaces) : searchResults
         searchTableViewPlaces = array.sorted { a, b in
             let location = model.currentLocation
             return a.distance(from: location) < b.distance(from: location)
         }
+        print(searchText, searchTableViewPlaces)
     }
     
     // MARK: - Using Timer
@@ -175,6 +176,11 @@ extension ViewModel: UISearchBarDelegate {
         if searchText.isEmpty {
             self.searchResults = []
         }
+
+        let matchFavorites = favoritePlaces.filter { place in
+            (place.title?.contains(searchText) ?? false) || (place.address?.contains(searchText) ?? false)
+        }
+        
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
         request.region = MKCoordinateRegion(center: model.currentLocation.coordinate,
@@ -187,7 +193,8 @@ extension ViewModel: UISearchBarDelegate {
                       title: item.name ?? item.placemark.title ?? item.placemark.address,
                       adress: item.placemark.address)
             }
-            self.searchResults = results
+            
+            self.searchResults = matchFavorites + results
         }
     }
     
