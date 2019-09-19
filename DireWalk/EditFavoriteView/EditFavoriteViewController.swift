@@ -53,6 +53,8 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
         return !titleIsEmpty && hasChanges
     }
     
+    var firstForKeyboard = true
+    
     weak var delegate: EditFavoriteViewControllerDelegate?
     
     // MARK: - Views
@@ -74,11 +76,16 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
         navigationItem.title = "editName".localized
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let cell = tableView.visibleCells.first(where: { $0 is TextFieldTableViewCell }) {
-            let nameCell = cell as! TextFieldTableViewCell
-            nameCell.textField.becomeFirstResponder()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // firstForKeyboardがないとちょっとmodalを下げた時に
+        // 毎度キーボードが出てきてしまう
+        if firstForKeyboard {
+            if let cell = tableView.visibleCells.first(where: { $0 is TextFieldTableViewCell }) {
+                let nameCell = cell as! TextFieldTableViewCell
+                nameCell.textField.becomeFirstResponder()
+                firstForKeyboard = false
+            }
         }
     }
     
@@ -139,25 +146,27 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
             let cell: TextFieldTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.setup(placeholderText: original.title, initialValue: original.title,
                        didChange: { self.editingText = $0 })
+            cell.textField.returnKeyType = .done
             return cell
         case .address:
             let cell: TitleTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.titleLabel.text = original.address
+            cell.separatorInset = .zero
             return cell
         case .map:
             let cell: MapTableViewCell = tableView.getCell(indexPath: indexPath)
             cell.setPlace(original)
             // 無駄に操作できるよりはこっちの方がいいかな
-            // 真ん中中心のzoomはできるが動かせない
             cell.mapView.isScrollEnabled = false
             cell.mapView.isPitchEnabled = false
             cell.mapView.isRotateEnabled = false
             cell.mapView.isZoomEnabled = false
             cell.mapView.setupGesture()
-            // TODO: 名前が違うのか他のにも活用にしなきゃいけないのか
-            cell.gestureRecognizers?.forEach { recognizer in
+            // mapViewのzoom操作をtableViewと衝突しないように
+            cell.mapView.gestureRecognizers?.forEach { recognizer in
                 let name = String(describing: recognizer)
-                guard name == "_UILongPressGestureRecognizer" else { return }
+                guard name.contains("UILongPressGestureRecognizer"),
+                    name.contains("doubleLongPress") else { return }
                 tableView.panGestureRecognizer.require(toFail: recognizer)
             }
             return cell

@@ -22,11 +22,10 @@ class ZoomableMapView: MKMapView, UIGestureRecognizerDelegate {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
 
-    // iOS 13では標準で使えるようになっていた
+    // iOS 13ではMapKitでも標準で使えるようになっていた
     // が、iOS 13の挙動とは少し違う
-    // (このGestureは中心を中心にzoomする)
+    // (このGestureはViewのcenterを中心にzoomする)
     // ので、外から使うかどうかを決めれるものとする
     func setupGesture() {
         let doubleLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleLongPress(_:)))

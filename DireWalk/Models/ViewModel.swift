@@ -126,9 +126,7 @@ final class ViewModel: NSObject {
     @UserDefault(.favoritePlaces, defaultValue: Set<Place>())
     var favoritePlaces: Set<Place>
     var searchText = "" { didSet { setResultElements() } }
-    var searchResults = [Place]() {
-        didSet { updateTableView() }
-    }
+    var searchResults = [Place]() { didSet { updateTableView() } }
     var searchTableViewPlaces = [Place]() {
         didSet {
             guard searchTableViewPlaces != oldValue else { return }
@@ -174,6 +172,9 @@ extension ViewModel: UIPageViewControllerDelegate {
 // MARK: - UISearchBarDelegate
 extension ViewModel: UISearchBarDelegate {
     func setResultElements() {
+        if searchText.isEmpty {
+            self.searchResults = []
+        }
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
         request.region = MKCoordinateRegion(center: model.currentLocation.coordinate,
@@ -186,9 +187,7 @@ extension ViewModel: UISearchBarDelegate {
                       title: item.name ?? item.placemark.title ?? item.placemark.address,
                       adress: item.placemark.address)
             }
-            if !results.isEmpty {
-                self.searchResults = results
-            }
+            self.searchResults = results
         }
     }
     
@@ -284,12 +283,12 @@ extension ViewModel: UITableViewDataSource {
     }
     
     @objc func didChangeFavorites() {
-        updateTableView()
-        // 選択中のPlaceの名前が変更された時
-        guard let place = model.place else { return }
-        if let new = favoritePlaces.first(where: { $0.isSamePlace(to: place) }) {
+        if let place = model.place,
+            let new = favoritePlaces.first(where: { $0.isSamePlace(to: place) && $0 != place}) {
+            // 選択中のPlaceの名前が変更された時
             model.place = new
         }
+        updateTableView()
     }
 }
 
@@ -374,6 +373,9 @@ extension ViewModel: ModelDelegate {
     }
     
     func didChangeFar() {
+        if (model.far ?? 0) > 50 && state == .hideControllers {
+            state = .direction
+        }
         delegate?.updateViews()
     }
     

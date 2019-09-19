@@ -38,7 +38,11 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         updateViews()
     }
     @IBAction func tapMap() {
-        if viewModel.presentView == .map { return }
+        if viewModel.presentView == .map {
+            // .searchだった時に終了
+            viewModel.state = (viewModel.state == .search) ? .map : .search
+            return
+        }
         let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
         contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
         viewModel.state = .map
@@ -188,7 +192,8 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     
     // MARK: - ViewModelDelegate
     func didChangeState() {
-        hideControllers(viewModel.state == .hideControllers)
+        let canHide = (model.far ?? 0) > 50
+        hideControllers((viewModel.state == .hideControllers) && canHide)
         getVC(MapViewController.self)?.applyViewConstraints()
         destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
         aboutLabel.text = viewModel.aboutLabelText

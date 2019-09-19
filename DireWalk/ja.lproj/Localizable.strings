@@ -63,7 +63,7 @@
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
 
 "doNotAlwaysShowFar" = "距離を表示しない";
-"doNotShowFarCaption" = "目的地の30m圏内に入ると自動的に再表示します";
+"doNotShowFarCaption" = "目的地の50m圏内に入ると自動的に再表示します";
 
 "reviewSection" = "レビューと共有";
 "review" = "App Storeでレビューする";

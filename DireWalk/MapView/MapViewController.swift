@@ -49,6 +49,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             }
             searchBar.accessibilityLabel = "Search Bar"
             searchBar.delegate = viewModel
+            searchBar.placeholder = "search".localized
         }
     }
     @IBOutlet weak var tableView: UITableView! {
@@ -114,11 +115,15 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func keyboardWillShow(_ notification: Notification?) {
-        guard let rect = (notification?.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        tableView.contentInset.bottom = rect.height + 40
+        guard let value = notification?.userInfo?[UIResponder.keyboardFrameEndUserInfoKey],
+            let keyboardHeight = (value as? NSValue)?.cgRectValue.height else { return }
+        let homeIndicatorHeight = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        // TODO: 変更に強く書きたかったけど諦め
+        let diff = keyboardHeight - (homeIndicatorHeight + 100)
+        tableView.contentInset.bottom = diff + 40
     }
     @objc func keyboardWillHide(_ notification: Notification?) {
-        tableView.contentInset.bottom = 40
+        tableView.contentInset.bottom = 50
     }
     
     // MARK: - Map's Buttons
@@ -186,8 +191,10 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Search
     func applyViewConstraints(animated: Bool = true) {
         if viewModel.state == .search {
-            tableViewHeightConstranit.constant = mapView.frame.height - searchBar.frame.height - 40
+            tableViewHeightConstranit.constant = mapView.frame.height - searchBar.frame.height
+            tableView.contentInset.bottom = 50
             searchBar.setShowsCancelButton(true, animated: true)
+            searchBar.cancelButton?.isEnabled = true
             UIView.animate(withDuration: 0.35, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
                 self.view.layoutIfNeeded()
                 self.userTrackingButton.alpha = 0
@@ -212,8 +219,10 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // MARK: - Table View
+    // MARK: - Table View Difference
     func reloadTableView(new: [Place], old: [Place]) {
+        // TODO: iOS 14 later, replace UITableViewDifferenceDaaSource
+        // 上手くできないのと時間の関係もあり、Favoriteにも関係する1つの編集のみに対応
         if #available(iOS 13, *) {
             let difference = new.difference(from: old)
             guard difference.count <= 1 else {
@@ -245,6 +254,16 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    var tableViewHeightState: TableViewHeightState = .none {
+        didSet {
+            
+        }
+    }
+    enum TableViewHeightState {
+        case none, withKeyboard, full
+    }
+    
+    //　MARK: - Other
     func moveCenterToPlace() {
         mapView.setCenter(model.coordinate ?? model.currentLocation.coordinate, animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
