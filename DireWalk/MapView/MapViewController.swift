@@ -281,7 +281,10 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     
     //　MARK: - Other
     func moveCenterToPlace() {
-        mapView.setCenter(model.coordinate ?? model.currentLocation.coordinate, animated: true)
+        let center = model.coordinate ?? model.currentLocation.coordinate
+        let s = min((model.far ?? 1000) / 1000 * 0.015, 0.01)
+        let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
+        mapView.setRegion(.init(center: center, span: span), animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
     }
 }
