@@ -140,7 +140,6 @@ final class ViewModel: NSObject {
             let location = model.currentLocation
             return a.distance(from: location) < b.distance(from: location)
         }
-        print(searchText, searchTableViewPlaces)
     }
     
     // MARK: - Using Timer
@@ -199,7 +198,7 @@ extension ViewModel: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText
+        self.searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -210,7 +209,8 @@ extension ViewModel: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar,
                    shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let nsString = (searchBar.text ?? "") as NSString
-        searchText = nsString.replacingCharacters(in: range, with: text) as String
+        let replaced = nsString.replacingCharacters(in: range, with: text) as String
+        searchText = replaced.trimmingCharacters(in: .whitespacesAndNewlines)
         return true
     }
     

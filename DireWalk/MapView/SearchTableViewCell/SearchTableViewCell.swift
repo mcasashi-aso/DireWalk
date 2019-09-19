@@ -42,7 +42,7 @@ final class SearchTableViewCell: UITableViewCell, NibReusable, SearchCellModelDe
     }
     
     func didChangeHeading() {
-        let affineTransform = CGAffineTransform(rotationAngle: model.heading / 180 * .pi)
+        let affineTransform = CGAffineTransform(rotationAngle: (model.heading - 45) / 180 * .pi)
         directionImageView.transform = affineTransform
     }
 }

@@ -9,8 +9,8 @@
 import UIKit
 
 /*
- 多分使ってない
- DarkAppearance対応する時に使うかもしれない
+ ほとんど使ってない
+ 
  
  このアプリではiOS 13以前で動作する時DarkModeを標準とする
  また、iOS 13以降でも常にダークモードにするオプションを用意してある
@@ -21,6 +21,8 @@ import UIKit
  iPhone Xrなどに対しても、昼間の日光の中では黒地に白が一番見えやすく、
  この配色は悪くないチョイスだと確信している。
  */
+
+/*
 var isDarkTheme: Bool {
     if #available(iOS 13, *),
         !ViewModel.shared.settings.isAlwaysDarkAppearance,
@@ -42,9 +44,9 @@ extension UIColor {
     public static let labelText = dynamicColor(light: .black,
                                                dark: .init(white: 0, alpha: 0.87))
     public static let controller = dynamicColor(light: .lightGray, dark: .darkGray)
-    
-    
 }
+ 
+*/
 
 extension UIColor {
     public static let mySystemBlue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)

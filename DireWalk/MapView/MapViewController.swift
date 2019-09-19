@@ -141,7 +141,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
                                                           y: searchBarHeight + 3),
                                           size: userTrackingButton.bounds.size)
         // TODO: COlOR
-        userTrackingButton.backgroundColor = .background
+        userTrackingButton.backgroundColor = isiOS13 ? .white : .black
         userTrackingButton.layer.cornerRadius = userTrackingButton.bounds.height / 6
         userTrackingButton.layer.masksToBounds = true
         userTrackingButton.layer.shadowColor = UIColor.black.cgColor
@@ -226,30 +226,48 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         // 計算コストも大きいらしいしね
         if #available(iOS 13, *) {
             let difference = new.difference(from: old)
-            guard (difference.count <= 1/* || new.count == old.count*/) else {
-                tableView.reloadData()
-                return
-            }
-            if let dif = difference.inferringMoves().first {
-                print(dif)
+            
+            func moveOneRowOnly(_ dif: CollectionDifference<Place>.Change) {
                 tableView.beginUpdates()
                 switch dif {
-                case let .insert(offset: row, element: _, associatedWith: to):
+                case let .insert(row, _, to):
                     if let toIntdex = to {
                         tableView.moveRow(at: .init(row: row, section: 0),
                                           to: .init(row: toIntdex, section: 0))
                     }else {
-                        tableView.insertRows(at: [.init(row: row, section: 0)], with: .fade)
+                        tableView.insertRows(at: [.init(row: row, section: 0)], with: .automatic)
                     }
-                case let .remove(offset: row, element: _, associatedWith: from):
+                case let .remove(row, _, from):
                     if let fromIndex = from {
                         tableView.moveRow(at: .init(row: fromIndex, section: 0),
                                           to: .init(row: row, section: 0))
                     }else {
-                        tableView.deleteRows(at: [.init(row: row, section: 0)], with: .fade)
+                        tableView.deleteRows(at: [.init(row: row, section: 0)], with: .automatic)
                     }
                 }
                 tableView.endUpdates()
+            }
+            
+            switch difference.count {
+            case 0: break
+            case 1: moveOneRowOnly(difference.inferringMoves().first!)
+            case 2:
+                let withMoves = difference.inferringMoves()
+                let elements: [Place] = withMoves.map { dif in
+                    switch dif {
+                    case let .insert(_, ele, _): return ele
+                    case let .remove(_, ele, _): return ele
+                    }
+                }
+                if elements[safe: 0] == elements[safe: 1] {
+                    // 1つのcellが移動していた場合
+                    moveOneRowOnly(withMoves.first!)
+                }else {
+                    // あるcellが消え、他のcellが入ってきた場合
+                    fallthrough
+                }
+            default:
+                tableView.reloadData()
             }
         }else {
             tableView.reloadData()

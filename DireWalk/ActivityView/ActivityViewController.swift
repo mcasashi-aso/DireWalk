@@ -135,6 +135,9 @@ final class ActivityViewController: UIViewController, UICollectionViewDelegate, 
             default: break
             }
             let cell: ActivityCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ActivityCollectionViewCell
+            if #available(iOS 13, *) {
+                cell.layer.cornerCurve = .continuous
+            }
             cell.layer.cornerRadius = cell.bounds.height / 6
             cell.setInset(constant: cell.bounds.height / 8)
             cell.layer.masksToBounds = true

@@ -99,7 +99,6 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
     }
     
     func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        print(#function)
         if doneble {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             let doneAction = UIAlertAction(title: "save".localized, style: .default) { _ in

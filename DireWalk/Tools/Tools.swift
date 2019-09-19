@@ -98,3 +98,13 @@ extension NSAttributedString {
         NSAttributedString(string: string, attributes: attributes.value())
     }
 }
+
+
+// MARK: - Available Keywords
+var isiOS13: Bool {
+    if #available(iOS 13, *) {
+        return true
+    }else {
+        return false
+    }
+}
