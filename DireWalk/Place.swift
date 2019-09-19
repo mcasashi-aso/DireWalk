@@ -32,11 +32,11 @@ struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomString
     
     // MARK: - Initializer
     init(latitude: CLLocationDegrees, longitude: CLLocationDegrees,
-         title: String?, adress: String?) {
+         title: String?, address: String?) {
         self.latitude = latitude
         self.longitude = longitude
         self.title = title
-        self.address = adress
+        self.address = address
         let favorites = UserDefaults.standard.get(.favoritePlaces) ?? []
         if let favorite = favorites.first(where: { $0.isSamePlace(to: self) }) {
             self.title = favorite.title
@@ -44,11 +44,11 @@ struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomString
     }
     
     init(coordinate: CLLocationCoordinate2D,
-         title: String?, adress: String?) {
+         title: String?, address: String?) {
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
         self.title = title
-        self.address = adress
+        self.address = address
     }
     
     // MARK: - Favorite

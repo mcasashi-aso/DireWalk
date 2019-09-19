@@ -78,7 +78,7 @@ final class Model: NSObject {
         }
         wait({ title == nil && adr == nil }) {
             self.place = Place(coordinate: location.coordinate,
-                               title: title!, adress: adr!)
+                               title: title!, address: adr!)
         }
     }
 

@@ -27,7 +27,7 @@ protocol ViewModelDelegate: class {
 // MARK: - ViewModel
 final class ViewModel: NSObject {
     
-    // MARK: - Singlton
+    // MARK: - Singleton
     static let shared = ViewModel()
     private override init() {
         super.init()
@@ -93,7 +93,7 @@ final class ViewModel: NSObject {
                 .get("swipeAndSelect".localized, attributes: .white40))
         }
         
-        if state == .hideControllers { return NSMutableAttributedString() }
+        if (state == .hideControllers && canHidden) { return NSMutableAttributedString() }
         
         let (far, unit) = { () -> (String, String) in
             guard let far = model.far else { return ("Error", "  ") }
@@ -111,7 +111,7 @@ final class ViewModel: NSObject {
         text.append(.get("  ", attributes: .white40))
         text.append(.get(far, attributes: .white80))
         text.append(.get(" \(unit)", attributes: .white40))
-        if settings.alwaysDontShowsFar && (model.far ?? 0) > 50 {
+        if settings.alwaysDontShowsFar && canHidden {
             return NSMutableAttributedString()
         }
         return text
@@ -191,7 +191,7 @@ extension ViewModel: UISearchBarDelegate {
             let results = mapItems.map { item in
                 Place(coordinate: item.placemark.coordinate,
                       title: item.name ?? item.placemark.title ?? item.placemark.address,
-                      adress: item.placemark.address)
+                      address: item.placemark.address)
             }
             
             self.searchResults = matchFavorites + results
@@ -384,7 +384,7 @@ extension ViewModel: ModelDelegate {
     }
     
     func didChangeFar() {
-        if (model.far ?? 0) > 50 && state == .hideControllers {
+        if !canHidden && state == .hideControllers {
             state = .direction
         }
         delegate?.updateViews()
