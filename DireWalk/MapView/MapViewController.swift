@@ -26,7 +26,8 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var mapView: ZoomableMapView! {
         didSet {
             if #available(iOS 13, *) {}else {
-                mapView.setupGesture()
+                print("before")
+                mapView.setupMyZoomGesture()
             }
             mapView.userTrackingMode = MKUserTrackingMode.none
             var region: MKCoordinateRegion = mapView.region
@@ -140,8 +141,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         userTrackingButton.frame = CGRect(origin: CGPoint(x: screenWidth - userTrackingButtonWidth - 3,
                                                           y: searchBarHeight + 3),
                                           size: userTrackingButton.bounds.size)
-        // TODO: COlOR
-        userTrackingButton.backgroundColor = isiOS13 ? .white : .black
+        userTrackingButton.backgroundColor = .white
         userTrackingButton.layer.cornerRadius = userTrackingButton.bounds.height / 6
         userTrackingButton.layer.masksToBounds = true
         userTrackingButton.layer.shadowColor = UIColor.black.cgColor

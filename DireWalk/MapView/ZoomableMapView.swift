@@ -27,7 +27,7 @@ class ZoomableMapView: MKMapView, UIGestureRecognizerDelegate {
     // が、iOS 13の挙動とは少し違う
     // (このGestureはViewのcenterを中心にzoomする)
     // ので、外から使うかどうかを決めれるものとする
-    func setupGesture() {
+    func setupMyZoomGesture() {
         let doubleLongPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleLongPress(_:)))
         
         // ダブルタップ後、即座にLongPress状態に移るように

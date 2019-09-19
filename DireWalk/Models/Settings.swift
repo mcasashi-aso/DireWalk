@@ -23,14 +23,14 @@ final class Settings {
             switch self {
             case .fillLocation:
                 if #available(iOS 13, *) {
-                    return UIImage(systemName: "location.north.fill")!
+                    return UIImage(systemName: "location.fill")!
                 }else {
-                    return UIImage(named: "Direction")!
+                    return UIImage(named: "DirectionFill")!
                 }
             case .location:
                 if #available(iOS 13, *) {
                     let config = UIImage.SymbolConfiguration(weight: .light)
-                    return UIImage(systemName: "location.north", withConfiguration: config)!
+                    return UIImage(systemName: "location", withConfiguration: config)!
                 }else {
                     return UIImage(named: "Direction")!
                 }

@@ -87,7 +87,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     @IBOutlet weak var destinationLabel: UIButton! {
         didSet {
             destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
-            destinationLabel.titleLabel?.adjustsFontForContentSizeCategory = true
             destinationLabel.accessibilityLabel = "Destination"
         }
     }
@@ -209,7 +208,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         getVC(DirectionViewController.self)?.updateFarLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
         getVC(MapViewController.self)?.updateHeadingImageView()
-        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.buttonAngle)
+        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
     }
     
     func presentEditPlaceView(place: Place) {

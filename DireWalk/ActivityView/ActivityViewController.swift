@@ -11,7 +11,8 @@ import HealthKit
 import CoreMotion
 import GoogleMobileAds
 
-// CollectionViewで組み立てる方式以外にしたい
+// TODO: CollectionViewで組み立てる方式以外にしたい
+// TODO: Activity以外のコンテンツにしないとiPadには対応できないぞ
 final class ActivityViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate {
     
     static func create() -> ActivityViewController {

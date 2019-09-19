@@ -159,7 +159,7 @@ class EditFavoriteViewController: UIViewController, UIAdaptivePresentationContro
             cell.mapView.isPitchEnabled = false
             cell.mapView.isRotateEnabled = false
             cell.mapView.isZoomEnabled = false
-            cell.mapView.setupGesture()
+            cell.mapView.setupMyZoomGesture()
             // mapViewのzoom操作をtableViewと衝突しないように
             cell.mapView.gestureRecognizers?.forEach { recognizer in
                 let name = String(describing: recognizer)

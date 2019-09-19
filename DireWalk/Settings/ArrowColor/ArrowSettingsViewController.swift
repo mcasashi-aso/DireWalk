@@ -26,17 +26,13 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
     // MARK: - Delegate
     weak var delegate: ArrowSettingViewControllerDelegate?
     
-    func didChange() {
+    func sendDidChange() {
         delegate?.arrowSettingViewController(didChange: self)
     }
     
     // MARK: - Views
     @IBOutlet weak var arrowImageView: UIImageView! {
-        didSet {
-            let transform = CGAffineTransform(rotationAngle: 45 * .pi / 180)
-            arrowImageView.transform = transform
-            updatePreview()
-        }
+        didSet { updatePreview() }
     }
     @IBOutlet weak var previewLabel: UILabel! {
         didSet { previewLabel.text = "preview".localized }
@@ -55,6 +51,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
         self.navigationItem.title = "arrow".localized
     }
     
+    // MARK: - Event
     func updatePreview() {
         let arrowColor = settings.arrowColor
         let image = settings.arrowImage.image
@@ -62,7 +59,7 @@ final class ArrowSettingViewController: UIViewController, UITableViewDataSource 
         arrowImageView.image = image.withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = UIColor(white: arrowColor, alpha: 1)
         
-        didChange()
+        sendDidChange()
     }
 
     // MARK: - TableViewDataSource
