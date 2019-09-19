@@ -30,11 +30,16 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
                 mapView.setupMyZoomGesture()
             }
             mapView.userTrackingMode = MKUserTrackingMode.none
-            var region: MKCoordinateRegion = mapView.region
-            region.center = model.currentLocation.coordinate
-            region.span.latitudeDelta = 0.004
-            region.span.longitudeDelta = 0.004
-            mapView.setRegion(region, animated: false)
+            let center: CLLocationCoordinate2D
+            if let selecting = model.coordinate {
+                center = .init(latitude: (model.currentLocation.coordinate.latitude + selecting.latitude) / 2,
+                               longitude: (model.currentLocation.coordinate.longitude + selecting.longitude) / 2)
+            }else {
+                center = model.currentLocation.coordinate
+            }
+            let s = (model.far ?? 1000) / 1000 * 0.015
+            let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
+            mapView.setRegion(.init(center: center, span: span), animated: false)
             mapView.mapType = .mutedStandard
             mapView.delegate = viewModel
         }
