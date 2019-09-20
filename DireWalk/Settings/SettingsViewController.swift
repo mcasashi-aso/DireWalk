@@ -75,7 +75,7 @@ final class SettingsViewController: UIViewController, UITableViewDelegate, Arrow
             self.present(activityViewController, animated: true, completion: nil)
         case .purchase: break
         case .restore: break
-        case .about, .arrowColor, .showFar, .darkMode, .version, .createdBy: break
+        case .about, .arrowColor, .showFar, .version, .createdBy: break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

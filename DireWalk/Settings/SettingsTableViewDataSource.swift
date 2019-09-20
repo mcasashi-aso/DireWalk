@@ -9,7 +9,7 @@
 import UIKit
 
 enum SettingsTableViewCellType: TableViewCellType {
-    case about, arrowColor, showFar, darkMode, review, share, version, createdBy, purchase, restore
+    case about, arrowColor, showFar, review, share, version, createdBy, purchase, restore
 }
 
 final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
@@ -62,13 +62,6 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             cell.setup(title: "doNotAlwaysShowFar".localized,
                        initialValue: settings.alwaysDontShowsFar,
                        didChange: { (isOn) in self.settings.alwaysDontShowsFar = isOn })
-            return cell
-        // MARK: dark mode
-        case .darkMode:
-            let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "alwaysDarkMode".localizedYet,
-                       initialValue: settings.isAlwaysDarkAppearance,
-                       didChange: { (isOn) in self.settings.isAlwaysDarkAppearance = isOn})
             return cell
         // MARK: review
         case .review:

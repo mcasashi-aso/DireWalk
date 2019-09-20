@@ -69,8 +69,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var searchBarBackgroundView: UIView!
     @IBOutlet weak var tableViewHeightConstranit: NSLayoutConstraint!
     
-    private var headingImageView = UIImageView(image: UIImage(named: "UserHeading")!)
-    
     // MARK: - Press Map
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer! {
         didSet { longPressGestureRecognizer.minimumPressDuration = 0.5 }
@@ -180,19 +178,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
-    // MARK: - HeadingView
-    func addHeadingView(to annotationView: MKAnnotationView) {
-        headingImageView.frame = CGRect(x: (annotationView.frame.size.width - 40)/2,
-                                        y: (annotationView.frame.size.height - 40)/2,
-                                        width: 40, height: 40)
-        annotationView.insertSubview(headingImageView, at: 0)
-    }
-    
-    func updateHeadingImageView() {
-        let rotation = (model.userHeadingRadian - CGFloat(mapView.camera.heading)) * .pi / 180
-        headingImageView.transform = CGAffineTransform(rotationAngle: rotation)
-    }
-
     // MARK: - Search
     func applyViewConstraints(animated: Bool = true) {
         if viewModel.state == .search {
@@ -282,7 +267,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     //　MARK: - Other
     func moveCenterToPlace() {
         let center = model.coordinate ?? model.currentLocation.coordinate
-        let s = min((model.far ?? 1000) / 1000 * 0.015, 0.01)
+        let s = min((model.far ?? 1000) / 1000 * 0.01, 0.01)
         let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
         mapView.setRegion(.init(center: center, span: span), animated: true)
         searchBar.setShowsCancelButton(false, animated: true)

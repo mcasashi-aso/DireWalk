@@ -39,8 +39,14 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map {
-            // .searchだった時に終了
-            viewModel.state = (viewModel.state == .search) ? .map : .search
+            if viewModel.state == .search {
+                viewModel.state = .map
+            }else {
+                viewModel.state = .search
+                if viewModel.searchTableViewPlaces.isEmpty {
+                    getVC(MapViewController.self)?.searchBar.becomeFirstResponder()
+                }
+            }
             return
         }
         let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
@@ -206,7 +212,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     func updateViews() {
         getVC(DirectionViewController.self)?.updateFarLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
-        getVC(MapViewController.self)?.updateHeadingImageView()
         directionButton.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
     }
     
@@ -215,10 +220,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         let vc = navigationController.topViewController as! EditFavoriteViewController
         vc.delegate = self
         present(navigationController, animated: true, completion: nil)
-    }
-    
-    func addHeadingView(to annotationView: MKAnnotationView) {
-        getVC(MapViewController.self)?.addHeadingView(to: annotationView)
     }
     
     func reloadTableViewData(new: [Place], old: [Place]) {

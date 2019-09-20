@@ -11,8 +11,6 @@ import MapKit
 
 // MARK: - ViewModelDelegate
 protocol ViewModelDelegate: class {
-    func addHeadingView(to annotationView: MKAnnotationView)
-    
     func updateViews()
     func didChangePlace()
     func didChangeState()
@@ -360,11 +358,6 @@ extension ViewModel: MKMapViewDelegate {
             button.tintColor = .systemBlue
         }
         return button
-    }
-    
-    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
-        guard let view = views.filter({ $0.annotation is MKUserLocation }).first else { return }
-        delegate?.addHeadingView(to: view)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

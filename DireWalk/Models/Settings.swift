@@ -44,8 +44,6 @@ final class Settings {
     var arrowColor: CGFloat
     @UserDefault(.showFar, defaultValue: false)
     var alwaysDontShowsFar: Bool
-    @UserDefault(.isAlwaysDarkAppearance, defaultValue: true)
-    var isAlwaysDarkAppearance: Bool
     
 }
 
