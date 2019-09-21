@@ -47,6 +47,7 @@ final class ViewModel: NSObject {
     var state : Status = .direction {
         didSet {
             delegate?.didChangeState()
+            delegate?.updateViews()
             UIApplication.shared.isIdleTimerDisabled = (state == .hideControllers)
         }
     }
@@ -80,8 +81,8 @@ final class ViewModel: NSObject {
     var aboutLabelText: String {
         if model.place == nil { return " " }
         switch state {
-        case .activity, .hideControllers: return " "
-        case .direction, .map: return "destination:".localized
+        case .activity: return " "
+        case .direction, .hideControllers, .map: return "destination:".localized
         case .search: return "search".localized
         }
     }
@@ -163,7 +164,13 @@ extension ViewModel: UIPageViewControllerDelegate {
         case is ActivityViewController:  state = .activity
         default: return
         }
-        delegate?.updateViews()
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            willTransitionTo pendingViewControllers: [UIViewController]) {
+        if state == .hideControllers {
+            state = .direction
+        }
     }
 }
 

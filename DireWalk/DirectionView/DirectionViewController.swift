@@ -40,7 +40,7 @@ final class DirectionViewController: UIViewController {
     }
     
     func updateHeadingImage() {
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseInOut, .allowUserInteraction], animations: {
             let affineTransform = CGAffineTransform(rotationAngle: self.viewModel.headingImageAngle)
             self.headingImageView.transform = affineTransform
         }, completion: nil)

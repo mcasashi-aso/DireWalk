@@ -26,7 +26,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var mapView: ZoomableMapView! {
         didSet {
             if #available(iOS 13, *) {}else {
-                print("before")
                 mapView.setupMyZoomGesture()
             }
             mapView.userTrackingMode = MKUserTrackingMode.none

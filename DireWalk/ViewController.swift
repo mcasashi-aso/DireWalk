@@ -22,43 +22,29 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     // MARK: - Controller Button Action
     @IBAction func tapDirection() {
         if viewModel.presentView == .direction { return }
-        
         let direction: UIPageViewController.NavigationDirection
         direction = (viewModel.presentView == .activity) ? .forward : .reverse
         let directionVC = getVC(DirectionViewController.self) ?? DirectionViewController.create()
         contentPageVC.setViewControllers([directionVC], direction: direction, animated: true)
         viewModel.state = .direction
-        updateViews()
     }
     @IBAction func tapActivity() {
         if viewModel.presentView == .activity { return }
         let activityVC = getVC(ActivityViewController.self) ?? ActivityViewController.create()
         contentPageVC.setViewControllers([activityVC], direction: .reverse, animated: true)
         viewModel.state = .activity
-        updateViews()
     }
     @IBAction func tapMap() {
         if viewModel.presentView == .map {
-            if viewModel.state == .search {
-                viewModel.state = .map
-            }else {
-                viewModel.state = .search
-                if viewModel.searchTableViewPlaces.isEmpty {
-                    getVC(MapViewController.self)?.searchBar.becomeFirstResponder()
-                }
+            viewModel.state = (viewModel.state == .search) ? .map : .search
+            if (viewModel.state == .search) && (viewModel.searchTableViewPlaces.isEmpty) {
+                getVC(MapViewController.self)?.searchBar.becomeFirstResponder()
             }
-            return
+        }else {
+            let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
+            contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
+            viewModel.state = .map
         }
-        let mapVC = getVC(MapViewController.self) ?? MapViewController.create()
-        contentPageVC.setViewControllers([mapVC], direction: .forward, animated: true)
-        viewModel.state = .map
-        updateViews()
-    }
-    @IBAction func tapDestinationLabel() {
-        if model.place == nil || viewModel.presentView == .direction {
-            tapMap()
-        }else { tapDirection() }
-        updateViews()
     }
     
     // MARK: - Views
@@ -73,23 +59,26 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
             directionButton.layer.shadowOffset = CGSize(width: 1, height: 1)
             directionButton.layer.shadowRadius = 4
             directionButton.layer.shadowOpacity = 0.5
-            directionButton.accessibilityLabel = "Direction Tab"
+            directionButton.accessibilityLabel = "Direction"
         }
     }
     @IBOutlet weak var mapButton: UIButton! {
         didSet {
             mapButton.contentMode = UIView.ContentMode.scaleAspectFill
-            mapButton.accessibilityLabel = "Map Tab"
+            mapButton.accessibilityLabel = "Map"
         }
     }
     @IBOutlet weak var activityButton: UIButton! {
         didSet {
             activityButton.contentMode = UIView.ContentMode.scaleAspectFill
-            activityButton.accessibilityLabel = "Activity Tab"
+            activityButton.accessibilityLabel = "Activity"
         }
     }
     
-    @IBOutlet weak var aboutLabel: UILabel!
+    // UIButtonだけど押せないので名前はLabelに
+    @IBOutlet weak var aboutLabel: UIButton! {
+        didSet { aboutLabel.titleLabel?.adjustsFontSizeToFitWidth = true }
+    }
     @IBOutlet weak var destinationLabel: UIButton! {
         didSet {
             destinationLabel.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -146,7 +135,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        aboutLabel.text = viewModel.aboutLabelText
+        aboutLabel.setTitle(viewModel.aboutLabelText, for: .normal)
         destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
         contentPageVC.viewControllers?.forEach { $0.view.layoutIfNeeded() }
     }
@@ -200,7 +189,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         hideControllers(viewModel.state == .hideControllers)
         getVC(MapViewController.self)?.applyViewConstraints()
         destinationLabel.setTitle(viewModel.labelTitle, for: .normal)
-        aboutLabel.text = viewModel.aboutLabelText
+        aboutLabel.setTitle(viewModel.aboutLabelText, for: .normal)
     }
     
     func didChangePlace() {
@@ -212,7 +201,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     func updateViews() {
         getVC(DirectionViewController.self)?.updateFarLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
-        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
             let transform = CGAffineTransform(rotationAngle: self.viewModel.headingImageAngle)
             self.directionButton.transform = transform
         }, completion: nil)
@@ -263,7 +252,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
 
     // MARK: - Hide Controllers
     func hideControllers(_ isHidden: Bool) {
-        print(viewModel.state)
         statusBarBackgroundView.isHidden = isHidden
         titleBar.isHidden = isHidden
         directionButton.isHidden = isHidden
