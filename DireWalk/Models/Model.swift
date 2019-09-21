@@ -24,6 +24,7 @@ final class Model: NSObject {
         didSet {
             updateFar()
             delegate?.didChangePlace()
+            updateDestinationHeading()
         }
     }
     var coordinate: CLLocationCoordinate2D? {

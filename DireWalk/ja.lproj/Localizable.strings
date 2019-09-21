@@ -30,7 +30,7 @@
 "arrowOnlyModeCaption" = "画面を押し込むと矢印のみになります。\nこのモードでは画面の自動ロックが\nオフになります。\nOLED搭載端末では\n消費電力が抑えられます。";
 
 // MARK: - Direction VC
-"swipe" = "スワイプして選択";
+"swipeAndSelect" = "スワイプして選択";
 
 
 // MARK: - Map VC
