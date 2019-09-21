@@ -212,7 +212,10 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     func updateViews() {
         getVC(DirectionViewController.self)?.updateFarLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
-        directionButton.transform = CGAffineTransform(rotationAngle: viewModel.headingImageAngle)
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut, animations: {
+            let transform = CGAffineTransform(rotationAngle: self.viewModel.headingImageAngle)
+            self.directionButton.transform = transform
+        }, completion: nil)
     }
     
     func presentEditPlaceView(place: Place) {
