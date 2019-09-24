@@ -36,9 +36,18 @@ final class ViewModel: NSObject {
         updateTableView()
     }
     
+    // MARK: - Model
+    var coordinate: CLLocationCoordinate2D? {
+        guard let p = model.place else { return nil }
+        return CLLocationCoordinate2DMake(p.latitude, p.longitude)
+    }
+    
+    var currentLocation: CLLocation { model.currentLocation }
+    var far: Double? { model.far }
+    
     // MARK: - Other Models
     private let model = Model.shared
-    var settings = Settings.shared
+    private var settings = Settings.shared
     private var userDefaults = UserDefaults.standard
     weak var delegate: ViewModelDelegate?
     
@@ -121,7 +130,10 @@ final class ViewModel: NSObject {
         model.place != nil ? ((model.heading - 45) * .pi / 180) : (.pi / 4)
     }
     
-    var annotation: Annotation?
+    var annotation: Annotation? {
+        guard let place = model.place else { return nil }
+        return Annotation(place: place)
+    }
     
     // MARK: - Favorites & Search
     @UserDefault(.favoritePlaces, defaultValue: Set<Place>())
@@ -392,5 +404,12 @@ extension ViewModel: ModelDelegate {
     
     func didChangeHeading() {
         delegate?.updateViews()
+    }
+}
+
+
+extension ViewModel {
+    func setPlace(_ location: CLLocation) {
+        model.setPlace(location)
     }
 }

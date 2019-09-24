@@ -16,7 +16,6 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     
     // MARK: - Model
     private let viewModel = ViewModel.shared
-    private let model = Model.shared
     private let userDefaults = UserDefaults.standard
     
     // MARK: - Controller Button Action
@@ -303,6 +302,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     
     // MARK: - Edit Delegate
     func editFavoriteViewControllerDidFinish() {
+        
         dismiss(animated: true)
     }
 }

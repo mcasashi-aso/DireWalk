@@ -27,10 +27,6 @@ final class Model: NSObject {
             updateDestinationHeading()
         }
     }
-    var coordinate: CLLocationCoordinate2D? {
-        guard let p = place else { return nil }
-        return CLLocationCoordinate2DMake(p.latitude, p.longitude)
-    }
     
     var far: Double? {
         didSet { delegate?.didChangeFar() }
@@ -40,7 +36,7 @@ final class Model: NSObject {
     private var destinationHeadingRadian = CGFloat() {
         didSet { delegate?.didChangeHeading() }
     }
-    var userHeadingRadian = CGFloat() {
+    private var userHeadingRadian = CGFloat() {
         didSet { delegate?.didChangeHeading() }
     }
     
@@ -59,7 +55,7 @@ final class Model: NSObject {
         notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateUserHeading, object: nil)
     }
     
-    let locationManager = CurrentLocationManager.shared
+    private let locationManager = CurrentLocationManager.shared
     private let userDefaults = UserDefaults.standard
     private let notificationCenter = NotificationCenter.default
     var delegate: ModelDelegate?
@@ -70,7 +66,7 @@ final class Model: NSObject {
         CLGeocoder().reverseGeocodeLocation(location) { placemarks, error in
             guard let placemark = placemarks?.first, error == nil else {
                 title = "new pin"
-                adr = "adress"
+                adr = "address"
                 return
             }
             if let interest = placemark.areasOfInterest?.first { title = interest }

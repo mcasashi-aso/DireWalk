@@ -12,7 +12,7 @@ import MapKit
 import CoreLocation
 import GoogleMobileAds
 
-final class MapViewController: UIViewController, UIScrollViewDelegate {
+final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchBarDelegate {
     
     static func create() -> MapViewController {
         let sb = UIStoryboard(name: "Map", bundle: nil)
@@ -20,7 +20,6 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private let viewModel = ViewModel.shared
-    private let model = Model.shared
     
     // MARK: - Views
     @IBOutlet weak var mapView: ZoomableMapView! {
@@ -30,13 +29,13 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             }
             mapView.userTrackingMode = MKUserTrackingMode.none
             let center: CLLocationCoordinate2D
-            if let selecting = model.coordinate {
-                center = .init(latitude: (model.currentLocation.coordinate.latitude + selecting.latitude) / 2,
-                               longitude: (model.currentLocation.coordinate.longitude + selecting.longitude) / 2)
+            if let selecting = viewModel.coordinate {
+                center = .init(latitude: (viewModel.currentLocation.coordinate.latitude + selecting.latitude) / 2,
+                               longitude: (viewModel.currentLocation.coordinate.longitude + selecting.longitude) / 2)
             }else {
-                center = model.currentLocation.coordinate
+                center = viewModel.currentLocation.coordinate
             }
-            let s = (model.far ?? 1000) / 1000 * 0.015
+            let s = (viewModel.far ?? 1000) / 1000 * 0.015
             let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
             mapView.setRegion(.init(center: center, span: span), animated: false)
             mapView.mapType = .mutedStandard
@@ -77,19 +76,15 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
             sender.state == .began else { return }
         let location = sender.location(in: mapView)
         let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
-        model.setPlace(CLLocation(latitude: coordinate.latitude,
-                                  longitude: coordinate.longitude))
+        viewModel.setPlace(CLLocation(latitude: coordinate.latitude,
+                                      longitude: coordinate.longitude))
     }
     
     // MARK: - Add Marker
     func addMarker(new: Bool) {
         mapView.removeAnnotations(mapView.annotations)
-        
-        wait( { self.model.place == nil } ) {
-            self.viewModel.annotation = Annotation(place: self.model.place!)
-            self.mapView.addAnnotation(self.viewModel.annotation!)
-        }
-        
+        guard let annotation = viewModel.annotation else { return }
+        mapView.addAnnotation(annotation)
         if new {
             let generater = UIImpactFeedbackGenerator()
             generater.prepare()
@@ -265,8 +260,8 @@ final class MapViewController: UIViewController, UIScrollViewDelegate {
     
     //　MARK: - Other
     func moveCenterToPlace() {
-        let center = model.coordinate ?? model.currentLocation.coordinate
-        let s = min((model.far ?? 1000) / 1000 * 0.01, 0.01)
+        let center = viewModel.coordinate ?? viewModel.currentLocation.coordinate
+        let s = min((viewModel.far ?? 1000) / 1000 * 0.01, 0.01)
         let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
         mapView.setRegion(.init(center: center, span: span), animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
