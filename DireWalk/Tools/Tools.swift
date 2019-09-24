@@ -98,3 +98,19 @@ extension NSAttributedString {
         NSAttributedString(string: string, attributes: attributes.value())
     }
 }
+
+
+// MARK: - UIGestureRecognizer State
+extension UIGestureRecognizer.State: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        switch self {
+        case .possible:   return "possivle"
+        case .began:      return "began"
+        case .changed:    return "changed"
+        case .ended:      return "ended"
+        case .cancelled:  return "cancelld"
+        case .failed:     return "failed"
+        @unknown default: return "unknown"
+        }
+    }
+}

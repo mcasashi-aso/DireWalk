@@ -47,8 +47,8 @@ final class ViewModel: NSObject {
     
     // MARK: - Other Models
     private let model = Model.shared
-    private var settings = Settings.shared
-    private var userDefaults = UserDefaults.standard
+    private let settings = Settings.shared
+    private let userDefaults = UserDefaults.standard
     weak var delegate: ViewModelDelegate?
     
     // MARK: - View State
@@ -188,7 +188,7 @@ extension ViewModel: UIPageViewControllerDelegate {
 
 
 // MARK: - UISearchBarDelegate
-extension ViewModel: UISearchBarDelegate {
+extension ViewModel {
     func setResultElements() {
         if searchText.isEmpty {
             self.searchResults = []
@@ -212,41 +212,6 @@ extension ViewModel: UISearchBarDelegate {
             }
             
             self.searchResults = matchFavorites + results
-        }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-    
-    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-        state = .search
-        return true
-    }
-    
-    func searchBar(_ searchBar: UISearchBar,
-                   shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let nsString = (searchBar.text ?? "") as NSString
-        let replaced = nsString.replacingCharacters(in: range, with: text) as String
-        searchText = replaced.trimmingCharacters(in: .whitespacesAndNewlines)
-        return true
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        state = .map
-        searchBar.resignFirstResponder()
-    }
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        setResultElements()
-        if searchTableViewPlaces.isEmpty {
-            // 検索結果がない場合検索モードを終了する
-            state = .map
-        }else {
-            // 検索結果がある場合はキーボードだけ消す
-            searchBar.resignFirstResponder()
-            if let cancelButton = searchBar.cancelButton {
-                cancelButton.isEnabled = true
-            }
         }
     }
     

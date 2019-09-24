@@ -52,7 +52,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
                 textField.backgroundColor = bgColor
             }
             searchBar.accessibilityLabel = "Search Bar"
-            searchBar.delegate = viewModel
+            searchBar.delegate = self
             searchBar.placeholder = "search".localized
         }
     }
@@ -72,6 +72,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
         didSet { longPressGestureRecognizer.minimumPressDuration = 0.5 }
     }
     @IBAction func pressMap(_ sender: UILongPressGestureRecognizer) {
+        print("press map", sender.state)
         guard viewModel.state == .map,
             sender.state == .began else { return }
         let location = sender.location(in: mapView)
@@ -266,4 +267,36 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
         mapView.setRegion(.init(center: center, span: span), animated: true)
         searchBar.setShowsCancelButton(false, animated: true)
     }
+
+    // MARK: - SearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        viewModel.state = .search
+        return true
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let nsString = (searchBar.text ?? "") as NSString
+        let replaced = nsString.replacingCharacters(in: range, with: text) as String
+        viewModel.searchText = replaced.trimmingCharacters(in: .whitespacesAndNewlines)
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.state = .map
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if viewModel.searchTableViewPlaces.isEmpty {
+            viewModel.state = .map
+        }else {
+            searchBar.resignFirstResponder()
+            searchBar.cancelButton?.isEnabled = true
+        }
+    }
+    
 }
