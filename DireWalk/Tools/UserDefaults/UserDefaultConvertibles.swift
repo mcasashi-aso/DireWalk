@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import MapKit
 
+// MARK: - Int
 extension Int: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Int else { return nil }
@@ -16,6 +18,7 @@ extension Int: UserDefaultConvertible {
     func object() -> Any? { return self }
 }
 
+// MARK: - String
 extension String: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? String else { return nil }
@@ -24,6 +27,7 @@ extension String: UserDefaultConvertible {
     func object() -> Any? { self }
 }
 
+// MARK: - Optional
 extension Optional: UserDefaultConvertible where Wrapped: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = Wrapped(with: object) else { return nil }
@@ -37,6 +41,7 @@ extension Optional: UserDefaultConvertible where Wrapped: UserDefaultConvertible
     }
 }
 
+// MARK: - Array
 extension Array: UserDefaultConvertible where Element: UserDefaultConvertible {
     private struct Error: Swift.Error {}
     
@@ -63,6 +68,7 @@ extension Array: UserDefaultConvertible where Element: UserDefaultConvertible {
     }
 }
 
+// MARK: - Set
 extension Set: UserDefaultConvertible where Element: UserDefaultConvertible, Element: Hashable {
     private struct Error: Swift.Error {}
     
@@ -89,6 +95,7 @@ extension Set: UserDefaultConvertible where Element: UserDefaultConvertible, Ele
     }
 }
 
+// MARK: - Date
 extension Date: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Date else { return nil }
@@ -97,6 +104,7 @@ extension Date: UserDefaultConvertible {
     func object() -> Any? { self }
 }
 
+// MARK: - Bool
 extension Bool: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Bool else { return nil }
@@ -105,6 +113,7 @@ extension Bool: UserDefaultConvertible {
     func object() -> Any? { self }
 }
 
+// MARK: - CGFloat
 extension CGFloat: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? CGFloat else { return nil }
@@ -113,6 +122,7 @@ extension CGFloat: UserDefaultConvertible {
     func object() -> Any? { self }
 }
 
+// MARK: - Double
 extension Double: UserDefaultConvertible {
     init?(with object: Any) {
         guard let value = object as? Double else { return nil }

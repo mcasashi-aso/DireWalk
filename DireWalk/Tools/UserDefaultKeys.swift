@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 fileprivate typealias Key = UserDefaultTypedKey
 
@@ -18,6 +19,7 @@ extension UserDefaultTypedKeys {
     static let arrowImageName = Key<Settings.ArrowImage>("arrowImageName")
     static let showFar = Key<Bool>("showFar")
     static let arrowColor = Key<CGFloat>("arrowColorWhite")
+//    static let mapType = Key<MKMapType>("mapType")
     
     // MARK: - UsingTime
     static let date = Key<Date>("date")

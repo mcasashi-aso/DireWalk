@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 final class Settings {
     
@@ -44,6 +45,8 @@ final class Settings {
     var arrowColor: CGFloat
     @UserDefault(.showFar, defaultValue: false)
     var alwaysDontShowsFar: Bool
+//    @UserDefault(.mapType, defaultValue: .mutedStandard)
+//    var mapType: MKMapType
     
 }
 

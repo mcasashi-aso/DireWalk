@@ -344,6 +344,12 @@ extension ViewModel: MKMapViewDelegate {
         return button
     }
     
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            view.displayPriority = (view.annotation is MKUserLocation) ? .defaultLow : .defaultHigh
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         delegate?.updateViews()
     }
