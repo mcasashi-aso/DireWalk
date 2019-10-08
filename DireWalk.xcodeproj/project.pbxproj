@@ -23,6 +23,17 @@
 		BA274533232E897A00E12451 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA274532232E897A00E12451 /* DetailTableViewCell.swift */; };
 		BA274535232E89AB00E12451 /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274534232E89AB00E12451 /* DetailTableViewCell.xib */; };
 		BA274537232E987100E12451 /* SliderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA274536232E987100E12451 /* SliderTableViewCell.xib */; };
+		BA416233234C52A3006B5E5C /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA416231234C52A3006B5E5C /* Interface.storyboard */; };
+		BA416235234C52A7006B5E5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA416234234C52A7006B5E5C /* Assets.xcassets */; };
+		BA41623C234C52A7006B5E5C /* DireWalk for watchOS Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BA41623B234C52A7006B5E5C /* DireWalk for watchOS Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BA416241234C52A7006B5E5C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA416240234C52A7006B5E5C /* ContentView.swift */; };
+		BA416243234C52A7006B5E5C /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA416242234C52A7006B5E5C /* HostingController.swift */; };
+		BA416245234C52A7006B5E5C /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA416244234C52A7006B5E5C /* ExtensionDelegate.swift */; };
+		BA416247234C52A7006B5E5C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA416246234C52A7006B5E5C /* NotificationController.swift */; };
+		BA416249234C52A7006B5E5C /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA416248234C52A7006B5E5C /* NotificationView.swift */; };
+		BA41624B234C52A8006B5E5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA41624A234C52A8006B5E5C /* Assets.xcassets */; };
+		BA41624E234C52A8006B5E5C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA41624D234C52A8006B5E5C /* Preview Assets.xcassets */; };
+		BA416253234C52A8006B5E5C /* DireWalk for watchOS.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BA41622F234C52A3006B5E5C /* DireWalk for watchOS.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BA4274672312B3CC00CD3796 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274662312B3CC00CD3796 /* Model.swift */; };
 		BA4274692312CA5700CD3796 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */; };
 		BA59EBE32319552B0037EF6B /* UserDefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */; };
@@ -81,6 +92,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		BA41623D234C52A7006B5E5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6C437BB222386F800542844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA41623A234C52A7006B5E5C;
+			remoteInfo = "DireWalk for watchOS Extension";
+		};
+		BA416251234C52A8006B5E5C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E6C437BB222386F800542844 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BA41622E234C52A3006B5E5C;
+			remoteInfo = "DireWalk for watchOS";
+		};
 		E6C437D8222386FA00542844 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E6C437BB222386F800542844 /* Project object */;
@@ -98,6 +123,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		BA416254234C52A8006B5E5C /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				BA416253234C52A8006B5E5C /* DireWalk for watchOS.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA416257234C52A8006B5E5C /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BA41623C234C52A7006B5E5C /* DireWalk for watchOS Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BA59EBF8231972C40037EF6B /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +179,20 @@
 		BA274532232E897A00E12451 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		BA274534232E89AB00E12451 /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
 		BA274536232E987100E12451 /* SliderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SliderTableViewCell.xib; sourceTree = "<group>"; };
+		BA41622F234C52A3006B5E5C /* DireWalk for watchOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DireWalk for watchOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA416232234C52A3006B5E5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		BA416234234C52A7006B5E5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA416236234C52A7006B5E5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA41623B234C52A7006B5E5C /* DireWalk for watchOS Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "DireWalk for watchOS Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA416240234C52A7006B5E5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		BA416242234C52A7006B5E5C /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		BA416244234C52A7006B5E5C /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		BA416246234C52A7006B5E5C /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		BA416248234C52A7006B5E5C /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		BA41624A234C52A8006B5E5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BA41624D234C52A8006B5E5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		BA41624F234C52A8006B5E5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA416250234C52A8006B5E5C /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BA4274662312B3CC00CD3796 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		BA4274682312CA5700CD3796 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		BA59EBE22319552B0037EF6B /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
@@ -203,6 +264,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BA416238234C52A7006B5E5C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6C437C0222386F800542844 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -274,6 +342,40 @@
 				BA274529232E87FD00E12451 /* ToggleTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BA416230234C52A3006B5E5C /* DireWalk for watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				BA416231234C52A3006B5E5C /* Interface.storyboard */,
+				BA416234234C52A7006B5E5C /* Assets.xcassets */,
+				BA416236234C52A7006B5E5C /* Info.plist */,
+			);
+			path = "DireWalk for watchOS";
+			sourceTree = "<group>";
+		};
+		BA41623F234C52A7006B5E5C /* DireWalk for watchOS Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BA416240234C52A7006B5E5C /* ContentView.swift */,
+				BA416242234C52A7006B5E5C /* HostingController.swift */,
+				BA416244234C52A7006B5E5C /* ExtensionDelegate.swift */,
+				BA416246234C52A7006B5E5C /* NotificationController.swift */,
+				BA416248234C52A7006B5E5C /* NotificationView.swift */,
+				BA41624A234C52A8006B5E5C /* Assets.xcassets */,
+				BA41624F234C52A8006B5E5C /* Info.plist */,
+				BA416250234C52A8006B5E5C /* PushNotificationPayload.apns */,
+				BA41624C234C52A8006B5E5C /* Preview Content */,
+			);
+			path = "DireWalk for watchOS Extension";
+			sourceTree = "<group>";
+		};
+		BA41624C234C52A8006B5E5C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				BA41624D234C52A8006B5E5C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		BA448E2A232E3585006799D4 /* Models */ = {
@@ -425,6 +527,8 @@
 				E6C437DA222386FA00542844 /* DireWalkTests */,
 				E6C437E5222386FA00542844 /* DireWalkUITests */,
 				BA59EBEB231972C40037EF6B /* DireWalkShareExtension */,
+				BA416230234C52A3006B5E5C /* DireWalk for watchOS */,
+				BA41623F234C52A7006B5E5C /* DireWalk for watchOS Extension */,
 				E6C437C4222386F800542844 /* Products */,
 				E67C3A15222698E600551AC6 /* Frameworks */,
 				CE2A30B13E534BEAACFAE82C /* Pods */,
@@ -437,6 +541,8 @@
 				E6C437C3222386F800542844 /* DireWalk.app */,
 				E6C437D7222386FA00542844 /* DireWalkTests.xctest */,
 				E6C437E2222386FA00542844 /* DireWalkUITests.xctest */,
+				BA41622F234C52A3006B5E5C /* DireWalk for watchOS.app */,
+				BA41623B234C52A7006B5E5C /* DireWalk for watchOS Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -488,6 +594,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BA41622E234C52A3006B5E5C /* DireWalk for watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA41625B234C52A8006B5E5C /* Build configuration list for PBXNativeTarget "DireWalk for watchOS" */;
+			buildPhases = (
+				BA41622D234C52A3006B5E5C /* Resources */,
+				BA416257234C52A8006B5E5C /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BA41623E234C52A7006B5E5C /* PBXTargetDependency */,
+			);
+			name = "DireWalk for watchOS";
+			productName = "DireWalk for watchOS";
+			productReference = BA41622F234C52A3006B5E5C /* DireWalk for watchOS.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		BA41623A234C52A7006B5E5C /* DireWalk for watchOS Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA41625A234C52A8006B5E5C /* Build configuration list for PBXNativeTarget "DireWalk for watchOS Extension" */;
+			buildPhases = (
+				BA416237234C52A7006B5E5C /* Sources */,
+				BA416238234C52A7006B5E5C /* Frameworks */,
+				BA416239234C52A7006B5E5C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DireWalk for watchOS Extension";
+			productName = "DireWalk for watchOS Extension";
+			productReference = BA41623B234C52A7006B5E5C /* DireWalk for watchOS Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		E6C437C2222386F800542844 /* DireWalk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E6C437EB222386FA00542844 /* Build configuration list for PBXNativeTarget "DireWalk" */;
@@ -498,10 +638,12 @@
 				E6C437C1222386F800542844 /* Resources */,
 				63C8A41218FD2C4908D0702B /* [CP] Embed Pods Frameworks */,
 				BA59EBF8231972C40037EF6B /* Embed App Extensions */,
+				BA416254234C52A8006B5E5C /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BA416252234C52A8006B5E5C /* PBXTargetDependency */,
 			);
 			name = DireWalk;
 			productName = DireWalk;
@@ -554,10 +696,16 @@
 		E6C437BB222386F800542844 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "麻生昌志";
 				TargetAttributes = {
+					BA41622E234C52A3006B5E5C = {
+						CreatedOnToolsVersion = 11.2;
+					};
+					BA41623A234C52A7006B5E5C = {
+						CreatedOnToolsVersion = 11.2;
+					};
 					E6C437C2222386F800542844 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1020;
@@ -602,11 +750,31 @@
 				E6C437C2222386F800542844 /* DireWalk */,
 				E6C437D6222386FA00542844 /* DireWalkTests */,
 				E6C437E1222386FA00542844 /* DireWalkUITests */,
+				BA41622E234C52A3006B5E5C /* DireWalk for watchOS */,
+				BA41623A234C52A7006B5E5C /* DireWalk for watchOS Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BA41622D234C52A3006B5E5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA416235234C52A7006B5E5C /* Assets.xcassets in Resources */,
+				BA416233234C52A3006B5E5C /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BA416239234C52A7006B5E5C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA41624E234C52A8006B5E5C /* Preview Assets.xcassets in Resources */,
+				BA41624B234C52A8006B5E5C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6C437C1222386F800542844 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -775,6 +943,18 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BA416237234C52A7006B5E5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BA416243234C52A7006B5E5C /* HostingController.swift in Sources */,
+				BA416241234C52A7006B5E5C /* ContentView.swift in Sources */,
+				BA416247234C52A7006B5E5C /* NotificationController.swift in Sources */,
+				BA416245234C52A7006B5E5C /* ExtensionDelegate.swift in Sources */,
+				BA416249234C52A7006B5E5C /* NotificationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E6C437BF222386F800542844 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -842,6 +1022,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		BA41623E234C52A7006B5E5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA41623A234C52A7006B5E5C /* DireWalk for watchOS Extension */;
+			targetProxy = BA41623D234C52A7006B5E5C /* PBXContainerItemProxy */;
+		};
+		BA416252234C52A8006B5E5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BA41622E234C52A3006B5E5C /* DireWalk for watchOS */;
+			targetProxy = BA416251234C52A8006B5E5C /* PBXContainerItemProxy */;
+		};
 		E6C437D9222386FA00542844 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E6C437C2222386F800542844 /* DireWalk */;
@@ -855,6 +1045,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		BA416231234C52A3006B5E5C /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BA416232234C52A3006B5E5C /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		BA59EBEE231972C40037EF6B /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -899,6 +1097,92 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		BA416255234C52A8006B5E5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7947K7LHD3;
+				IBSC_MODULE = DireWalk_for_watchOS_Extension;
+				INFOPLIST_FILE = "DireWalk for watchOS/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.1;
+			};
+			name = Debug;
+		};
+		BA416256234C52A8006B5E5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7947K7LHD3;
+				IBSC_MODULE = DireWalk_for_watchOS_Extension;
+				INFOPLIST_FILE = "DireWalk for watchOS/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.1;
+			};
+			name = Release;
+		};
+		BA416258234C52A8006B5E5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"DireWalk for watchOS Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = 7947K7LHD3;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "DireWalk for watchOS Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Debug;
+		};
+		BA416259234C52A8006B5E5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"DireWalk for watchOS Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = 7947K7LHD3;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "DireWalk for watchOS Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.masasam-shi.DireWalk.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.0;
+			};
+			name = Release;
+		};
 		E6C437E9222386FA00542844 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1156,6 +1440,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BA41625A234C52A8006B5E5C /* Build configuration list for PBXNativeTarget "DireWalk for watchOS Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA416258234C52A8006B5E5C /* Debug */,
+				BA416259234C52A8006B5E5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BA41625B234C52A8006B5E5C /* Build configuration list for PBXNativeTarget "DireWalk for watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA416255234C52A8006B5E5C /* Debug */,
+				BA416256234C52A8006B5E5C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E6C437BE222386F800542844 /* Build configuration list for PBXProject "DireWalk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
