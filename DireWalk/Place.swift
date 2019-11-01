@@ -16,6 +16,10 @@ struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomString
     var latitude: CLLocationDegrees
     var longitude: CLLocationDegrees
     
+    var coodinator: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+    }
+    
     var title: String? {
         didSet {
             guard title != oldValue else { return }

@@ -21,7 +21,7 @@
 "discardChanges" = "Discard Changes";
 "arrow" = "Arrow";
 
-// MARK: - View Controller
+// MARK: - ViewController
 "destination:" = "Destination:";
 "selectDestination" = "Select Destination";
 "longPressToSelect" = "Press the Map to Select";
@@ -29,22 +29,22 @@
 "arrowOnlyMode" = "Arrow Only Mode";
 "arrowOnlyModeCaption" = "It will be only an arrow on the screen when you press the screen strongly.\nThis mode make display auot-lock never.\nBut, power consumption is rediced with iPhone using OLED";
 
-// MARK: - Direction VC
+// MARK: - DirectionVC
 "swipeAndSelect" = "Swipe and Select";
 
-// MARK: - Map VC
+// MARK: - MapVC
 
 // MARK: - Search
 "enterDestination" = "Enter Destination";
 
-// MARK: - Edit Favoite VC
+// MARK: - EditFavoiteVC
 "editName" = "Edit Place Name";
 
 "placeName" = "Place Name";
 "address" = "Address";
 "removeFromFavorite" = "Remove From Favorite";
 
-// MARK: - Activity VC
+// MARK: - ActivityVC
 "steps" = "Steps";
 "walkingDistance" = "Distance";
 "flightsClimbed" = "Flights";
@@ -59,7 +59,7 @@
 
 "pleaseAllow" = "Please allow";
 
-// MARK: - Settings VC
+// MARK: - SettingsVC
 "aboutStrings" = "DireWalk is an application for people who want to walk freely.\nIf you would want to go somewhere, you might use maps. But it’s boring because the way is limited.\nIf you would use DireWalk, you can enjoy walking and reach a destination.";
 
 "doNotAlwaysShowFar" = "Don't always show distance";
@@ -76,7 +76,7 @@
 "version" = "version";
 "createdby" = "created by";
 
-// MARK: - Arrow Settings VC
+// MARK: - ArrowSettingsVC
 "preview" = "Preview";
 "arrowStyle" = "Arrow Image Style";
 "arrowColor" = "Arrow Color";
@@ -85,16 +85,10 @@
 "fillLocation" = "Fill";
 "borderLocation" = "Border";
 
-// MARK: - Request VC
-"pleaseAllowLocation" = "Please Allow the Use of Location";
-"reauestLocation" = "This application needs your location. This app calculat direction and far to destination.";
-"openSettings" = "Open Settings";
-"aboutThisApp" = "What you can with this app";
-"select" = "First, select location in map";
-"swipeFromLeftEdge" = "Swipe from left edge,\nthe directionis already displayed";
-"always" = "You can always see the\ndirection to the location";
-"thisIsFor" = "This is simple navigation\nThis is for those who want to walk freely\nThis is for those who want to find a new landscape";
+// MARK: - RequestVC
+"RequestVC_pleaseAllowLocation" = "DireWalk Require Your Location";
+"RequestVC_openSettings" = "Open Settings";
 
-"next" = "Next";
-"back" = "Back";
-"navigation" = "Swipe→";
+"RequestVC_firstText" = "DireWalk is a app that show a direction to a destination only.";
+"RequestVC_secondText" = "Let's enjoy walking without the rout.";
+"RequestVC_thirdText" = "DireWalk use your location to calculate a direction and distance to a destination.";

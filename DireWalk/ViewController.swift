@@ -128,7 +128,9 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         
         viewModel.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(showRequestAccessLocation), name: .showRequestAccessLocation, object: nil)
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(showRequestAccessLocation),
+            name: .showRequestAccessLocation, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -246,6 +248,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     @objc func showRequestAccessLocation() {
         let sb = UIStoryboard(name: "RequestLocation", bundle: nil)
         let view = sb.instantiateInitialViewController()
+        view?.modalPresentationStyle = .fullScreen
         self.present(view!, animated: true, completion: nil)
     }
 

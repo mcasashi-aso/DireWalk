@@ -9,120 +9,62 @@
 import UIKit
 import CoreLocation
 
-// TODO: 直す気を起こすところから始めよう
-final class RequestLocationViewController: UIViewController, CLLocationManagerDelegate, UIScrollViewDelegate {
+final class RequestLocationViewController: UIViewController, CLLocationManagerDelegate {
     
-    @IBOutlet weak var toSettingsButton: UIButton!
-    @IBOutlet weak var stringsTextView: UITextView!
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    let locationManager = CLLocationManager()
-    
-    @IBOutlet weak var walkThroughScrollView: UIScrollView!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var backButton: UIButton!
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        toSettingsButton.setTitle("openSettings".localized, for: .normal)
-        stringsTextView.text = "reauestLocation".localized
-        titleLabel.text = "pleaseAllowLocation".localized
-        
-        toSettingsButton.layer.cornerRadius = 13
-        toSettingsButton.layer.masksToBounds = true
-        titleLabel.adjustsFontSizeToFitWidth = true
-        
-        locationManager.delegate = self
-        
-        walkThroughScrollView.delegate = self
-        nextButton.setTitle("next".localized, for: .normal)
-        backButton.setTitle("back".localized, for: .normal)
-        nextButton.layer.cornerRadius = 22
-        nextButton.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        backButton.layer.cornerRadius = 22
-        backButton.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        
-        changeButtonEnabled()
-    }
-    
-    @IBAction func toSettings() {
-        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        
-        if UIApplication.shared.canOpenURL(settingsUrl) {
-            UIApplication.shared.open(settingsUrl)
+    // MARK: - Views
+    @IBOutlet weak var openButton: UIButton! {
+        didSet {
+            if #available(iOS 13, *) {
+                self.openButton.layer.cornerCurve = .continuous
+            }
+            self.openButton.layer.cornerRadius = 15
+            // TODO: Boldにしたい
+            self.openButton.setTitle("RequestVC_openSettings".localized, for: .normal)
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse:
-            self.dismiss(animated: true, completion: nil)
-        default:
-            break
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet { self.titleLabel.text = "RequestVC_pleaseAllowLocation".localized }
+    }
+    
+    // MARK: Text Views
+    @IBOutlet weak var firstTextView: UITextView! {
+        didSet {
+            self.firstTextView.contentInset = .zero
+            self.firstTextView.text = "RequestVC_firstText".localized
+            self.firstTextView.font = .preferredFont(forTextStyle: .title2)
+        }
+    }
+    @IBOutlet weak var secondTextView: UITextView! {
+        didSet {
+            self.secondTextView.contentInset = .zero
+            self.secondTextView.text = "RequestVC_secondText".localized
+            self.secondTextView.font = .preferredFont(forTextStyle: .title2)
+        }
+    }
+    @IBOutlet weak var thirdTextView: UITextView! {
+        didSet {
+            self.thirdTextView.contentInset = .zero
+            self.thirdTextView.text = "RequestVC_thirdText".localized
+            self.thirdTextView.font = .preferredFont(forTextStyle: .title2)
         }
     }
     
-    let screenWidth = UIScreen.main.bounds.width
-    @IBAction func tapNext() {
-        changeContentViewOfWalkThroughView(next: true)
-    }
-    @IBAction func tapBack() {
-        changeContentViewOfWalkThroughView(next: false)
-    }
-    func changeContentViewOfWalkThroughView(next: Bool) {
-        let svX = walkThroughScrollView.contentOffset.x
-        var viewNumber: CGFloat
-        if svX < screenWidth * 0 {
-            viewNumber = 0
-        }else if svX < screenWidth * 1 {
-            viewNumber = next ? 1 : 0
-        }else if svX < screenWidth * 2 {
-            viewNumber = next ? 2 : 0
-        }else if svX < screenWidth * 3 {
-            viewNumber = next ? 3 : 1
-        }else if svX < screenWidth * 4 {
-            viewNumber = next ? 4 : 2
-        }else if svX < screenWidth * 5 {
-            viewNumber = next ? 5 : 3
-        }else {
-            viewNumber = next ? 5 : 4
-        }
-        setWalkThroughViewContentOffset(x: screenWidth * viewNumber)
-        changeButtonEnabled()
-    }
-    func setWalkThroughViewContentOffset(x: CGFloat) {
-        walkThroughScrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        changeButtonEnabled()
-    }
-    
-    func changeButtonEnabled() {
-        let svX = walkThroughScrollView.contentOffset.x
-        if svX < 1 {
-            buttonEnabled(button: backButton, isEnabled: false)
-            buttonEnabled(button: nextButton, isEnabled: true)
-        }else if svX >= screenWidth * 5 {
-            buttonEnabled(button: backButton, isEnabled: true)
-            buttonEnabled(button: nextButton, isEnabled: false)
-        }else {
-            buttonEnabled(button: backButton, isEnabled: true)
-            buttonEnabled(button: nextButton, isEnabled: true)
-        }
-    }
-    func buttonEnabled(button: UIButton, isEnabled: Bool) {
-        if isEnabled {
-            button.isEnabled = true
-            button.backgroundColor = .mySkyBlue
-        }else {
-            button.isEnabled = false
-            button.backgroundColor = .gray
+    // MARK: Images
+    @IBOutlet weak var iconImage: UIImageView! {
+        didSet {
+            if #available(iOS 13.0, *) {
+                self.iconImage.layer.cornerCurve = .continuous
+            }
+            self.iconImage.layer.cornerRadius = 15
         }
     }
     
+    
+    // MARK: - Action
+    @IBAction func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        guard UIApplication.shared.canOpenURL(url) else { return }
+        UIApplication.shared.open(url)
+    }
 }

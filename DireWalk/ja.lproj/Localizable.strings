@@ -21,7 +21,7 @@
 "discardChanges" = "変更を破棄";
 "arrow" = "矢印";
 
-// MARK: - View Controller
+// MARK: - ViewController
 "destination:" = "目的地:";
 "selectDestination" = "目的地を選択";
 "longPressToSelect" = "マップを長押しして選択";
@@ -29,23 +29,23 @@
 "arrowOnlyMode" = "矢印だけモード";
 "arrowOnlyModeCaption" = "画面を押し込むと矢印のみになります。\nこのモードでは画面の自動ロックが\nオフになります。\nOLED搭載端末では\n消費電力が抑えられます。";
 
-// MARK: - Direction VC
+// MARK: - DirectionVC
 "swipeAndSelect" = "スワイプして選択";
 
 
-// MARK: - Map VC
+// MARK: - MapVC
 
 // MARK: - Search
 "enterDestination" = "目的地を入力";
 
-// MARK: - Edit Favorite VC
+// MARK: - EditFavoriteVC
 "editName" = "名前を編集";
 
 "placeName" = "名前";
 "address" = "住所";
 "removeFromFavorite" = "お気に入りから削除";
 
-// MARK: - Activity VC
+// MARK: - ActivityVC
 "steps" = "歩数";
 "flightsClimbed" = "上った階数";
 "walkingDistance" = "歩いた距離";
@@ -60,7 +60,7 @@
 
 "pleaseAllow" = "許可してください";
 
-// MARK: - Settings VC
+// MARK: - SettingsVC
 "aboutStrings" = "DireWalkは自由に歩きたい人のためのアプリケーションです。\nあなたがどこかへ行きたい時、マップを使うと確実に経路を出してくれます。 しかし、マップが出す経路に沿って歩いては退屈です。DireWalkを使えば散歩を楽しみながら目的地に着くことができます。";
 
 "doNotAlwaysShowFar" = "距離を表示しない";
@@ -77,7 +77,7 @@
 "version" = "バージョン";
 "createdby" = "作成者";
 
-// MARK: - Arrow Settings VC
+// MARK: - ArrowSettingsVC
 "preview" = "プレビュー";
 "arrowStyle" = "矢印の形";
 "arrowColor" = "矢印の色";
@@ -87,15 +87,9 @@
 "borderLocation" = "枠のみ";
 
 // MARK: - RequestVC
-"pleaseAllowLocation" = "位置情報の利用を許可してください";
-"reauestLocation" = "このアプリを使うには位置情報が必要です。目的地への方向と距離を計算するのに使用します";
-"openSettings" = "設定を開く";
-"aboutThisApp" = "このアプリの使い方";
-"select" = "まずマップで目的地を選択してください";
-"swipeFromLeftEdge" = "すると画面の左端からスワイプするだけで\nもう目的地への方向は表示されています";
-"always" = "あなたはいつでも選択した場所への\n方向を見ることができます";
-"thisIsFor" = "シンプルなナビゲーションアプリを求めている人に\n自由気ままに歩きたい人のために\n見知った土地に新たな景色を求める全ての人のために";
+"RequestVC_pleaseAllowLocation" = "このアプリを使うには\n位置情報が必要です";
+"RequestVC_openSettings" = "設定を開く";
 
-"next" = "次へ";
-"back" = "戻る";
-"navigation" = "スワイプ→";
+"RequestVC_firstText" = "DireWalkは目的地への方向だけを表示するアプリです。";
+"RequestVC_secondText" = "経路に縛られない自由な散歩を楽しみましょう。";
+"RequestVC_thirdText" = "DireWalkは目的地までの方向と距離を計算するためにあなたの現在地を使用します。";

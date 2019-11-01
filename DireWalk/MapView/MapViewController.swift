@@ -28,16 +28,22 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
                 mapView.setupMyZoomGesture()
             }
             mapView.userTrackingMode = MKUserTrackingMode.none
-            let center: CLLocationCoordinate2D
-            if let selecting = viewModel.coordinate {
-                center = .init(latitude: (viewModel.currentLocation.coordinate.latitude + selecting.latitude) / 2,
-                               longitude: (viewModel.currentLocation.coordinate.longitude + selecting.longitude) / 2)
-            }else {
-                center = viewModel.currentLocation.coordinate
+            let region: MKCoordinateRegion
+            if let saved = viewModel.region {
+                region = saved
+            } else {
+                let center: CLLocationCoordinate2D
+                if let selecting = viewModel.coordinate {
+                    center = .init(latitude: (viewModel.currentLocation.coordinate.latitude + selecting.latitude) / 2,
+                                   longitude: (viewModel.currentLocation.coordinate.longitude + selecting.longitude) / 2)
+                }else {
+                    center = viewModel.currentLocation.coordinate
+                }
+                let s = (viewModel.far ?? 1000) / 1000 * 0.015
+                let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
+                region = .init(center: center, span: span)
             }
-            let s = (viewModel.far ?? 1000) / 1000 * 0.015
-            let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
-            mapView.setRegion(.init(center: center, span: span), animated: false)
+            mapView.setRegion(region, animated: false)
             mapView.mapType = .mutedStandard
             mapView.delegate = viewModel
         }
@@ -46,14 +52,14 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
         didSet {
             let bgColor = #colorLiteral(red: 0.7952535152, green: 0.7952535152, blue: 0.7952535152, alpha: 0.4)
             if #available(iOS 13, *) {
-                searchBar.searchTextField.backgroundColor = bgColor
+                self.searchBar.searchTextField.backgroundColor = bgColor
             }else {
                 let textField = searchBar.value(forKey: "_searchField") as! UITextField
                 textField.backgroundColor = bgColor
             }
-            searchBar.accessibilityLabel = "Search Bar"
-            searchBar.delegate = self
-            searchBar.placeholder = "search".localized
+            self.searchBar.accessibilityLabel = "Search Bar"
+            self.searchBar.delegate = self
+            self.searchBar.placeholder = "search".localized
         }
     }
     @IBOutlet weak var tableView: UITableView! {
@@ -111,6 +117,10 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
         NotificationCenter.default.addObserver(
             self, selector: #selector(keyboardWillHide(_:)),
             name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        _ = mapView.observe(\.region) { (mapView, changed) in
+            self.viewModel.region = changed.newValue
+        }
     }
     
     @objc func keyboardWillShow(_ notification: Notification?) {
@@ -119,10 +129,12 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
         let homeIndicatorHeight = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
         // TODO: 変更に強く書きたかったけど諦め
         let diff = keyboardHeight - (homeIndicatorHeight + 100)
-        tableView.contentInset.bottom = diff + 40
+        self.tableView.contentInset.bottom = diff + 40
+        self.tableView.scrollIndicatorInsets.bottom = diff + 40
     }
     @objc func keyboardWillHide(_ notification: Notification?) {
-        tableView.contentInset.bottom = 50
+        self.tableView.contentInset.bottom = 50
+        self.tableView.scrollIndicatorInsets.bottom = 0
     }
     
     // MARK: - Map's Buttons

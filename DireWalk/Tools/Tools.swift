@@ -41,11 +41,12 @@ extension CLPlacemark {
 // MARK: - String
 extension String {
     var localized: String {
-        NSLocalizedString(self, comment: "localized string with \(self)")
-    }
-    
-    var localizedYet: String {
-        "Please Localize \"\(self)\""
+        #if DEBUG
+        if self == NSLocalizedString(self, comment: "") {
+            print("Please Localize \"\(self)\"")
+        }
+        #endif
+        return NSLocalizedString(self, comment: self)
     }
 }
 

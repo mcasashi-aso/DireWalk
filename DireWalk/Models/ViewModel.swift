@@ -147,10 +147,13 @@ final class ViewModel: NSObject {
         }
     }
     @objc func updateTableView() {
-        let array = searchText.isEmpty ? Array(favoritePlaces) : searchResults
-        searchTableViewPlaces = array.sorted { a, b in
-            let location = model.currentLocation
-            return a.distance(from: location) < b.distance(from: location)
+        if searchText.isEmpty {
+            self.searchTableViewPlaces = Array(favoritePlaces).sorted { a, b in
+                let location = self.model.currentLocation
+                return a.distance(from: location) < b.distance(from: location)
+            }
+        } else {
+            self.searchTableViewPlaces = searchResults
         }
     }
     
@@ -160,6 +163,9 @@ final class ViewModel: NSObject {
     var usingTime: Int
     @UserDefault(.date, defaultValue: Date())
     var date: Date
+    
+    // MARK: - Map State
+    var region: MKCoordinateRegion?
 }
 
 
@@ -214,8 +220,8 @@ extension ViewModel {
             self.searchResults = matchFavorites + results
         }
     }
-    
 }
+
 // MARK: - SearchTableViewDelegate
 extension ViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
@@ -259,6 +265,51 @@ extension ViewModel: UITableViewDelegate {
         let actions = place.isFavorite ? [toggleFavoriteAction, toEditAction]
                                        : [toggleFavoriteAction]
         return UISwipeActionsConfiguration(actions: actions)
+    }
+    
+    @available(iOS 13, *)
+    func tableView(
+        _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        var place = searchTableViewPlaces[indexPath.row]
+        
+        let previewProvider: () -> UIViewController = {
+            class VC: UIViewController {
+                let mapView = ZoomableMapView()
+                override func loadView() {
+                    self.view = mapView
+                }
+            }
+            let vc = VC()
+            vc.mapView.setRegion(MKCoordinateRegion(center: place.coodinator,
+                                                    latitudinalMeters: 0.004,
+                                                    longitudinalMeters: 0.004),
+                                 animated: true)
+            return vc
+        }
+        
+        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
+            let favoriteAction = UIAction(
+                title: place.isFavorite ? "Remove Favorite" : "Add Favorite"
+            ) { _ in
+                place.isFavorite.toggle()
+            }
+            
+            if place.isFavorite {
+                let toEditAction = UIAction(title: "Edit") { _ in
+                    self.delegate?.presentEditPlaceView(place: place)
+                }
+                return UIMenu(title: "", children: [favoriteAction, toEditAction])
+            } else {
+                return UIMenu(title: "", children: [favoriteAction])
+            }
+        }
+        
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: previewProvider,
+                                          actionProvider: actionProvider)
     }
 }
 
