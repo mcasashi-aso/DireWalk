@@ -14,7 +14,7 @@ final class SearchTableViewCell: UITableViewCell, NibReusable, SearchCellModelDe
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel! {
-        didSet { /*didChangeFar()*/ }
+        didSet { /*didChangeDistance()*/ }
     }
     @IBOutlet var directionImageView: UIImageView! {
         didSet {
@@ -31,14 +31,14 @@ final class SearchTableViewCell: UITableViewCell, NibReusable, SearchCellModelDe
         model.delegate = self
         nameLabel.text = place.title
         addressLabel.text = place.address
-        didChangeFar()
+        didChangeDistance()
         didChangeHeading()
     }
 
     // MARK: - Model Delegate
-    func didChangeFar() {
-        let (far, unit) = model.farDescriprion
-        distanceLabel.text = "\(far)\(unit)"
+    func didChangeDistance() {
+        let (distance, unit) = model.distanceDescriprion
+        distanceLabel.text = "\(distance)\(unit)"
     }
     
     func didChangeHeading() {

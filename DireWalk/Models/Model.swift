@@ -12,7 +12,7 @@ import MapKit
 
 protocol ModelDelegate {
     func didChangePlace()
-    func didChangeFar()
+    func didChangeDistance()
     func didChangeHeading()
 }
 
@@ -22,14 +22,14 @@ final class Model: NSObject {
     @UserDefault(.place, defaultValue: nil)
     var place: Place? {
         didSet {
-            updateFar()
+            updateDistance()
             delegate?.didChangePlace()
             updateDestinationHeading()
         }
     }
     
-    var far: Double? {
-        didSet { delegate?.didChangeFar() }
+    var distance: Double? {
+        didSet { delegate?.didChangeDistance() }
     }
     
     var heading: CGFloat { destinationHeadingRadian - userHeadingRadian }
@@ -42,7 +42,7 @@ final class Model: NSObject {
     
     var currentLocation = CLLocation() {
         didSet {
-            updateFar()
+            updateDistance()
             updateDestinationHeading()
         }
     }
@@ -97,13 +97,13 @@ final class Model: NSObject {
         destinationHeadingRadian = (p >= 0) ? p : p + 360
     }
 
-    // MARK: - Far
-    func updateFar() {
+    // MARK: - Distance
+    func updateDistance() {
         guard let place = place else { return }
-        self.far = place.distance(from: currentLocation)
+        self.distance = place.distance(from: currentLocation)
     }
 
-    // MARK: - CurrentLocationManagerDelegate
+    // MARK: - CurrentLocationManagerNotification
     @objc func didUpdateHeading(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String : Any],
             let heading = userInfo["heading"] as? CLHeading else { return }

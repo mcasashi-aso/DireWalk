@@ -43,8 +43,8 @@ final class Settings {
     var arrowImage: ArrowImage
     @UserDefault(.arrowColor, defaultValue: 0.75)
     var arrowColor: CGFloat
-    @UserDefault(.showFar, defaultValue: false)
-    var alwaysDontShowsFar: Bool
+    @UserDefault(.showDistance, defaultValue: false)
+    var alwaysDontShowsDistance: Bool
 //    @UserDefault(.mapType, defaultValue: .mutedStandard)
 //    var mapType: MKMapType
     

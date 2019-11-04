@@ -9,7 +9,7 @@
 import UIKit
 
 enum SettingsTableViewCellType: TableViewCellType {
-    case about, arrowColor, showFar, review, share, version, createdBy, purchase, restore
+    case about, arrowColor, showDistance, review, share, version, createdBy, purchase, restore
 }
 
 final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
@@ -18,8 +18,8 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
     
     var sections: [TableViewSection<SettingsTableViewCellType>] = [
         TableViewSection(cells: [.about]),
-        TableViewSection(cells: [.arrowColor, .showFar],
-                         footer: "doNotShowFarCaption".localized),
+        TableViewSection(cells: [.arrowColor, .showDistance],
+                         footer: "doNotShowDistanceCaption".localized),
 //        TableViewSection(cells: [.darkMode],
 //                         footer: "captionAlwaysDarkMode".localizedYet),
         TableViewSection(cells: [.review, .share],
@@ -56,12 +56,12 @@ final class SettingsTableViewDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ToSelectColorCell", for: indexPath)
             cell.textLabel?.text = "arrow".localized
             return cell
-        // MARK: show far
-        case .showFar:
+        // MARK: show distance
+        case .showDistance:
             let cell: ToggleTableViewCell = tableView.getCell(indexPath: indexPath)
-            cell.setup(title: "doNotAlwaysShowFar".localized,
-                       initialValue: settings.alwaysDontShowsFar,
-                       didChange: { (isOn) in self.settings.alwaysDontShowsFar = isOn })
+            cell.setup(title: "doNotAlwaysShowDistance".localized,
+                       initialValue: settings.alwaysDontShowsDistance,
+                       didChange: { (isOn) in self.settings.alwaysDontShowsDistance = isOn })
             return cell
         // MARK: review
         case .review:

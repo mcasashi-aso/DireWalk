@@ -101,8 +101,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JRo-Ug-pub">
                                         <rect key="frame" x="0.0" y="316" width="315" height="148"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="p99-Ux-i6R">
-                                                <rect key="frame" x="0.0" y="1" width="75" height="73.666666666666671"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p99-Ux-i6R">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="75" id="eal-3t-PxC"/>
@@ -148,6 +148,7 @@
                     <connections>
                         <outlet property="firstTextView" destination="W6h-u2-ptO" id="0CX-xY-NSI"/>
                         <outlet property="iconImage" destination="81q-3a-7qY" id="u5f-hL-JhU"/>
+                        <outlet property="locationImageView" destination="p99-Ux-i6R" id="Jfg-qE-AN2"/>
                         <outlet property="openButton" destination="mOa-EK-xzN" id="sOG-VI-BCm"/>
                         <outlet property="secondTextView" destination="kx6-wQ-kpE" id="tzO-UN-M5i"/>
                         <outlet property="thirdTextView" destination="ia6-c3-0aK" id="bjk-Bl-5a9"/>
@@ -162,6 +163,5 @@
     <resources>
         <image name="Walking" width="33.333332061767578" height="33.333332061767578"/>
         <image name="iTunesArtwork" width="512" height="512"/>
-        <image name="location.fill" catalog="system" width="64" height="56"/>
     </resources>
 </document>

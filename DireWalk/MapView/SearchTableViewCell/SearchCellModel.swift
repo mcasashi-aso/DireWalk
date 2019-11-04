@@ -13,7 +13,7 @@ import HealthKit
 import MapKit
 
 protocol SearchCellModelDelegate {
-    func didChangeFar()
+    func didChangeDistance()
     func didChangeHeading()
 }
 
@@ -30,26 +30,26 @@ final class SearchCellModel: NSObject {
     var delegate: SearchCellModelDelegate?
     var notificationCenter = NotificationCenter.default
     
-    // MARK: - Far
-    var far: Double? {
-        didSet { delegate?.didChangeFar() }
+    // MARK: - Distance
+    var distance: Double? {
+        didSet { delegate?.didChangeDistance() }
     }
-    var farDescriprion: (String, String) {
-        guard let far = far else { return ("", "") }
-        switch Int(far) {
-        case ..<100:  return (String(Int(far)), "m")
-        case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
+    var distanceDescriprion: (String, String) {
+        guard let distance = distance else { return ("", "") }
+        switch Int(distance) {
+        case ..<100:  return (String(Int(distance)), "m")
+        case ..<1000: return (String((Int(distance) / 10 + 1) * 10), "m")
         default:
-            let double = Double(Int(far) / 100 + 1) / 10
+            let double = Double(Int(distance) / 100 + 1) / 10
             if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
                 return (String(Int(double)), "km")
             }else { return (String(double),  "km") }
         }
     }
     
-    func updateFar() {
+    func updateDistance() {
         guard let location = locationManager.location else { return }
-        self.far = place.distance(from: location)
+        self.distance = place.distance(from: location)
     }
     
     // MARK: - Heading
@@ -81,7 +81,7 @@ final class SearchCellModel: NSObject {
     // MARK: - Location
     var currentLocation: CLLocation! {
         didSet {
-            updateFar()
+            updateDistance()
             updateDestinationHeading()
         }
     }
@@ -91,7 +91,7 @@ final class SearchCellModel: NSObject {
         self.place = place
         self.currentLocation = locationManager.location ?? CLLocation()
         super.init()
-        updateFar()
+        updateDistance()
         updateDestinationHeading()
         notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)),
                                        name: .didUpdateUserHeading, object: nil)

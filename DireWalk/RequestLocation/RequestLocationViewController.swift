@@ -59,6 +59,17 @@ final class RequestLocationViewController: UIViewController, CLLocationManagerDe
             self.iconImage.layer.cornerRadius = 15
         }
     }
+    @IBOutlet weak var locationImageView: UIImageView! {
+        didSet {
+            if #available(iOS 13, *) {
+                self.locationImageView.image = UIImage(systemName: "location.fill")
+            } else {
+                let image = UIImage(named: "DirectionFill")?.withRenderingMode(.alwaysTemplate)
+                self.locationImageView.image = image
+                self.locationImageView.tintColor = .white
+            }
+        }
+    }
     
     
     // MARK: - Action

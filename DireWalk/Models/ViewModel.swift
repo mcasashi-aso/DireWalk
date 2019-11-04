@@ -43,7 +43,7 @@ final class ViewModel: NSObject {
     }
     
     var currentLocation: CLLocation { model.currentLocation }
-    var far: Double? { model.far }
+    var distance: Double? { model.distance }
     
     // MARK: - Other Models
     private let model = Model.shared
@@ -70,7 +70,7 @@ final class ViewModel: NSObject {
         }
     }
     
-    var canHidden: Bool { (model.far ?? 0) > 50 }
+    var canHidden: Bool { (model.distance ?? 0) > 50 }
     
     // MARK: - Label Text
     var labelTitle: String {
@@ -95,7 +95,7 @@ final class ViewModel: NSObject {
         case .search: return "search".localized
         }
     }
-    var farLabelText: NSMutableAttributedString {
+    var distanceLabelText: NSMutableAttributedString {
         guard model.place != nil else {
             return NSMutableAttributedString(attributedString:
                 .get("swipeAndSelect".localized, attributes: .white40))
@@ -103,13 +103,13 @@ final class ViewModel: NSObject {
         
         if (state == .hideControllers && canHidden) { return NSMutableAttributedString() }
         
-        let (far, unit) = { () -> (String, String) in
-            guard let far = model.far else { return ("Error", "  ") }
-            switch Int(far) {
-            case ..<100:  return (String(Int(far)), "m")
-            case ..<1000: return (String((Int(far) / 10 + 1) * 10), "m")
+        let (distance, unit) = { () -> (String, String) in
+            guard let distance = model.distance else { return ("Error", "  ") }
+            switch Int(distance) {
+            case ..<100:  return (String(Int(distance)), "m")
+            case ..<1000: return (String((Int(distance) / 10 + 1) * 10), "m")
             default:
-                let double = Double(Int(far) / 100 + 1) / 10
+                let double = Double(Int(distance) / 100 + 1) / 10
                 if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
                     return (String(Int(double)), "km")
                 }else { return (String(double),  "km") }
@@ -117,9 +117,9 @@ final class ViewModel: NSObject {
         }()
         let text = NSMutableAttributedString()
         text.append(.get("  ", attributes: .white40))
-        text.append(.get(far, attributes: .white80))
+        text.append(.get(distance, attributes: .white80))
         text.append(.get(" \(unit)", attributes: .white40))
-        if settings.alwaysDontShowsFar && canHidden {
+        if settings.alwaysDontShowsDistance && canHidden {
             return NSMutableAttributedString()
         }
         return text
@@ -417,7 +417,7 @@ extension ViewModel: ModelDelegate {
         delegate?.didChangePlace()
     }
     
-    func didChangeFar() {
+    func didChangeDistance() {
         if !canHidden && state == .hideControllers {
             state = .direction
         }

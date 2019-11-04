@@ -17,7 +17,7 @@ extension UserDefaultTypedKeys {
     
     // MARK: - ViewSettings
     static let arrowImageName = Key<Settings.ArrowImage>("arrowImageName")
-    static let showFar = Key<Bool>("showFar")
+    static let showDistance = Key<Bool>("showDistance")
     static let arrowColor = Key<CGFloat>("arrowColorWhite")
 //    static let mapType = Key<MKMapType>("mapType")
     

@@ -39,7 +39,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
                 }else {
                     center = viewModel.currentLocation.coordinate
                 }
-                let s = (viewModel.far ?? 1000) / 1000 * 0.015
+                let s = (viewModel.distance ?? 1000) / 1000 * 0.015
                 let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
                 region = .init(center: center, span: span)
             }
@@ -274,7 +274,7 @@ final class MapViewController: UIViewController, UIScrollViewDelegate, UISearchB
     //　MARK: - Other
     func moveCenterToPlace() {
         let center = viewModel.coordinate ?? viewModel.currentLocation.coordinate
-        let s = min((viewModel.far ?? 1000) / 1000 * 0.01, 0.01)
+        let s = min((viewModel.distance ?? 1000) / 1000 * 0.01, 0.01)
         let span = MKCoordinateSpan(latitudeDelta: s, longitudeDelta: s)
         mapView.setRegion(.init(center: center, span: span), animated: true)
         searchBar.setShowsCancelButton(false, animated: true)

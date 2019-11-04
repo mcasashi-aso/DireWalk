@@ -6,11 +6,11 @@
 //  Copyright © 2019 麻生昌志. All rights reserved.
 //
 
-import UIKit
 import CoreLocation
-import MapKit
-import HealthKit
 import GoogleMobileAds
+import HealthKit
+import MapKit
+import UIKit
 
 final class ViewController: UIViewController, UIPageViewControllerDataSource, ViewModelDelegate, SettingsViewControllerDelegate, EditFavoriteViewControllerDelegate, GADBannerViewDelegate {
     
@@ -200,7 +200,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     }
     
     func updateViews() {
-        getVC(DirectionViewController.self)?.updateFarLabel()
+        getVC(DirectionViewController.self)?.updateDistanceLabel()
         getVC(DirectionViewController.self)?.updateHeadingImage()
         UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseInOut, .allowUserInteraction, .allowAnimatedContent], animations: {
             let transform = CGAffineTransform(rotationAngle: self.viewModel.headingImageAngle)
@@ -262,7 +262,7 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
         bannerView.isHidden = isHidden
         setNeedsStatusBarAppearanceUpdate()
         setNeedsUpdateOfHomeIndicatorAutoHidden()
-        getVC(DirectionViewController.self)?.updateFarLabel()
+        getVC(DirectionViewController.self)?.updateDistanceLabel()
         if isHidden {
             noticeControllersHidden()
         }

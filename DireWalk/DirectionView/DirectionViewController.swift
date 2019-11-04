@@ -35,8 +35,8 @@ final class DirectionViewController: UIViewController {
     @IBOutlet weak var headingImageView: UIImageView!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    func updateFarLabel() {
-        distanceLabel.attributedText = viewModel.farLabelText
+    func updateDistanceLabel() {
+        distanceLabel.attributedText = viewModel.distanceLabelText
     }
     
     func updateHeadingImage() {
@@ -49,7 +49,7 @@ final class DirectionViewController: UIViewController {
     func applyToSettings() {
         headingImageView.image = settings.arrowImage.image.withRenderingMode(.alwaysTemplate)
         headingImageView.tintColor = UIColor(white: settings.arrowColor, alpha: 1)
-        updateFarLabel()
+        updateDistanceLabel()
     }
 
     // MARK: - View's Life Cycle
@@ -60,7 +60,7 @@ final class DirectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         applyToSettings()
-        updateFarLabel()
+        updateDistanceLabel()
         updateHeadingImage()
     }
     
