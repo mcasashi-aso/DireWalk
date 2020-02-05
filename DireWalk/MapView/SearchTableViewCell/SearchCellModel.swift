@@ -25,7 +25,7 @@ final class SearchCellModel: NSObject {
         CLLocationCoordinate2DMake(place.latitude, place.longitude)
     }
     
-    let locationManager = CurrentLocationManager.shared
+    let locationManager = LocationController.shared
     private let userDefaults = UserDefaults.standard
     var delegate: SearchCellModelDelegate?
     var notificationCenter = NotificationCenter.default

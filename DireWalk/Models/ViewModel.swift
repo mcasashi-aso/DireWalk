@@ -112,7 +112,7 @@ final class ViewModel: NSObject {
                 let double = Double(Int(distance) / 100 + 1) / 10
                 if double.truncatingRemainder(dividingBy: 1.0) == 0.0 {
                     return (String(Int(double)), "km")
-                }else { return (String(double),  "km") }
+                } else { return (String(double), "km") }
             }
         }()
         let text = NSMutableAttributedString()
@@ -224,16 +224,20 @@ extension ViewModel {
 
 // MARK: - SearchTableViewDelegate
 extension ViewModel: UITableViewDelegate {
-    func tableView(_ tableView: UITableView,
-                   didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         model.place = searchTableViewPlaces[indexPath.row]
         state = .map
         delegate?.moveCenterToPlace()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView,
-                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         guard var place = self.searchTableViewPlaces[safe: indexPath.row] else { return nil }
         let toggleFavoriteAction: UIContextualAction = {
             let action = UIContextualAction(style: .normal, title: "Favorite") {
@@ -283,10 +287,10 @@ extension ViewModel: UITableViewDelegate {
                 }
             }
             let vc = VC()
-            vc.mapView.setRegion(MKCoordinateRegion(center: place.coodinator,
-                                                    latitudinalMeters: 0.004,
-                                                    longitudinalMeters: 0.004),
-                                 animated: true)
+            let region = MKCoordinateRegion(center: place.coodinator,
+            latitudinalMeters: 0.004,
+            longitudinalMeters: 0.004)
+            vc.mapView.setRegion(region, animated: true)
             return vc
         }
         

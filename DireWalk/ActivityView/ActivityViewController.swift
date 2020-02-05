@@ -47,28 +47,28 @@ final class ActivityViewController: UIViewController, UICollectionViewDelegate, 
                 healthStore.execute(observerQuery)
             }
         }
-        check(identifier: .stepCount, updateHandler: { self.updateStepCount() })
-        check(identifier: .distanceWalkingRunning, updateHandler: { self.updateWalkingDistance() })
-        check(identifier: .flightsClimbed, updateHandler: { self.updateFlightsClimbed() })
+        check(identifier: .stepCount) { self.updateStepCount() }
+        check(identifier: .distanceWalkingRunning) { self.updateWalkingDistance() }
+        check(identifier: .flightsClimbed) { self.updateFlightsClimbed() }
         updateDireWalkUsingTimes()
     }
     
     func getPredicate() -> NSPredicate? {
-        let calender = Calendar.current
-        let components = calender.dateComponents([.year, .month, .day], from: Date())
-        guard let startDate = calender.date(from: components) else { return nil }
-        guard let endDate = calender.date(byAdding: .day, value: 1, to: startDate) else { return nil }
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: Date())
+        guard let startDate = calendar.date(from: components) else { return nil }
+        guard let endDate = calendar.date(byAdding: .day, value: 1, to: startDate) else { return nil }
         return HKQuery.predicateForSamples(withStart: startDate, end: endDate)
     }
     
-    func getHealthData(_ identifier: HKQuantityTypeIdentifier, unit: HKUnit, complition: @escaping (Double) -> Void) {
+    func getHealthData(_ identifier: HKQuantityTypeIdentifier, unit: HKUnit, completion: @escaping (Double) -> Void) {
         guard let type = HKObjectType.quantityType(forIdentifier: identifier) else { return }
         var count = 0.0
         let query = HKSampleQuery(sampleType: type, predicate: getPredicate(), limit: Int(HKObjectQueryNoLimit), sortDescriptors: nil) { query, results, error in
             guard let samples = results as? [HKQuantitySample] else { return }
             DispatchQueue.main.async {
                 count += samples.map { $0.quantity.doubleValue(for: unit) }.reduce(0, +)
-                complition(count)
+                completion(count)
             }
         }
         healthStore.execute(query)
@@ -200,10 +200,10 @@ final class ActivityViewController: UIViewController, UICollectionViewDelegate, 
         var isEnabled = true
         
         if HKHealthStore.isHealthDataAvailable() {
-            healthStore.requestAuthorization(toShare: nil, read: type, completion: { success, error in
+            healthStore.requestAuthorization(toShare: nil, read: type) { success, error in
                 isEnabled = success
-            })
-        }else {
+            }
+        } else {
             isEnabled = false
         }
         return isEnabled

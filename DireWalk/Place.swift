@@ -10,19 +10,22 @@ import Foundation
 import CoreLocation
 import MapKit
 
-struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomStringConvertible {
+struct Place: Hashable, Codable, Identifiable, UserDefaultConvertible, CustomStringConvertible {
+    
+    var id: String {
+        "\(title ?? "")-\(address ?? "")-\(latitude)-\(longitude)"
+    }
     
     // MARK: - Base
     var latitude: CLLocationDegrees
     var longitude: CLLocationDegrees
     
     var coodinator: CLLocationCoordinate2D {
-        CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+        .init(latitude: self.latitude, longitude: self.longitude)
     }
     
     var title: String? {
         didSet {
-            guard title != oldValue else { return }
             var favorites = UserDefaults.standard.get(.favoritePlaces) ?? []
             if let old = favorites.first(where: { $0.isSamePlace(to: self) }) {
                 favorites.remove(old)
@@ -49,50 +52,40 @@ struct Place: Hashable, Equatable, Codable, UserDefaultConvertible, CustomString
     
     init(coordinate: CLLocationCoordinate2D,
          title: String?, address: String?) {
-        self.latitude = coordinate.latitude
-        self.longitude = coordinate.longitude
-        self.title = title
-        self.address = address
+        self = Self(latitude: coordinate.latitude,
+                    longitude: coordinate.longitude,
+                    title: title,
+                    address: address)
     }
     
     // MARK: - Favorite
     var isFavorite: Bool {
         get {
-            guard let favorites = UserDefaults.standard.get(.favoritePlaces) else { return false }
-            return favorites.contains(self)
+            UserDefaults.standard.get(.favoritePlaces)?.contains(self) ?? false
         }
         set {
-            let ud = UserDefaults.standard
+            var favorites = UserDefaults.standard.get(.favoritePlaces) ?? []
             switch newValue {
-            case true:
-                var favorites = ud.get(.favoritePlaces) ?? Set<Place>()
-                favorites.insert(self)
-                ud.set(favorites, forKey: .favoritePlaces)
-            case false:
-                guard var favorites = ud.get(.favoritePlaces) else { return }
-                favorites.remove(self)
-                ud.set(favorites, forKey: .favoritePlaces)
+            case true:  favorites.insert(self)
+            case false: favorites.remove(self)
             }
+            UserDefaults.standard.set(favorites, forKey: .favoritePlaces)
             NotificationCenter.default.post(name: .didChangeFavorites, object: nil)
         }
     }
     
     // MARK: - Functions
     func isSamePlace(to place: Place) -> Bool {
-        self.latitude == place.latitude &&
-            self.longitude == place.longitude
+        self.latitude == place.latitude && self.longitude == place.longitude
     }
     
     func distance(from place: Place) -> CLLocationDistance {
-        let loca = CLLocation(latitude: latitude, longitude: longitude)
-        let location = CLLocation(latitude: place.latitude,
-                           longitude: place.longitude)
-        return loca.distance(from: location)
+        distance(from: CLLocation(latitude: place.latitude, longitude: place.longitude))
     }
     
     func distance(from location: CLLocation) -> CLLocationDistance {
-        let loca = CLLocation(latitude: latitude, longitude: longitude)
-        return loca.distance(from: location)
+        let loc = CLLocation(latitude: latitude, longitude: longitude)
+        return loc.distance(from: location)
     }
     
     // MARK: - Other

@@ -47,11 +47,11 @@ extension UIColor {
 }
  
 */
-
-extension UIColor {
-    public static let mySystemBlue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
-    public static let myBlue = #colorLiteral(red: 0.04705882353, green: 0.3921568627, blue: 1, alpha: 1)
-    public static let mySkyBlue = #colorLiteral(red: 0, green: 0.7490196078, blue: 1, alpha: 1)
-    public static let cover = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-    public static let superGray = #colorLiteral(red: 0.860546875, green: 0.860546875, blue: 0.860546875, alpha: 1)
-}
+//
+//extension UIColor {
+//    public static let mySystemBlue = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+//    public static let myBlue = #colorLiteral(red: 0.04705882353, green: 0.3921568627, blue: 1, alpha: 1)
+//    public static let mySkyBlue = #colorLiteral(red: 0, green: 0.7490196078, blue: 1, alpha: 1)
+//    public static let cover = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+//    public static let superGray = #colorLiteral(red: 0.860546875, green: 0.860546875, blue: 0.860546875, alpha: 1)
+//}

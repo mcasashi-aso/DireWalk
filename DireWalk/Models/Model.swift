@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-import MapKit
 
 protocol ModelDelegate {
     func didChangePlace()
@@ -47,7 +46,7 @@ final class Model: NSObject {
         }
     }
     
-    // MARK: - Singlton
+    // MARK: - Singleton
     static let shared = Model()
     private override init() {
         super.init()
@@ -55,8 +54,7 @@ final class Model: NSObject {
         notificationCenter.addObserver(self, selector: #selector(didUpdateHeading(_:)), name: .didUpdateUserHeading, object: nil)
     }
     
-    private let locationManager = CurrentLocationManager.shared
-    private let userDefaults = UserDefaults.standard
+    private let locationManager = LocationController.shared
     private let notificationCenter = NotificationCenter.default
     var delegate: ModelDelegate?
 

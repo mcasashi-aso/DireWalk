@@ -6,7 +6,6 @@
 //  Copyright © 2019 麻生昌志. All rights reserved.
 //
 
-import UIKit
 import MapKit
 
 final class Settings {
@@ -19,24 +18,6 @@ final class Settings {
         case location = "borderLocation"
         
         var name: String { self.rawValue.localized }
-        
-        var image: UIImage {
-            switch self {
-            case .fillLocation:
-                if #available(iOS 13, *) {
-                    return UIImage(systemName: "location.fill")!
-                }else {
-                    return UIImage(named: "DirectionFill")!
-                }
-            case .location:
-                if #available(iOS 13, *) {
-                    let config = UIImage.SymbolConfiguration(weight: .light)
-                    return UIImage(systemName: "location", withConfiguration: config)!
-                }else {
-                    return UIImage(named: "Direction")!
-                }
-            }
-        }
     }
     
     @UserDefault(.arrowImageName, defaultValue: .fillLocation)
@@ -50,6 +31,38 @@ final class Settings {
     
 }
 
+#if canImport(UIKit)
+import UIKit
+#endif
+@available(iOS 2.0, *)
+extension Settings.ArrowImage {
+    var image: UIImage {
+        switch self {
+        case .fillLocation:
+            if #available(iOS 13, *) {
+                return UIImage(systemName: "location.fill")!
+            } else {
+                return UIImage(named: "DirectionFill")!
+            }
+        case .location:
+            if #available(iOS 13, *) {
+                let config = UIImage.SymbolConfiguration(weight: .light)
+                return UIImage(systemName: "location", withConfiguration: config)!
+            } else {
+                return UIImage(named: "Direction")!
+            }
+        }
+    }
+}
+
+//#if canImport(WatchKit)
+//import WatchKit
+//#endif
+//@available(watchOS 6.0, *)
+//extension Settings.ArrowImage {
+//    var image:
+//}
+
 
 // iOS 12でenumのCodableがうまくいかない(無理？)
 // アプデした場合はnilってdefaultValueが呼ばれるから大丈夫なはず！
@@ -61,7 +74,7 @@ extension Settings.ArrowImage {
                     return nil
             }
             self = value
-        }else {
+        } else {
             guard let raw = object as? String else { return nil }
             let array = Self.allCases.map({$0})
             for c in array {

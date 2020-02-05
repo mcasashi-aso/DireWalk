@@ -98,8 +98,11 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
             contentPageVC.delegate = viewModel
             contentPageVC.dataSource = self
             contentPageVC.didMove(toParent: self)
-            contentPageVC.setViewControllers([DirectionViewController.create()],
-                                             direction: .forward, animated: true)
+            if contentPageVC.viewControllers?.isEmpty ?? true {
+                contentPageVC.setViewControllers(
+                    [DirectionViewController.create()],
+                    direction: .forward, animated: true)
+            }
             containerView.addSubview(contentPageVC.view)
         }
     }
@@ -119,6 +122,8 @@ final class ViewController: UIViewController, UIPageViewControllerDataSource, Vi
     // MARK: - View's Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        askAllowHealthKit()
         
         let imageInsets = directionButton.bounds.height / 4
         activityButton.imageEdgeInsets.right = imageInsets
